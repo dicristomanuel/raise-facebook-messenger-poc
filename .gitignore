@@ -2,3 +2,4 @@ node_modules
 *.sqlite3
 tokens.js
 old
+npm-debug.log
