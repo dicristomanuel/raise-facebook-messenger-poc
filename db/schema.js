@@ -4,7 +4,6 @@ export const connection = new Sequelize('postgres', '', '', {
   dialect: 'postgres'
 });
 
-
 export const Chat = connection.define('Chat', {
   sender: {
     type: Sequelize.BIGINT,
