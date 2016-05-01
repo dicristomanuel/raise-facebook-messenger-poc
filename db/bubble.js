@@ -7,7 +7,7 @@ export default {
       Bubble.create({ sender, text, userType })
       .then((bubble) => {
         chat.addBubble(bubble);
-        chat.update({active: false});
+        chat.update({active: true});
         resolve(bubble);
       })
       .catch((error) => {

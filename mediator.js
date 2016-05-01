@@ -4,6 +4,7 @@ import { saveMessage, saveProfile } from './db/dbstore';
 import { getProfile, sendMessage } from './messenger';
 
 export const init = (dataIn) => {
+  console.log("in INIT");
   formatMessage(dataIn).then((dataProcessed) => {
     const toDB = Object.assign(dataProcessed, botCheck(dataProcessed));
     const { sender, text, answer, send } = toDB;
@@ -16,6 +17,7 @@ export const init = (dataIn) => {
           console.log("<< ERROR >> ", error);
         });
       }
+      console.log(toDB);
       send ? sendMessage(sender, answer) : null
     });
   });
