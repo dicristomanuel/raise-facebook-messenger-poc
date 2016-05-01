@@ -14,6 +14,29 @@ export const grabProfile = (sender) => {
     });
   }
 
+  export const sendMessage = (sender, text) => {
+    const messageData = { text };
+    return new Promise((resolve, reject) => {
+      request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:fbToken},
+        method: 'POST',
+        json: {
+          recipient: {id:sender},
+          message: messageData,
+        }
+      }, (error, response, payload) => {
+        if (error) {
+          reject(error);
+        } else if (response.body.error) {
+          reject(response.body.error);
+        } else {
+          resolve(text)
+        }
+      });
+    })
+  }
+
   const formatObject = (object) => {
     const parsed = JSON.parse(object);
     return {
