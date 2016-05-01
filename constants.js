@@ -1,1 +1,1 @@
-export const userType = 'consumer';
+export const defaultUser = 'consumer';

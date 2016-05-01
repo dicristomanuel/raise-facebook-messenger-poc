@@ -1,5 +1,5 @@
-import chat from './chat'
-import bubble from './bubble'
+import chat from './chat';
+import bubble from './bubble';
 
 export const saveMessage = (data) => {
   return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ export const saveMessage = (data) => {
           .catch((error) => {
             reject(error);
           })
-        ])
+        ]);
       } else {
         bubble.create(Object.assign(data, instance))
         .then(() => {
@@ -24,18 +24,22 @@ export const saveMessage = (data) => {
         })
         .catch((error) => {
           reject(error);
-        })
+        });
       }
     });
   });
-}
+};
 
 export const saveProfile = (profile, sender) => {
-  chat.find(sender)
-  .then((chat) => {
-    chat.update(profile)
-  })
-  .catch((error) => {
-    console.log("<< ERROR >> ", error);
-  })
-}
+  return new Promise((resolve, reject) => {
+    chat.find(sender)
+    .then((chat) => {
+      chat.update(profile);
+      resolve(200);
+    })
+    .catch((error) => {
+      console.log("<< ERROR >> ", error);
+      reject(error);
+    });
+  });
+};

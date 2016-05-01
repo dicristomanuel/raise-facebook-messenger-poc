@@ -5,7 +5,9 @@ export const isBot = (text) => {
 export const matchAnswer = (text) => {
   const context = isGreeting(text) ? 'greetings' : 'brand';
   if (context === 'greetings') {
-    return 'Hello, how can I help you today?';
+    // TODO:
+    // return `Hello ${name}, how can I help you today?`;
+    return `Hello, how can I help you today?`;
   } else if (context === 'brand') {
     return 'This is what we have available';
   }
