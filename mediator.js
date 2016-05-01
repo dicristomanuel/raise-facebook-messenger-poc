@@ -1,10 +1,9 @@
 import { formatMessage } from './transformer';
-import { isBot, matchAnswer } from './bot';
 import { saveMessage, saveProfile } from './db/dbstore';
 import { getProfile, sendMessage } from './messenger';
+import { Bot, isBot } from './bot';
 
 export const init = (dataIn) => {
-  console.log("in INIT");
   formatMessage(dataIn).then((dataProcessed) => {
     const toDB = Object.assign(dataProcessed, botCheck(dataProcessed));
     const { sender, text, answer, send } = toDB;

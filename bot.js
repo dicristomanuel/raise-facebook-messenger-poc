@@ -1,22 +1,24 @@
-export const isBot = (text) => {
-  console.log("in ISBOT");
-  return isGreeting(text) || isGiftcard(text);
-};
+import { botWords, botGreetings, botBrands } from './constants';
 
-export const matchAnswer = (text) => {
-  const context = isGreeting(text) ? 'greetings' : 'brand';
-  if (context === 'greetings') {
-    // TODO: return `Hello ${name}, how can I help you today?`;
-    return `Hello, how can I help you today?`;
-  } else if (context === 'brand') {
-    return 'This is what we have available';
+export class Bot {
+  constructor(text) {
+    this.text = text;
+    this.context = setContext(this.text);
   }
+
+  get Context() {
+    return this.context;
+  }
+}
+
+export const isBot = (text) => {
+  return !!text.toLowerCase().match(`^(${botWords})(.?)$`, 'i');
 };
 
-const isGreeting = (text) => {
-  return !!text.toLowerCase().match('^(hello|hi|hey|hola|howdy|good morning|good evening|good afternoon)(.?)$', 'i');
-};
-
-const isGiftcard = (text) => {
-  return !!text.toLowerCase().match('^(walmart|target|home depot|macy|macy\'s|kmart|giftcard)(.?)$', 'i');
-};
+const setContext = (text) => {
+    if (text.toLowerCase().match(`^(${botGreetings})(.?)$`, 'i')) {
+      return 'greetings';
+    } else if (text.toLowerCase().match(`^(${botBrands})(.?)$`, 'i')) {
+      return 'brands';
+    }
+  };
