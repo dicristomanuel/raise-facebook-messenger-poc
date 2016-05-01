@@ -24,13 +24,3 @@ export default {
     });
   }
 }
-
-/*
-{
-text: 'hey',
-sender: 935925493143785,
-userType: 'consumer',
-send: false,
-answer: 'Hello, how can I help you today?'
-}
-*/

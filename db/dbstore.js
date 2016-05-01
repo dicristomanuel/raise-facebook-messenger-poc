@@ -26,22 +26,6 @@ export const saveMessage = (data) => {
           reject(error);
         })
       }
-
-
-
-      // bubble.create(Object.assign(data, instance))
-      // .then(() => {
-      //   if (data.answer) {
-      //     bubble.createForBot(Object.assign(data, instance))
-      //     .then(() => {
-      //       resolve(instance.isNew);
-      //     })
-      //   } else {
-      //     resolve(instance.isNew);
-      //   }
-      // })
-
-
     });
   });
 }
@@ -55,13 +39,3 @@ export const saveProfile = (profile, sender) => {
     console.log("<< ERROR >> ", error);
   })
 }
-
-/*
-{
-text: 'hey',
-sender: 935925493143785,
-userType: 'consumer',
-send: false,
-answer: 'Hello, how can I help you today?'
-}
-*/
