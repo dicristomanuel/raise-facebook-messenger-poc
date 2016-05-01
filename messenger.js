@@ -1,7 +1,8 @@
-import { fbToken } from './tokens'
-import request from 'request'
+import { fbToken } from './tokens';
+import request from 'request';
 
 export const grabProfile = (sender) => {
+  debugger;
   return new Promise((resolve, reject) => {
     request(`https://graph.facebook.com/v2.6/${sender}?fields=first_name,last_name,profile_pic&access_token=${fbToken}`,
       (error, response, body) => {
@@ -12,7 +13,7 @@ export const grabProfile = (sender) => {
         }
       });
     });
-  }
+  };
 
   export const sendMessage = (sender, text) => {
     const messageData = { text };
@@ -31,17 +32,17 @@ export const grabProfile = (sender) => {
         } else if (response.body.error) {
           reject(response.body.error);
         } else {
-          resolve(text)
+          resolve(text);
         }
       });
-    })
-  }
+    });
+  };
 
   const formatObject = (object) => {
     const parsed = JSON.parse(object);
     return {
-      firstName: parsed["first_name"],
-      lastName: parsed["last_name"],
-      profilePic: parsed["profile_pic"]
-    }
-  }
+      firstName: parsed.first_name,
+      lastName: parsed.last_name,
+      profilePic: parsed.profile_pic
+    };
+  };

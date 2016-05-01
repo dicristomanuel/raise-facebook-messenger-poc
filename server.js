@@ -4,8 +4,8 @@ import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import { init } from './mediator';
-import { userType } from './constants'
-import { connection } from './db/schema'
+import { userType } from './constants';
+import { connection } from './db/schema';
 
 const server = new Server();
 server.connection({

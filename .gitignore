@@ -3,3 +3,4 @@ node_modules
 tokens.js
 old
 npm-debug.log
+.jshintrc
