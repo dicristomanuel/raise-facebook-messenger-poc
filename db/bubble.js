@@ -1,33 +1,24 @@
-import { Bubble } from './schema';
+import { Bubble } from './dbConfig';
 
 export default {
   create: (data) => {
     const { sender, text, userType, chat } = data;
-    return new Promise((resolve, reject) => {
-      Bubble.create({ sender, text, userType })
-      .then((bubble) => {
-        chat.addBubble(bubble);
-        chat.update({active: true});
-        resolve(bubble);
-      })
-      .catch((error) => {
-        reject(error);
-      });
+    Bubble.create({ sender, text, userType })
+    .then(chat.addBubble)
+    .then(() => {
+      chat.update({active: true});
     });
   },
 
   createForBot: (data) => {
     const { sender, answer, chat } = data;
-    return new Promise((resolve, reject) => {
-      Bubble.create({ sender, text: answer, userType: 'bot' })
-      .then((bubble) => {
-        chat.addBubble(bubble);
-        chat.update({active: false});
-        resolve(bubble);
-      })
-      .catch((error) => {
-        reject(error);
-      });
+    Bubble.create({ sender, text: answer, userType: 'bot' })
+    .then(chat.addBubble)
+    .then(() => {
+      chat.update({active: false});
     });
   }
 };
+
+
+// THIS REFACTOR HAS YET TO BE TESTED

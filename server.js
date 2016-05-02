@@ -4,7 +4,7 @@ import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import { init } from './mediator';
 import { defaultUser } from './constants';
-import { connection } from './db/schema';
+import { connection } from './db/dbConfig';
 
 const server = new Server();
 server.connection({

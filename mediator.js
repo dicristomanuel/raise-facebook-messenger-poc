@@ -1,56 +1,30 @@
-import { transform, addToChat } from './transformer';
-import { createChat, findChat, saveMessage} from './db/dbstore';
-import { sendMessage } from './messenger';
+import request from 'request';
+import { Message } from './message';
+import Chat from './db/chat';
+import { sendMessage, getProfile } from './messenger';
 import { isBot, matchAnswer } from './bot';
 
-// TODO: convert transformer into Message class ?
-
-export const init = (fromMessenger) => {
-  transform(fromMessenger)
-  .then((data) => {
-    const { sender, text, answer, send, firstName } = data;
-    toDB(data)
-    .then((chat) => {
-      console.log('OUTSIDE >>>>> ', data);
-    });
-    // CONTINUE
-  });
+export const init = (data) => {
+  const message = new Message(data.text, data.sender, data.userType);
+  findOrCreateChat(message.sender);
 };
 
-const toDB = (data) => {
-  return new Promise((resolve, reject) => {
-    const { sender, text, answer, send } = data;
-    findChat(sender)
-    .then((chat) => {
-      if (!chat) {
-        createChat(sender)
-        .then((newChat) => {
-          addToChat(data, newChat, 'firstName');
-          resolve(newChat);
-        });
-      }
-      resolve(chat);
-    })
-    .catch((error) => {
-      reject(error);
-    });
+const findOrCreateChat = (sender, cb) => {
+  Chat.find(sender)
+  .then((chatObj) => {
+    if (!chatObj) {
+      return getProfile(sender).then(Chat.create);
+    }
+    return chatObj;
   });
 };
 
 const botAnswer = (data) => {
-    const { send, text, firstName } = data;
-    if (!send && isBot(text)) {
-      // move into transformer
-      data.send = true;
-      return matchAnswer(text, firstName);
-    }
+  const { send, text, firstName } = data;
+  if (!send && isBot(text)) {
+    // move into transformer
+    data.send = true;
+    return matchAnswer(text, firstName);
+  }
   return null;
 };
-
-
-
-// 1. format data
-// 2. check if exists
-// 2b. if doesn't then create otherwise find
-// 3.check for bot
-// 4. store

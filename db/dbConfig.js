@@ -39,4 +39,4 @@ Chat.hasMany(Bubble, { onDelete: 'cascade' });
 Bubble.belongsTo(Chat);
 
 
-connection.sync();
+connection.sync({force:true});
