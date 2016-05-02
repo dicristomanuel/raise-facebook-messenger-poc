@@ -1,4 +1,4 @@
-import { Bubble } from './schema'
+import { Bubble } from './schema';
 
 export default {
   create: (data) => {
@@ -12,7 +12,7 @@ export default {
       })
       .catch((error) => {
         reject(error);
-      })
+      });
     });
   },
 
@@ -27,7 +27,7 @@ export default {
       })
       .catch((error) => {
         reject(error);
-      })
+      });
     });
   }
-}
+};

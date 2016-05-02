@@ -1,15 +1,31 @@
-import { Chat } from './schema'
+import { Chat } from './schema';
+import { getProfile } from '../messenger';
 
 export default {
-  findOrCreate: (sender) => {
+  // findOrCreate: (sender) => {
+  //   return new Promise((resolve, reject) => {
+  //     Chat.findOrCreate({where: { sender }})
+  //     .spread((chat, isNew) => {
+  //       resolve({ chat, isNew });
+  //     })
+  //     .catch((error) => {
+  //       reject(error);
+  //     });
+  //   });
+  // },
+
+  create: (sender) => {
     return new Promise((resolve, reject) => {
-      Chat.findOrCreate({where: { sender }})
-      .spread((chat, isNew) => {
-        resolve({ chat, isNew });
-      })
-      .catch((error) => {
-        reject(error);
-      })
+      getProfile(sender)
+      .then((profile) => {
+        Chat.create(Object.assign({sender: sender}, profile))
+        .then((chat) => {
+          resolve(chat);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+      });
     });
   },
 
@@ -20,7 +36,7 @@ export default {
         resolve(chat);
       }).catch((error) => {
         reject(error);
-      })
+      });
     });
   }
-}
+};

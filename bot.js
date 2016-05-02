@@ -1,18 +1,18 @@
 import { botWords, botGreetings, botBrands } from './constants';
 
-export class Bot {
-  constructor(text) {
-    this.text = text;
-    this.context = setContext(this.text);
-  }
-
-  get Context() {
-    return this.context;
-  }
-}
-
 export const isBot = (text) => {
-  return !!text.toLowerCase().match(`^(${botWords})(.?)$`, 'i');
+  if (!!text.toLowerCase().match(`^(${botWords})(.?)$`, 'i')) {
+      return true;
+  }
+};
+
+export const matchAnswer = (text, name) => {
+  const context = setContext(text);
+  if (context === 'greetings') {
+    return `Hello ${name}, how can I help you today?`;
+  } else if (context === 'giftcard') {
+    return 'This is what we have available';
+  }
 };
 
 const setContext = (text) => {
