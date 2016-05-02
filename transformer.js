@@ -17,3 +17,7 @@ export const transform = (data) => {
     reject(transformerErr);
   });
 };
+
+export const addToChat = (data, chat, key) => {
+  return data[key] = chat[key];
+};

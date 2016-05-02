@@ -1,7 +1,9 @@
-import { transform } from './transformer';
+import { transform, addToChat } from './transformer';
 import { createChat, findChat, saveMessage} from './db/dbstore';
 import { sendMessage } from './messenger';
 import { isBot, matchAnswer } from './bot';
+
+// TODO: convert transformer into Message class ?
 
 export const init = (fromMessenger) => {
   transform(fromMessenger)
@@ -9,8 +11,7 @@ export const init = (fromMessenger) => {
     const { sender, text, answer, send, firstName } = data;
     toDB(data)
     .then((chat) => {
-      // move into transformer
-      data.firstName = chat.firstName;
+      console.log('OUTSIDE >>>>> ', data);
     });
     // CONTINUE
   });
@@ -24,6 +25,7 @@ const toDB = (data) => {
       if (!chat) {
         createChat(sender)
         .then((newChat) => {
+          addToChat(data, newChat, 'firstName');
           resolve(newChat);
         });
       }
