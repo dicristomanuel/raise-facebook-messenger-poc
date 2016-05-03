@@ -30,7 +30,6 @@ const findOrCreateChat = (sender) => {
 };
 
 const storeUserMessage = (userType, text) => (chat) => {
-  const active = userType === 'member_service' ? false : true;
   const toStore = {
     text,
     userType,
@@ -39,9 +38,10 @@ const storeUserMessage = (userType, text) => (chat) => {
   return Bubble.create(toStore);
 };
 
-const updateActive = (sender, active) => {
-  return Chat.update(sender, 'active', active);
-  // continue for update
+const updateActive = (sender) => (bubble) => {
+  if (bubble.userType !== 'member_service')
+  return findOrCreateChat(sender)
+  .then(Chat.update({active: true}));
 };
 
 
