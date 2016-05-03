@@ -63,7 +63,3 @@ const sendToMessager = (sender, text, userType) => {
   if (userType === 'member_service')
   sendMessage(sender, text);
 };
-
-// TODO:
-// solve member service handling case
-// add bot mix response (ILU)
