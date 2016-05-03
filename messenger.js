@@ -25,13 +25,12 @@ export const getProfile = (sender) => {
           message: messageData,
         }
       }, (error, response, payload) => {
-        if (error) {
-          reject(error);
-        } else if (response.body.error) {
-          reject(response.body.error);
-        } else {
-          resolve(text);
-        }
+        if (error)
+        reject(error);
+        else if (response.body.error)
+        reject(response.body.error);
+        else
+        resolve(text);
       });
     });
   };

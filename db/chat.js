@@ -8,5 +8,9 @@ export default {
 
   find: (sender) => {
     return Chat.findOne({where: { sender }});
+  },
+
+  update: (sender, key, value) => {
+    return Chat.update({ key: value });
   }
 };

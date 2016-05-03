@@ -10,37 +10,42 @@ export const init = (dataIn) => {
   const { sender, text, send, userType } = data;
 
   findOrCreateChat(sender)
-  .then((chat) => {
-    storeUserMessage(text, userType, chat);
-    botCheck(text, send, chat);
-  });
+  .then(storeUserMessage(userType, text))
+  .then(updateActive(sender));
+
+};
+
+const evalData = (resp) => {
+  console.log(resp);
 };
 
 const findOrCreateChat = (sender) => {
-  return new Promise((resolve, reject) => {
-    Chat.find(sender)
-    .then((chatObj) => {
-      if (!chatObj)
-      resolve(getProfile(sender).then(Chat.create));
-      else
-      resolve(chatObj);
-    });
+  return Chat.find(sender)
+  .then((chatObj) => {
+    if (!chatObj)
+    return getProfile(sender).then(Chat.create);
+    else
+    return chatObj;
   });
 };
 
-const storeUserMessage = (text, userType, chat) => {
+const storeUserMessage = (userType, text) => (chat) => {
   const active = userType === 'member_service' ? false : true;
   const toStore = {
     text,
     userType,
-    active,
     chat
   };
   return Bubble.create(toStore);
 };
 
+const updateActive = (sender, active) => {
+  return Chat.update(sender, 'active', active);
+  // continue for update
+};
 
-const botCheck = (text, send, chat) => {
+
+const botCheck = (text, send) => (chat) => {
   if (!send && isBot(text))
   return storeBotMessage(text, chat);
   else
@@ -57,6 +62,7 @@ const storeBotMessage = (text, chat) => {
   return Bubble.create(toStore);
 };
 
-const sendToMessenger = (data) => {
 
+const sendToMessenger = (sender) => (bubble) => {
+  return sendMessage(sender, text);
 };
