@@ -10,10 +10,12 @@ export const isBot = (text) => {
 export const matchAnswer = (text, name) => {
   const context = setContext(text);
 
+  const brand = context === 'brands' ? getBrandName(text) : null;
+
   if (context === 'greetings')
-  return `Hello ${name}, how can I help you today?`;
+  return `Hello ${name}, how can we help you today?`;
   else if (context === 'brands')
-  return 'This is what we have available';
+  return `This is what we have available for ${brand}`;
 };
 
 const setContext = (text) => {
@@ -21,4 +23,9 @@ const setContext = (text) => {
   return 'greetings';
   else if (text.toLowerCase().match(`^(${botBrands})(.?)$`, 'i'))
   return 'brands';
+};
+
+const getBrandName = (text) => {
+  return text.toLowerCase().match(`^(${botBrands})(.?)$`, 'i')[1]
+  .replace(/^\w/, (matcher) => { return matcher.toUpperCase(); });
 };

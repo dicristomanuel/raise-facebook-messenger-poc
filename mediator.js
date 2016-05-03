@@ -11,7 +11,9 @@ export const init = (dataIn) => {
 
   findOrCreateChat(sender)
   .then(storeUserMessage(userType, text))
-  .then(updateActive);
+  .then(updateActive)
+  .then(botCheck(text, send, sender))
+  .then(sendToMessager(sender, text, userType));
 
 };
 
@@ -31,7 +33,6 @@ const storeUserMessage = (userType, text) => (chat) => {
     userType,
     chat
   };
-  const obj = {chat: chat};
   return Object.assign({chat: chat}, Bubble.create(toStore));
 };
 
@@ -40,29 +41,29 @@ const updateActive = (obj) => {
   return Chat.update(obj.chat, {active: true});
 };
 
-const botCheck = (text, send) => (chat) => {
+const botCheck = (text, send, sender) => (chat) => {
   if (!send && isBot(text))
-  return storeBotMessage(text, chat);
+  return handleBotMessage(text, sender, chat);
   else
   return false;
 };
 
-const storeBotMessage = (text, chat) => {
+const handleBotMessage = (text, sender, chat) => {
   const toStore = {
     text: matchAnswer(text, chat.firstName),
     userType: 'bot',
     active: false,
     chat
   };
+  sendMessage(sender, toStore.text);
   return Bubble.create(toStore);
 };
 
-
-const sendToMessenger = (sender) => (bubble) => {
-  return sendMessage(sender, text);
+const sendToMessager = (sender, text, userType) => {
+  if (userType === 'member_service')
+  sendMessage(sender, text);
 };
 
-
-const evalResp = (resp) => {
-  console.log(resp);
-};
+// TODO:
+// solve member service handling case
+// add bot mix response (ILU)
