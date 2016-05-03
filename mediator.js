@@ -11,12 +11,8 @@ export const init = (dataIn) => {
 
   findOrCreateChat(sender)
   .then(storeUserMessage(userType, text))
-  .then(updateActive(sender));
+  .then(updateActive);
 
-};
-
-const evalData = (resp) => {
-  console.log(resp);
 };
 
 const findOrCreateChat = (sender) => {
@@ -35,15 +31,14 @@ const storeUserMessage = (userType, text) => (chat) => {
     userType,
     chat
   };
-  return Bubble.create(toStore);
+  const obj = {chat: chat};
+  return Object.assign({chat: chat}, Bubble.create(toStore));
 };
 
-const updateActive = (sender) => (bubble) => {
-  if (bubble.userType !== 'member_service')
-  return findOrCreateChat(sender)
-  .then(Chat.update({active: true}));
+const updateActive = (obj) => {
+  if (obj.userType !== 'member_service')
+  return Chat.update(obj.chat, {active: true});
 };
-
 
 const botCheck = (text, send) => (chat) => {
   if (!send && isBot(text))
@@ -65,4 +60,9 @@ const storeBotMessage = (text, chat) => {
 
 const sendToMessenger = (sender) => (bubble) => {
   return sendMessage(sender, text);
+};
+
+
+const evalResp = (resp) => {
+  console.log(resp);
 };

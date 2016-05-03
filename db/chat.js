@@ -10,7 +10,7 @@ export default {
     return Chat.findOne({where: { sender }});
   },
 
-  update: (keyValue) => (chat) => {
+  update: (chat, keyValue) => {
     return chat.update(keyValue);
   }
 };
