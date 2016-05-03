@@ -1,30 +1,62 @@
 import request from 'request';
-import { Message } from './message';
+import { transform } from './transformer';
 import Chat from './db/chat';
+import Bubble from './db/bubble';
 import { sendMessage, getProfile } from './messenger';
 import { isBot, matchAnswer } from './bot';
 
-export const init = (data) => {
-  const message = new Message(data.text, data.sender, data.userType);
-  findOrCreateChat(message.sender);
-};
+export const init = (dataIn) => {
+  const data = transform(dataIn);
+  const { sender, text, send, userType } = data;
 
-const findOrCreateChat = (sender, cb) => {
-  Chat.find(sender)
-  .then((chatObj) => {
-    if (!chatObj) {
-      return getProfile(sender).then(Chat.create);
-    }
-    return chatObj;
+  findOrCreateChat(sender)
+  .then((chat) => {
+    storeUserMessage(text, userType, chat);
+    botCheck(text, send, chat);
   });
 };
 
-const botAnswer = (data) => {
-  const { send, text, firstName } = data;
-  if (!send && isBot(text)) {
-    // move into transformer
-    data.send = true;
-    return matchAnswer(text, firstName);
-  }
-  return null;
+const findOrCreateChat = (sender) => {
+  return new Promise((resolve, reject) => {
+    Chat.find(sender)
+    .then((chatObj) => {
+      if (!chatObj)
+      resolve(getProfile(sender).then(Chat.create));
+      else
+      resolve(chatObj);
+    });
+  });
+};
+
+const storeUserMessage = (text, userType, chat) => {
+  const active = userType === 'member_service' ? false : true;
+  const toStore = {
+    text,
+    userType,
+    active,
+    chat
+  };
+  return Bubble.create(toStore);
+};
+
+
+const botCheck = (text, send, chat) => {
+  if (!send && isBot(text))
+  return storeBotMessage(text, chat);
+  else
+  return false;
+};
+
+const storeBotMessage = (text, chat) => {
+  const toStore = {
+    text: matchAnswer(text, chat.firstName),
+    userType: 'bot',
+    active: false,
+    chat
+  };
+  return Bubble.create(toStore);
+};
+
+const sendToMessenger = (data) => {
+
 };

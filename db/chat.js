@@ -2,8 +2,8 @@ import { Chat } from './dbConfig';
 import { getProfile } from '../messenger';
 
 export default {
-  create: (userData) => {
-    return Chat.create(userData);
+  create: (data) => {
+    return Chat.create(data);
   },
 
   find: (sender) => {

@@ -35,7 +35,7 @@ export const Bubble = connection.define('Bubble', {
   text: Sequelize.TEXT
 });
 
-Chat.hasMany(Bubble, { onDelete: 'cascade' });
+Chat.hasMany(Bubble);
 Bubble.belongsTo(Chat);
 
 
