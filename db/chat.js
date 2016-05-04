@@ -1,5 +1,4 @@
 import { Chat } from './dbConfig';
-import { getProfile } from '../messenger';
 
 export default {
   create: (data) => {

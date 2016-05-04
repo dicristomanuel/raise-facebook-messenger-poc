@@ -24,7 +24,7 @@ server.register([{
       },
     }, ],
   },
-}, ], (error) => {
+}, ], () => {
   server.route({
     method: 'POST',
     path: '/webhook/',
@@ -34,7 +34,7 @@ server.register([{
         const event = request.payload.entry[0].messaging[i];
         const sender = event.sender.id;
         if (event.postback) {
-          const text = JSON.stringify(event.postback);
+          // const text = JSON.stringify(event.postback);
           // do something with the postback
         } else if (event.message && event.message.text) {
           const text = event.message.text;
