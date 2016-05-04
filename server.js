@@ -3,7 +3,7 @@ import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import { init } from './mediator';
-import { defaultUser } from './constants';
+import { defaultUser, memberService } from './constants';
 import { connection } from './db/dbConfig';
 
 const server = new Server();
@@ -41,6 +41,17 @@ server.register([{
           init({text, sender, userType: defaultUser});
         }
       }
+      reply();
+    }
+  });
+
+  server.route({
+    method: 'POST',
+    path: '/member-service/',
+    handler(request, reply) {
+      const data = request.payload;
+      const { text, sender } = data;
+      init({text, sender, userType: memberService});
       reply();
     }
   });
