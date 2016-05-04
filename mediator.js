@@ -25,7 +25,6 @@ const storeMessage = (data) => (chat) => {
 };
 
 const updateChat = (userType, sender) => (obj) => {
-  // TODO: try without chat.find
   if (!obj) {
     Chat.find(sender)
     .then((chat) => {
@@ -71,12 +70,4 @@ export const init = (dataIn) => {
   .then(botCheck(text, sender))
   .then(updateChat(userType, sender))
   .then(sendToMessager(sender, text, userType));
-
 };
-
-// state ['initSession', 'botSession', 'msSession']
-
-// TODO:
-// create member service / bot state
-// add bot mix response (ILU) and send structure messages for GCs
-// 'Awww'
