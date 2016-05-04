@@ -21,7 +21,7 @@ const storeMessage = (data) => (chat) => {
     userType,
     chat
   };
-  return Object.assign({chat: chat}, Bubble.create(toStore));
+  return Object.assign(chat, Bubble.create(toStore));
 };
 
 const updateChat = (userType, sender) => (obj) => {
@@ -39,20 +39,18 @@ const updateChat = (userType, sender) => (obj) => {
 
 const handleBotMessage = (text, sender, chat) => {
   const toStore = {
-    text: matchAnswer(text, chat.chat.firstName),
+    text: matchAnswer(text, chat.firstName),
     userType: 'bot',
     chat
   };
   sendMessage(sender, toStore.text);
-  // TODO: fix chat.chat
-  return Chat.update(chat.chat, {session: 'bot', active: false})
+  return Chat.update(chat, {session: 'bot', active: false})
   .then(storeMessage(toStore));
 
 };
 
 const botCheck = (text, sender) => (chat) => {
-  // TODO: fix chat.chat
-  if (chat.chat.session !== 'memberService' && isBot(text)) {
+  if (chat.session !== 'memberService' && isBot(text)) {
     return handleBotMessage(text, sender, chat);
   } else {
     return false;
