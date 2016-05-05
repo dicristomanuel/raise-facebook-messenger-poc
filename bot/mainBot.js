@@ -1,4 +1,4 @@
-import {bot} from './botConstants';
+import { bot } from './botConstants';
 
 const textMatch = (text, context) => {
   return text.toLowerCase().match(`^(${context})(?:y|ies|s)?(?:e?s)?(.?)$`, 'i');

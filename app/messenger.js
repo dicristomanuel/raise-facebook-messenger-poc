@@ -1,4 +1,4 @@
-import { fbToken } from './tokens';
+import { fbToken } from '../data/tokens';
 import request from 'request';
 
 const formatObject = (object, sender) => {

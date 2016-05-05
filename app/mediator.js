@@ -1,9 +1,9 @@
 import { transform } from './transformer';
-import Chat from './db/chat';
-import Bubble from './db/bubble';
+import Chat from '../db/chat';
+import Bubble from '../db/bubble';
 import { sendMessage, getProfile } from './messenger';
-import { matchAnswer } from './bot';
-import { memberService, bot } from './constants';
+import { matchAnswer } from '../bot/mainBot';
+import { memberService, bot } from '../data/constants';
 
 const findOrCreateChat = (sender) => {
   return Chat.find(sender)

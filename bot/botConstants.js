@@ -1,4 +1,3 @@
-
 export const bot = {
   greetings: 'hello|hi|hey|hola|howdy|good morning|good evening|good afternoon|what[^ ]* up|sup|how are you|',
   brands: 'walmart|target|home depot|macy[^ ]*s|macys|kmart|taco bell|whole foods|',

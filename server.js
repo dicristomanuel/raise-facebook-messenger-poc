@@ -2,8 +2,8 @@ import { Server } from 'hapi';
 import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
-import { init } from './mediator';
-import { defaultUser, memberService } from './constants';
+import { init } from './app/mediator';
+import { defaultUser, memberService } from './data/constants';
 import { connection } from './db/dbConfig';
 
 const server = new Server();
