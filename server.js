@@ -45,9 +45,6 @@ server.register([{
     }
   });
 
-// TODO:
-// move reply after init then?
-
   server.route({
     method: 'POST',
     path: '/member-service/',
