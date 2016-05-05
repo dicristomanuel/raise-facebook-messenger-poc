@@ -1,14 +1,14 @@
 import {bot, botWords} from './botConstants';
 
 export const isBot = (text) => {
-  if (!!text.toLowerCase().match(`^(${botWords})(?:y|ies|s)?(?:e?s)?$`, 'i'))
+  if (!!text.toLowerCase().match(`^(${botWords})(?:y|ies|s)?(?:e?s)?(.?)$`, 'i'))
   return true;
   else
   return false;
 };
 
 const textMatch = (text, context) => {
-  return text.toLowerCase().match(`^(${context})(.?)$`, 'i');
+  return text.toLowerCase().match(`^(${context})(?:y|ies|s)?(?:e?s)?(.?)$`, 'i');
 };
 
 const setContext = (text) => {
@@ -16,7 +16,7 @@ const setContext = (text) => {
   return 'greetings';
   else if (textMatch(text, bot.brands))
   return 'brands';
-  else if (textMatch(text, bot.giftcard))
+  else if (textMatch(text, bot.giftcards))
   return 'giftcards';
   else if (textMatch(text, bot.categories))
   return 'categories';
@@ -35,7 +35,7 @@ const getBrandName = (text) => {
 export const matchAnswer = (text, name) => {
   const context = setContext(text);
   const brand = context === 'brands' ? getBrandName(text) : null;
-
+  debugger;
   if (context === 'greetings')
   return `Hi ${name}, would you like to browse giftcards or get assistance?`;
   else if (context === 'brands')
@@ -53,4 +53,3 @@ export const matchAnswer = (text, name) => {
 
 
 // let me find someone to help you right away
-// ignore last character for ! ? or mispells 
