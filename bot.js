@@ -51,7 +51,3 @@ export const matchAnswer = (text, name) => {
   else
   return 'Let me find someone for you.';
 };
-
-
-
-// let me find someone to help you right away
