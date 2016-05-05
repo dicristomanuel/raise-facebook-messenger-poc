@@ -7,10 +7,14 @@ export const isBot = (text) => {
   return false;
 };
 
+const textMatch = (text, context) => {
+  return text.toLowerCase().match(`^(${context})(.?)$`, 'i');
+};
+
 const setContext = (text) => {
-  if (text.toLowerCase().match(`^(${botGreetings})(.?)$`, 'i'))
+  if (textMatch(text, botGreetings))
   return 'greetings';
-  else if (text.toLowerCase().match(`^(${botBrands})(.?)$`, 'i'))
+  else if (textMatch(text, botBrands))
   return 'brands';
 };
 
@@ -25,7 +29,7 @@ export const matchAnswer = (text, name) => {
   const brand = context === 'brands' ? getBrandName(text) : null;
 
   if (context === 'greetings')
-  return `Hello ${name}, how can we help you today?`;
+  return `Hi ${name}, would you like to browse giftcards or get assistance?`;
   else if (context === 'brands')
   return `This is what we have available for ${brand}`;
 };

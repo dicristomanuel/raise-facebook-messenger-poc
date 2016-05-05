@@ -38,12 +38,15 @@ server.register([{
           // do something with the postback
         } else if (event.message && event.message.text) {
           const text = event.message.text;
-          init({text, sender, userType: defaultUser});
+          init({text, sender, userType: defaultUser})
+          .then(reply);
         }
       }
-      reply();
     }
   });
+
+// TODO:
+// move reply after init then?
 
   server.route({
     method: 'POST',
@@ -51,8 +54,8 @@ server.register([{
     handler(request, reply) {
       const data = request.payload;
       const { text, sender } = data;
-      init({text, sender, userType: memberService});
-      reply();
+      init({text, sender, userType: memberService})
+      .then(reply);
     }
   });
 });

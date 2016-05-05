@@ -66,7 +66,7 @@ export const init = (dataIn) => {
   const data = transform(dataIn);
   const { sender, text, userType } = data;
 
-  findOrCreateChat(sender)
+  return findOrCreateChat(sender)
   .then(storeMessage({userType, text}))
   .then(botCheck(text, sender))
   .then(updateChat(userType, sender))
