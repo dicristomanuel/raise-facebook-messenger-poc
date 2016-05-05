@@ -4,7 +4,5 @@ export const bot = {
   giftcards: 'giftcard|browse|browse giftcard|categor|',
   categories: 'electronic|entertainment|flower|pet|',
   positives: 'i love you|i like you|awesome|love|you are the best|you\'re the best|you\'re awesome|great|you\'re great|you are great|awesomesauce|',
-  negatives: 'fuck you|screw you|you suck|suck|bitch|'
+  negatives: 'fuck you|screw you|you suck|suck|bitch|fuck'
 };
-
-export const botWords =  bot.greetings + bot.brands + bot.giftcards + bot.categories + bot.positives + bot.negatives;
