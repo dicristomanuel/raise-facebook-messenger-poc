@@ -48,6 +48,8 @@ export const matchAnswer = (text, name) => {
   return `Aww! Thank you ${name}! :)`;
   else if (context === 'negatives')
   return `I'm sorry to hear that :(`;
+  else
+  return 'Let me find someone for you.';
 };
 
 

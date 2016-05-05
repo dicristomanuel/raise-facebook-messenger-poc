@@ -2,7 +2,7 @@ import { transform } from './transformer';
 import Chat from './db/chat';
 import Bubble from './db/bubble';
 import { sendMessage, getProfile } from './messenger';
-import { isBot, matchAnswer } from './bot';
+import { matchAnswer } from './bot';
 import { memberService, bot } from './constants';
 
 const findOrCreateChat = (sender) => {
@@ -43,14 +43,16 @@ const handleBotMessage = (text, sender, chat) => {
     userType: bot,
     chat
   };
+
+  const session = toStore.text.includes('someone') ? memberService : bot;
   sendMessage(sender, toStore.text);
-  return Chat.update(chat, {session: bot, active: false})
+  return Chat.update(chat, {session, active: false})
   .then(storeMessage(toStore));
 
 };
 
 const botCheck = (text, sender) => (chat) => {
-  if (chat.session !== memberService && isBot(text)) {
+  if (chat.session !== memberService) {
     return handleBotMessage(text, sender, chat);
   } else {
     return false;
