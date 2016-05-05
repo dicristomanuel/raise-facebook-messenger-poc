@@ -20,7 +20,6 @@ const setContext = (text) => {
 };
 
 const getBrandName = (text) => {
-  debugger;
   return textMatch(text, bot.brands)[1]
   .replace(/^\w/, (matcher) => { return matcher.toUpperCase(); });
 };
@@ -28,7 +27,6 @@ const getBrandName = (text) => {
 export const matchAnswer = (text, name) => {
   const context = setContext(text);
   const brand = context === 'brands' ? getBrandName(text) : null;
-  debugger;
   if (context === 'greetings')
   return `Hi ${name}, would you like to browse giftcards or get assistance?`;
   else if (context === 'brands')
