@@ -72,7 +72,3 @@ export const init = (dataIn) => {
   .then(updateChat(userType, sender))
   .then(sendToMessager(sender, text, userType));
 };
-
-// TODO:
-// add bot mix response (ILU) and send structure messages for GCs
-// 'Awww'
