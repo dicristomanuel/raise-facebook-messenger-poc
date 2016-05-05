@@ -44,7 +44,7 @@ server.register([{
       }
     }
   });
-
+// TODO: check error - Unhandled rejection Error: reply interface called twice - cause then(reply)
   server.route({
     method: 'POST',
     path: '/member-service/',
