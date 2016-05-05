@@ -1,11 +1,4 @@
-import {bot, botWords} from './botConstants';
-
-export const isBot = (text) => {
-  if (!!text.toLowerCase().match(`^(${botWords})(?:y|ies|s)?(?:e?s)?(.?)$`, 'i'))
-  return true;
-  else
-  return false;
-};
+import {bot} from './botConstants';
 
 const textMatch = (text, context) => {
   return text.toLowerCase().match(`^(${context})(?:y|ies|s)?(?:e?s)?(.?)$`, 'i');
