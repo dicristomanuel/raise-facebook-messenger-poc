@@ -3,7 +3,7 @@ import Chat from '../db/chat';
 import Bubble from '../db/bubble';
 import { sendMessage, getProfile } from './messenger';
 import { matchAnswer } from '../bot/mainBot';
-import { memberService, bot } from '../data/constants';
+import { memberService, bot, toMemberService } from '../data/constants';
 
 const findOrCreateChat = (sender) => {
   return Chat.find(sender)
@@ -29,11 +29,12 @@ const updateChat = (userType, sender) => (obj) => {
   if (!obj) {
     Chat.find(sender)
     .then((chat) => {
-      if (userType === memberService)
-      return Chat.update(chat, {session: userType, active: false});
-      else if (!obj)
-      return Chat.update(chat, {session: memberService, active: true});
+      return Chat.update(chat, {session: memberService, active: false});
     });
+  } else if (obj._boundTo.dataValues.text === toMemberService) {
+    return Chat.update(obj, {session: memberService, active: true});
+  } else {
+    return Chat.update(obj, {session: bot, active: false});
   }
 };
 
