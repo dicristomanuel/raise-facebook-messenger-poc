@@ -4,5 +4,6 @@ export const bot = {
   giftcards: 'giftcard|browse|browse giftcard|categor|',
   categories: 'electronic|entertainment|flower|pet|',
   positives: 'i love you|i like you|awesome|love|you are the best|you\'re the best|you\'re awesome|great|you\'re great|you are great|awesomesauce|',
-  negatives: 'fuck you|you suck|suck|bitch|fuck'
+  negatives: 'fuck you|you suck|suck|bitch|fuck',
+  contexts: ['greetings', 'brands', 'giftcards', 'categories', 'positives', 'negatives']
 };

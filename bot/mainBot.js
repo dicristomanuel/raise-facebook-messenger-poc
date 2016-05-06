@@ -5,18 +5,10 @@ const textMatch = (text, context) => {
 };
 
 const setContext = (text) => {
-  if (textMatch(text, bot.greetings))
-  return 'greetings';
-  else if (textMatch(text, bot.brands))
-  return 'brands';
-  else if (textMatch(text, bot.giftcards))
-  return 'giftcards';
-  else if (textMatch(text, bot.categories))
-  return 'categories';
-  else if (textMatch(text, bot.positives))
-  return 'positives';
-  else if (textMatch(text, bot.negatives))
-  return 'negatives';
+  for (let context in bot.contexts) {
+    if (textMatch(text, bot[bot.contexts[context]]))
+    return bot.contexts[context];
+  }
 };
 
 const getBrandName = (text) => {
@@ -26,6 +18,7 @@ const getBrandName = (text) => {
 
 export const matchAnswer = (text, name) => {
   const context = setContext(text);
+  debugger;
   const brand = context === 'brands' ? getBrandName(text) : null;
   // follow same for categories
   if (context === 'greetings')
