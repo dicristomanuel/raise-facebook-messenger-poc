@@ -7,3 +7,6 @@ export const bot = {
   negatives: 'fuck you|you suck|suck|bitch|fuck',
   contexts: ['greetings', 'brands', 'giftcards', 'categories', 'positives', 'negatives']
 };
+
+
+// array.join('|')

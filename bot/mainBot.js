@@ -5,10 +5,13 @@ const textMatch = (text, context) => {
 };
 
 const setContext = (text) => {
-  for (let context in bot.contexts) {
-    if (textMatch(text, bot[bot.contexts[context]]))
-    return bot.contexts[context];
-  }
+  let result = '';
+  bot.contexts.forEach((context) => {
+    if (textMatch(text, bot[context])) {
+      result = context;
+    }
+  });
+  return result;
 };
 
 const getBrandName = (text) => {
@@ -33,6 +36,6 @@ export const matchAnswer = (text, name) => {
   return `Aww! Thank you ${name}! :)`;
   else if (context === 'negatives')
   return `I'm sorry to hear that :(`;
-  else
-  return 'Let me find someone for you.';
-};
+    else
+    return 'Let me find someone for you.';
+  };
