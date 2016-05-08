@@ -1,12 +1,26 @@
+import greetings from './greetings';
+import brands from './brands';
+import giftcards from './giftcards';
+import categories from './categories';
+import positives from './positives';
+import negatives from './negatives';
+import farewell from './farewell';
+
 export const bot = {
-  greetings: 'hello|hi|hey|hola|howdy|good morning|good evening|good afternoon|what[^ ]* up|sup|how are you|',
-  brands: 'walmart|target|home depot|macy[^ ]*s|macys|kmart|taco bell|whole foods|',
-  giftcards: 'giftcard|browse|browse giftcard|categor|',
-  categories: 'electronic|entertainment|flower|pet|',
-  positives: 'i love you|i like you|awesome|love|you are the best|you\'re the best|you\'re awesome|great|you\'re great|you are great|awesomesauce|',
-  negatives: 'fuck you|you suck|suck|bitch|fuck',
-  contexts: ['greetings', 'brands', 'giftcards', 'categories', 'positives', 'negatives']
+  greetings,
+  brands,
+  giftcards,
+  categories,
+  positives,
+  negatives,
+  farewell,
+  contexts: [
+             'negatives',
+             'positives',
+             'farewell',
+             'giftcards',
+             'greetings',
+             'categories',
+             'brands'
+            ]
 };
-
-
-// array.join('|')
