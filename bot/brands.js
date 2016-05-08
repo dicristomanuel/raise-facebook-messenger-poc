@@ -6,5 +6,7 @@ export default
   'macy',
   'kmart',
   'taco bell',
-  'whole food'
+  'whole food',
+  'lowe\'s',
+  'lowes'
 ].join('|');

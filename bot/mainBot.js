@@ -27,7 +27,7 @@ export const matchAnswer = (text, name) => {
   const context = setContext(text);
   const brand = context === 'brands' ? getBrandName(text) : null;
   const category = context === 'categories' ? getCategoryName(text) : null;
-  // follow same for categories
+
   if (context === 'greetings')
   return `Hi ${name}, would you like to browse giftcards or get assistance?`;
   else if (context === 'brands')

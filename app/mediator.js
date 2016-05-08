@@ -1,7 +1,7 @@
 import { transform } from './transformer';
 import Chat from '../db/chat';
 import Bubble from '../db/bubble';
-import { sendMessage, getProfile } from './messenger';
+import { sendMessage, getProfile, sendGiftcards } from './messenger';
 import { matchAnswer } from '../bot/mainBot';
 import { memberService, bot, toMemberService } from '../data/constants';
 
@@ -47,6 +47,7 @@ const handleBotMessage = (text, sender, chat) => {
 
   const session = toStore.text.includes('someone') ? memberService : bot;
   sendMessage(sender, toStore.text);
+  sendGiftcards(sender);
   return Chat.update(chat, {session, active: false})
   .then(storeMessage(toStore));
 

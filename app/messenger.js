@@ -1,5 +1,6 @@
 import { fbToken } from '../data/tokens';
 import request from 'request';
+import { giftcardMessage } from './structuredMessages';
 
 const formatObject = (object, sender) => {
   const parsed = JSON.parse(object);
@@ -41,6 +42,28 @@ export const getProfile = (sender) => {
         reject(response.body.error);
         else
         resolve(text);
+      });
+    });
+  };
+
+// will have brand
+  export const sendGiftcards = (sender) => {
+    return new Promise((resolve, reject) => {
+      request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:fbToken},
+        method: 'POST',
+        json: {
+          recipient: {id:sender},
+          message: giftcardMessage,
+        }
+      }, (error, response) => {
+        if (error)
+        reject(error);
+        else if (response.body.error)
+        reject(response.body.error);
+        else
+        resolve('Success');
       });
     });
   };
