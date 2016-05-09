@@ -39,18 +39,16 @@ const updateChat = (userType, sender) => (obj) => {
 };
 
 const handleBotMessage = (text, sender, chat) => {
+  const fromBot = matchAnswer(text, chat.firstName);
   const toStore = {
-    text: matchAnswer(text, chat.firstName),
+    text: fromBot.answer,
     userType: bot,
     chat
   };
-
   const session = toStore.text.includes('someone') ? memberService : bot;
-  sendMessage(sender, toStore.text);
-  sendGiftcards(sender);
+  fromBot.brand ? sendMessage(sender, fromBot.brand) : null;
   return Chat.update(chat, {session, active: false})
   .then(storeMessage(toStore));
-
 };
 
 const botCheck = (text, sender) => (chat) => {

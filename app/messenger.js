@@ -46,7 +46,7 @@ export const getProfile = (sender) => {
     });
   };
 
-// will have brand
+// will take brand
   export const sendGiftcards = (sender) => {
     return new Promise((resolve, reject) => {
       request({

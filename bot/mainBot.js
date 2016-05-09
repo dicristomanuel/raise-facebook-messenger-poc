@@ -7,9 +7,8 @@ const textMatch = (text, context) => {
 const setContext = (text) => {
   let result = '';
   bot.contexts.forEach((context) => {
-    if (!!textMatch(text, bot[context]) && !!textMatch(text, bot[context])[0]) {
-      result = context;
-    }
+    if (!!textMatch(text, bot[context]) && !!textMatch(text, bot[context])[0])
+    result = context;
   });
   return result;
 };
@@ -23,25 +22,31 @@ const getCategoryName = (text) => {
   return textMatch(text, bot.categories)[1];
 };
 
+const getAnswer = (context, name, brand, category) => {
+  switch (context) {
+    case 'greetings':
+      return `Hi ${name}, would you like to browse giftcards or get assistance?`;
+    case 'brands':
+      return `These are the best deals for ${brand}`;
+    case 'giftcards':
+      return 'What brand or category are you interested in?';
+    case 'categories':
+      return `These are the options for ${category}`;
+    case 'positives':
+      return `Aww! Thank you ${name}! :)`;
+    case 'negatives':
+      return 'I\'m sorry to hear that :(';
+    case 'farewell':
+      return 'Good talking to you!';
+    default:
+      return 'Let me find someone for you.';
+  }
+};
+
 export const matchAnswer = (text, name) => {
   const context = setContext(text);
   const brand = context === 'brands' ? getBrandName(text) : null;
   const category = context === 'categories' ? getCategoryName(text) : null;
-
-  if (context === 'greetings')
-  return `Hi ${name}, would you like to browse giftcards or get assistance?`;
-  else if (context === 'brands')
-  return `These are the best deals for ${brand}`;
-  else if (context === 'giftcards')
-  return 'What brand or category are you interested in?';
-  else if (context === 'categories')
-  return `These are the options for ${category}`;
-  else if (context === 'positives')
-  return `Aww! Thank you ${name}! :)`;
-  else if (context === 'negatives')
-  return 'I\'m sorry to hear that :(';
-  else if (context === 'farewell')
-  return 'Good talking to you!';
-  else
-  return 'Let me find someone for you.';
+  const answer = getAnswer(context, name, brand, category);
+  return {answer, brand};
 };
