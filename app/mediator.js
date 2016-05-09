@@ -5,6 +5,10 @@ import { sendMessage, getProfile, sendGiftcards } from './messenger';
 import { matchAnswer } from '../bot/mainBot';
 import { memberService, bot, toMemberService } from '../data/constants';
 
+// try with implicit returns
+// remove parentesis to functions with one parameter
+
+
 const findOrCreateChat = (sender) => {
   return Chat.find(sender)
   .then((chatObj) => {
@@ -45,7 +49,7 @@ const handleBotMessage = (text, sender, chat) => {
     userType: bot,
     chat
   };
-  const session = toStore.text.includes('someone') ? memberService : bot;
+  const session = toStore.text === toMemberService ? memberService : bot;
   sendMessage(sender, toStore.text);
   fromBot.brand ? sendGiftcards(sender, fromBot.brand) : null;
   return Chat.update(chat, {session, active: false})
