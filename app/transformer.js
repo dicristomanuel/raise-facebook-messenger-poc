@@ -1,4 +1,4 @@
-export const transform = (data) => {
+export const transform = data => {
   const { text, sender, userType } = data;
 
   return {

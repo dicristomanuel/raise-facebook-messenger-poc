@@ -1,11 +1,11 @@
 import { Chat } from './dbConfig';
 
 export default {
-  create: (data) => {
+  create: data => {
     return Chat.create(data);
   },
 
-  find: (sender) => {
+  find: sender => {
     return Chat.findOne({where: { sender }});
   },
 

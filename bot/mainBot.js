@@ -4,21 +4,21 @@ const textMatch = (text, context) => {
   return text.toLowerCase().match(`(${context})`, 'i');
 };
 
-const setContext = (text) => {
+const setContext = text => {
   let result = '';
-  bot.contexts.forEach((context) => {
+  bot.contexts.forEach(context => {
     if (!!textMatch(text, bot[context]) && !!textMatch(text, bot[context])[0])
     result = context;
   });
   return result;
 };
 
-const getBrandName = (text) => {
+const getBrandName = text => {
   return textMatch(text, bot.brands)[1]
   .replace(/^\w/, (matcher) => { return matcher.toUpperCase(); });
 };
 
-const getCategoryName = (text) => {
+const getCategoryName = text => {
   return textMatch(text, bot.categories)[1];
 };
 

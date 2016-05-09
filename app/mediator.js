@@ -5,11 +5,7 @@ import { sendMessage, getProfile, sendGiftcards } from './messenger';
 import { matchAnswer } from '../bot/mainBot';
 import { memberService, bot, toMemberService } from '../data/constants';
 
-// try with implicit returns
-// remove parentesis to functions with one parameter
-
-
-const findOrCreateChat = (sender) => {
+const findOrCreateChat = sender => {
   return Chat.find(sender)
   .then((chatObj) => {
     if (!chatObj)
@@ -19,7 +15,7 @@ const findOrCreateChat = (sender) => {
   });
 };
 
-const storeMessage = (data) => (chat) => {
+const storeMessage = data => chat => {
   const { text, userType } = data;
   const toStore = {
     text,
@@ -29,17 +25,16 @@ const storeMessage = (data) => (chat) => {
   return Object.assign(chat, Bubble.create(toStore));
 };
 
-const updateChat = (userType, sender) => (obj) => {
+const updateChat = (userType, sender) => obj => {
   if (!obj) {
     Chat.find(sender)
-    .then((chat) => {
+    .then(chat => {
       return Chat.update(chat, {session: memberService, active: false});
     });
-  } else if (obj._boundTo.dataValues.text === toMemberService) {
-    return Chat.update(obj, {session: memberService, active: true});
-  } else {
-    return Chat.update(obj, {session: bot, active: false});
-  }
+  } else if (obj._boundTo.dataValues.text === toMemberService)
+  return Chat.update(obj, {session: memberService, active: true});
+  else
+  return Chat.update(obj, {session: bot, active: false});
 };
 
 const handleBotMessage = (text, sender, chat) => {
@@ -56,12 +51,11 @@ const handleBotMessage = (text, sender, chat) => {
   .then(storeMessage(toStore));
 };
 
-const botCheck = (text, sender) => (chat) => {
-  if (chat.session !== memberService) {
-    return handleBotMessage(text, sender, chat);
-  } else {
-    return false;
-  }
+const botCheck = (text, sender) => chat => {
+  if (chat.session !== memberService)
+  return handleBotMessage(text, sender, chat);
+  else
+  return false;
 };
 
 const sendToMessager = (sender, text, userType) => {
@@ -69,7 +63,7 @@ const sendToMessager = (sender, text, userType) => {
   sendMessage(sender, text);
 };
 
-export const init = (dataIn) => {
+export const init = dataIn => {
   const data = transform(dataIn);
   const { sender, text, userType } = data;
   return findOrCreateChat(sender)
