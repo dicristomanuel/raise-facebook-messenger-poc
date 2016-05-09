@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { Router } from 'react-router';
 import routes from './config/routes';
 
 
-React.DOM.render(
+ReactDOM.render(
   <Router>{routes}</Router>,
   document.getElementById('app')
 );

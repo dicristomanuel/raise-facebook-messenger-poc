@@ -1,7 +1,7 @@
-module.exports {
+module.exports = {
   entry: './app/App.js',
   output: {
-    filename: 'public/bundle.js'
+    filename: 'public/bundle.js',
   },
   module: {
     loaders: [
@@ -16,3 +16,9 @@ module.exports {
     ]
   }
 };
+
+// TODO: add
+// resolve: {
+//   root: path.resolve('./app'),
+//   extensions: ['', '.js']
+// }
