@@ -46,7 +46,8 @@ const handleBotMessage = (text, sender, chat) => {
     chat
   };
   const session = toStore.text.includes('someone') ? memberService : bot;
-  fromBot.brand ? sendMessage(sender, fromBot.brand) : null;
+  sendMessage(sender, toStore.text);
+  fromBot.brand ? sendGiftcards(sender, fromBot.brand) : null;
   return Chat.update(chat, {session, active: false})
   .then(storeMessage(toStore));
 };
