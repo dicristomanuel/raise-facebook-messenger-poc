@@ -11,5 +11,9 @@ export default {
 
   update: (chat, keyValue) => {
     return chat.update(keyValue);
+  },
+
+  findActive: () => {
+    return Chat.findAll({ where: { active: true }});
   }
 };

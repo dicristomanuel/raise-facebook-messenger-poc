@@ -1,24 +1,17 @@
 import { io } from '../server.js';
+import Chat from '../db/chat';
+import { transform } from './transformer';
 
 export default (io) => {
 
-  let counter = 0;
-
   io.on('connection', function(socket){
-    socket.emit('welcome', { message: 'Welcome!', id: socket.id, counter: counter });
 
-    socket.on('clicked', onClicked);
-    socket.on('disconnect', onDisconnect);
+    Chat.findActive()
+    .then((data) => {
+      const chats = transform(data);
 
-    function onClicked() {
-      console.log('onClicked');
-      counter++;
-      io.sockets.emit('update', { counter: counter });
-    }
-
-    function onDisconnect() {
-      console.log('onDisconnect', arguments);
-    }
+      socket.emit('activeChats', chats);
+    });
   });
 
 };
