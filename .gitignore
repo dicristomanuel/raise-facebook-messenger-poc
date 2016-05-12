@@ -2,4 +2,3 @@ node_modules
 *.sqlite3
 tokens.js
 npm-debug.log
-.jshintrc
