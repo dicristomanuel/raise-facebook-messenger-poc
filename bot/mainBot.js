@@ -1,7 +1,7 @@
 import { bot } from './botConstants';
 
 const textMatch = (text, context) => {
-  return text.toLowerCase().match(`(${context})`, 'i');
+  return text.match(`(${context})`, 'i');
 };
 
 const setContext = text => {
@@ -39,7 +39,7 @@ const getAnswer = (context, name, brand, category) => {
     case 'farewell':
       return 'Good talking to you!';
     default:
-      return 'Let me find someone for you.';
+      return `${name}, let me find someone for you.`;
   }
 };
 

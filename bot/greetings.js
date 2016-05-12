@@ -10,6 +10,5 @@ export default
   'good afternoon',
   'what[^ ]* up',
   'sup',
-  'how are you',
-  'help'
+  'how are you'
 ].join('|');
