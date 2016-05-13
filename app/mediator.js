@@ -31,7 +31,7 @@ const updateChat = (userType, sender) => obj => {
     .then(chat => {
       return Chat.update(chat, {session: memberService, active: false});
     });
-  } else if (obj._boundTo.dataValues.text === toMemberService)
+  } else if (obj._boundTo.dataValues.text.includes(toMemberService))
   return Chat.update(obj, {session: memberService, active: true});
   else
   return Chat.update(obj, {session: bot, active: false});
