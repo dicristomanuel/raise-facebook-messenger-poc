@@ -6,20 +6,21 @@ const textMatch = (text, context) => {
 
 const setContext = text => {
   let result = '';
-  Bot.contexts.forEach(context => {
+  Bot.Contexts.forEach(context => {
     if (!!textMatch(text, Bot[context]) && !!textMatch(text, Bot[context])[0])
+    debugger;
     result = context;
   });
   return result;
 };
 
 const getBrandName = text => {
-  return textMatch(text, Bot.brands)[1]
+  return textMatch(text, Bot.Brands)[1]
   .replace(/^\w/, (matcher) => { return matcher.toUpperCase(); });
 };
 
 const getCategoryName = text => {
-  return textMatch(text, Bot.categories)[1];
+  return textMatch(text, Bot.Categories)[1];
 };
 
 const getAnswer = (context, name, brand, category) => {
@@ -45,8 +46,8 @@ const getAnswer = (context, name, brand, category) => {
 
 export const MatchAnswer = (text, name) => {
   const context = setContext(text);
-  const brand = context === 'brands' ? getBrandName(text) : null;
-  const category = context === 'categories' ? getCategoryName(text) : null;
+  const brand = context === 'Brands' ? getBrandName(text) : null;
+  const category = context === 'Categories' ? getCategoryName(text) : null;
   const answer = getAnswer(context, name, brand, category);
   return {answer, brand};
 };

@@ -18,8 +18,7 @@ const findOrCreateChat = sender => {
   .then((chatObj) => {
     if (!chatObj)
     return GetProfile(sender)
-    .then(Chat.create)
-    .then(socketEmit('newChat'));
+    .then(Chat.create);
     else
     return chatObj;
   });
@@ -43,7 +42,8 @@ const fromMemberService = (sender) => {
 };
 
 const fromConsumer = (chat) => {
-  return Chat.update(chat, {session: MemberService, active: true});
+  return Chat.update(chat, {session: MemberService, active: true})
+  .then(socketEmit('newChat'));
 };
 
 const fromBot = (chat) => {

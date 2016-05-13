@@ -14,7 +14,7 @@ export const Bot = {
   Positives,
   Negatives,
   Farewell,
-  contexts: [
+  Contexts: [
              'Negatives',
              'Positives',
              'Farewell',
