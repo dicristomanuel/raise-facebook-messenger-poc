@@ -9,7 +9,14 @@ import { TransformSocket } from '../sockets/transformer';
 
 const socketEmit = action => data => {
   if (data.length !== 0)
-  io.emit(action, TransformSocket(data));
+
+  switch (action) {
+    case 'newMessage':
+      io.emit(action, data.dataValues.id);
+      break;
+    default:
+      io.emit(action, TransformSocket(data));
+  }
   return data;
 };
 

@@ -8,7 +8,6 @@ const setContext = text => {
   let result = '';
   Bot.Contexts.forEach(context => {
     if (!!textMatch(text, Bot[context]) && !!textMatch(text, Bot[context])[0])
-    debugger;
     result = context;
   });
   return result;
