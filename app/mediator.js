@@ -7,15 +7,19 @@ import { MemberService, Bot, ToMemberService } from '../data/constants';
 import { io } from '../server.js';
 import { TransformSocket } from '../sockets/transformer';
 
-const socketEmit = (action, obj) => {
-  io.emit(action, TransformSocket(obj));
+const socketEmit = action => data => {
+  if (data.length !== 0)
+  io.emit(action, TransformSocket(data));
+  return data;
 };
 
 const findOrCreateChat = sender => {
   return Chat.find(sender)
   .then((chatObj) => {
     if (!chatObj)
-    return GetProfile(sender).then(Chat.create);
+    return GetProfile(sender)
+    .then(Chat.create)
+    .then(socketEmit('newChat'));
     else
     return chatObj;
   });
@@ -34,27 +38,28 @@ const storeMessage = data => chat => {
 const fromMemberService = (sender) => {
   return findOrCreateChat(sender)
   .then(chat => {
+    socketEmit('newMessage', chat);
     Chat.update(chat, {session: MemberService, active: false});
   });
 };
 
 const fromConsumer = (chat) => {
-  socketEmit('newChat', chat);
+  socketEmit('newMessage', chat);
   return Chat.update(chat, {session: MemberService, active: true});
 };
 
 const fromBot = (chat) => {
+  socketEmit('newMessage', chat);
   return Chat.update(chat, {session: Bot, active: false});
 };
 
 const updateChat = (userType, sender) => obj => {
-  if (!obj) {
-    return fromMemberService(sender);
-  } else if (obj._boundTo.dataValues.text.includes(ToMemberService)) {
-    return fromConsumer(obj);
-  } else {
-    fromBot(obj);
-  }
+  if (!obj)
+  return fromMemberService(sender);
+  else if (obj._boundTo.dataValues.text.includes(ToMemberService))
+  return fromConsumer(obj);
+  else
+  return fromBot(obj);
 };
 
 const handleBotMessage = (toStore, sender, fromBot, chat) => {

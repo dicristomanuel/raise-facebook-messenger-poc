@@ -3,10 +3,12 @@ import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import Inert from 'inert';
+import Vision from 'vision';
+import Handlebars from 'handlebars';
 import Path from 'path';
 import { DefaultUser, MemberService } from './data/constants';
 import { Init } from './app/mediator';
-import { SocketInit } from './sockets/mediator';
+import { SocketInit } from './sockets/main';
 
 const server = new Server({
   connections: {
@@ -26,7 +28,7 @@ export const io = require("socket.io")(server.listener);
 SocketInit();
 
 server.register([
-  Inert,
+  Inert, Vision,
   { register: Blipp },
   { register: Good,
     options: {
@@ -35,7 +37,44 @@ server.register([
         events: { log: '*', response: '*' }
       }]
     },
-  }], () => {
+  }], (err) => {
+
+    if (err)
+    throw err;
+
+    server.views({
+      engines: {
+        html: Handlebars
+      },
+      relativeTo: __dirname,
+      path: './public',
+    });
+
+    // TODO: do I need two routes?
+    server.route({
+      method: 'GET',
+      path: '/{param*}',
+      handler: {
+        directory: {
+          path: '.',
+          redirectToSlash: true,
+          index: true
+        }
+      }
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/chats/{param*}',
+      handler: {
+        directory: {
+          path: '.',
+          redirectToSlash: true,
+          index: true
+        }
+      }
+    });
+
     server.route({
       method: 'POST',
       path: '/webhook/',
@@ -69,13 +108,17 @@ server.register([
 
     server.route({
       method: 'GET',
-      path: '/{param*}',
-      handler: {
-        directory: {
-          path: '.',
-          redirectToSlash: true,
-          index: true
-        }
+      path: '/chats',
+      handler: function (request, reply) {
+        reply.view('index');
+      }
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/chats/{id}',
+      handler: function (request, reply) {
+        reply.view('show');
       }
     });
   });

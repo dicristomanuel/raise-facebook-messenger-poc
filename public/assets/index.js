@@ -7,3 +7,7 @@ socket.on('activeChats', function(data) {
 socket.on('newChat', (data) => {
   console.log('NEW CHAT!', data);
 });
+
+socket.on('newMessage', (data) => {
+  console.log('NEW MESSAGE!', data);
+});

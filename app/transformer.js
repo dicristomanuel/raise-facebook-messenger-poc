@@ -6,6 +6,7 @@ export const Transform = data => {
     sender,
     userType,
     firstName: null,
-    answer: null
+    answer: null,
+    owner: 'facebook'
   };
 };

@@ -24,19 +24,19 @@ const getCategoryName = text => {
 
 const getAnswer = (context, name, brand, category) => {
   switch (context) {
-    case 'greetings':
+    case 'Greetings':
       return `Hi ${name}, would you like to browse giftcards or get assistance?`;
-    case 'brands':
+    case 'Brands':
       return `These are the best deals for ${brand}`;
-    case 'giftcards':
+    case 'Giftcards':
       return 'What brand or category are you interested in?';
-    case 'categories':
+    case 'Categories':
       return `These are the options for ${category}`;
-    case 'positives':
+    case 'Positives':
       return `Aww! Thank you ${name}! :)`;
-    case 'negatives':
+    case 'Negatives':
       return 'I\'m sorry to hear that :(';
-    case 'farewell':
+    case 'Farewell':
       return 'Good talking to you!';
     default:
       return `${name}, let me find someone for you.`;

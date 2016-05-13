@@ -6,8 +6,10 @@ export const SocketInit = () => {
   io.on('connection', socket => {
     Chat.findActive()
     .then(data => {
-      const chats = TransformSocket(data);
-      socket.emit('activeChats', chats);
+      if (data.length !== 0) {
+        const chats = TransformSocket(data);
+        socket.emit('activeChats', chats);
+      }
     });
   });
 };
