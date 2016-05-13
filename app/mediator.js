@@ -38,7 +38,7 @@ const fromMemberService = (sender) => {
   });
 };
 
-const forMemberService = (chat) => {
+const fromConsumer = (chat) => {
   socketEmit('newChat', chat);
   return Chat.update(chat, {session: MemberService, active: true});
 };
@@ -51,29 +51,34 @@ const updateChat = (userType, sender) => obj => {
   if (!obj) {
     return fromMemberService(sender);
   } else if (obj._boundTo.dataValues.text.includes(ToMemberService)) {
-    return forMemberService(obj);
+    return fromConsumer(obj);
   } else {
     fromBot(obj);
   }
 };
 
-const handleBotMessage = (text, sender, chat) => {
+const handleBotMessage = (toStore, sender, fromBot, chat) => {
+  const session = toStore.text === ToMemberService ? MemberService : Bot;
+  SendMessage(sender, toStore.text);
+  if (fromBot.brand)
+  SendGiftcards(sender, fromBot.brand);
+  return Chat.update(chat, {session, active: false})
+  .then(storeMessage(toStore));
+};
+
+const prepareBotMessage = (text, sender, chat) => {
   const fromBot = MatchAnswer(text, chat.firstName);
   const toStore = {
     text: fromBot.answer,
     userType: Bot,
     chat
   };
-  const session = toStore.text === ToMemberService ? MemberService : Bot;
-  SendMessage(sender, toStore.text);
-  fromBot.brand ? SendGiftcards(sender, fromBot.brand) : null;
-  return Chat.update(chat, {session, active: false})
-  .then(storeMessage(toStore));
+  return handleBotMessage(toStore, sender, fromBot, chat);
 };
 
 const botCheck = (text, sender) => chat => {
   if (chat.session !== MemberService)
-  return handleBotMessage(text, sender, chat);
+  return prepareBotMessage(text, sender, chat);
   else
   return false;
 };
