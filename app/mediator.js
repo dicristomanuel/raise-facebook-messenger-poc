@@ -38,18 +38,15 @@ const storeMessage = data => chat => {
 const fromMemberService = (sender) => {
   return findOrCreateChat(sender)
   .then(chat => {
-    socketEmit('newMessage', chat);
     Chat.update(chat, {session: MemberService, active: false});
   });
 };
 
 const fromConsumer = (chat) => {
-  socketEmit('newMessage', chat);
   return Chat.update(chat, {session: MemberService, active: true});
 };
 
 const fromBot = (chat) => {
-  socketEmit('newMessage', chat);
   return Chat.update(chat, {session: Bot, active: false});
 };
 
@@ -98,6 +95,7 @@ export const Init = dataIn => {
   const { sender, text, userType } = data;
   return findOrCreateChat(sender)
   .then(storeMessage({userType, text}))
+  .then(socketEmit('newMessage'))
   .then(botCheck(text, sender))
   .then(updateChat(userType, sender))
   .then(sendToMessager(sender, text, userType));
