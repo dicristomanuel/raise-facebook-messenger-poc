@@ -1,4 +1,4 @@
-export const giftcardMessage = {
+export const GiftcardMessage = {
   "attachment":{
     "type":"template",
     "payload":{

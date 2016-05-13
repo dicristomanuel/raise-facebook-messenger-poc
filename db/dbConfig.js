@@ -42,4 +42,4 @@ export const Bubble = connection.define('Bubble', {
 Chat.hasMany(Bubble);
 Bubble.belongsTo(Chat);
 
-connection.sync();
+connection.sync({force:true});

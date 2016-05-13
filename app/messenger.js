@@ -1,6 +1,6 @@
-import { fbToken } from '../data/tokens';
+import { FbToken } from '../data/tokens';
 import request from 'request';
-import { giftcardMessage } from './structuredMessages';
+import { GiftcardMessage } from './structuredMessages';
 
 const formatObject = (object, sender) => {
   const parsed = JSON.parse(object);
@@ -12,9 +12,9 @@ const formatObject = (object, sender) => {
   };
 };
 
-export const getProfile = sender => {
+export const GetProfile = sender => {
   return new Promise((resolve, reject) => {
-    request(`https://graph.facebook.com/v2.6/${sender}?fields=first_name,last_name,profile_pic&access_token=${fbToken}`,
+    request(`https://graph.facebook.com/v2.6/${sender}?fields=first_name,last_name,profile_pic&access_token=${FbToken}`,
       (error, response, body) => {
         if (!error && response.statusCode == 200)
         resolve(formatObject(body, sender));
@@ -24,12 +24,12 @@ export const getProfile = sender => {
     });
   };
 
-  export const sendMessage = (sender, text) => {
+  export const SendMessage = (sender, text) => {
     const messageData = { text };
     return new Promise((resolve, reject) => {
       request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:fbToken},
+        qs: {access_token:FbToken},
         method: 'POST',
         json: {
           recipient: {id:sender},
@@ -47,15 +47,15 @@ export const getProfile = sender => {
   };
 
 // will take brand
-  export const sendGiftcards = sender => {
+  export const SendGiftcards = sender => {
     return new Promise((resolve, reject) => {
       request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token:fbToken},
+        qs: {access_token:FbToken},
         method: 'POST',
         json: {
           recipient: {id:sender},
-          message: giftcardMessage,
+          message: GiftcardMessage,
         }
       }, (error, response) => {
         if (error)

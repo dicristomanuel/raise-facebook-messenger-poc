@@ -1,16 +1,30 @@
-export const transform = data => {
-
+export const TransformSocket = data => {
   let chats = [];
 
-  for (let chat of data) {
-    let { id, firstName, lastName, profilePic, busy } = chat;
+  if (data.dataValues) {
+    let { id, firstName, lastName, profilePic, busy, active, solved } = data.dataValues;
     chats.push({
       id,
       firstName,
       lastName,
       profilePic,
-      busy
+      busy,
+      active,
+      solved
     });
+  } else {
+    for (let chat of data) {
+      let { id, firstName, lastName, profilePic, busy, active, solved } = chat;
+      chats.push({
+        id,
+        firstName,
+        lastName,
+        profilePic,
+        busy,
+        active,
+        solved
+      });
+    }
   }
 
   return chats;

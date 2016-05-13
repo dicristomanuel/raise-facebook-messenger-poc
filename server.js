@@ -4,9 +4,9 @@ import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import Inert from 'inert';
 import Path from 'path';
-import { init } from './app/mediator';
-import { defaultUser, memberService } from './data/constants';
-import socketInit from './sockets/main';
+import { DefaultUser, MemberService } from './data/constants';
+import { Init } from './app/mediator';
+import { SocketInit } from './sockets/mediator';
 
 const server = new Server({
   connections: {
@@ -22,8 +22,8 @@ server.connection({
   port: 3001
 });
 
-const io = require("socket.io")(server.listener);
-socketInit(io);
+export const io = require("socket.io")(server.listener);
+SocketInit();
 
 server.register([
   Inert,
@@ -49,7 +49,7 @@ server.register([
             // do something with the postback
           } else if (event.message && event.message.text) {
             const text = event.message.text;
-            init({text, sender, userType: defaultUser})
+            Init({text, sender, userType: DefaultUser})
             .then(reply);
           }
         }
@@ -62,7 +62,7 @@ server.register([
       handler(request, reply) {
         const data = request.payload;
         const { text, sender } = data;
-        init({text, sender, userType: memberService})
+        Init({text, sender, userType: MemberService})
         .then(reply);
       }
     });
