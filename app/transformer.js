@@ -1,4 +1,4 @@
-export const transform = data => {
+export const Transform = data => {
   const { text, sender, userType } = data;
 
   return {
@@ -6,6 +6,7 @@ export const transform = data => {
     sender,
     userType,
     firstName: null,
-    answer: null
+    answer: null,
+    owner: 'facebook'
   };
 };

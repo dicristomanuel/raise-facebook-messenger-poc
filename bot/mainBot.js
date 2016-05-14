@@ -1,4 +1,4 @@
-import { bot } from './botConstants';
+import { Bot } from './botConstants';
 
 const textMatch = (text, context) => {
   return text.match(`(${context})`, 'i');
@@ -6,47 +6,47 @@ const textMatch = (text, context) => {
 
 const setContext = text => {
   let result = '';
-  bot.contexts.forEach(context => {
-    if (!!textMatch(text, bot[context]) && !!textMatch(text, bot[context])[0])
+  Bot.Contexts.forEach(context => {
+    if (!!textMatch(text, Bot[context]) && !!textMatch(text, Bot[context])[0])
     result = context;
   });
   return result;
 };
 
 const getBrandName = text => {
-  return textMatch(text, bot.brands)[1]
+  return textMatch(text, Bot.Brands)[1]
   .replace(/^\w/, (matcher) => { return matcher.toUpperCase(); });
 };
 
 const getCategoryName = text => {
-  return textMatch(text, bot.categories)[1];
+  return textMatch(text, Bot.Categories)[1];
 };
 
 const getAnswer = (context, name, brand, category) => {
   switch (context) {
-    case 'greetings':
+    case 'Greetings':
       return `Hi ${name}, would you like to browse giftcards or get assistance?`;
-    case 'brands':
+    case 'Brands':
       return `These are the best deals for ${brand}`;
-    case 'giftcards':
+    case 'Giftcards':
       return 'What brand or category are you interested in?';
-    case 'categories':
+    case 'Categories':
       return `These are the options for ${category}`;
-    case 'positives':
+    case 'Positives':
       return `Aww! Thank you ${name}! :)`;
-    case 'negatives':
+    case 'Negatives':
       return 'I\'m sorry to hear that :(';
-    case 'farewell':
+    case 'Farewell':
       return 'Good talking to you!';
     default:
       return `${name}, let me find someone for you.`;
   }
 };
 
-export const matchAnswer = (text, name) => {
+export const MatchAnswer = (text, name) => {
   const context = setContext(text);
-  const brand = context === 'brands' ? getBrandName(text) : null;
-  const category = context === 'categories' ? getCategoryName(text) : null;
+  const brand = context === 'Brands' ? getBrandName(text) : null;
+  const category = context === 'Categories' ? getCategoryName(text) : null;
   const answer = getAnswer(context, name, brand, category);
   return {answer, brand};
 };

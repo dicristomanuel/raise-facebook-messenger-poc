@@ -21,8 +21,10 @@
     "boom": "^3.1.2",
     "good": "^6.6.0",
     "good-console": "^5.3.1",
+    "handlebars": "^4.0.5",
     "hapi": "^13.3.0",
     "history": "^2.1.1",
+    "inert": "^4.0.0",
     "path": "^0.12.7",
     "pg": "^4.5.5",
     "pg-hstore": "^2.3.2",
@@ -31,6 +33,8 @@
     "react-router": "^2.4.0",
     "request": "^2.72.0",
     "sequelize": "^3.21.0",
+    "socket.io": "^1.4.6",
+    "vision": "^4.1.0",
     "webpack": "^1.12.14"
   }
 }

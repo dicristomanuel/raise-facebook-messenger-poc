@@ -1,26 +1,26 @@
-import greetings from './greetings';
-import brands from './brands';
-import giftcards from './giftcards';
-import categories from './categories';
-import positives from './positives';
-import negatives from './negatives';
-import farewell from './farewell';
+import Greetings from './greetings';
+import Brands from './brands';
+import Giftcards from './giftcards';
+import Categories from './categories';
+import Positives from './positives';
+import Negatives from './negatives';
+import Farewell from './farewell';
 
-export const bot = {
-  greetings,
-  brands,
-  giftcards,
-  categories,
-  positives,
-  negatives,
-  farewell,
-  contexts: [
-             'negatives',
-             'positives',
-             'farewell',
-             'giftcards',
-             'greetings',
-             'categories',
-             'brands'
+export const Bot = {
+  Greetings,
+  Brands,
+  Giftcards,
+  Categories,
+  Positives,
+  Negatives,
+  Farewell,
+  Contexts: [
+             'Negatives',
+             'Positives',
+             'Farewell',
+             'Greetings',
+             'Giftcards',
+             'Categories',
+             'Brands'
             ]
 };
