@@ -45,7 +45,7 @@ server.register([
       path: '/{path*}',
       handler: {
         directory: {
-          path: './public',
+          path: '.',
           listing: false,
           index: true
         }
