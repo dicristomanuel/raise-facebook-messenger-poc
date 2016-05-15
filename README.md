@@ -11,7 +11,3 @@
 * React
 * Redux
 * Webpack
-
-
-Opportunities:
-*Get stats from what the users most say to better identify issues, requests or to improve bot*
