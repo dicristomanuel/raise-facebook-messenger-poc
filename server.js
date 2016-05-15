@@ -2,22 +2,13 @@ import { Server } from 'hapi';
 import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
-import Path from 'path';
 import Vision from 'vision';
 import Inert from 'inert';
 import { DefaultUser, MemberService } from './data/constants';
 import { Init } from './app/mediator';
 // import { SocketInit } from './sockets/main';
 
-const server = new Server({
-  connections: {
-    routes: {
-      files: {
-        relativeTo: Path.join(__dirname, 'public')
-      }
-    }
-  }
-});
+const server = new Server();
 
 server.connection({
   port: 3001
@@ -40,12 +31,14 @@ server.register([
     if (err)
     throw err;
 
+    // TODO: catch all for react browserHistory
+
     server.route({
       method: 'GET',
       path: '/{path*}',
       handler: {
         directory: {
-          path: '.',
+          path: './public',
           listing: false,
           index: true
         }

@@ -4,6 +4,8 @@ import { Router } from 'react-router';
 import Routes from './config/routes';
 
 ReactDOM.render(
-  <Router>{Routes}</Router>,
+  <Router>
+    {Routes}
+  </Router>,
   document.getElementById('app')
 );
