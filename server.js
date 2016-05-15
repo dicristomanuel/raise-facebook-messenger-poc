@@ -9,9 +9,10 @@ import { Init } from './app/mediator';
 // import { SocketInit } from './sockets/main';
 
 const server = new Server();
+const port = process.env.PORT || 3001;
 
 server.connection({
-  port: 3001
+  port
 });
 
 export const io = require("socket.io")(server.listener);
@@ -82,5 +83,8 @@ server.register([
       console.log(error.message);
       process.exit(1);
     }
-    console.log('server is running at localhost:3001');
+    console.log(`server is running on port ${port}`);
   });
+
+
+// TODO: divide packages to -dev

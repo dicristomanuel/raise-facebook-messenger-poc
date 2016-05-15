@@ -3,13 +3,14 @@ var path = require('path');
 module.exports = {
   entry: './react/App.js',
   output: {
-    filename: 'public/js/bundle.js',
+    path: "./public/js",
+    filename: "bundle.js",
   },
   module: {
     loaders: [
       {
         text: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         loader: 'babel',
         query: {
           presets: ['react', 'es2015']
@@ -22,3 +23,5 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   }
 };
+
+// TODO: include hot reload
