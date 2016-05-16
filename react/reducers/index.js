@@ -30,10 +30,10 @@ const chats = (state = [], action) => {
     case UPDATE_STATUS:
       return {
         ...state, {
-          chats: state.chats.map((todo, index) => {
+          chats: state.chats.map((chat, index) => {
             if (index === action.index)
-            return {...todo, status: action.status}
-            return todo
+            return {...chat, status: action.status}
+            return chat
           })
         }
       }
@@ -44,7 +44,7 @@ const chats = (state = [], action) => {
 
 const ChatApp = combineReducers({
   visibilityFilter,
-  todos
+  chats
 })
 
 export default ChatApp;
@@ -68,5 +68,5 @@ export default ChatApp;
 // import { combineReducers } from 'redux'
 // import * as reducers from './reducers'
 //
-// const todoApp = combineReducers(reducers)
+// const chatApp = combineReducers(reducers)
 // Because import * is still new syntax, we don’t use it anymore in the documentation to avoid confusion, but you may encounter it in some community examples.
