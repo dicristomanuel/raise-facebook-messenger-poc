@@ -3,16 +3,25 @@ import { combineReducers } from 'redux';
 
 const { SHOW_ACTIVE } = VisibilityFilters;
 
-const visibilityFilter = (state = SHOW_ACTIVE, action) => {
+const DefaultState = {
+  chats: [],
+  visibilityFilter: SHOW_ACTIVE,
+};
+
+const visibilityFilter = (state = DefaultState, action) => {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
-      return action.filter
+      return {
+        ...state,
+        visibilityFilter: action.filter,
+      };
+      break;
     default:
-      return state
+      return state;
   }
 };
 
-const chats = (state = [], action) => {
+const chats = (state = DefaultState, action) => {
   switch (action.type) {
     case ADD_CHAT:
       return {
@@ -31,10 +40,11 @@ const chats = (state = [], action) => {
       return {
         ...state, {
           chats: state.chats.map((chat, index) => {
-            if (index === action.index)
-            return {...chat, status: action.status}
-            return chat
-          })
+            if (index === action.index) {
+              return {...chat, status: action.status};
+            }
+            return chat;
+          }),
         }
       }
     default:
