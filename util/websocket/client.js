@@ -1,6 +1,6 @@
 import constant from './constants';
+const socket = io();
 
-// const socket = window.io();
 const callbacks = {};
 // let id;
 
@@ -19,7 +19,7 @@ const onInitialData = (data) => {
 const initBindings = () => {};
 
 export const init = () => {
-  // ...
+  socket.on(constant.INITIAL_DATA, onInitialData);
 };
 
 export const subscribe = (event, callback) => {

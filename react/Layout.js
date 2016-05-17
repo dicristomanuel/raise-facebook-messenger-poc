@@ -10,11 +10,15 @@ import socket from '../util/websocket/client';
 
 class Layout extends React.Component {
   render() {
+
     socket.init();
-    const c1Token = socket.subscribe('connection', () => { console.log('connection'); });
-    socket.subscribe('foobar', () => { console.log('foobar'); });
-    socket.unsubscribe(c1Token);
-    console.log(store.getState());
+    socket.subscribe('initial_data', (data) => {
+      console.log(store.getState());
+      store.dispatch(AddChat(data));
+      console.log(store.getState());
+    });
+    // socket.unsubscribe(c1Token);
+
     return (
       <div>
         <Header />

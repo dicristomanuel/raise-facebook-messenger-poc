@@ -6,7 +6,7 @@ import Vision from 'vision';
 import Inert from 'inert';
 import { DefaultUser, MemberService } from './data/constants';
 import { Init } from './app/mediator';
-// import { SocketInit } from './websocket/main';
+import { SocketInit } from './util/websocket/server';
 
 const server = new Server();
 const port = process.env.PORT || 3001;
@@ -15,8 +15,8 @@ server.connection({
   port
 });
 
-// export const io = require("socket.io")(server.listener);
-// SocketInit();
+export const io = require("socket.io")(server.listener);
+SocketInit();
 
 server.register([
   Vision, Inert,

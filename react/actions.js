@@ -16,10 +16,10 @@ export const VisibilityFilters = {
   SHOW_ENGAGED: 'SHOW_ENGAGED'
 };
 
-export const AddChat = options => {
+export const AddChat = data => {
   return {
     type: ADD_CHAT,
-    ...options
+    ...data
   };
 };
 

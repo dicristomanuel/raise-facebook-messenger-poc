@@ -2,16 +2,19 @@ import { io } from '../../server';
 import constant from './constants';
 
 const onConnect = (socket) => {
-  // ... do some stuff
-  // ... get initial data
-
+  const initialData = {
+    chatId: 123,
+    name: 'Manuel Di Cristo',
+    profilePic: 'profilePic.png',
+    status: 'active',
+  };
   socket.emit(constant.INITIAL_DATA, initialData);
 };
 
-const initBindings() {
+const initBindings = () => {
   io.on(constant.CONNECTION, onConnect);
 };
 
-export const init = () => {
+export const SocketInit = () => {
   initBindings();
 };

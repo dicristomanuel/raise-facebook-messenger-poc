@@ -25740,15 +25740,15 @@
 	  _createClass(Layout, [{
 	    key: 'render',
 	    value: function render() {
+
 	      _client2.default.init();
-	      var c1Token = _client2.default.subscribe('connection', function () {
-	        console.log('connection');
+	      _client2.default.subscribe('initial_data', function (data) {
+	        console.log(_createStore2.default.getState());
+	        _createStore2.default.dispatch((0, _actions.AddChat)(data));
+	        console.log(_createStore2.default.getState());
 	      });
-	      _client2.default.subscribe('foobar', function () {
-	        console.log('foobar');
-	      });
-	      _client2.default.unsubscribe(c1Token);
-	      console.log(_createStore2.default.getState());
+	      // socket.unsubscribe(c1Token);
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -26868,10 +26868,10 @@
 	  SHOW_ENGAGED: 'SHOW_ENGAGED'
 	};
 
-	var AddChat = exports.AddChat = function AddChat(options) {
+	var AddChat = exports.AddChat = function AddChat(data) {
 	  return _extends({
 	    type: ADD_CHAT
-	  }, options);
+	  }, data);
 	};
 
 	var SetVisibilityFilter = exports.SetVisibilityFilter = function SetVisibilityFilter(filter) {
@@ -26901,7 +26901,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// const socket = window.io();
+	var socket = io();
+
 	var callbacks = {};
 	// let id;
 
@@ -26920,7 +26921,7 @@
 	var initBindings = function initBindings() {};
 
 	var init = exports.init = function init() {
-	  // ...
+	  socket.on(_constants2.default.INITIAL_DATA, onInitialData);
 	};
 
 	var subscribe = exports.subscribe = function subscribe(event, callback) {

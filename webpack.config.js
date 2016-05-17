@@ -1,7 +1,10 @@
 var path = require('path');
 
 module.exports = {
-  entry: './react/App.js',
+  entry: {
+    react: './react/App.js',
+    socket: './util/websocket/client.js'
+  },
   output: {
     path: "./public/js",
     filename: "bundle.js",
