@@ -13,11 +13,15 @@ export const VisibilityFilters = {
   SHOW_ACTIVE: 'SHOW_ACTIVE',
   SHOW_BUSY: 'SHOW_BUSY',
   SHOW_SOLVED: 'SHOW_SOLVED',
-  SHOW_ENGAGED: 'SHOW_ENGAGED'
+  SHOW_ENGAGED: 'SHOW_ENGAGED',
 };
 
-export const AddChat = data => {
-  return { type: ADD_CHAT, data};
+export const AddChat = options => {
+  const action = {
+    type: ADD_CHAT,
+    ...options,
+  };
+  return action;
 };
 
 export const SetVisibilityFilter = filter => {

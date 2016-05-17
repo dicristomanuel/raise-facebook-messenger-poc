@@ -3,50 +3,33 @@ import { combineReducers } from 'redux';
 
 const { SHOW_ACTIVE } = VisibilityFilters;
 
-const DefaultState = {
-  chats: [],
-  visibilityFilter: SHOW_ACTIVE,
-};
-
-const visibilityFilter = (state = DefaultState, action) => {
+const visibilityFilter = (state = SHOW_ACTIVE, action) => {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
-      return {
-        ...state,
-        visibilityFilter: action.filter,
-      };
-      break;
+      return action.filter
     default:
-      return state;
+      return state
   }
 };
 
-const chats = (state = DefaultState, action) => {
+const chats = (state = [], action) => {
   switch (action.type) {
     case ADD_CHAT:
-      return {
-        ...state, chats:
-        [
-          ...state.chats,
-          {
-            chatId: action.chatId,
-            name: action.name,
-            profilePic: action.profilePic,
-            status: action.status
-          }
-        ]
-      }
-    case UPDATE_STATUS:
-      return {
-        ...state, {
-          chats: state.chats.map((chat, index) => {
-            if (index === action.index) {
-              return {...chat, status: action.status};
-            }
-            return chat;
-          }),
+      return [
+        ...state,
+        {
+          chatId: action.chatId,
+          name: action.name,
+          profilePic: action.profilePic,
+          status: action.status,
         }
-      }
+      ];
+    case UPDATE_STATUS:
+      return state.chats.map((chat, index) => {
+        if (index === action.index)
+        return {...chat, status: action.status}
+        return chat
+      });
     default:
       return state;
   }
