@@ -183,9 +183,6 @@
 	var queueIndex = -1;
 
 	function cleanUpNextTick() {
-	    if (!draining || !currentQueue) {
-	        return;
-	    }
 	    draining = false;
 	    if (currentQueue.length) {
 	        queue = currentQueue.concat(queue);
@@ -24306,15 +24303,13 @@
 	};
 
 	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent) {
-	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
-	        var keys = Object.getOwnPropertyNames(sourceComponent);
-	        for (var i=0; i<keys.length; ++i) {
-	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
-	                try {
-	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
-	                } catch (error) {
+	    var keys = Object.getOwnPropertyNames(sourceComponent);
+	    for (var i=0; i<keys.length; ++i) {
+	        if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
+	            try {
+	                targetComponent[keys[i]] = sourceComponent[keys[i]];
+	            } catch (error) {
 
-	                }
 	            }
 	        }
 	    }
@@ -25718,6 +25713,10 @@
 
 	var _actions = __webpack_require__(248);
 
+	var _client = __webpack_require__(249);
+
+	var _client2 = _interopRequireDefault(_client);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25725,6 +25724,9 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Socket layer demo
+
 
 	var Layout = function (_React$Component) {
 	  _inherits(Layout, _React$Component);
@@ -25738,18 +25740,14 @@
 	  _createClass(Layout, [{
 	    key: 'render',
 	    value: function render() {
-	      _createStore2.default.dispatch((0, _actions.AddChat)({
-	        chatId: 1234,
-	        name: 'Foo Bar',
-	        profilePic: 'foobar.png',
-	        status: _actions.ChatStatuses.ACTIVE
-	      }));
-	      _createStore2.default.dispatch((0, _actions.AddChat)({
-	        chatId: 1235,
-	        name: 'Foo Baz',
-	        profilePic: 'foobaz.png',
-	        status: _actions.ChatStatuses.ACTIVE
-	      }));
+	      _client2.default.init();
+	      var c1Token = _client2.default.subscribe('connection', function () {
+	        console.log('connection');
+	      });
+	      _client2.default.subscribe('foobar', function () {
+	        console.log('foobar');
+	      });
+	      _client2.default.unsubscribe(c1Token);
 	      console.log(_createStore2.default.getState());
 	      return _react2.default.createElement(
 	        'div',
@@ -25766,7 +25764,7 @@
 
 	exports.default = Layout;
 
-	//<Link to="page" activeClassName="test">page</Link>
+	// TODO: <Link to="page" activeClassName="test">page</Link>
 
 /***/ },
 /* 231 */
@@ -26793,7 +26791,6 @@
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 	  var action = arguments[1];
 
-	  console.log('Reducer', state, action);
 	  switch (action.type) {
 	    case _actions.ADD_CHAT:
 	      return [].concat(_toConsumableArray(state), [{
@@ -26872,10 +26869,9 @@
 	};
 
 	var AddChat = exports.AddChat = function AddChat(options) {
-	  var action = _extends({
+	  return _extends({
 	    type: ADD_CHAT
 	  }, options);
-	  return action;
 	};
 
 	var SetVisibilityFilter = exports.SetVisibilityFilter = function SetVisibilityFilter(filter) {
@@ -26884,6 +26880,85 @@
 
 	var UpdateStatus = exports.UpdateStatus = function UpdateStatus(filter) {
 	  return { type: UPDATE_STATUS, filter: filter };
+	};
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.unsubscribe = exports.subscribe = exports.init = undefined;
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _constants = __webpack_require__(250);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// const socket = window.io();
+	var callbacks = {};
+	// let id;
+
+	var delegateEvent = function delegateEvent(event, data) {
+	  if (callbacks.hasOwnProperty(event)) {
+	    callbacks[event].forEach(function (callback) {
+	      callback(data);
+	    });
+	  }
+	};
+
+	var onInitialData = function onInitialData(data) {
+	  delegateEvent(_constants2.default.INITIAL_DATA, data);
+	};
+
+	var initBindings = function initBindings() {};
+
+	var init = exports.init = function init() {
+	  // ...
+	};
+
+	var subscribe = exports.subscribe = function subscribe(event, callback) {
+	  callbacks[event] = callbacks[event] || [];
+	  callbacks[event].push(callback);
+	  return event + '·' + (callbacks[event].length - 1);
+	};
+
+	var unsubscribe = exports.unsubscribe = function unsubscribe(token) {
+	  var _token$split = token.split('·');
+
+	  var _token$split2 = _slicedToArray(_token$split, 2);
+
+	  var event = _token$split2[0];
+	  var idx = _token$split2[1];
+
+	  idx = parseInt(idx, 10);
+	  callbacks[event] = callbacks[event].splice(idx, 1);
+	};
+
+	exports.default = {
+	  subscribe: subscribe,
+	  unsubscribe: unsubscribe,
+	  init: init
+	};
+
+/***/ },
+/* 250 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  CONNECTION: 'connection',
+	  INITIAL_DATA: 'initial_data'
 	};
 
 /***/ }
