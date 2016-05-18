@@ -4,21 +4,7 @@ import Bubble from '../db/bubble';
 import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
 import { MemberService, Bot, ToMemberService } from '../data/constants';
-import { io } from '../server.js';
-// import { TransformSocket } from '../websocket/transformer';
-
-// const socketEmit = action => data => {
-//   if (data.length !== 0) {
-//     switch (action) {
-//       case 'newMessage':
-//         io.emit(action, data.dataValues.id);
-//         break;
-//       default:
-//         io.emit(action, TransformSocket(data));
-//     }
-//   }
-//   return data;
-// };
+// import { io } from '../server.js';
 
 const findOrCreateChat = sender => {
   return Chat.find(sender)

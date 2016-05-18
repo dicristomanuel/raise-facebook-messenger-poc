@@ -21,7 +21,9 @@ const chats = (state = [], action) => {
           chatId: action.chatId,
           name: action.name,
           profilePic: action.profilePic,
-          status: action.status,
+          busy: action.busy,
+          active: action.active,
+          solved: action.solved,
         }
       ];
     case UPDATE_STATUS:

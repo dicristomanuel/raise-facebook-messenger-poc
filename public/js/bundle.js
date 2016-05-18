@@ -25743,8 +25743,9 @@
 
 	      _client2.default.init();
 	      _client2.default.subscribe('initial_data', function (data) {
-	        console.log(_createStore2.default.getState());
-	        _createStore2.default.dispatch((0, _actions.AddChat)(data));
+	        data.forEach(function (element) {
+	          _createStore2.default.dispatch((0, _actions.AddChat)(element));
+	        });
 	        console.log(_createStore2.default.getState());
 	      });
 	      // socket.unsubscribe(c1Token);
@@ -26797,7 +26798,9 @@
 	        chatId: action.chatId,
 	        name: action.name,
 	        profilePic: action.profilePic,
-	        status: action.status
+	        busy: action.busy,
+	        active: action.active,
+	        solved: action.solved
 	      }]);
 	    case _actions.UPDATE_STATUS:
 	      return state.chats.map(function (chat, index) {

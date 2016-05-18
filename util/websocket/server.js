@@ -1,14 +1,13 @@
 import { io } from '../../server';
 import constant from './constants';
+import Chat from '../../db/chat';
+import { TransformSocket } from './transformer';
 
 const onConnect = (socket) => {
-  const initialData = {
-    chatId: 123,
-    name: 'Manuel Di Cristo',
-    profilePic: 'profilePic.png',
-    status: 'active',
-  };
-  socket.emit(constant.INITIAL_DATA, initialData);
+  Chat.findAll()
+  .then((data) => {
+    socket.emit(constant.INITIAL_DATA, TransformSocket(data));
+  });
 };
 
 const initBindings = () => {

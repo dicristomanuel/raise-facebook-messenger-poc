@@ -9,10 +9,10 @@ import { Init } from './app/mediator';
 import { SocketInit } from './util/websocket/server';
 
 const server = new Server();
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 server.connection({
-  port
+  port: PORT
 });
 
 export const io = require("socket.io")(server.listener);
@@ -83,7 +83,7 @@ server.register([
       console.log(error.message);
       process.exit(1);
     }
-    console.log(`server is running on port ${port}`);
+    console.log(`server is running on port ${PORT}`);
   });
 
 

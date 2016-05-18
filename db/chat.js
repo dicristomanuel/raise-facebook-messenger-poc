@@ -9,11 +9,15 @@ export default {
     return Chat.findOne({where: { sender }});
   },
 
-  update: (chat, keyValue) => {
-    return chat.update(keyValue);
+  findAll: () => {
+    return Chat.findAll();
   },
 
   findActive: () => {
     return Chat.findAll({ where: { active: true }});
-  }
+  },
+
+  update: (chat, keyValue) => {
+    return chat.update(keyValue);
+  },
 };
