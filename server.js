@@ -6,17 +6,21 @@ import Vision from 'vision';
 import Inert from 'inert';
 import { DefaultUser, MemberService } from './data/constants';
 import { Init } from './app/mediator';
-import { SocketInit } from './util/websocket/server';
+import createIo from 'socket.io';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
+const io = createIo(server.listener);
+
+// io.emit()
+//
+// io.on('connection', (socket) => {
+//
+// });
 
 server.connection({
   port: PORT
 });
-
-export const io = require("socket.io")(server.listener);
-SocketInit();
 
 server.register([
   Vision, Inert,

@@ -15,10 +15,16 @@ const onInitialData = (data) => {
   delegateEvent(INITIAL_DATA, data);
 };
 
+const onNewChatClient = (data) => {
+  console.log(data);
+  // delegateEvent('new_chat', data);
+};
+
 // const initBindings = () => {};
 
 export const init = () => {
   socket.on(INITIAL_DATA, onInitialData);
+  socket.on('new_chat', onNewChatClient);
 };
 
 export const subscribe = (event, callback) => {

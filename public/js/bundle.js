@@ -25739,11 +25739,15 @@
 	    value: function render() {
 
 	      _client2.default.init();
-	      _client2.default.subscribe('initial_data', function (data) {
-	        data.forEach(function (element) {
-	          _createStore2.default.dispatch((0, _actions.AddChat)(element));
-	        });
-	        console.log(_createStore2.default.getState());
+	      // socket.subscribe('initial_data', (data) => {
+	      //   data.forEach((element) => {
+	      //     store.dispatch(AddChat(element));
+	      //   });
+	      //   // console.log(store.getState());
+	      // });
+	      _client2.default.subscribe('NEW_CHAT_CLIENT', function (data) {
+	        console.log('>>>>>>>>>> IN LAYOUT <<<<<<<<<<<<');
+	        // console.log(store.getState());
 	      });
 	      // socket.unsubscribe(c1Token);
 
@@ -26912,10 +26916,16 @@
 	  delegateEvent(_constants.INITIAL_DATA, data);
 	};
 
+	var onNewChatClient = function onNewChatClient(data) {
+	  console.log(data);
+	  // delegateEvent('new_chat', data);
+	};
+
 	// const initBindings = () => {};
 
 	var init = exports.init = function init() {
 	  socket.on(_constants.INITIAL_DATA, onInitialData);
+	  socket.on('new_chat', onNewChatClient);
 	};
 
 	var subscribe = exports.subscribe = function subscribe(event, callback) {
@@ -26953,6 +26963,7 @@
 	});
 	var CONNECTION = exports.CONNECTION = 'connection';
 	var INITIAL_DATA = exports.INITIAL_DATA = 'initial_data';
+	var NEW_CHAT = exports.NEW_CHAT = 'new_chat';
 
 /***/ }
 /******/ ]);

@@ -9,11 +9,15 @@ class Layout extends React.Component {
   render() {
 
     socket.init();
-    socket.subscribe('initial_data', (data) => {
-      data.forEach((element) => {
-        store.dispatch(AddChat(element));
-      });
-      console.log(store.getState());
+    // socket.subscribe('initial_data', (data) => {
+    //   data.forEach((element) => {
+    //     store.dispatch(AddChat(element));
+    //   });
+    //   // console.log(store.getState());
+    // });
+    socket.subscribe('NEW_CHAT_CLIENT', (data) => {
+        console.log(`>>>>>>>>>> IN LAYOUT <<<<<<<<<<<<`);
+      // console.log(store.getState());
     });
     // socket.unsubscribe(c1Token);
 
