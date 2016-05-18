@@ -25725,9 +25725,6 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// Socket layer demo
-
-
 	var Layout = function (_React$Component) {
 	  _inherits(Layout, _React$Component);
 
@@ -26900,31 +26897,25 @@
 
 	var _constants = __webpack_require__(250);
 
-	var _constants2 = _interopRequireDefault(_constants);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	var socket = io();
 
 	var callbacks = {};
 	// let id;
 
 	var delegateEvent = function delegateEvent(event, data) {
-	  if (callbacks.hasOwnProperty(event)) {
-	    callbacks[event].forEach(function (callback) {
-	      callback(data);
-	    });
-	  }
+	  if (callbacks.hasOwnProperty(event)) callbacks[event].forEach(function (callback) {
+	    callback(data);
+	  });
 	};
 
 	var onInitialData = function onInitialData(data) {
-	  delegateEvent(_constants2.default.INITIAL_DATA, data);
+	  delegateEvent(_constants.INITIAL_DATA, data);
 	};
 
-	var initBindings = function initBindings() {};
+	// const initBindings = () => {};
 
 	var init = exports.init = function init() {
-	  socket.on(_constants2.default.INITIAL_DATA, onInitialData);
+	  socket.on(_constants.INITIAL_DATA, onInitialData);
 	};
 
 	var subscribe = exports.subscribe = function subscribe(event, callback) {
@@ -26960,10 +26951,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = {
-	  CONNECTION: 'connection',
-	  INITIAL_DATA: 'initial_data'
-	};
+	var CONNECTION = exports.CONNECTION = 'connection';
+	var INITIAL_DATA = exports.INITIAL_DATA = 'initial_data';
 
 /***/ }
 /******/ ]);

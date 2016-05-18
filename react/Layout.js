@@ -1,11 +1,8 @@
 import React from 'react';
 import Footer from './components/Footer';
 import Header from './components/Header';
-
 import store from './createStore';
 import { AddChat } from './actions';
-
-// Socket layer demo
 import socket from '../util/websocket/client';
 
 class Layout extends React.Component {

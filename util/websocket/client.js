@@ -1,25 +1,24 @@
-import constant from './constants';
+import { INITIAL_DATA } from './constants';
 const socket = io();
 
 const callbacks = {};
 // let id;
 
 const delegateEvent = (event, data) => {
-  if(callbacks.hasOwnProperty(event)) {
-    callbacks[event].forEach((callback) => {
-      callback(data);
-    });
-  }
+  if(callbacks.hasOwnProperty(event))
+  callbacks[event].forEach((callback) => {
+    callback(data);
+  });
 };
 
 const onInitialData = (data) => {
-  delegateEvent(constant.INITIAL_DATA, data);
+  delegateEvent(INITIAL_DATA, data);
 };
 
-const initBindings = () => {};
+// const initBindings = () => {};
 
 export const init = () => {
-  socket.on(constant.INITIAL_DATA, onInitialData);
+  socket.on(INITIAL_DATA, onInitialData);
 };
 
 export const subscribe = (event, callback) => {
