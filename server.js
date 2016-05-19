@@ -2,28 +2,25 @@ import { Server } from 'hapi';
 import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
-import Vision from 'vision';
 import Inert from 'inert';
 import { DefaultUser, MemberService } from './data/constants';
-import { Init } from './app/mediator';
-import createIo from 'socket.io';
+import { Init, getChats } from './app/mediator';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
-const io = createIo(server.listener);
-
-// io.emit()
-//
-// io.on('connection', (socket) => {
-//
-// });
 
 server.connection({
   port: PORT
 });
 
+const io = require('socket.io')(server.listener);
+
+io.on('connection', (socket) => {
+  socket.emit('new_connection', 'connected');
+});
+
 server.register([
-  Vision, Inert,
+  Inert,
   { register: Blipp },
   { register: Good,
     options: {
@@ -63,7 +60,7 @@ server.register([
             // do something with the postback
           } else if (event.message && event.message.text) {
             const text = event.message.text;
-            Init({text, sender, userType: DefaultUser})
+            Init(io, {text, sender, userType: DefaultUser})
             .then(reply);
           }
         }
@@ -76,11 +73,20 @@ server.register([
       handler(request, reply) {
         const data = request.payload;
         const { text, sender } = data;
-        Init({text, sender, userType: MemberService})
+        Init(io, {text, sender, userType: MemberService})
         .then(reply);
       }
     });
+
+    server.route({
+      method: 'GET',
+      path: '/getChats',
+      handler(request, reply) {
+        getChats().then(reply);
+      }
+    });
   });
+  // reply(data[0].dataValues)
 
   server.start((error) => {
     if (error) {
@@ -90,5 +96,4 @@ server.register([
     console.log(`server is running on port ${PORT}`);
   });
 
-
-// TODO: divide packages to -dev
+  // TODO: divide packages to -dev

@@ -17,24 +17,6 @@ const onConnect = (socket) => {
     socket.emit(INITIAL_DATA, payload);
   });
 };
-//
-// const onNewChat = (socket) => {
-//   console.log(socket);
-//   socket.emit('NEW_CHAT_CLIENT', 'this is the data');
-// };
-//
-// const emit = (event, data) => {
-//   const clients = io.sockets;
-//   // const receipients = typeof filter === 'function' ? filter(clients) : clients;
-//   clients.forEach((client) => {
-//     client.emit(event, data);
-//   });
-// };
-
-// const initBindings = () => {
-//   io.on(CONNECTION, onConnect);
-//   io.on(NEW_CHAT, onNewChat);
-// };
 
 const initIo = () => {
   // io = require("socket.io")(listener);

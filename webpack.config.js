@@ -2,8 +2,7 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    react: './react/App.js',
-    socket: './util/websocket/client.js'
+    js: ['./react/App.js', './public/js/index.js']
   },
   output: {
     path: "./public/js",
@@ -16,14 +15,14 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: 'babel',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015'],
         }
       }
     ]
   },
   resolve: {
     root: path.resolve('./app'),
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   }
 };
 

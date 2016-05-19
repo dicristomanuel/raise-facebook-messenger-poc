@@ -4,10 +4,13 @@ import Bubble from '../db/bubble';
 import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
 import { MemberService, Bot, ToMemberService } from '../data/constants';
-// import websockets from '../util/websocket/server';
 
-const socketEmit = (action) => (data) => {
-  // websockets.emit('new_chat', 'this is the chat');
+export const getChats = () => {
+  return Chat.findAll();
+};
+
+const socketEmit = (io, action) => (data) => {
+  io.emit(action, data);
   return data;
 };
 
@@ -88,12 +91,12 @@ const sendToMessager = (sender, text, userType) => {
   SendMessage(sender, text);
 };
 
-export const Init = (socket, dataIn) => {
+export const Init = (io, dataIn) => {
   const data = Transform(dataIn);
   const { sender, text, userType } = data;
   return findOrCreateChat(sender)
   .then(storeMessage({userType, text}))
-  .then(socketEmit(socket, 'newMessage'))
+  .then(socketEmit(io, 'new_message'))
   .then(botCheck(text, sender))
   .then(updateChat(userType, sender))
   .then(sendToMessager(sender, text, userType));
