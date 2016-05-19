@@ -16,7 +16,6 @@ socket.on('new_message', (data) => {
 });
 
 request.get('http://localhost:3001/getChats')
-.withCredentials()
 .end((err, res) => {
   console.log(res.body);
 });

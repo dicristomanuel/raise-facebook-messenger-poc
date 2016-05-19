@@ -26917,7 +26917,7 @@
 	  console.log(data);
 	});
 
-	_superagent2.default.get('http://localhost:3001/getChats').withCredentials().end(function (err, res) {
+	_superagent2.default.get('http://localhost:3001/getChats').end(function (err, res) {
 	  console.log(res.body);
 	});
 

@@ -5,16 +5,15 @@ import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
 import { MemberService, Bot, ToMemberService } from '../data/constants';
 
-const evalData = (data) => {
-  debugger;
-  return data;
-};
-
-// CHECK DATA SENT
-
-const socketEmit = (io, action) => (data) => {
-  io.emit(action, data);
-  return data;
+const socketEmit = (io, action, data, chat) => {
+  switch (action) {
+    case 'new_message':
+      io.emit(action, Socket.transform(data, chat));
+      break;
+    default:
+      break;
+  }
+  return chat;
 };
 
 const findOrCreateChat = sender => {
@@ -46,17 +45,21 @@ const fromMemberService = (sender) => {
 };
 
 const fromConsumer = (io, chat) => {
-  return Chat.update(chat, {session: MemberService, active: true})
-  .then(socketEmit(io, 'new_chat'));
+  return Chat.update(chat, {session: MemberService, active: true});
+  // .then((chat) => {
+    // socketEmit(io, 'new_chat', chat);
+  // });
 };
 
 const fromBot = (chat) => {
   return Chat.update(chat, {session: Bot, active: false});
 };
 
-const updateChat = (io, userType, sender) => obj => {
+const updateChat = (io, data) => obj => {
+  socketEmit(io, 'new_message', data, obj);
   if (!obj)
-  return fromMemberService(sender);
+  // check why no obj <================
+  return fromMemberService(data.sender);
   else if (obj._boundTo.dataValues.text.includes(ToMemberService))
   return fromConsumer(io, obj);
   else
@@ -101,11 +104,11 @@ export const Init = (io, dataIn) => {
   const { sender, text, userType } = data;
   return findOrCreateChat(sender)
   .then(storeMessage({userType, text}))
-  .then(socketEmit(io, 'new_message'))
   .then(botCheck(text, sender))
-  .then(updateChat(io, userType, sender))
+  .then(updateChat(io, data))
   .then(sendToMessager(sender, text, userType));
 };
+// ^^ Make all data - refactor all arguments passing in this file
 
 export const getChats = () => {
   return Chat.findAll();

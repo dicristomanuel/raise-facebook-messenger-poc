@@ -1,3 +1,8 @@
+const extractMessage = (chat) => {
+  debugger;
+  return chat._boundTo ? chat._boundTo.dataValues.text : null;
+};
+
 const fromMessenger = (data) => {
   const { text, sender, userType } = data;
   return {
@@ -6,11 +11,30 @@ const fromMessenger = (data) => {
     userType,
     firstName: null,
     answer: null,
-    owner: 'facebook'
   };
 };
 
-const fromSocket = () => {};
+const fromSocket = (data, chat) => {
+  const botMessage = extractMessage(chat);
+  if (botMessage)
+  return [{
+    text: data.text,
+    userType: data.userType,
+    chatId: chat.id,
+  },
+  {
+    text: botMessage,
+    userType: 'bot',
+    chatId: chat.id,
+  }];
+  else {
+    return {
+      text: data.text,
+      userType: data.userType,
+      chatId: chat.id,
+    };
+  }
+};
 
 export const Messenger = {
   transform: fromMessenger,
@@ -19,20 +43,3 @@ export const Messenger = {
 export const Socket = {
   transform: fromSocket,
 };
-
-
-// export const TransformSocket = data => {
-//   let chats = [];
-//   for (let chat of data) {
-//     let { id, firstName, lastName, profilePic, busy, active, solved } = chat.dataValues;
-//     chats.push({
-//       chatId: id,
-//       name: `${firstName} ${lastName}`,
-//       profilePic,
-//       busy,
-//       active,
-//       solved
-//     });
-//   }
-//   return chats;
-// };
