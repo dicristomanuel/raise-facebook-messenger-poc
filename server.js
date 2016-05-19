@@ -86,7 +86,6 @@ server.register([
       }
     });
   });
-  // reply(data[0].dataValues)
 
   server.start((error) => {
     if (error) {

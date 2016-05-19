@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(252);
+	module.exports = __webpack_require__(250);
 
 
 /***/ },
@@ -25721,10 +25721,6 @@
 
 	var _actions = __webpack_require__(249);
 
-	var _client = __webpack_require__(250);
-
-	var _client2 = _interopRequireDefault(_client);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25746,17 +25742,16 @@
 	    key: 'render',
 	    value: function render() {
 
-	      _client2.default.init();
 	      // socket.subscribe('initial_data', (data) => {
 	      //   data.forEach((element) => {
 	      //     store.dispatch(AddChat(element));
 	      //   });
 	      //   // console.log(store.getState());
 	      // });
-	      _client2.default.subscribe('NEW_CHAT_CLIENT', function (data) {
-	        console.log('>>>>>>>>>> IN LAYOUT <<<<<<<<<<<<');
-	        // console.log(store.getState());
-	      });
+	      // socket.subscribe('NEW_CHAT_CLIENT', (data) => {
+	      // console.log(`>>>>>>>>>> IN LAYOUT <<<<<<<<<<<<`);
+	      // console.log(store.getState());
+	      // });
 	      // socket.unsubscribe(c1Token);
 
 	      return _react2.default.createElement(
@@ -26900,86 +26895,7 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.unsubscribe = exports.subscribe = exports.init = undefined;
-
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	var _constants = __webpack_require__(251);
-
-	var socket = io();
-
-	var callbacks = {};
-	// let id;
-
-	var delegateEvent = function delegateEvent(event, data) {
-	  if (callbacks.hasOwnProperty(event)) callbacks[event].forEach(function (callback) {
-	    callback(data);
-	  });
-	};
-
-	var onInitialData = function onInitialData(data) {
-	  delegateEvent(_constants.INITIAL_DATA, data);
-	};
-
-	var onNewChatClient = function onNewChatClient(data) {
-	  console.log(data);
-	  // delegateEvent('new_chat', data);
-	};
-
-	// const initBindings = () => {};
-
-	var init = exports.init = function init() {
-	  socket.on(_constants.INITIAL_DATA, onInitialData);
-	  socket.on('new_chat', onNewChatClient);
-	};
-
-	var subscribe = exports.subscribe = function subscribe(event, callback) {
-	  callbacks[event] = callbacks[event] || [];
-	  callbacks[event].push(callback);
-	  return event + '·' + (callbacks[event].length - 1);
-	};
-
-	var unsubscribe = exports.unsubscribe = function unsubscribe(token) {
-	  var _token$split = token.split('·');
-
-	  var _token$split2 = _slicedToArray(_token$split, 2);
-
-	  var event = _token$split2[0];
-	  var idx = _token$split2[1];
-
-	  idx = parseInt(idx, 10);
-	  callbacks[event] = callbacks[event].splice(idx, 1);
-	};
-
-	exports.default = {
-	  subscribe: subscribe,
-	  unsubscribe: unsubscribe,
-	  init: init
-	};
-
-/***/ },
-/* 251 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var CONNECTION = exports.CONNECTION = 'connection';
-	var INITIAL_DATA = exports.INITIAL_DATA = 'initial_data';
-	var NEW_CHAT = exports.NEW_CHAT = 'new_chat';
-
-/***/ },
-/* 252 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _superagent = __webpack_require__(253);
+	var _superagent = __webpack_require__(251);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -26993,8 +26909,7 @@
 	});
 
 	socket.on('new_chat', function (data) {
-	  console.log('IN NEW CHAT');
-	  console.log(data);
+	  console.log('IN NEW CHAT', data);
 	});
 
 	socket.on('new_message', function (data) {
@@ -27007,17 +26922,17 @@
 	});
 
 /***/ },
-/* 253 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(254);
-	var reduce = __webpack_require__(255);
-	var requestBase = __webpack_require__(256);
-	var isObject = __webpack_require__(257);
+	var Emitter = __webpack_require__(252);
+	var reduce = __webpack_require__(253);
+	var requestBase = __webpack_require__(254);
+	var isObject = __webpack_require__(255);
 
 	/**
 	 * Root reference for iframes.
@@ -27042,7 +26957,7 @@
 	 * Expose `request`.
 	 */
 
-	var request = module.exports = __webpack_require__(258).bind(null, Request);
+	var request = module.exports = __webpack_require__(256).bind(null, Request);
 
 	/**
 	 * Determine XHR.
@@ -27991,7 +27906,7 @@
 
 
 /***/ },
-/* 254 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -28160,7 +28075,7 @@
 
 
 /***/ },
-/* 255 */
+/* 253 */
 /***/ function(module, exports) {
 
 	
@@ -28189,13 +28104,13 @@
 	};
 
 /***/ },
-/* 256 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(257);
+	var isObject = __webpack_require__(255);
 
 	/**
 	 * Clear previous timeout.
@@ -28541,7 +28456,7 @@
 
 
 /***/ },
-/* 257 */
+/* 255 */
 /***/ function(module, exports) {
 
 	/**
@@ -28560,7 +28475,7 @@
 
 
 /***/ },
-/* 258 */
+/* 256 */
 /***/ function(module, exports) {
 
 	// The node and browser modules expose versions of this with the

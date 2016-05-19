@@ -1,13 +1,16 @@
-import { Transform } from './transformer';
+import { Messenger, Socket } from './transformer';
 import Chat from '../db/chat';
 import Bubble from '../db/bubble';
 import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
 import { MemberService, Bot, ToMemberService } from '../data/constants';
 
-export const getChats = () => {
-  return Chat.findAll();
+const evalData = (data) => {
+  debugger;
+  return data;
 };
+
+// CHECK DATA SENT
 
 const socketEmit = (io, action) => (data) => {
   io.emit(action, data);
@@ -42,20 +45,20 @@ const fromMemberService = (sender) => {
   });
 };
 
-const fromConsumer = (chat) => {
+const fromConsumer = (io, chat) => {
   return Chat.update(chat, {session: MemberService, active: true})
-  .then(socketEmit('new_chat'));
+  .then(socketEmit(io, 'new_chat'));
 };
 
 const fromBot = (chat) => {
   return Chat.update(chat, {session: Bot, active: false});
 };
 
-const updateChat = (userType, sender) => obj => {
+const updateChat = (io, userType, sender) => obj => {
   if (!obj)
   return fromMemberService(sender);
   else if (obj._boundTo.dataValues.text.includes(ToMemberService))
-  return fromConsumer(obj);
+  return fromConsumer(io, obj);
   else
   return fromBot(obj);
 };
@@ -91,13 +94,19 @@ const sendToMessager = (sender, text, userType) => {
   SendMessage(sender, text);
 };
 
+// exports ====>
+
 export const Init = (io, dataIn) => {
-  const data = Transform(dataIn);
+  const data = Messenger.transform(dataIn);
   const { sender, text, userType } = data;
   return findOrCreateChat(sender)
   .then(storeMessage({userType, text}))
   .then(socketEmit(io, 'new_message'))
   .then(botCheck(text, sender))
-  .then(updateChat(userType, sender))
+  .then(updateChat(io, userType, sender))
   .then(sendToMessager(sender, text, userType));
+};
+
+export const getChats = () => {
+  return Chat.findAll();
 };
