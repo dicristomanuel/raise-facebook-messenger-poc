@@ -3,8 +3,9 @@ import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import Inert from 'inert';
+import Joi from 'joi';
 import { DefaultUser, MemberService } from './data/constants';
-import { Init, getChats } from './app/mediator';
+import { Init, getChats, updateStatus } from './app/mediator';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
@@ -83,6 +84,23 @@ server.register([
       path: '/getChats',
       handler(request, reply) {
         getChats().then(reply);
+      }
+    });
+
+    server.route({
+      method: 'PUT',
+      path: '/update-status',
+      config: {
+        validate: {
+          payload: {
+            chatId: Joi.number().required(),
+            status: Joi.string().required(),
+          },
+        },
+      },
+      handler(request, reply) {
+        updateStatus(request.payload);
+        reply();
       }
     });
   });

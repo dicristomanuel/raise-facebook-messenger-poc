@@ -9,6 +9,10 @@ export default {
     return Chat.findOne({where: { sender }});
   },
 
+  findById: id => {
+    return Chat.findOne({where: { id }});
+  },
+
   findAll: () => {
     return Chat.findAll();
   },

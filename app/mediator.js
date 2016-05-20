@@ -8,10 +8,10 @@ import { MemberService, Bot, ToMemberService } from '../data/constants';
 const socketEmit = (io, action, data, chat) => {
   switch (action) {
     case 'new_message':
-      io.emit(action, Socket.transform(data, chat));
-      break;
+    io.emit(action, Socket.transform(data, chat));
+    break;
     default:
-      break;
+    break;
   }
   return chat;
 };
@@ -44,11 +44,8 @@ const fromMemberService = (sender) => {
   });
 };
 
-const fromConsumer = (io, chat) => {
+const fromConsumer = (chat) => {
   return Chat.update(chat, {session: MemberService, active: true});
-  // .then((chat) => {
-    // socketEmit(io, 'new_chat', chat);
-  // });
 };
 
 const fromBot = (chat) => {
@@ -58,10 +55,9 @@ const fromBot = (chat) => {
 const updateChat = (io, data) => obj => {
   socketEmit(io, 'new_message', data, obj);
   if (!obj)
-  // check why no obj <================
   return fromMemberService(data.sender);
   else if (obj._boundTo.dataValues.text.includes(ToMemberService))
-  return fromConsumer(io, obj);
+  return fromConsumer(obj);
   else
   return fromBot(obj);
 };
@@ -113,3 +109,12 @@ export const Init = (io, dataIn) => {
 export const getChats = () => {
   return Chat.findAll();
 };
+
+export const updateStatus = (payload) => {
+  const { chatId, status } = payload;
+  return Chat.findById(chatId)
+  .then((chat) => {
+    Chat.update(chat, {status});
+  });
+};
+// finish update STATUS with correct key and add socket
