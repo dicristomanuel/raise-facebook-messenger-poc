@@ -15,7 +15,12 @@ socket.on('new_message', (data) => {
   console.log(data);
 });
 
-request.get('http://localhost:3001/getChats')
+socket.on('chat_update', (data) => {
+  console.log('IN CHAT UPDATE');
+  console.log(data);
+});
+
+request.get('http://localhost:3001/get-chats')
 .end((err, res) => {
   console.log(res.body);
 });

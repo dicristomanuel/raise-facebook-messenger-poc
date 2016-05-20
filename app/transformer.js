@@ -14,7 +14,7 @@ const fromMessenger = (data) => {
   };
 };
 
-const fromSocket = (data, chat) => {
+const messageFromSocket = (data, chat) => {
   const botMessage = extractMessage(chat);
   if (botMessage)
   return [{
@@ -36,10 +36,18 @@ const fromSocket = (data, chat) => {
   }
 };
 
+const chatFromSocket = (data, chat) => {
+  return {
+    chatId: chat.id,
+    change: data,
+  };
+};
+
 export const Messenger = {
   transform: fromMessenger,
 };
 
 export const Socket = {
-  transform: fromSocket,
+  transformMessage: messageFromSocket,
+  transformChat: chatFromSocket,
 };

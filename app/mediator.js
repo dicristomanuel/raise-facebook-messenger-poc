@@ -8,12 +8,12 @@ import { MemberService, Bot, ToMemberService } from '../data/constants';
 const socketEmit = (io, action, data, chat) => {
   switch (action) {
     case 'new_message':
-    io.emit(action, Socket.transform(data, chat));
-    break;
+    return io.emit(action, Socket.transformMessage(data, chat));
+    case 'chat_update':
+    return io.emit(action, Socket.transformChat(data, chat));
     default:
-    break;
+    return false;
   }
-  return chat;
 };
 
 const findOrCreateChat = sender => {
@@ -110,12 +110,12 @@ export const getChats = () => {
   return Chat.findAll();
 };
 
-export const updateStatus = (payload) => {
+export const updateStatus = (io, payload) => {
   const { chatId, key, value } = payload;
   return Chat.findById(chatId)
   .then((chat) => {
     const keyValue = JSON.parse(`{"${key}":"${value}"}`);
+    socketEmit(io, 'chat_update', keyValue, chat);
     Chat.update(chat, keyValue);
   });
 };
-// finish update STATUS with correct key and add socket

@@ -81,7 +81,7 @@ server.register([
 
     server.route({
       method: 'GET',
-      path: '/getChats',
+      path: '/get-chats',
       handler(request, reply) {
         getChats().then(reply);
       }
@@ -89,18 +89,18 @@ server.register([
 
     server.route({
       method: 'PUT',
-      path: '/update-status',
+      path: '/update-chat',
       config: {
         validate: {
           payload: {
             chatId: Joi.number().required(),
-            key: Joi.string().required(),
+            key: Joi.required(),
             value: Joi.required(),
           },
         },
       },
       handler(request, reply) {
-        updateStatus(request.payload);
+        updateStatus(io, request.payload);
         reply();
       }
     });

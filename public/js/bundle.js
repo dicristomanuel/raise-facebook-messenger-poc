@@ -26917,7 +26917,12 @@
 	  console.log(data);
 	});
 
-	_superagent2.default.get('http://localhost:3001/getChats').end(function (err, res) {
+	socket.on('chat_update', function (data) {
+	  console.log('IN CHAT UPDATE');
+	  console.log(data);
+	});
+
+	_superagent2.default.get('http://localhost:3001/get-chats').end(function (err, res) {
 	  console.log(res.body);
 	});
 
