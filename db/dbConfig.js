@@ -25,6 +25,10 @@ export const Chat = connection.define('Chat', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
+  engaged: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
   session: {
     type: Sequelize.STRING,
     defaultValue: 'init'

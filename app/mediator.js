@@ -111,10 +111,11 @@ export const getChats = () => {
 };
 
 export const updateStatus = (payload) => {
-  const { chatId, status } = payload;
+  const { chatId, key, value } = payload;
   return Chat.findById(chatId)
   .then((chat) => {
-    Chat.update(chat, {status});
+    const keyValue = JSON.parse(`{"${key}":"${value}"}`);
+    Chat.update(chat, keyValue);
   });
 };
 // finish update STATUS with correct key and add socket

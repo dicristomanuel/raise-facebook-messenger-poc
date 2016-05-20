@@ -94,7 +94,8 @@ server.register([
         validate: {
           payload: {
             chatId: Joi.number().required(),
-            status: Joi.string().required(),
+            key: Joi.string().required(),
+            value: Joi.required(),
           },
         },
       },
