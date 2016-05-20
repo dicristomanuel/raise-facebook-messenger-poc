@@ -1,4 +1,5 @@
 import request from 'superagent';
+
 const socket = io();
 
 socket.on('new_connection', (data) => {
@@ -7,7 +8,8 @@ socket.on('new_connection', (data) => {
 });
 
 socket.on('new_chat', (data) => {
-  console.log('IN NEW CHAT', data);
+  console.log('IN NEW CHAT');
+  console.log(data);
 });
 
 socket.on('new_message', (data) => {

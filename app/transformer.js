@@ -1,6 +1,5 @@
 const extractMessage = (chat) => {
-  debugger;
-  return chat._boundTo ? chat._boundTo.dataValues.text : null;
+  return chat && chat._boundTo ? chat._boundTo.dataValues.text : null;
 };
 
 const fromMessenger = (data) => {
@@ -14,7 +13,7 @@ const fromMessenger = (data) => {
   };
 };
 
-const messageFromSocket = (data, chat) => {
+const newMessage = (data, chat) => {
   const botMessage = extractMessage(chat);
   if (botMessage)
   return [{
@@ -36,7 +35,7 @@ const messageFromSocket = (data, chat) => {
   }
 };
 
-const chatFromSocket = (data, chat) => {
+const updateChat = (data, chat) => {
   return {
     chatId: chat.id,
     change: data,
@@ -48,6 +47,6 @@ export const Messenger = {
 };
 
 export const Socket = {
-  transformMessage: messageFromSocket,
-  transformChat: chatFromSocket,
+  message: newMessage,
+  updateChat: updateChat,
 };

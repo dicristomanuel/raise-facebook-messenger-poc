@@ -5,23 +5,33 @@ import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
 import { MemberService, Bot, ToMemberService } from '../data/constants';
 
-const socketEmit = (io, action, data, chat) => {
+const socketEmit = (transform) => {
+  const { io, action, data, chat } = transform;
   switch (action) {
+    case 'new_chat':
+    return io.emit(action, chat);
     case 'new_message':
-    return io.emit(action, Socket.transformMessage(data, chat));
+    return io.emit(action, Socket.message(data, chat));
     case 'chat_update':
-    return io.emit(action, Socket.transformChat(data, chat));
+    return io.emit(action, Socket.updateChat(data, chat));
     default:
     return false;
   }
 };
 
-const findOrCreateChat = sender => {
+const socketNewChat = (io) => (chat) => {
+  socketEmit({io, action: 'new_chat', chat});
+  return chat;
+};
+
+const findOrCreateChat = data => {
+  const { io, sender } = data;
   return Chat.find(sender)
   .then((chatObj) => {
     if (!chatObj)
     return GetProfile(sender)
-    .then(Chat.create);
+    .then(Chat.create)
+    .then(socketNewChat(io));
     else
     return chatObj;
   });
@@ -38,7 +48,7 @@ const storeMessage = data => chat => {
 };
 
 const fromMemberService = (sender) => {
-  return findOrCreateChat(sender)
+  return findOrCreateChat({sender})
   .then(chat => {
     Chat.update(chat, {session: MemberService, active: false});
   });
@@ -53,7 +63,7 @@ const fromBot = (chat) => {
 };
 
 const updateChat = (io, data) => obj => {
-  socketEmit(io, 'new_message', data, obj);
+  socketEmit({io, action: 'new_message', data, chat: obj});
   if (!obj)
   return fromMemberService(data.sender);
   else if (obj._boundTo.dataValues.text.includes(ToMemberService))
@@ -98,13 +108,12 @@ const sendToMessager = (sender, text, userType) => {
 export const Init = (io, dataIn) => {
   const data = Messenger.transform(dataIn);
   const { sender, text, userType } = data;
-  return findOrCreateChat(sender)
+  return findOrCreateChat({io, sender})
   .then(storeMessage({userType, text}))
   .then(botCheck(text, sender))
   .then(updateChat(io, data))
   .then(sendToMessager(sender, text, userType));
 };
-// ^^ Make all data - refactor all arguments passing in this file
 
 export const getChats = () => {
   return Chat.findAll();
@@ -115,7 +124,7 @@ export const updateStatus = (io, payload) => {
   return Chat.findById(chatId)
   .then((chat) => {
     const keyValue = JSON.parse(`{"${key}":"${value}"}`);
-    socketEmit(io, 'chat_update', keyValue, chat);
+    socketEmit({io, action: 'chat_update', data: keyValue, chat});
     Chat.update(chat, keyValue);
   });
 };

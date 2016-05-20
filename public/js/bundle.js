@@ -26909,7 +26909,8 @@
 	});
 
 	socket.on('new_chat', function (data) {
-	  console.log('IN NEW CHAT', data);
+	  console.log('IN NEW CHAT');
+	  console.log(data);
 	});
 
 	socket.on('new_message', function (data) {
