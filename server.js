@@ -4,7 +4,7 @@ import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import Inert from 'inert';
 import Joi from 'joi';
-import { DefaultUser, MemberService } from './data/constants';
+import { DefaultUser, MemberService } from './data/appConstants';
 import { Init, getChats, updateStatus } from './app/mediator';
 
 const server = new Server();

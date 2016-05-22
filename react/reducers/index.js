@@ -1,4 +1,3 @@
-
 import { VisibilityFilters, SET_VISIBILITY_FILTER, ADD_CHAT, UPDATE_STATUS, ADD_MESSAGE} from '../actions.js';
 import { combineReducers } from 'redux';
 

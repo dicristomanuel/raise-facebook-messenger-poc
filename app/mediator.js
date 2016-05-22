@@ -3,7 +3,7 @@ import Chat from '../db/chat';
 import Bubble from '../db/bubble';
 import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
-import { MemberService, Bot, ToMemberService } from '../data/constants';
+import { MemberService, Bot, ToMemberService } from '../data/appConstants';
 
 const socketEmit = (transform) => {
   const { io, action, data, chat } = transform;
