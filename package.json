@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require ./react/test/setup.js 'react/test/**/*.@(js|jsx)'",
-    "test:watch": "npm run test -- --watch --watch-extensions jsx",
+    "start": "nodemon --exec babel-node ./server.js",
     "debug": "babel-node debug ./server.js",
-    "start": "nodemon --exec babel-node ./server.js"
+    "test": "babel-node test.js",
+    "test:debug": "babel-node debug test.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,8 +21,6 @@
     "babel-preset-stage-1": "~6.5.0",
     "blipp": "^2.3.0",
     "boom": "^3.1.2",
-    "chai": "^3.5.0",
-    "chai-immutable": "^1.5.4",
     "good": "^6.6.0",
     "good-console": "^5.3.1",
     "hapi": "^13.3.0",
@@ -31,7 +29,6 @@
     "inert": "^4.0.0",
     "joi": "^8.1.0",
     "jsdom": "^9.1.0",
-    "mocha": "^2.4.5",
     "nodemon": "^1.9.2",
     "path": "^0.12.7",
     "pg": "^4.5.5",
@@ -44,6 +41,7 @@
     "sequelize": "^3.21.0",
     "socket.io": "^1.4.6",
     "superagent": "^2.0.0-alpha.3",
+    "tape": "^4.5.1",
     "webpack": "^1.12.14"
   }
 }

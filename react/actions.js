@@ -1,4 +1,5 @@
 export const ADD_CHAT = 'ADD_CHAT';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 export const UPDATE_STATUS = 'UPDATE_STATUS';
 
@@ -19,6 +20,13 @@ export const VisibilityFilters = {
 export const AddChat = data => {
   return {
     type: ADD_CHAT,
+    ...data
+  };
+};
+
+export const AddMessage = data => {
+  return {
+    type: ADD_MESSAGE,
     ...data
   };
 };

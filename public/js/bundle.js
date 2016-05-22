@@ -25729,6 +25729,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var socket = io();
+
 	var Layout = function (_React$Component) {
 	  _inherits(Layout, _React$Component);
 
@@ -25741,19 +25743,13 @@
 	  _createClass(Layout, [{
 	    key: 'render',
 	    value: function render() {
+	      socket.on('new_message', function (messages) {
+	        messages.forEach(function (message) {
+	          _createStore2.default.dispatch((0, _actions.AddMessage)(message));
+	        });
 
-	      // socket.subscribe('initial_data', (data) => {
-	      //   data.forEach((element) => {
-	      //     store.dispatch(AddChat(element));
-	      //   });
-	      //   // console.log(store.getState());
-	      // });
-	      // socket.subscribe('NEW_CHAT_CLIENT', (data) => {
-	      // console.log(`>>>>>>>>>> IN LAYOUT <<<<<<<<<<<<`);
-	      // console.log(store.getState());
-	      // });
-	      // socket.unsubscribe(c1Token);
-
+	        console.log(_createStore2.default.getState());
+	      });
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -25911,9 +25907,9 @@
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _actions = __webpack_require__(249);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// import { AddChat, UpdateStatus, SetVisibilityFilter, VisibilityFilters } from './actions';
 
 	var store = (0, _redux.createStore)(_index2.default);
 
@@ -26769,8 +26765,6 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _actions = __webpack_require__(249);
 
 	var _redux = __webpack_require__(235);
@@ -26804,13 +26798,31 @@
 	        profilePic: action.profilePic,
 	        busy: action.busy,
 	        active: action.active,
-	        solved: action.solved
+	        solved: action.solved,
+	        engaged: action.engaged
 	      }]);
-	    case _actions.UPDATE_STATUS:
-	      return state.chats.map(function (chat, index) {
-	        if (index === action.index) return _extends({}, chat, { status: action.status });
-	        return chat;
-	      });
+	    // case UPDATE_CHAT:
+	    //   return state.chats.map((chat, index) => {
+	    //     if (index === action.index)
+	    //     return {...chat, status: action.status}
+	    //     return chat
+	    //   });
+	    default:
+	      return state;
+	  }
+	};
+
+	var messages = function messages() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case _actions.ADD_MESSAGE:
+	      return [].concat(_toConsumableArray(state), [{
+	        chatId: action.chatId,
+	        text: action.text,
+	        userType: action.userType
+	      }]);
 	    default:
 	      return state;
 	  }
@@ -26818,7 +26830,8 @@
 
 	var ChatApp = (0, _redux.combineReducers)({
 	  visibilityFilter: visibilityFilter,
-	  chats: chats
+	  chats: chats,
+	  messages: messages
 	});
 
 	exports.default = ChatApp;
@@ -26829,7 +26842,7 @@
 	// Add:
 	// notifications: action.notifications,
 	// updatedAt: action.updatedAt
-	// bubbles: []
+	// messages: []
 
 	//
 	// ======
@@ -26858,6 +26871,7 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var ADD_CHAT = exports.ADD_CHAT = 'ADD_CHAT';
+	var ADD_MESSAGE = exports.ADD_MESSAGE = 'ADD_MESSAGE';
 	var SET_VISIBILITY_FILTER = exports.SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 	var UPDATE_STATUS = exports.UPDATE_STATUS = 'UPDATE_STATUS';
 
@@ -26881,6 +26895,12 @@
 	  }, data);
 	};
 
+	var AddMessage = exports.AddMessage = function AddMessage(data) {
+	  return _extends({
+	    type: ADD_MESSAGE
+	  }, data);
+	};
+
 	var SetVisibilityFilter = exports.SetVisibilityFilter = function SetVisibilityFilter(filter) {
 	  return { type: SET_VISIBILITY_FILTER, filter: filter };
 	};
@@ -26899,28 +26919,35 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
+	var _createStore = __webpack_require__(234);
+
+	var _createStore2 = _interopRequireDefault(_createStore);
+
+	var _actions = __webpack_require__(249);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var socket = io();
 
 	socket.on('new_connection', function (data) {
-	  console.log('IN NEW CONNECTION');
-	  console.log(data);
+	  // console.log('IN NEW CONNECTION');
+	  // console.log(data);
 	});
 
 	socket.on('new_chat', function (data) {
-	  console.log('IN NEW CHAT');
-	  console.log(data);
+	  // console.log('IN NEW CHAT');
+	  // console.log(data);
 	});
 
-	socket.on('new_message', function (data) {
-	  console.log('IN NEW MESSAGE');
-	  console.log(data);
+	socket.on('new_message', function (message) {
+	  // console.log('IN NEW MESSAGE');
+	  // console.log(message);
+	  // store.dispatch(AddMessage(message));
 	});
 
 	socket.on('chat_update', function (data) {
-	  console.log('IN CHAT UPDATE');
-	  console.log(data);
+	  // console.log('IN CHAT UPDATE');
+	  // console.log(data);
 	});
 
 	_superagent2.default.get('http://localhost:3001/get-chats').end(function (err, res) {

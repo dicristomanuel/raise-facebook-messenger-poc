@@ -1,4 +1,5 @@
-import { VisibilityFilters, SET_VISIBILITY_FILTER, ADD_CHAT, UPDATE_STATUS } from '../actions.js';
+
+import { VisibilityFilters, SET_VISIBILITY_FILTER, ADD_CHAT, UPDATE_STATUS, ADD_MESSAGE} from '../actions.js';
 import { combineReducers } from 'redux';
 
 const { SHOW_ACTIVE } = VisibilityFilters;
@@ -6,9 +7,9 @@ const { SHOW_ACTIVE } = VisibilityFilters;
 const visibilityFilter = (state = SHOW_ACTIVE, action) => {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
-      return action.filter
+      return action.filter;
     default:
-      return state
+      return state;
   }
 };
 
@@ -24,14 +25,31 @@ const chats = (state = [], action) => {
           busy: action.busy,
           active: action.active,
           solved: action.solved,
+          engaged: action.engaged,
         }
       ];
-    case UPDATE_STATUS:
-      return state.chats.map((chat, index) => {
-        if (index === action.index)
-        return {...chat, status: action.status}
-        return chat
-      });
+    // case UPDATE_CHAT:
+    //   return state.chats.map((chat, index) => {
+    //     if (index === action.index)
+    //     return {...chat, status: action.status}
+    //     return chat
+    //   });
+    default:
+      return state;
+  }
+};
+
+const messages = (state = [], action) => {
+  switch (action.type) {
+    case ADD_MESSAGE:
+      return [
+        ...state,
+        {
+          chatId: action.chatId,
+          text: action.text,
+          userType: action.userType,
+        }
+      ];
     default:
       return state;
   }
@@ -39,8 +57,9 @@ const chats = (state = [], action) => {
 
 const ChatApp = combineReducers({
   visibilityFilter,
-  chats
-})
+  chats,
+  messages,
+});
 
 export default ChatApp;
 
@@ -50,7 +69,7 @@ export default ChatApp;
 // Add:
 // notifications: action.notifications,
 // updatedAt: action.updatedAt
-// bubbles: []
+// messages: []
 
 //
 // ======

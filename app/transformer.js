@@ -27,11 +27,11 @@ const newMessage = (data, chat) => {
     chatId: chat.id,
   }];
   else {
-    return {
+    return [{
       text: data.text,
       userType: data.userType,
       chatId: chat.id,
-    };
+    }];
   }
 };
 

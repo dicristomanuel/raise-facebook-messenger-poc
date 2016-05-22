@@ -14,9 +14,8 @@ const socketEmit = (transform) => {
     return io.emit(action, Socket.message(data, chat));
     case 'chat_update':
     return io.emit(action, Socket.updateChat(data, chat));
-    default:
-    return false;
   }
+  return chat;
 };
 
 const socketNewChat = (io) => (chat) => {
@@ -95,7 +94,7 @@ const botCheck = (text, sender) => chat => {
   if (chat.session !== MemberService)
   return prepareBotMessage(text, sender, chat);
   else
-  return false;
+  return chat;
 };
 
 const sendToMessager = (sender, text, userType) => {
