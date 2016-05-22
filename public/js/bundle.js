@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(250);
+	module.exports = __webpack_require__(258);
 
 
 /***/ },
@@ -25721,6 +25721,12 @@
 
 	var _actions = __webpack_require__(249);
 
+	var _constants = __webpack_require__(250);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
+	var _layoutHelper = __webpack_require__(251);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25743,13 +25749,13 @@
 	  _createClass(Layout, [{
 	    key: 'render',
 	    value: function render() {
-	      socket.on('new_message', function (messages) {
-	        messages.forEach(function (message) {
-	          _createStore2.default.dispatch((0, _actions.AddMessage)(message));
-	        });
-
-	        console.log(_createStore2.default.getState());
-	      });
+	      (0, _layoutHelper.LayoutInit)();
+	      // socket.on(Event.new_message, (messages) => {
+	      //   messages.forEach((message) => {
+	      //     Store.dispatch(AddMessage(message));
+	      //   });
+	      //   console.log(Store.getState());
+	      // });
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -26842,7 +26848,6 @@
 	// Add:
 	// notifications: action.notifications,
 	// updatedAt: action.updatedAt
-	// messages: []
 
 	//
 	// ======
@@ -26911,11 +26916,29 @@
 
 /***/ },
 /* 250 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  new_message: 'new_message'
+	};
+
+/***/ },
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _superagent = __webpack_require__(251);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.LayoutInit = undefined;
+
+	var _superagent = __webpack_require__(252);
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
@@ -26927,45 +26950,35 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var socket = io();
+	var getChats = function getChats() {
+	  return new Promise(function (resolve, reject) {
+	    _superagent2.default.get('http://localhost:3001/get-chats').end(function (err, res) {
+	      if (err) reject(err);else resolve(res.body);
+	    });
+	  });
+	};
 
-	socket.on('new_connection', function (data) {
-	  // console.log('IN NEW CONNECTION');
-	  // console.log(data);
-	});
-
-	socket.on('new_chat', function (data) {
-	  // console.log('IN NEW CHAT');
-	  // console.log(data);
-	});
-
-	socket.on('new_message', function (message) {
-	  // console.log('IN NEW MESSAGE');
-	  // console.log(message);
-	  // store.dispatch(AddMessage(message));
-	});
-
-	socket.on('chat_update', function (data) {
-	  // console.log('IN CHAT UPDATE');
-	  // console.log(data);
-	});
-
-	_superagent2.default.get('http://localhost:3001/get-chats').end(function (err, res) {
-	  console.log(res.body);
-	});
+	var LayoutInit = exports.LayoutInit = function LayoutInit() {
+	  getChats().then(function (chats) {
+	    chats.forEach(function (chat) {
+	      _createStore2.default.dispatch((0, _actions.AddChat)(chat));
+	    });
+	    console.log(_createStore2.default.getState());
+	  }).catch(console.log);
+	};
 
 /***/ },
-/* 251 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 
-	var Emitter = __webpack_require__(252);
-	var reduce = __webpack_require__(253);
-	var requestBase = __webpack_require__(254);
-	var isObject = __webpack_require__(255);
+	var Emitter = __webpack_require__(253);
+	var reduce = __webpack_require__(254);
+	var requestBase = __webpack_require__(255);
+	var isObject = __webpack_require__(256);
 
 	/**
 	 * Root reference for iframes.
@@ -26990,7 +27003,7 @@
 	 * Expose `request`.
 	 */
 
-	var request = module.exports = __webpack_require__(256).bind(null, Request);
+	var request = module.exports = __webpack_require__(257).bind(null, Request);
 
 	/**
 	 * Determine XHR.
@@ -27939,7 +27952,7 @@
 
 
 /***/ },
-/* 252 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -28108,7 +28121,7 @@
 
 
 /***/ },
-/* 253 */
+/* 254 */
 /***/ function(module, exports) {
 
 	
@@ -28137,13 +28150,13 @@
 	};
 
 /***/ },
-/* 254 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(255);
+	var isObject = __webpack_require__(256);
 
 	/**
 	 * Clear previous timeout.
@@ -28489,7 +28502,7 @@
 
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports) {
 
 	/**
@@ -28508,7 +28521,7 @@
 
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports) {
 
 	// The node and browser modules expose versions of this with the
@@ -28544,6 +28557,52 @@
 
 	module.exports = request;
 
+
+/***/ },
+/* 258 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _superagent = __webpack_require__(252);
+
+	var _superagent2 = _interopRequireDefault(_superagent);
+
+	var _createStore = __webpack_require__(234);
+
+	var _createStore2 = _interopRequireDefault(_createStore);
+
+	var _actions = __webpack_require__(249);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var socket = io();
+
+	socket.on('new_connection', function (data) {
+	  // console.log('IN NEW CONNECTION');
+	  // console.log(data);
+	});
+
+	socket.on('new_chat', function (data) {
+	  // console.log('IN NEW CHAT');
+	  // console.log(data);
+	});
+
+	socket.on('new_message', function (message) {
+	  // console.log('IN NEW MESSAGE');
+	  // console.log(message);
+	  // store.dispatch(AddMessage(message));
+	});
+
+	socket.on('chat_update', function (data) {
+	  // console.log('IN CHAT UPDATE');
+	  // console.log(data);
+	});
+
+	// request.get('http://localhost:3001/get-chats')
+	// .end((err, res) => {
+	// console.log(res.body);
+	// });
 
 /***/ }
 /******/ ]);

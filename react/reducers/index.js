@@ -69,7 +69,6 @@ export default ChatApp;
 // Add:
 // notifications: action.notifications,
 // updatedAt: action.updatedAt
-// messages: []
 
 //
 // ======

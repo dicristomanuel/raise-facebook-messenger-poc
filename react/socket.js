@@ -25,7 +25,7 @@ socket.on('chat_update', (data) => {
   // console.log(data);
 });
 
-request.get('http://localhost:3001/get-chats')
-.end((err, res) => {
-  console.log(res.body);
-});
+// request.get('http://localhost:3001/get-chats')
+// .end((err, res) => {
+  // console.log(res.body);
+// });

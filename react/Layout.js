@@ -1,28 +1,30 @@
 import React from 'react';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import store from './createStore';
-import { AddMessage } from './actions';
+import Store from './createStore';
+import { AddMessage, AddChat } from './actions';
+import Event from './constants';
+import { LayoutInit } from './components/helpers/layoutHelper';
 
 const socket = io();
 
 class Layout extends React.Component {
   render() {
-    socket.on('new_message', (messages) => {
-      messages.forEach((message) => {
-        store.dispatch(AddMessage(message));
-      });
-
-      console.log(store.getState());
-    });
-    return (
-      <div>
-        <Header />
-          {this.props.children}
-          <Footer />
-      </div>
-    );
-  }
+    LayoutInit();
+    // socket.on(Event.new_message, (messages) => {
+    //   messages.forEach((message) => {
+    //     Store.dispatch(AddMessage(message));
+    //   });
+    //   console.log(Store.getState());
+    // });
+  return (
+    <div>
+      <Header />
+        {this.props.children}
+      <Footer />
+    </div>
+  );
+}
 }
 
 export default Layout;
