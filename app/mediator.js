@@ -123,7 +123,7 @@ export const updateStatus = (io, payload) => {
   const { chatId, key, value } = payload;
   return Chat.findById(chatId)
   .then((chat) => {
-    const keyValue = JSON.parse(`{"${key}":"${value}"}`);
+    const keyValue = JSON.parse(`{"${key}":${value}}`);
     socketEmit({io, action: Chat_update, data: keyValue, chat});
     Chat.update(chat, keyValue);
   });

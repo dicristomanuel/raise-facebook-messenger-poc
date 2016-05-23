@@ -18,17 +18,11 @@ export const VisibilityFilters = {
 };
 
 export const AddChat = data => {
-  return {
-    type: ADD_CHAT,
-    ...data
-  };
+  return { type: ADD_CHAT, ...data };
 };
 
 export const AddMessage = data => {
-  return {
-    type: ADD_MESSAGE,
-    ...data
-  };
+  return { type: ADD_MESSAGE, ...data };
 };
 
 export const SetVisibilityFilter = filter => {

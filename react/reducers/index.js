@@ -28,7 +28,6 @@ const chats = (state = [], action) => {
       }
     ];
     case CHAT_UPDATE:
-    console.log(action.change);
     return state.map((chat, index) => {
       if (action.chatId === chat.chatId)
       return {...chat, ...action.change}

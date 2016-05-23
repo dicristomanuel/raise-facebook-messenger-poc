@@ -13,6 +13,7 @@ class Layout extends React.Component {
     LayoutInit();
 
     socket.on(Chat_update, (data) => {
+      console.log('data', data.change);
       Store.dispatch(UpdateStatus(data));
       console.log(Store.getState());
     });
