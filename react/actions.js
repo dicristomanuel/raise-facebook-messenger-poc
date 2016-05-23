@@ -1,7 +1,7 @@
 export const ADD_CHAT = 'ADD_CHAT';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
-export const UPDATE_STATUS = 'UPDATE_STATUS';
+export const CHAT_UPDATE = 'CHAT_UPDATE';
 
 export const ChatStatuses = {
   ACTIVE: 'ACTIVE',
@@ -35,6 +35,6 @@ export const SetVisibilityFilter = filter => {
   return { type: SET_VISIBILITY_FILTER, filter };
 };
 
-export const UpdateStatus = filter => {
-  return { type: UPDATE_STATUS, filter };
+export const UpdateStatus = data => {
+  return { type: CHAT_UPDATE, data };
 };

@@ -1,4 +1,4 @@
-import { VisibilityFilters, SET_VISIBILITY_FILTER, ADD_CHAT, UPDATE_STATUS, ADD_MESSAGE} from '../actions.js';
+import { VisibilityFilters, SET_VISIBILITY_FILTER, ADD_CHAT, CHAT_UPDATE, ADD_MESSAGE} from '../actions.js';
 import { combineReducers } from 'redux';
 
 const { SHOW_ACTIVE } = VisibilityFilters;
@@ -6,51 +6,51 @@ const { SHOW_ACTIVE } = VisibilityFilters;
 const visibilityFilter = (state = SHOW_ACTIVE, action) => {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
-      return action.filter;
+    return action.filter;
     default:
-      return state;
+    return state;
   }
 };
 
 const chats = (state = [], action) => {
   switch (action.type) {
     case ADD_CHAT:
-      return [
-        ...state,
-        {
-          chatId: action.id,
-          name: `${action.firstName} ${action.lastName}`,
-          profilePic: action.profilePic,
-          busy: action.busy,
-          active: action.active,
-          solved: action.solved,
-          engaged: action.engaged,
-        }
-      ];
-    // case UPDATE_CHAT:
-    //   return state.chats.map((chat, index) => {
-    //     if (index === action.index)
-    //     return {...chat, status: action.status}
-    //     return chat
-    //   });
+    return [
+      ...state,
+      {
+        chatId: action.id,
+        name: `${action.firstName} ${action.lastName}`,
+        profilePic: action.profilePic,
+        busy: action.busy,
+        active: action.active,
+        solved: action.solved,
+        engaged: action.engaged,
+      }
+    ];
+    case CHAT_UPDATE:
+    return state.map((chat, index) => {
+      if (action.data.chatId === chat.chatId)
+      return {...chat, active: true}
+      return chat
+    });
     default:
-      return state;
+    return state;
   }
 };
 
 const messages = (state = [], action) => {
   switch (action.type) {
     case ADD_MESSAGE:
-      return [
-        ...state,
-        {
-          chatId: action.chatId,
-          text: action.text,
-          userType: action.userType,
-        }
-      ];
+    return [
+      ...state,
+      {
+        chatId: action.chatId,
+        text: action.text,
+        userType: action.userType,
+      }
+    ];
     default:
-      return state;
+    return state;
   }
 };
 

@@ -25699,6 +25699,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _createStore = __webpack_require__(240);
+
+	var _createStore2 = _interopRequireDefault(_createStore);
+
 	var _Footer = __webpack_require__(231);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
@@ -25707,11 +25711,11 @@
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _socketConstants = __webpack_require__(256);
-
-	var _socketConstants2 = _interopRequireDefault(_socketConstants);
+	var _actions = __webpack_require__(255);
 
 	var _layoutHelper = __webpack_require__(233);
+
+	var _socketConstants = __webpack_require__(256);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25736,6 +25740,12 @@
 	    key: 'render',
 	    value: function render() {
 	      (0, _layoutHelper.LayoutInit)();
+
+	      socket.on(_socketConstants.Chat_update, function (data) {
+	        _createStore2.default.dispatch((0, _actions.UpdateStatus)(data));
+	        console.log(_createStore2.default.getState());
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -28382,6 +28392,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _actions = __webpack_require__(255);
 
 	var _redux = __webpack_require__(241);
@@ -28418,12 +28430,11 @@
 	        solved: action.solved,
 	        engaged: action.engaged
 	      }]);
-	    // case UPDATE_CHAT:
-	    //   return state.chats.map((chat, index) => {
-	    //     if (index === action.index)
-	    //     return {...chat, status: action.status}
-	    //     return chat
-	    //   });
+	    case _actions.CHAT_UPDATE:
+	      return state.map(function (chat, index) {
+	        if (action.data.chatId === chat.chatId) return _extends({}, chat, { active: true });
+	        return chat;
+	      });
 	    default:
 	      return state;
 	  }
@@ -28489,7 +28500,7 @@
 	var ADD_CHAT = exports.ADD_CHAT = 'ADD_CHAT';
 	var ADD_MESSAGE = exports.ADD_MESSAGE = 'ADD_MESSAGE';
 	var SET_VISIBILITY_FILTER = exports.SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
-	var UPDATE_STATUS = exports.UPDATE_STATUS = 'UPDATE_STATUS';
+	var CHAT_UPDATE = exports.CHAT_UPDATE = 'CHAT_UPDATE';
 
 	var ChatStatuses = exports.ChatStatuses = {
 	  ACTIVE: 'ACTIVE',
@@ -28521,8 +28532,8 @@
 	  return { type: SET_VISIBILITY_FILTER, filter: filter };
 	};
 
-	var UpdateStatus = exports.UpdateStatus = function UpdateStatus(filter) {
-	  return { type: UPDATE_STATUS, filter: filter };
+	var UpdateStatus = exports.UpdateStatus = function UpdateStatus(data) {
+	  return { type: CHAT_UPDATE, data: data };
 	};
 
 /***/ },
@@ -28534,9 +28545,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = {
-	  new_message: 'new_message'
-	};
+	var New_message = exports.New_message = 'new_message';
+	var New_chat = exports.New_chat = 'new_chat';
+	var Chat_update = exports.Chat_update = 'chat_update';
 
 /***/ }
 /******/ ]);

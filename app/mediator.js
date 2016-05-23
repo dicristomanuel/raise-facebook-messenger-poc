@@ -4,22 +4,23 @@ import Bubble from '../db/bubble';
 import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
 import { MemberService, Bot, ToMemberService } from '../data/appConstants';
+import { New_message, New_chat, Chat_update } from '../data/socketConstants';
 
 const socketEmit = (transform) => {
   const { io, action, data, chat } = transform;
   switch (action) {
-    case 'new_chat':
+    case New_chat:
     return io.emit(action, chat);
-    case 'new_message':
+    case New_message:
     return io.emit(action, Socket.message(data, chat));
-    case 'chat_update':
+    case Chat_update:
     return io.emit(action, Socket.updateChat(data, chat));
   }
   return chat;
 };
 
 const socketNewChat = (io) => (chat) => {
-  socketEmit({io, action: 'new_chat', chat});
+  socketEmit({io, action: New_chat, chat});
   return chat;
 };
 
@@ -123,7 +124,7 @@ export const updateStatus = (io, payload) => {
   return Chat.findById(chatId)
   .then((chat) => {
     const keyValue = JSON.parse(`{"${key}":"${value}"}`);
-    socketEmit({io, action: 'chat_update', data: keyValue, chat});
+    socketEmit({io, action: Chat_update, data: keyValue, chat});
     Chat.update(chat, keyValue);
   });
 };
