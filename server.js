@@ -100,7 +100,6 @@ server.register([
         },
       },
       handler(request, reply) {
-        // const payload = {...request.payload, value: JSON.parse(request.payload.value)};
         updateStatus(io, request.payload);
         reply();
       }

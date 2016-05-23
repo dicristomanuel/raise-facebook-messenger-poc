@@ -63,7 +63,7 @@ const fromBot = (chat) => {
 };
 
 const updateChat = (io, data) => obj => {
-  socketEmit({io, action: 'new_message', data, chat: obj});
+  socketEmit({io, action: New_message, data, chat: obj});
   if (!obj)
   return fromMemberService(data.sender);
   else if (obj._boundTo.dataValues.text.includes(ToMemberService))
