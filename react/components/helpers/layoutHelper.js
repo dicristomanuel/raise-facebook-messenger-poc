@@ -2,6 +2,9 @@ import request from 'superagent';
 import Store from '../../createStore';
 import { AddChat } from '../../actions';
 
+const socket = io();
+
+
 const getChats = () => {
   return new Promise((resolve, reject) => {
     request.get('http://localhost:3001/get-chats')
@@ -20,8 +23,9 @@ export const LayoutInit = () => {
     chats.forEach((chat) => {
       Store.dispatch(AddChat(chat));
     });
+    console.log(Store.getState());
   })
   .catch(console.log);
 };
 
-// TODO: better error handling 
+// TODO: better error handling
