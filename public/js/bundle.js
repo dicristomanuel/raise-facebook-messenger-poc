@@ -28410,8 +28410,8 @@
 	  switch (action.type) {
 	    case _actions.ADD_CHAT:
 	      return [].concat(_toConsumableArray(state), [{
-	        chatId: action.chatId,
-	        name: action.name,
+	        chatId: action.id,
+	        name: action.firstName + ' ' + action.lastName,
 	        profilePic: action.profilePic,
 	        busy: action.busy,
 	        active: action.active,

@@ -18,8 +18,8 @@ const chats = (state = [], action) => {
       return [
         ...state,
         {
-          chatId: action.chatId,
-          name: action.name,
+          chatId: action.id,
+          name: `${action.firstName} ${action.lastName}`,
           profilePic: action.profilePic,
           busy: action.busy,
           active: action.active,
