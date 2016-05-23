@@ -36,5 +36,5 @@ export const SetVisibilityFilter = filter => {
 };
 
 export const UpdateStatus = data => {
-  return { type: CHAT_UPDATE, data };
+  return { type: CHAT_UPDATE, ...data };
 };
