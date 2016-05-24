@@ -5,7 +5,7 @@ import Blipp from 'blipp';
 import Inert from 'inert';
 import Joi from 'joi';
 import { DefaultUser, MemberService } from './data/appConstants';
-import { Init, getChats, updateStatus } from './app/mediator';
+import { Init, GetChats, UpdateStatus, GetMessages } from './app/mediator';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
@@ -83,7 +83,16 @@ server.register([
       method: 'GET',
       path: '/get-chats',
       handler(request, reply) {
-        getChats().then(reply);
+        GetChats().then(reply);
+      }
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/get-messages/{id}',
+      handler(request, reply) {
+        const id = request.params.id;
+        GetMessages(id).then(reply);
       }
     });
 
@@ -100,7 +109,7 @@ server.register([
         },
       },
       handler(request, reply) {
-        updateStatus(io, request.payload);
+        UpdateStatus(io, request.payload);
         reply();
       }
     });

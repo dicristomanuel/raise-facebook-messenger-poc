@@ -44,7 +44,7 @@ const messages = (state = [], action) => {
     return [
       ...state,
       {
-        chatId: action.chatId,
+        chatId: action.ChatId,
         text: action.text,
         userType: action.userType,
       }

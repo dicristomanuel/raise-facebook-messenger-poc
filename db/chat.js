@@ -14,11 +14,7 @@ export default {
   },
 
   findAll: () => {
-    return Chat.findAll();
-  },
-
-  findActive: () => {
-    return Chat.findAll({ where: { active: true }});
+    return Chat.findAll({order: '"updatedAt" ASC'});
   },
 
   update: (chat, keyValue) => {

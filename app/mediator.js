@@ -115,11 +115,15 @@ export const Init = (io, dataIn) => {
   .then(sendToMessager(sender, text, userType));
 };
 
-export const getChats = () => {
+export const GetChats = () => {
   return Chat.findAll();
 };
 
-export const updateStatus = (io, payload) => {
+export const GetMessages = (id) => {
+  return Bubble.findForChat(id);
+};
+
+export const UpdateStatus = (io, payload) => {
   const { chatId, key, value } = payload;
   return Chat.findById(chatId)
   .then((chat) => {

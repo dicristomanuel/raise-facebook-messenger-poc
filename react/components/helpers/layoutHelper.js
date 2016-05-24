@@ -4,7 +4,6 @@ import { AddChat } from '../../actions';
 
 const socket = io();
 
-
 const getChats = () => {
   return new Promise((resolve, reject) => {
     request.get('http://localhost:3001/get-chats')
