@@ -8,7 +8,6 @@ const socket = io();
 
 socket.on(Chat_update, (data) => {
   Store.dispatch(UpdateStatus(data));
-  console.log(Store.getState());
 });
 
 const getMessages = (id) => {
@@ -24,7 +23,8 @@ const getMessages = (id) => {
 };
 
 class Chat extends React.Component {
-  render() {
+
+  componentDidMount() {
     const id = this.props.params.chatId;
     getMessages(id)
     .then((messages) => {
@@ -33,10 +33,15 @@ class Chat extends React.Component {
       });
       console.log(Store.getState());
     });
-    // socket.on new message for chatId
+  }
+  // socket.on new message for chatId
+
+  render() {
+    let display = '';
+
     return (
       <h3>
-        {Store.chats[0]}
+        {display}
       </h3>
     );
   }
