@@ -44,7 +44,7 @@ const messages = (state = [], action) => {
     return [
       ...state,
       {
-        chatId: action.ChatId,
+        chatId: action.chatId,
         text: action.text,
         userType: action.userType,
       }
@@ -63,11 +63,10 @@ const ChatApp = combineReducers({
 export default ChatApp;
 
 // TODO:
-// Use immutable map for UPDATE_STATUS
+// Use immutable map for CHAT_UPDATE
 
 // Add:
-// notifications: action.notifications,
-// updatedAt: action.updatedAt
+// notifications: action.notifications
 
 //
 // ======

@@ -12,7 +12,7 @@ const socketEmit = (transform) => {
     case New_chat:
     return io.emit(action, chat);
     case New_message:
-    return io.emit(action, Socket.message(data, chat));
+    return io.emit(`${action}${chat.id}`, Socket.message(data, chat));
     case Chat_update:
     return io.emit(action, Socket.updateChat(data, chat));
   }
@@ -63,6 +63,7 @@ const fromBot = (chat) => {
 };
 
 const updateChat = (io, data) => obj => {
+  debugger;
   socketEmit({io, action: New_message, data, chat: obj});
   if (!obj)
   return fromMemberService(data.sender);
@@ -92,27 +93,33 @@ const prepareBotMessage = (text, sender, chat) => {
 };
 
 const botCheck = (text, sender) => chat => {
-  if (chat.session !== MemberService)
   return prepareBotMessage(text, sender, chat);
-  else
-  return chat;
 };
 
-const sendToMessager = (sender, text, userType) => {
-  if (userType === MemberService)
-  SendMessage(sender, text);
+// REFACTOR MEDIATOR AND UPDATE CHAT
+// MAKE SURE SOCKETS DON'T EMIT CHATS THAT SHOULDNT BE EMMITED
+
+const sendToMessager = (text) => (chat) => {
+  SendMessage(chat.dataValues.sender, text);
 };
 
 // exports ====>
 
-export const Init = (io, dataIn) => {
+export const FromConsumer = (io, dataIn) => {
   const data = Messenger.transform(dataIn);
   const { sender, text, userType } = data;
   return findOrCreateChat({io, sender})
   .then(storeMessage({userType, text}))
   .then(botCheck(text, sender))
+  .then(updateChat(io, data));
+};
+
+export const FromMemberService = (io, data) => {
+  const { text, chatId } = data;
+  return Chat.findById(chatId)
+  .then(storeMessage({userType: MemberService, text}))
   .then(updateChat(io, data))
-  .then(sendToMessager(sender, text, userType));
+  .then(sendToMessager(text));
 };
 
 export const GetChats = () => {
