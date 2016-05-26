@@ -11,10 +11,12 @@ LayoutInit();
 
 socket.on(Chat_update, (data) => {
   Store.dispatch(UpdateStatus(data));
+  console.log('CHAT UPDATE >>> ', data, Store.getState());
 });
 
 socket.on(New_chat, (chat) => {
   Store.dispatch(AddChat(chat));
+  console.log('NEW CHAT >>> ', Store.getState());
 });
 
 class Layout extends React.Component {

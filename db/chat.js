@@ -10,7 +10,7 @@ export default {
   },
 
   findById: id => {
-    return Chat.findOne({where: { id }});
+    return Chat.findById(id);
   },
 
   findAll: () => {

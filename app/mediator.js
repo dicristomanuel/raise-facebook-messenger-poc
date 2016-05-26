@@ -20,6 +20,7 @@ const socketEmit = (transform) => {
 
 const socketNewChat = (io) => (chat) => {
   socketEmit({io, action: New_chat, chat});
+  return chat;
 };
 
 const findOrCreateChat = data => {
@@ -48,7 +49,7 @@ const storeMessage = data => chat => {
 const updateChat = (io, data) => chat => {
   const { userType } = data;
   const active = userType === Consumer ? true : false;
-  socketEmit(io, Chat_update, { active }, chat);
+  socketEmit({io, action: Chat_update, data: { active }, chat});
   return Chat.update(chat, { active });
 };
 
@@ -79,8 +80,6 @@ const botCheck = (text, sender) => chat => {
   return chat;
 };
 
-// MAKE SURE SOCKETS DON'T EMIT CHATS THAT SHOULDNT BE EMMITED
-
 const sendToMessager = (text) => (chat) => {
   SendMessage(chat.dataValues.sender, text);
 };
@@ -102,7 +101,10 @@ export const FromMemberService = (io, data) => {
   return Chat.findById(chatId)
   .then(storeMessage({userType, text}))
   .then(updateChat(io, {...data, userType}))
-  .then(sendToMessager(text));
+  .then(sendToMessager(text))
+  .catch((error) => {
+    return `${error}`;
+  });
 };
 
 export const GetChats = () => {
