@@ -4,7 +4,7 @@ import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import Inert from 'inert';
 import Joi from 'joi';
-import { DefaultUser, MemberService } from './data/appConstants';
+import { Consumer, MemberService } from './data/appConstants';
 import { FromConsumer, FromMemberService, GetChats, UpdateStatus, GetMessages } from './app/mediator';
 
 const server = new Server();
@@ -61,7 +61,7 @@ server.register([
             // do something with the postback
           } else if (event.message && event.message.text) {
             const text = event.message.text;
-            FromConsumer(io, {text, sender, userType: DefaultUser})
+            FromConsumer(io, {text, sender, userType: Consumer})
             .then(reply);
           }
         }

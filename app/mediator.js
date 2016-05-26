@@ -3,7 +3,7 @@ import Chat from '../db/chat';
 import Bubble from '../db/bubble';
 import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
-import { MemberService, Bot, ToMemberService } from '../data/appConstants';
+import { MemberService, Bot, ToMemberService, Consumer } from '../data/appConstants';
 import { New_message, New_chat, Chat_update } from '../data/socketConstants';
 
 const socketEmit = (transform) => {
@@ -16,12 +16,10 @@ const socketEmit = (transform) => {
     case Chat_update:
     return io.emit(action, Socket.updateChat(data, chat));
   }
-  return chat;
 };
 
 const socketNewChat = (io) => (chat) => {
   socketEmit({io, action: New_chat, chat});
-  return chat;
 };
 
 const findOrCreateChat = data => {
@@ -39,64 +37,48 @@ const findOrCreateChat = data => {
 
 const storeMessage = data => chat => {
   const { text, userType } = data;
-  const toStore = {
+  const toDb = {
     text,
     userType,
     chat
   };
-  return Object.assign(chat, Bubble.create(toStore));
+  return Object.assign(chat, Bubble.create(toDb));
 };
 
-const fromMemberService = (sender) => {
-  return findOrCreateChat({sender})
-  .then(chat => {
-    Chat.update(chat, {session: MemberService, active: false});
-  });
+const updateChat = (io, data) => chat => {
+  const { userType } = data;
+  const active = userType === Consumer ? true : false;
+  socketEmit(io, Chat_update, { active }, chat);
+  return Chat.update(chat, { active });
 };
 
-const fromConsumer = (chat) => {
-  return Chat.update(chat, {session: MemberService, active: true});
-};
-
-const fromBot = (chat) => {
-  return Chat.update(chat, {session: Bot, active: false});
-};
-
-const updateChat = (io, data) => obj => {
-  debugger;
-  socketEmit({io, action: New_message, data, chat: obj});
-  if (!obj)
-  return fromMemberService(data.sender);
-  else if (obj._boundTo.dataValues.text.includes(ToMemberService))
-  return fromConsumer(obj);
-  else
-  return fromBot(obj);
-};
-
-const handleBotMessage = (toStore, sender, fromBot, chat) => {
-  const session = toStore.text === ToMemberService ? MemberService : Bot;
-  SendMessage(sender, toStore.text);
+const handleBotMessage = (toDb, sender, fromBot, chat) => {
+  const session = toDb.text.includes(ToMemberService) ? MemberService : Bot;
+  const active = session === MemberService ? true : false;
+  SendMessage(sender, toDb.text);
   if (fromBot.brand)
   SendGiftcards(sender, fromBot.brand);
-  return Chat.update(chat, {session, active: false})
-  .then(storeMessage(toStore));
+  return Chat.update(chat, {session, active})
+  .then(storeMessage(toDb));
 };
 
 const prepareBotMessage = (text, sender, chat) => {
   const fromBot = MatchAnswer(text, chat.firstName);
-  const toStore = {
+  const toDb = {
     text: fromBot.answer,
     userType: Bot,
     chat
   };
-  return handleBotMessage(toStore, sender, fromBot, chat);
+  return handleBotMessage(toDb, sender, fromBot, chat);
 };
 
 const botCheck = (text, sender) => chat => {
+  if (chat.session !== MemberService)
   return prepareBotMessage(text, sender, chat);
+  else
+  return chat;
 };
 
-// REFACTOR MEDIATOR AND UPDATE CHAT
 // MAKE SURE SOCKETS DON'T EMIT CHATS THAT SHOULDNT BE EMMITED
 
 const sendToMessager = (text) => (chat) => {
@@ -110,15 +92,16 @@ export const FromConsumer = (io, dataIn) => {
   const { sender, text, userType } = data;
   return findOrCreateChat({io, sender})
   .then(storeMessage({userType, text}))
-  .then(botCheck(text, sender))
-  .then(updateChat(io, data));
+  .then(updateChat(io, data))
+  .then(botCheck(text, sender));
 };
 
 export const FromMemberService = (io, data) => {
   const { text, chatId } = data;
+  const userType = MemberService;
   return Chat.findById(chatId)
-  .then(storeMessage({userType: MemberService, text}))
-  .then(updateChat(io, data))
+  .then(storeMessage({userType, text}))
+  .then(updateChat(io, {...data, userType}))
   .then(sendToMessager(text));
 };
 
