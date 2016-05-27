@@ -29,23 +29,46 @@ import NextState from './nextState';
 
 // STATE EXECUTE ===>
 
-
+const botFromInit = () => {
+  console.log(`>>>>>>>>>> in botFromInit <<<<<<<<<<<<`);
+};
+const closeBotFromInit = () => {};
+const bot = () => {};
+const closeBot = () => {};
+const msReceiveFromBot = () => {};
+const closeMsReceiveFromBot = () => {};
+const msReceive = () => {};
+const closeMsReceive = () => {};
+const msSend = () => {};
+const closeMsSend = () => {};
 
 // <=== STATE EXECUTE
 
+// listener for changes?
 
 // PARSER ===>
-const parserCreate = (sender) => {
-  return Chat.find(sender)
-  .then((chat) => {
-    return chat || GetProfile(sender).then(Chat.create);
+
+const changed = (chat) => {
+  Chat.findNextState(chat.id)
+  .then((next) => {
+    debugger;
+    return eval(next.state)();
   });
 };
 
 const parserNextState = (main) => {
   const current = main.state;
-  const next = NextState[current];
-  window[next]();
+  const state = NextState[current];
+  return Chat.update(main, { state })
+  .then(changed);
+};
+
+const parserCreate = (sender) => {
+  // create also chat js class so that attrs are accessible to other funcs
+  return Chat.find(sender)
+  .then((chat) => {
+    return chat || GetProfile(sender).then(Chat.create);
+  });
 };
 
 export const Parser = (data) => {
@@ -53,4 +76,5 @@ export const Parser = (data) => {
   return parserCreate(sender)
   .then(parserNextState);
 };
+
 // <=== PARSER

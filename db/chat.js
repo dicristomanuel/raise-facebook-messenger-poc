@@ -17,8 +17,11 @@ export default {
     return Chat.findAll({order: '"updatedAt" ASC'});
   },
 
+  findNextState: (id) => {
+    return Chat.findById(id);
+  },
+
   update: (chat, keyValue) => {
-    debugger;
     return chat.update(keyValue);
   },
 };

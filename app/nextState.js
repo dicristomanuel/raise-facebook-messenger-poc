@@ -1,3 +1,4 @@
 export default {
-  init: 'botFromInit'
+  init: 'botFromInit',
+  botFromInit: 'bot',
 };
