@@ -15,7 +15,7 @@ export const Chat = connection.define('Chat', {
   profilePic: Sequelize.STRING,
   active: {
     type: Sequelize.BOOLEAN,
-    defaultValue: true
+    defaultValue: false
   },
   busy: {
     type: Sequelize.BOOLEAN,
@@ -32,6 +32,10 @@ export const Chat = connection.define('Chat', {
   session: {
     type: Sequelize.STRING,
     defaultValue: 'init'
+  },
+  state: {
+    type: Sequelize.STRING,
+    defaultValue: 'init'
   }
 });
 
@@ -46,4 +50,4 @@ export const Bubble = connection.define('Bubble', {
 Chat.hasMany(Bubble);
 Bubble.belongsTo(Chat);
 
-connection.sync();
+connection.sync({force:true});
