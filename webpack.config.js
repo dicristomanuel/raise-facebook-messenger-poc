@@ -24,4 +24,4 @@ module.exports = {
   }
 };
 
-// TODO: include hot reload
+// TODO: include hot reload - typescript

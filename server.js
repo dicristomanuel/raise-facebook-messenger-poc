@@ -6,7 +6,7 @@ import Inert from 'inert';
 import Joi from 'joi';
 import { Consumer, MemberService } from './data/appConstants';
 import { FromConsumer, FromMemberService, GetChats, UpdateStatus, GetMessages } from './app/mediator';
-import { Parser } from './app/newMediator';
+import { Parser } from './app/parser';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
@@ -64,7 +64,7 @@ server.register([
             const text = event.message.text;
             // FromConsumer(io, {text, sender, userType: Consumer})
             // .then(reply);
-            Parser({sender, text});
+            Parser({io, sender, text});
             reply();
           }
         }
