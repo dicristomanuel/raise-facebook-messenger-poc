@@ -21,15 +21,7 @@
 
 import Chat from '../db/chat';
 import { GetProfile } from './messenger';
-import { NextState, State } from './state';
-
-
-// LISTENER
-
-const CallState = data => chat => {
-  const state = chat.state;
-  return State[state]({...data, chat});
-};
+import { State } from './stateMachine';
 
 const parserInit = (sender) => {
   return Chat.find(sender)

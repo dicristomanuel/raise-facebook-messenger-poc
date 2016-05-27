@@ -1,0 +1,1 @@
+export { BotFromInit } from './botFromInit';
