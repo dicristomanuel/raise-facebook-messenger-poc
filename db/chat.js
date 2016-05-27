@@ -18,6 +18,7 @@ export default {
   },
 
   update: (chat, keyValue) => {
+    debugger;
     return chat.update(keyValue);
   },
 };

@@ -50,7 +50,7 @@ server.register([
 
     server.route({
       method: 'POST',
-      path: '/webhook/',
+      path: '/webhook',
       handler(request, reply) {
         const messaging_events = request.payload.entry[0].messaging;
         for (let i = 0; i < messaging_events.length; i++) {
@@ -67,14 +67,14 @@ server.register([
         }
       }
     });
+
     // TODO: check error - Unhandled rejection Error: reply interface called twice - cause then(reply)
     server.route({
       method: 'POST',
-      path: '/member-service/',
+      path: '/member-service',
       handler(request, reply) {
         const data = request.payload;
-        const { text, chatId } = data;
-        FromMemberService(io, {text, chatId})
+        FromMemberService(io, data)
         .then(reply);
       }
     });
