@@ -30,7 +30,7 @@ const prepareBotMessage = (data) => {
   return handleBotMessage({toDb, ...data, brand});
 };
 
-export const BotFromInit = (data) => {
+export const BotFromBot = (data) => {
   // layer with function to execute - data to send back (with switchState)
   return prepareBotMessage(data)
   .then(CallNextState);

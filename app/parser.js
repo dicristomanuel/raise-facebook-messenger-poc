@@ -1,3 +1,22 @@
+import Chat from '../db/chat';
+import { GetProfile } from './messenger';
+import { CallNextState } from './stateMachine';
+
+const parserInit = (sender) => {
+  return Chat.find(sender)
+  .then((chat) => {
+    return chat || GetProfile(sender).then(Chat.create);
+  });
+};
+
+export const Parser = (data) => {
+  const { sender } = data;
+  return parserInit(sender)
+  .then((chat) => {
+    return CallNextState({...data, chat, switchState: false});
+  });
+};
+
 /*
   1- parser
       a- checks if chat exists and return current state
@@ -17,23 +36,3 @@
   parserNextState
   TYPESCRIPT && HOTRELOAD
 */
-
-
-import Chat from '../db/chat';
-import { GetProfile } from './messenger';
-import { State } from './stateMachine';
-
-const parserInit = (sender) => {
-  return Chat.find(sender)
-  .then((chat) => {
-    return chat || GetProfile(sender).then(Chat.create);
-  });
-};
-
-export const Parser = (data) => {
-  const { sender } = data;
-  return parserInit(sender)
-  .then((chat) => {
-    return State[chat.state]({...data, chat});
-  });
-};

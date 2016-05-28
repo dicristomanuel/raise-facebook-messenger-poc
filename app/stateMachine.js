@@ -1,35 +1,38 @@
 import Chat from '../db/chat';
-import { BotFromInit } from './states/all';
+import { BotFromInit, CloseBotFromInit, BotFromBot } from './states/all';
 
 const callState = data => {
   const state = data.chat.state;
-  return State[state](data);
+  return states[state](data);
 };
 
-const callNextState = data => {
-  const { chat } = data;
+export const CallNextState = data => {
+  const { chat, switchState } = data;
   const current = chat.state;
-  const state = NextState[current];
+  const state = switchState ? switchState[current] : nextState[current];
   return Chat.update(chat, { state })
   .then((updated) => {
     return callState({...data, chat: updated});
   });
 };
 
-export const NextState = {
+const nextState = {
   init: 'botFromInit',
+  botFromInit: 'closeBotFromInit',
+  closeBotFromInit: 'botFromBot',
+  botFromBot: 'closeBotFromInit',
 };
 
-export const State = {
-  init: (data) => {
-    callNextState(data);
-  },
+const switchState = {
+  botFromInit: 'msReceiveFromBot',
+  botFromBot: 'msReceiveFromBot',
+};
 
-
+const states = {
+  init: CallNextState,
   botFromInit: BotFromInit,
-
-  closeBotFromInit: () => {},
-  bot: () => {},
+  closeBotFromInit: CloseBotFromInit,
+  botFromBot: BotFromBot,
   closeBot: () => {},
   msReceiveFromBot: () => {},
   closeMsReceiveFromBot: () => {},
@@ -38,3 +41,6 @@ export const State = {
   msSend: () => {},
   closeMsSend: () => {},
 };
+
+// TODO: automate names ^
+// NEXT: WHEN BOT GOES TO MS

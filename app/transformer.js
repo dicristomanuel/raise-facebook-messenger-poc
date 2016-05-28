@@ -1,36 +1,24 @@
-const extractMessage = (chat) => {
-  return chat && chat._boundTo ? chat._boundTo.dataValues.text : null;
-};
+import { Bot, Consumer } from '../data/appConstants';
 
-const fromMessenger = (data) => {
-  const { text, sender, userType } = data;
-  return {
-    text,
-    sender,
-    userType,
-    firstName: null,
-    answer: null,
-  };
-};
-
-const newMessage = (data, chat) => {
-  const botMessage = extractMessage(chat);
-  if (botMessage)
+const newMessage = (data) => {
+  const { text, toDb, chat } = data;
+  const { id } = chat;
+  if (toDb)
   return [{
-    text: data.text,
-    userType: data.userType,
-    chatId: chat.id,
+    text,
+    userType: Consumer,
+    chatId: id,
   },
   {
-    text: botMessage,
-    userType: 'bot',
-    chatId: chat.id,
+    text: toDb.text,
+    userType: Bot,
+    chatId: id,
   }];
   else {
     return [{
-      text: data.text,
-      userType: data.userType,
-      chatId: chat.id,
+      text,
+      userType: Consumer,
+      chatId: id,
     }];
   }
 };
@@ -43,10 +31,6 @@ const updateChat = (data, chat) => {
 };
 
 // exports ====>
-
-export const Messenger = {
-  transform: fromMessenger,
-};
 
 export const Socket = {
   message: newMessage,

@@ -19,7 +19,6 @@ const socketEmit = (transform) => {
 };
 
 const socketNewChat = (io) => (chat) => {
-  debugger;
   socketEmit({io, action: New_chat, chat});
   return chat;
 };

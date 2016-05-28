@@ -8,7 +8,6 @@
 //   const dataIn = { text: 'hi', sender: '935925493143785', userType: 'consumer' };
 //   const actual = Init(io, dataIn);
 //   const chat = Chat.find('935925493143785');
-//   debugger;
 //   t.equal(chat, true);
 //   t.end();
 // });
