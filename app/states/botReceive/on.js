@@ -1,8 +1,8 @@
-import { Bot, ToMemberService } from '../../data/appConstants';
-import { MatchAnswer } from '../../bot/mainBot';
-import { SendMessage, SendGiftcards } from '../messenger';
-import Bubble from '../../db/bubble';
-import { CallNextState } from '../stateMachine';
+import { Bot, ToMemberService } from '../../../data/appConstants';
+import { MatchAnswer } from '../../../bot/mainBot';
+import { SendMessage, SendGiftcards } from '../../messenger';
+import Bubble from '../../../db/bubble';
+import { CallNextState } from '../../stateMachine';
 
 const handleBotMessage = (data) => {
   const { sender, toDb, brand, chat } = data;
@@ -30,7 +30,7 @@ const prepareBotMessage = (data) => {
   return handleBotMessage({toDb, ...data, brand});
 };
 
-export const BotFromBot = (data) => {
+export const BotReceive = (data) => {
   // layer with function to execute - data to send back (with switchState)
   return prepareBotMessage(data)
   .then(CallNextState);

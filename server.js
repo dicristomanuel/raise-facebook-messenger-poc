@@ -6,7 +6,7 @@ import Inert from 'inert';
 import Joi from 'joi';
 import { Consumer, MemberService } from './data/appConstants';
 import { FromConsumer, FromMemberService, GetChats, UpdateStatus, GetMessages } from './app/mediator';
-import { Parser } from './app/parser';
+import { Parser } from './app/newMediator';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
