@@ -18,6 +18,7 @@ export default {
     });
   },
   next: function(currentState, data) {
+    debugger;
     this.nextState.forEach(this.findNextState, this);
   },
   findNextState: function(state) {

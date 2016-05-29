@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node ./server.js",
-    "debug": "nodemon --exec babel-node debug ./server.js",
+    "debug": "babel-node debug ./server.js",
     "test": "babel-node test.js",
     "test:debug": "babel-node debug test.js"
   },

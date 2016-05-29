@@ -3,7 +3,7 @@ import { GetProfile } from './messenger';
 import Prism from '../prism/prism';
 import States from '../prism/states/config';
 
-let chat;
+let cached;
 
 const createChat = (sender) => {
   return GetProfile(sender).then(Chat.create);
@@ -11,12 +11,15 @@ const createChat = (sender) => {
 
 export const Parser = (data) => {
   const { sender } = data;
-  if (chat)
-  return Prism.next(chat.state, {...chat, ...data});
-  else
-  return createChat(sender)
-  .then((chat) => {
-    Prism.create(States);
-    return Prism.next(chat.state, {...chat, ...data});
-  });
+  if (cached) {
+    return Prism.next(cached.state, { chat: cached, ...data });
+  }
+  else {
+    return createChat(sender)
+    .then((chat) => {
+      cached = chat;
+      Prism.create(States);
+      return Prism.next(chat.state, { chat, ...data });
+    });
+  }
 };
