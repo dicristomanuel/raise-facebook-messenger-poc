@@ -1,10 +1,7 @@
-import BotReceive from './botReceive/on';
-
-const on = 'foo';
-const off = 'bar';
-
+import States from './all';
+debugger;
 export default [
-  { from: 'init',       to: 'botReceive', on, off },
+  { from: 'init',       to: 'botReceive' },
   { from: 'botReceive', to: 'botSend',    on, off },
   { from: 'botSend',    to: 'botReceive', on, off },
   { from: 'msReceive',  to: 'msSend',     on, off },

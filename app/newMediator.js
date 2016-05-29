@@ -1,24 +1,22 @@
 import Chat from '../db/chat';
 import { GetProfile } from './messenger';
-import { CallNextState } from './stateMachine';
-import Prism from './prism';
-import States from './states/config';
+import Prism from '../prism/prism';
+import States from '../prism/states/config';
 
+let chat;
 
-const parserInit = (sender) => {
-  return Chat.find(sender)
-  .then((chat) => {
-    return chat || GetProfile(sender).then(Chat.create);
-  });
+const createChat = (sender) => {
+  return GetProfile(sender).then(Chat.create);
 };
 
 export const Parser = (data) => {
   const { sender } = data;
-  return parserInit(sender)
+  if (chat)
+  return Prism.next(chat.state, {...chat, ...data});
+  else
+  return createChat(sender)
   .then((chat) => {
-    const initialState = {...data, chat, switchState: false};
     Prism.create(States);
-    Prism.botReceive.switch('newState');
-    // return CallNextState({...data, chat, switchState: false});
+    return Prism.next(chat.state, {...chat, ...data});
   });
 };

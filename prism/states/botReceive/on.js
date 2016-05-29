@@ -1,18 +1,15 @@
 import { Bot, ToMemberService } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
-import { SendMessage, SendGiftcards } from '../../messenger';
+import { SendMessage, SendGiftcards } from '../../../app/messenger';
 import Bubble from '../../../db/bubble';
-import { CallNextState } from '../../stateMachine';
 
 const handleBotMessage = (data) => {
   const { sender, toDb, brand, chat } = data;
   SendMessage(sender, toDb.text);
   brand ? SendGiftcards(sender, brand) : null;
-  const switchState = toDb.text.includes(ToMemberService) ? true : false;
   Bubble.create({chat, ...toDb});
-  return new Promise((resolve, reject) => {
-    resolve({...data, switchState});
-  });
+  const next = toDb.text.includes(ToMemberService) ? true : false;
+  return {...data, next};
 };
 // alternative to promise ^^
 
@@ -30,11 +27,8 @@ const prepareBotMessage = (data) => {
   return handleBotMessage({toDb, ...data, brand});
 };
 
-const BotReceive = (data) => {
-  debugger;
-  // layer with function to execute - data to send back (with switchState)
-  return prepareBotMessage(data)
-  .then(CallNextState);
+export const OnBotReceive = (data) => {
+  return new Promise((resolve, reject) => {
+    resolve(prepareBotMessage(data));
+  });
 };
-
-export default BotReceive;
