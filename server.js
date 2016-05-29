@@ -3,32 +3,26 @@ import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import Inert from 'inert';
-import Vision from 'vision';
-import Handlebars from 'handlebars';
-import Path from 'path';
-import { DefaultUser, MemberService } from './data/constants';
-import { Init } from './app/mediator';
-import { SocketInit } from './sockets/main';
+import Joi from 'joi';
+import { Consumer, MemberService } from './data/appConstants';
+import { FromConsumer, FromMemberService, GetChats, UpdateStatus, GetMessages } from './app/mediator';
+import { Parser } from './app/newMediator';
 
-const server = new Server({
-  connections: {
-    routes: {
-      files: {
-        relativeTo: Path.join(__dirname, 'public')
-      }
-    }
-  }
-});
+const server = new Server();
+const PORT = process.env.PORT || 3001;
 
 server.connection({
-  port: 3001
+  port: PORT
 });
 
-export const io = require("socket.io")(server.listener);
-SocketInit();
+const io = require('socket.io')(server.listener);
+
+io.on('connection', (socket) => {
+  socket.emit('new_connection', 'connected');
+});
 
 server.register([
-  Inert, Vision,
+  Inert,
   { register: Blipp },
   { register: Good,
     options: {
@@ -38,38 +32,18 @@ server.register([
       }]
     },
   }], (err) => {
-
     if (err)
     throw err;
 
-    server.views({
-      engines: {
-        html: Handlebars
-      },
-      relativeTo: __dirname,
-      path: './public',
-    });
-
-    // TODO: do I need two routes?
-    server.route({
-      method: 'GET',
-      path: '/{param*}',
-      handler: {
-        directory: {
-          path: '.',
-          redirectToSlash: true,
-          index: true
-        }
-      }
-    });
+    // TODO: catch all for react browserHistory
 
     server.route({
       method: 'GET',
-      path: '/chats/{param*}',
+      path: '/{path*}',
       handler: {
         directory: {
-          path: '.',
-          redirectToSlash: true,
+          path: './public',
+          listing: false,
           index: true
         }
       }
@@ -77,7 +51,7 @@ server.register([
 
     server.route({
       method: 'POST',
-      path: '/webhook/',
+      path: '/webhook',
       handler(request, reply) {
         const messaging_events = request.payload.entry[0].messaging;
         for (let i = 0; i < messaging_events.length; i++) {
@@ -88,37 +62,58 @@ server.register([
             // do something with the postback
           } else if (event.message && event.message.text) {
             const text = event.message.text;
-            Init({text, sender, userType: DefaultUser})
-            .then(reply);
+            // FromConsumer(io, {text, sender, userType: Consumer})
+            // .then(reply);
+            Parser({io, sender, text});
+            reply();
           }
         }
       }
     });
+
     // TODO: check error - Unhandled rejection Error: reply interface called twice - cause then(reply)
     server.route({
       method: 'POST',
-      path: '/member-service/',
+      path: '/member-service',
       handler(request, reply) {
         const data = request.payload;
-        const { text, sender } = data;
-        Init({text, sender, userType: MemberService})
+        FromMemberService(io, data)
         .then(reply);
       }
     });
 
     server.route({
       method: 'GET',
-      path: '/chats',
-      handler: function (request, reply) {
-        reply.view('index');
+      path: '/get-chats',
+      handler(request, reply) {
+        GetChats().then(reply);
       }
     });
 
     server.route({
       method: 'GET',
-      path: '/chats/{id}',
-      handler: function (request, reply) {
-        reply.view('show');
+      path: '/get-messages/{id}',
+      handler(request, reply) {
+        const id = request.params.id;
+        GetMessages(id).then(reply);
+      }
+    });
+
+    server.route({
+      method: 'PUT',
+      path: '/update-chat',
+      config: {
+        validate: {
+          payload: {
+            chatId: Joi.number().required(),
+            key: Joi.required(),
+            value: Joi.required(),
+          },
+        },
+      },
+      handler(request, reply) {
+        UpdateStatus(io, request.payload);
+        reply();
       }
     });
   });
@@ -128,5 +123,7 @@ server.register([
       console.log(error.message);
       process.exit(1);
     }
-    console.log('server is running at localhost:3001');
+    console.log(`server is running on port ${PORT}`);
   });
+
+  // TODO: divide packages to -dev

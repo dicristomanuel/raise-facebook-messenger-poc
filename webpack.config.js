@@ -1,24 +1,27 @@
 var path = require('path');
 
 module.exports = {
-  entry: './app/App.js',
+  entry: './react/App.js',
   output: {
-    filename: 'public/bundle.js',
+    path: "./public/js",
+    filename: "bundle.js",
   },
   module: {
     loaders: [
       {
         text: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         loader: 'babel',
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015'],
         }
       }
     ]
   },
   resolve: {
     root: path.resolve('./app'),
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
   }
 };
+
+// TODO: include hot reload - typescript

@@ -1,31 +1,36 @@
-import { Transform } from './transformer';
+import { Messenger, Socket } from './transformer';
 import Chat from '../db/chat';
 import Bubble from '../db/bubble';
 import { SendMessage, GetProfile, SendGiftcards } from './messenger';
 import { MatchAnswer } from '../bot/mainBot';
-import { MemberService, Bot, ToMemberService } from '../data/constants';
-import { io } from '../server.js';
-import { TransformSocket } from '../sockets/transformer';
+import { MemberService, Bot, ToMemberService, Consumer } from '../data/appConstants';
+import { New_message, New_chat, Chat_update } from '../data/socketConstants';
 
-const socketEmit = action => data => {
-  if (data.length !== 0)
-
+const socketEmit = (transform) => {
+  const { io, action, data, chat } = transform;
   switch (action) {
-    case 'newMessage':
-      io.emit(action, data.dataValues.id);
-      break;
-    default:
-      io.emit(action, TransformSocket(data));
+    case New_chat:
+    return io.emit(action, chat);
+    case New_message:
+    return io.emit(`${action}${chat.id}`, Socket.message(data, chat));
+    case Chat_update:
+    return io.emit(action, Socket.updateChat(data, chat));
   }
-  return data;
 };
 
-const findOrCreateChat = sender => {
+const socketNewChat = (io) => (chat) => {
+  socketEmit({io, action: New_chat, chat});
+  return chat;
+};
+
+const findOrCreateChat = data => {
+  const { io, sender } = data;
   return Chat.find(sender)
   .then((chatObj) => {
     if (!chatObj)
     return GetProfile(sender)
-    .then(Chat.create);
+    .then(Chat.create)
+    .then(socketNewChat(io));
     else
     return chatObj;
   });
@@ -33,77 +38,95 @@ const findOrCreateChat = sender => {
 
 const storeMessage = data => chat => {
   const { text, userType } = data;
-  const toStore = {
+  const toDb = {
     text,
     userType,
     chat
   };
-  return Object.assign(chat, Bubble.create(toStore));
+  return Object.assign(chat, Bubble.create(toDb));
 };
 
-const fromMemberService = (sender) => {
-  return findOrCreateChat(sender)
-  .then(chat => {
-    Chat.update(chat, {session: MemberService, active: false});
-  });
+const updateChat = (io, data, chat, session, active) => {
+  const { userType } = data;
+  if (userType === MemberService && chat.active !== false) {
+    socketEmit({io, action: Chat_update, data: { active: false }, chat});
+    return Chat.update(chat, { active: false });
+  } else if (userType === Consumer && chat.session === MemberService && chat.active !== true) {
+    socketEmit({io, action: Chat_update, data: { active: true }, chat});
+    return Chat.update(chat, { active: true });
+  } else if (chat.session !== session) {
+    socketEmit({io, action: Chat_update, data: { session, active }, chat});
+    return Chat.update(chat, {session, active});
+  }
 };
 
-const fromConsumer = (chat) => {
-  return Chat.update(chat, {session: MemberService, active: true})
-  .then(socketEmit('newChat'));
-};
-
-const fromBot = (chat) => {
-  return Chat.update(chat, {session: Bot, active: false});
-};
-
-const updateChat = (userType, sender) => obj => {
-  if (!obj)
-  return fromMemberService(sender);
-  else if (obj._boundTo.dataValues.text.includes(ToMemberService))
-  return fromConsumer(obj);
-  else
-  return fromBot(obj);
-};
-
-const handleBotMessage = (toStore, sender, fromBot, chat) => {
-  const session = toStore.text === ToMemberService ? MemberService : Bot;
-  SendMessage(sender, toStore.text);
+const handleBotMessage = (io, toDb, data, fromBot, chat) => {
+  const session = toDb.text.includes(ToMemberService) ? MemberService : Bot;
+  const active = session === MemberService ? true : false;
+  SendMessage(data.sender, toDb.text);
   if (fromBot.brand)
-  SendGiftcards(sender, fromBot.brand);
-  return Chat.update(chat, {session, active: false})
-  .then(storeMessage(toStore));
+  SendGiftcards(data.sender, fromBot.brand);
+  return updateChat(io, data, session, active, chat)
+  .then(storeMessage(toDb));
 };
 
-const prepareBotMessage = (text, sender, chat) => {
-  const fromBot = MatchAnswer(text, chat.firstName);
-  const toStore = {
+const prepareBotMessage = (io, data, chat) => {
+  const fromBot = MatchAnswer(data.text, chat.firstName);
+  const toDb = {
     text: fromBot.answer,
     userType: Bot,
     chat
   };
-  return handleBotMessage(toStore, sender, fromBot, chat);
+  return handleBotMessage(io, toDb, data, fromBot, chat);
 };
 
-const botCheck = (text, sender) => chat => {
+const botCheck = (io, data) => chat => {
   if (chat.session !== MemberService)
-  return prepareBotMessage(text, sender, chat);
+  return prepareBotMessage(io, data, chat);
   else
-  return false;
+  return chat;
 };
 
-const sendToMessager = (sender, text, userType) => {
-  if (userType === MemberService)
-  SendMessage(sender, text);
+const sendToMessager = (text) => (chat) => {
+  SendMessage(chat.dataValues.sender, text);
 };
 
-export const Init = dataIn => {
-  const data = Transform(dataIn);
+// exports ====>
+
+export const FromConsumer = (io, dataIn) => {
+  const data = Messenger.transform(dataIn);
   const { sender, text, userType } = data;
-  return findOrCreateChat(sender)
+  return findOrCreateChat({io, sender})
   .then(storeMessage({userType, text}))
-  .then(socketEmit('newMessage'))
-  .then(botCheck(text, sender))
-  .then(updateChat(userType, sender))
-  .then(sendToMessager(sender, text, userType));
+  .then(botCheck(io, data));
+};
+
+export const FromMemberService = (io, data) => {
+  const { text, chatId, userType } = data;
+  debugger;
+  return Chat.findById(chatId)
+  .then(storeMessage({userType, text}))
+  .then(updateChat(io, userType))
+  .then(sendToMessager(text))
+  .catch((error) => {
+    return `${error}`;
+  });
+};
+
+export const GetChats = () => {
+  return Chat.findAll();
+};
+
+export const GetMessages = (id) => {
+  return Bubble.findForChat(id);
+};
+
+export const UpdateStatus = (io, payload) => {
+  const { chatId, key, value } = payload;
+  return Chat.findById(chatId)
+  .then((chat) => {
+    const keyValue = JSON.parse(`{"${key}":${value}}`);
+    socketEmit({io, action: Chat_update, data: keyValue, chat});
+    Chat.update(chat, keyValue);
+  });
 };

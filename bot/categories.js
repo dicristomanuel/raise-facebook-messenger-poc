@@ -2,6 +2,6 @@ export default
 [
   'electronic',
   'entertainment',
-  'flowers',
-  'pets'
+  'flower',
+  'pet'
 ].join('|');

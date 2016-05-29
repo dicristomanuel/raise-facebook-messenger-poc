@@ -1,4 +1,4 @@
-import { Bot } from './botConstants';
+import { Bot } from './constants';
 
 const textMatch = (text, context) => {
   return text.match(`(${context})`, 'i');
