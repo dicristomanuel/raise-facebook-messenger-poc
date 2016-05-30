@@ -5,21 +5,20 @@ import States from '../prism/states/config';
 
 let cached;
 
-const createChat = (sender) => {
-  return GetProfile(sender).then(Chat.create);
+const init = (sender, data) => {
+  return GetProfile(sender).then(Chat.create)
+  .then((chat) => {
+    cached = chat;  
+    Prism.create(States);
+    return Prism.next(chat.state, { chat, ...data });
+  });
+};
+
+const next = (data) => {
+  return Prism.next(cached.state, { chat: cached, ...data });
 };
 
 export const Parser = (data) => {
   const { sender } = data;
-  if (cached) {
-    return Prism.next(cached.state, { chat: cached, ...data });
-  }
-  else {
-    return createChat(sender)
-    .then((chat) => {
-      cached = chat;
-      Prism.create(States);
-      return Prism.next(chat.state, { chat, ...data });
-    });
-  }
+  return cached ? next(data) : init(sender, data);
 };

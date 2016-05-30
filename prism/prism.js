@@ -18,12 +18,13 @@ export default {
     });
   },
   next: function(currentState, data) {
-    debugger;
-    this.nextState.forEach(this.findNextState, this);
+    this.nextState.forEach(this.findNextState(currentState, data), this);
   },
-  findNextState: function(state) {
-    if (currentState === data.currentState)
-    return this.callState(state.next, data)
+  findNextState: function(currentState, data) {
+    return function(state) {
+      if (currentState === state.current)
+      return this.callState(state.next, data)
+    }
   },
   nextState: [],
 }
