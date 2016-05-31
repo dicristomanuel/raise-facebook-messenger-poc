@@ -14,19 +14,20 @@ export default {
       this[state.to] = {
         on: function(data) {
           return new Promise(function(resolve, reject) {
-            debugger;
             resolve(state.on(data));
           });
         },
+        // make sure on is executing before off
         off: function(data) {
+          let current = state;
           return new Promise(function(resolve, reject) {
-            if (state.from === data.state)
+            if (current.from === data.state)
             resolve(state.off(data));
             else if (parent.onUpdate)
             resolve(parent['onUpdate'](data)
-            .then(parent['callState']));
+            .then(parent['callState'](data)));
             else
-            resolve(data);
+            resolve(parent['callState'](data));
           });
         },
       }
@@ -35,7 +36,7 @@ export default {
   },
   callState: function(data) {
     this[data.state].on(data)
-    .then(this[data.state].off(data));
+    .then(this[data.state].off);
     // .then(200)
     // .catch(500);
   },

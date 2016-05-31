@@ -44,7 +44,6 @@ const getAnswer = (context, name, brand, category) => {
 };
 
 export const MatchAnswer = (chat, text) => {
-  debugger;
   const { firstName } = chat;
   const context = setContext(text);
   const brand = context === 'Brands' ? getBrandName(text) : null;

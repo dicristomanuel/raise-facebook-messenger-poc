@@ -2,7 +2,6 @@ import { Bubble } from './dbConfig';
 
 export default {
   create: data => {
-    debugger;
     const { chatId, text, userType } = data;
     return Bubble.create({ ChatId: chatId, text, userType });
   },
