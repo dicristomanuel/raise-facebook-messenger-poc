@@ -14,7 +14,4 @@ export default [
   { from: 'msReceive', to: 'msSend',    on: OnMsSend,    off: OffMsSend },
   { from: 'msSend',    to: 'msReceive', on: OnMsReceive, off: OffMsReceive },
   { onUpdate }
-  // { from: 'botSend',    to: 'botReceive', on, off },
-  // { from: 'msReceive',  to: 'msSend',     on, off },
-  // { from: 'msSend',     to: 'msReceive',  on, off },
 ];
