@@ -19,7 +19,9 @@ const prepareBotMessage = (data) => {
 };
 
 export const OnBot = (data) => {
-  const { chat, text } = data;
-  Bubble.create({chatId: chat.id, text, userType: Consumer});
-  return prepareBotMessage(data);
+  return new Promise((resolve, reject) => {
+    const { chat, text } = data;
+    Bubble.create({chatId: chat.id, text, userType: Consumer})
+    resolve(prepareBotMessage(data));
+  });
 };

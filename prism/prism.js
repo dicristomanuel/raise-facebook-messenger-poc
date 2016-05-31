@@ -2,47 +2,46 @@ export default {
   create: function(states) {
     states.forEach(this.addState, this);
   },
+
+  next: function(data) {
+    this.nextState.forEach(this.findNextState(data), this);
+  },
+
   addState: function(state) {
-    if (state.onUpdate) {
-      this['onUpdate'] = function(data) {
-        return new Promise(function(resolve, reject) {
-          resolve(state.onUpdate(data));
-        });
-      };
-    } else {
+    if (state.onUpdate)
+    this['onUpdate'] = function(data) {
+      return state.onUpdate(data);
+    }
+    else {
       let parent = this;
       this[state.to] = {
         on: function(data) {
-          return new Promise(function(resolve, reject) {
-            resolve(state.on(data));
-          });
+          return state.on(data)
         },
-        // make sure on is executing before off
         off: function(data) {
-          let current = state;
-          return new Promise(function(resolve, reject) {
-            if (current.from === data.state)
-            resolve(state.off(data));
-            else if (parent.onUpdate)
-            resolve(parent['onUpdate'](data)
-            .then(parent['callState'](data)));
-            else
-            resolve(parent['callState'](data));
-          });
+          if (!data || !data.state)
+          return 'PRISM: missing data or state';
+          else if (state.from === data.state)
+          return state.off(data);
+          else if (parent.onUpdate)
+          return parent['onUpdate'](data)
+          .then(parent['callState'](data));
+          else
+          return parent['callState'](data);
         },
       }
       this.nextState.push({current: state.from, next: state.to});
     }
   },
+
   callState: function(data) {
     this[data.state].on(data)
-    .then(this[data.state].off);
-    // .then(200)
-    // .catch(500);
+    .then(this[data.state].off)
+    .catch(function(error) {
+      console.log(error);
+    });
   },
-  next: function(data) {
-    this.nextState.forEach(this.findNextState(data), this);
-  },
+
   findNextState: function(data) {
     return function(state) {
       if (data.state === state.current) {
@@ -52,5 +51,6 @@ export default {
       }
     }
   },
+
   nextState: [],
 }

@@ -1,4 +1,5 @@
 export const OnMsReceive = (data) => {
-  debugger;
-  return true;
+  return new Promise((resolve, reject) => {
+    resolve(true);
+  })
 };
