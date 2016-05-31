@@ -10,13 +10,17 @@ export default {
   addState: function(state) {
     if (state.onUpdate)
     this['onUpdate'] = function(data) {
-      return state.onUpdate(data);
+      return new Promise((resolve, reject) => {
+        resolve(state.onUpdate(data));
+      });
     }
     else {
       let parent = this;
       this[state.to] = {
         on: function(data) {
-          return state.on(data)
+          return new Promise((resolve, reject) => {
+            resolve(state.on(data));
+          });
         },
         off: function(data) {
           if (!data || !data.state)

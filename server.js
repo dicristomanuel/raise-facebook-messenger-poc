@@ -6,7 +6,7 @@ import Inert from 'inert';
 import Joi from 'joi';
 import { Consumer, MemberService } from './data/appConstants';
 import { FromConsumer, FromMemberService, GetChats, UpdateStatus, GetMessages } from './app/mediator';
-import { Parser } from './app/newMediator';
+import Parser from './app/parser';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
@@ -62,9 +62,7 @@ server.register([
             // do something with the postback
           } else if (event.message && event.message.text) {
             const text = event.message.text;
-            // FromConsumer(io, {text, sender, userType: Consumer})
-            // .then(reply);
-            Parser({io, sender, text});
+            Parser({io, sender, text, userType: Consumer});
             reply();
           }
         }
@@ -77,7 +75,7 @@ server.register([
       path: '/member-service',
       handler(request, reply) {
         const data = request.payload;
-        FromMemberService(io, data)
+        FromMemberService(io, data) // userType: Bot
         .then(reply);
       }
     });

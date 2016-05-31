@@ -18,7 +18,7 @@ const next = (data) => {
   return Prism.next({ ...data, state: data.chat.state});
 };
 
-export const Parser = (data) => {
+export default (data) => {
   const { sender } = data;
   return cached ? next({...data, chat: cached}) : init(sender, data);
 };

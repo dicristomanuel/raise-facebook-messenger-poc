@@ -4,12 +4,18 @@ import { SendMessage, SendGiftcards } from '../../../app/messenger';
 import Bubble from '../../../db/bubble';
 
 const handleBotMessage = (toDb, data) => {
-  const { sender, chat } = data;
-  const { text, userType, brand } = toDb;
-  SendMessage(sender, text);
+  const { sender, chat, text, userType } = data;
+  const { answer, brand } = toDb;
+  SendMessage(sender, answer);
   brand ? SendGiftcards(sender, brand) : null;
-  Bubble.create({ chatId: chat.id, text, userType });
-  return text.includes(ToMemberService) ? { ...data, state: 'msReceive'} : data;
+  if (answer.includes(ToMemberService))
+  return { ...data, state: 'msReceive', answer }
+  else
+  Bubble.create([
+                  { chatId: chat.id, text, userType },
+                  { chatId: chat.id, text: answer, userType: Bot }
+                ]);
+  return data;
 };
 
 const prepareBotMessage = (data) => {
@@ -19,9 +25,5 @@ const prepareBotMessage = (data) => {
 };
 
 export const OnBot = (data) => {
-  return new Promise((resolve, reject) => {
-    const { chat, text } = data;
-    Bubble.create({chatId: chat.id, text, userType: Consumer})
-    resolve(prepareBotMessage(data));
-  });
+  return prepareBotMessage(data);
 };
