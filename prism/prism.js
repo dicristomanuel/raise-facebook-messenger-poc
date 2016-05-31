@@ -3,29 +3,51 @@ export default {
     states.forEach(this.addState, this);
   },
   addState: function(state) {
-    this[state.to] = {
-      on: state.on,
-      switch: (data) => {
-        return new Promise((resolve, reject) => {
-          data.switch.execute ? reject(this.callState(data.switch.newState, data)) : resolve(data);
+    if (state.onUpdate) {
+      this['onUpdate'] = function(data) {
+        return new Promise(function(resolve, reject) {
+          resolve(state.onUpdate(data));
         });
-      },
-      off: state.off,
+      };
+    } else {
+      let parent = this;
+      this[state.to] = {
+        on: function(data) {
+          return new Promise(function(resolve, reject) {
+            resolve(state.on(data));
+          });
+        },
+        off: function(data) {
+          return new Promise(function(resolve, reject) {
+            if (state.from === data.state)
+            resolve(state.off(data));
+            else if (parent.onUpdate)
+            resolve(parent['onUpdate'](data)
+            .then(parent['callState']));
+            else
+            resolve(data);
+          });
+        },
+      }
+      this.nextState.push({current: state.from, next: state.to});
     }
-    this.nextState.push({current: state.from, next: state.to});
   },
-  callState: function(state, data) {
-    this[state].on(data)
-    .then(this[state].switch(data))
-    .then(this[state].off(data));
+  callState: function(data) {
+    this[data.state].on(data)
+    .then(this[data.state].off(data));
+    // .then(200)
+    // .catch(500);
   },
-  next: function(currentState, data) {
-    this.nextState.forEach(this.findNextState(currentState, data), this);
+  next: function(data) {
+    this.nextState.forEach(this.findNextState(data), this);
   },
-  findNextState: function(currentState, data) {
+  findNextState: function(data) {
     return function(state) {
-      if (currentState === state.current)
-      return this.callState(state.next, data)
+      if (data.state === state.current) {
+        if (this.onUpdate)
+        this.onUpdate({ ...data, state: state.next });
+        return this.callState({ ...data, state: state.next });
+      }
     }
   },
   nextState: [],

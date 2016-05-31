@@ -1,2 +1,2 @@
-export * from './botReceive/on';
-export * from './botReceive/off'
+export * from './bot/on';
+export * from './bot/off'

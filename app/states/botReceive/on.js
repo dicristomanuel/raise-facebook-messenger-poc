@@ -2,19 +2,24 @@ import { Bot, ToMemberService } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
 import { SendMessage, SendGiftcards } from '../../messenger';
 import Bubble from '../../../db/bubble';
-import { CallNextState } from '../../stateMachine';
+import Chat from '../../../db/chat';
+
+
+const switch = (newState, data) => {
+  Chat.update(data.chat, { state: 'msReceive' })
+  .then((chat) {
+    Prism.switch(newState, { ...data, currentState: 'msReceive', chat });
+  });
+};
 
 const handleBotMessage = (data) => {
   const { sender, toDb, brand, chat } = data;
   SendMessage(sender, toDb.text);
   brand ? SendGiftcards(sender, brand) : null;
-  const switchState = toDb.text.includes(ToMemberService) ? true : false;
   Bubble.create({chat, ...toDb});
-  return new Promise((resolve, reject) => {
-    resolve({...data, switchState});
-  });
+  toDb.text.includes(ToMemberService) ? switch('msReceive', data) : null;
+  return data;
 };
-// alternative to promise ^^
 
 const prepareBotMessage = (data) => {
   const { chat, text, userType } = data;
@@ -31,10 +36,7 @@ const prepareBotMessage = (data) => {
 };
 
 const BotReceive = (data) => {
-  debugger;
-  // layer with function to execute - data to send back (with switchState)
-  return prepareBotMessage(data)
-  .then(CallNextState);
+  return prepareBotMessage(data);
 };
 
 export default BotReceive;
