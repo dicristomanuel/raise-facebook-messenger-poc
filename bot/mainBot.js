@@ -43,11 +43,12 @@ const getAnswer = (context, name, brand, category) => {
   }
 };
 
-export const MatchAnswer = (text, chat) => {
-  const { name } = chat;
+export const MatchAnswer = (chat, text) => {
+  debugger;
+  const { firstName } = chat;
   const context = setContext(text);
   const brand = context === 'Brands' ? getBrandName(text) : null;
   const category = context === 'Categories' ? getCategoryName(text) : null;
-  const answer = getAnswer(context, name, brand, category);
-  return {text: answer, userType: Bot, brand};
+  const answer = getAnswer(context, firstName, brand, category);
+  return {text: answer, userType: 'bot', brand};
 };

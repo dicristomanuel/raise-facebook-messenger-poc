@@ -1,26 +1,25 @@
-import { Bot, ToMemberService } from '../../../data/appConstants';
+import { Bot, ToMemberService, Consumer } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
 import { SendMessage, SendGiftcards } from '../../../app/messenger';
 import Bubble from '../../../db/bubble';
-import Prism from '../../prism';
 
 const handleBotMessage = (toDb, data) => {
   const { sender, chat } = data;
-  const { text, brand } = toDb;
+  const { text, userType, brand } = toDb;
   SendMessage(sender, text);
   brand ? SendGiftcards(sender, brand) : null;
-  Bubble.create({chat, ...toDb});
-  return text.includes(ToMemberService) ? {...data, state: 'msReceive'} : data;
+  Bubble.create({ chatId: chat.id, text, userType });
+  return text.includes(ToMemberService) ? { ...data, state: 'msReceive'} : data;
 };
 
 const prepareBotMessage = (data) => {
-  const { chat, text, userType } = data;
-  Bubble.create({chatId: chat.id, text, userType});
-
-  const toDb = MatchAnswer(text, chat);
+  const { chat, text } = data;
+  const toDb = MatchAnswer(chat, text);
   return handleBotMessage(toDb, data);
 };
 
 export const OnBot = (data) => {
+  const { chat, text } = data;
+  Bubble.create({chatId: chat.id, text, userType: Consumer});
   return prepareBotMessage(data);
 };

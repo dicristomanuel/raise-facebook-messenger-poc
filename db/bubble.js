@@ -2,8 +2,9 @@ import { Bubble } from './dbConfig';
 
 export default {
   create: data => {
-    const { text, userType, chatId } = data;
-    return Bubble.create({ text, userType, ChatId });
+    debugger;
+    const { chatId, text, userType } = data;
+    return Bubble.create({ ChatId: chatId, text, userType });
   },
   findForChat: (id) => {
     return Bubble.findAll({ where: { ChatId: id }, order: '"id" ASC'});

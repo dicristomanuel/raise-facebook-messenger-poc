@@ -14,6 +14,7 @@ export default {
       this[state.to] = {
         on: function(data) {
           return new Promise(function(resolve, reject) {
+            debugger;
             resolve(state.on(data));
           });
         },

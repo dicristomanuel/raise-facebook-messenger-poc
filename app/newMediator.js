@@ -8,15 +8,14 @@ let cached;
 const init = (sender, data) => {
   return GetProfile(sender).then(Chat.create)
   .then((chat) => {
-    cached = chat; 
+    cached = chat;
     Prism.create(States);
     return Prism.next({ chat, ...data, state: chat.state});
   });
 };
 
 const next = (data) => {
-  const { chat } = data;
-  return Prism.next({ chat, ...data, state: chat.state});
+  return Prism.next({ ...data, state: data.chat.state});
 };
 
 export const Parser = (data) => {
