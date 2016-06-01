@@ -43,10 +43,11 @@ const getAnswer = (context, name, brand, category) => {
   }
 };
 
-export const MatchAnswer = (text, name) => {
+export const MatchAnswer = (chat, text) => {
+  const { firstName } = chat;
   const context = setContext(text);
   const brand = context === 'Brands' ? getBrandName(text) : null;
   const category = context === 'Categories' ? getCategoryName(text) : null;
-  const answer = getAnswer(context, name, brand, category);
+  const answer = getAnswer(context, firstName, brand, category);
   return {answer, brand};
 };

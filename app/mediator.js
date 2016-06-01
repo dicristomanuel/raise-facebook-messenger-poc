@@ -103,7 +103,6 @@ export const FromConsumer = (io, dataIn) => {
 
 export const FromMemberService = (io, data) => {
   const { text, chatId, userType } = data;
-  debugger;
   return Chat.findById(chatId)
   .then(storeMessage({userType, text}))
   .then(updateChat(io, userType))

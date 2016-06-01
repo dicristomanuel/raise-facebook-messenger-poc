@@ -1,7 +1,10 @@
 import { New_message } from '../../../data/socketConstants';
-import { Socket } from '../../transformer';
+import { Socket } from '../../../app/transformer';
 
-export default (data) => {
+export const OffBot = (data) => {
   const { io, chat } = data;
   io.emit(`${New_message}${chat.id}`, Socket.message(data));
+  return data;
 }
+
+// SHOULD TAKE CARE OF REDUX STORE TOO? 
