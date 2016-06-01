@@ -4,7 +4,6 @@ export default {
   },
 
   next: function(data) {
-    debugger;
     this.nextState.forEach(this.findNextState(data), this);
   },
 

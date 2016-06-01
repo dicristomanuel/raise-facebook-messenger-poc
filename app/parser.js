@@ -7,7 +7,6 @@ import { Consumer } from '../data/appConstants';
 let cached;
 
 const prismInit = data => chat => {
-  debugger;
   cached = chat;
   Prism.create(States);
   return Prism.next({ chat, ...data, state: chat.state});
