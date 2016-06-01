@@ -2,7 +2,6 @@ import Bubble from '../../../db/bubble';
 import { Bot } from '../../../data/appConstants';
 
 export const OnMs = (data) => {
-  debugger;
   const { chat, text, userType, answer } = data;
   if (answer)
   Bubble.create([

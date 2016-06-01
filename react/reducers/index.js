@@ -15,12 +15,11 @@ const visibilityFilter = (state = SHOW_ACTIVE, action) => {
 const chats = (state = [], action) => {
   switch (action.type) {
     case ADD_CHAT:
-    console.log(`>>>>>>>>>> in add chat <<<<<<<<<<<<`);
     return [
       ...state,
       {
-        chatId: action.id,
-        name: `${action.firstName} ${action.lastName}`,
+        chatId: action.chatId,
+        name: action.name,
         profilePic: action.profilePic,
         state: action.state,
         busy: action.busy,

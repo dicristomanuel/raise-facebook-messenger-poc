@@ -31,8 +31,8 @@ export default {
               resolve(state.off(data));
             }
             else if (parent.onUpdate) {
-              resolve(parent['onUpdate'](data))
-              .then(parent['callState'](data));
+              resolve(parent['onUpdate'](data)
+              .then(parent['callState'](data)));
             }
             else {
               resolve(parent['callState'](data));

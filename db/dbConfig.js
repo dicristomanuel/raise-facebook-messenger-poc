@@ -43,4 +43,4 @@ Chat.hasMany(Bubble);
 Bubble.belongsTo(Chat);
 
 connection.sync();
-// connection.sync({force:true});
+// connection.sync({feorce:true});

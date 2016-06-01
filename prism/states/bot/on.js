@@ -25,5 +25,6 @@ const prepareBotMessage = (data) => {
 };
 
 export const OnBot = (data) => {
+  debugger;
   return prepareBotMessage(data);
 };

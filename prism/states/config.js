@@ -1,4 +1,4 @@
-import { OnBot, OffBot, OnMs, OffMs } from './all';
+import { OnInit, OnBot, OffBot, OnMs, OffMs } from './all';
 import Chat from '../../db/chat';
 
 const onUpdate = (data) => {
@@ -9,8 +9,8 @@ const onUpdate = (data) => {
 }
 
 export default [
-  { from: 'init', to: 'bot', on: OnBot, off: OffBot },
-  { from: 'bot',  to: 'bot', on: OnBot, off: OffBot },
-  { from: 'ms',   to: 'ms',  on: OnMs,  off: OffMs },
+  { from: 'init', to: 'init', on: OnInit, off: null },
+  { from: 'bot',  to: 'bot',  on: OnBot,  off: OffBot },
+  { from: 'ms',   to: 'ms',   on: OnMs,   off: OffMs },
   { onUpdate }
 ];

@@ -22,9 +22,8 @@ export const LayoutInit = () => {
     chats.forEach((chat) => {
       Store.dispatch(AddChat(chat));
     });
-    console.log(Store.getState());
   })
-  .catch(console.log);
+  .catch((err) => {console.log(err)});
 };
 
 // TODO: better error handling

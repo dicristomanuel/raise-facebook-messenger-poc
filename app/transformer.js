@@ -1,5 +1,20 @@
 import { Bot, Consumer } from '../data/appConstants';
 
+const newChat = (data) => {
+  const { chat } = data;
+  const { id, firstName, lastName, profilePic, state } = chat;
+  debugger;
+  return {
+    chatId: id,
+    name: firstName + ' ' + lastName,
+    profilePic,
+    state: Bot,
+    busy: false,
+    solved: false,
+    engaged: false,
+  }
+};
+
 const newMessage = (data) => {
   const { text, toDb, chat } = data;
   const { id } = chat;
@@ -33,6 +48,7 @@ const updateChat = (data, chat) => {
 // exports ====>
 
 export const Socket = {
+  chat: newChat,
   message: newMessage,
   updateChat: updateChat,
 };
