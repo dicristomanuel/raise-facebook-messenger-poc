@@ -40,8 +40,8 @@ class Chat extends React.Component {
     socket.on(`${New_message}${id}`, (data) => {
       data.forEach((message) => {
         Store.dispatch(AddMessage(message));
+        console.log(Store.getState());
       });
-      console.log(Store.getState());
     });
   }
 
