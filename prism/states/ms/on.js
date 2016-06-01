@@ -1,7 +1,7 @@
 import Bubble from '../../../db/bubble';
 import { Bot } from '../../../data/appConstants';
 
-export const OnMsReceive = (data) => {
+export const OnMs = (data) => {
   const { chat, text, userType, answer } = data;
   if (answer)
   Bubble.create([
@@ -10,4 +10,5 @@ export const OnMsReceive = (data) => {
                 ]);
   else
   Bubble.create([{ chatId: chat.id, text, userType }]);
+  return data;
 };

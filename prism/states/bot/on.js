@@ -9,7 +9,7 @@ const handleBotMessage = (toDb, data) => {
   SendMessage(sender, answer);
   brand ? SendGiftcards(sender, brand) : null;
   if (answer.includes(ToMemberService))
-  return { ...data, state: 'msReceive', answer }
+  return { ...data, state: 'ms', answer }
   else
   Bubble.create([
                   { chatId: chat.id, text, userType },

@@ -6,3 +6,5 @@ export const OffBot = (data) => {
   io.emit(`${New_message}${chat.id}`, Socket.message(data));
   return data;
 }
+
+// SHOULD TAKE CARE OF REDUX STORE TOO? 

@@ -68,14 +68,13 @@ server.register([
         }
       }
     });
-
     // TODO: check error - Unhandled rejection Error: reply interface called twice - cause then(reply)
     server.route({
       method: 'POST',
       path: '/member-service',
       handler(request, reply) {
         const data = request.payload;
-        FromMemberService(io, data) // userType: Bot
+        Parser({...data, io, userType: MemberService})
         .then(reply);
       }
     });

@@ -1,7 +1,8 @@
-import { OnBot, OffBot, OnMsReceive, OffMsReceive, OnMsSend, OffMsSend } from './all';
+import { OnBot, OffBot, OnMs, OffMs } from './all';
 import Chat from '../../db/chat';
 
 const onUpdate = (data) => {
+  debugger;
   return Chat.update(data.chat, { state: data.state })
   .then((chat) => {
     return { ...data, chat };
@@ -9,9 +10,8 @@ const onUpdate = (data) => {
 }
 
 export default [
-  { from: 'init',      to: 'bot',       on: OnBot,       off: OffBot },
-  { from: 'bot',       to: 'bot',       on: OnBot,       off: OffBot },
-  { from: 'msReceive', to: 'msSend',    on: OnMsSend,    off: OffMsSend },
-  { from: 'msSend',    to: 'msReceive', on: OnMsReceive, off: OffMsReceive },
+  { from: 'init', to: 'bot', on: OnBot, off: OffBot },
+  { from: 'bot',  to: 'bot', on: OnBot, off: OffBot },
+  { from: 'ms',   to: 'ms',  on: OnMs,  off: OffMs },
   { onUpdate }
 ];

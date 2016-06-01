@@ -19,19 +19,30 @@ export default {
       this[state.to] = {
         on: function(data) {
           return new Promise((resolve, reject) => {
-            resolve(state.on(data));
+            data ? resolve(state.on(data)) : reject('PRISM: missing data or state');
           });
         },
         off: function(data) {
-          if (!data || !data.state)
-          return 'PRISM: missing data or state';
-          else if (state.from === data.state)
-          return state.off(data);
-          else if (parent.onUpdate)
-          return parent['onUpdate'](data)
-          .then(parent['callState'](data));
-          else
-          return parent['callState'](data);
+          return new Promise((resolve, reject) => {
+            debugger;
+            if (!data.state) {
+              debugger;
+              reject('PRISM: missing data or state');
+            }
+            else if (state.from === data.state) {
+              debugger;
+              resolve(state.off(data));
+            }
+            else if (parent.onUpdate) {
+              debugger;
+              resolve(parent['onUpdate'](data))
+              .then(parent['callState'](data));
+            }
+            else {
+              debugger;
+              resolve(parent['callState'](data));
+            }
+          });
         },
       }
       this.nextState.push({current: state.from, next: state.to});
