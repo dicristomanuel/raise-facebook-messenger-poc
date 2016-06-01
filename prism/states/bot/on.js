@@ -12,9 +12,9 @@ const handleBotMessage = (toDb, data) => {
   return { ...data, state: 'ms', answer }
   else
   Bubble.create([
-                  { chatId: chat.id, text, userType },
-                  { chatId: chat.id, text: answer, userType: Bot }
-                ]);
+    { chatId: chat.id, text, userType },
+    { chatId: chat.id, text: answer, userType: Bot }
+  ]);
   return data;
 };
 
