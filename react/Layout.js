@@ -8,16 +8,18 @@ import { Chat_update, New_chat } from '../data/socketConstants';
 
 const socket = io();
 LayoutInit();
+//
+// socket.on(Chat_update, (data) => {
+//   Store.dispatch(UpdateStatus(data));
+//   console.log('CHAT UPDATE >>> ', data, Store.getState());
+// });
+//
+// socket.on(New_chat, (chat) => {
+//   Store.dispatch(AddChat(chat));
+//   console.log('NEW CHAT >>> ', Store.getState());
+// });
 
-socket.on(Chat_update, (data) => {
-  Store.dispatch(UpdateStatus(data));
-  console.log('CHAT UPDATE >>> ', data, Store.getState());
-});
-
-socket.on(New_chat, (chat) => {
-  Store.dispatch(AddChat(chat));
-  console.log('NEW CHAT >>> ', Store.getState());
-});
+console.log(Store.getState());
 
 class Layout extends React.Component {
   render() {

@@ -2,6 +2,7 @@ import { Chat } from './dbConfig';
 
 export default {
   create: data => {
+    debugger;
     return Chat.create(data);
   },
 

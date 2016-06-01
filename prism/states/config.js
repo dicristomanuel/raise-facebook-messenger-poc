@@ -2,7 +2,6 @@ import { OnBot, OffBot, OnMs, OffMs } from './all';
 import Chat from '../../db/chat';
 
 const onUpdate = (data) => {
-  debugger;
   return Chat.update(data.chat, { state: data.state })
   .then((chat) => {
     return { ...data, chat };

@@ -4,6 +4,7 @@ export default {
   },
 
   next: function(data) {
+    debugger;
     this.nextState.forEach(this.findNextState(data), this);
   },
 
@@ -24,22 +25,17 @@ export default {
         },
         off: function(data) {
           return new Promise((resolve, reject) => {
-            debugger;
             if (!data.state) {
-              debugger;
               reject('PRISM: missing data or state');
             }
             else if (state.from === data.state) {
-              debugger;
               resolve(state.off(data));
             }
             else if (parent.onUpdate) {
-              debugger;
               resolve(parent['onUpdate'](data))
               .then(parent['callState'](data));
             }
             else {
-              debugger;
               resolve(parent['callState'](data));
             }
           });

@@ -74,8 +74,8 @@ server.register([
       path: '/member-service',
       handler(request, reply) {
         const data = request.payload;
-        Parser({...data, io, userType: MemberService})
-        .then(reply);
+        Parser({...data, io, userType: MemberService});
+        reply();
       }
     });
 
@@ -114,6 +114,7 @@ server.register([
       }
     });
   });
+  // MAKE THESE AVAILABLE IN PARSER ?
 
   server.start((error) => {
     if (error) {

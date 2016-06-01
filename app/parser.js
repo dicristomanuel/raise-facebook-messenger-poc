@@ -7,16 +7,25 @@ import { Consumer } from '../data/appConstants';
 let cached;
 
 const prismInit = data => chat => {
+  debugger;
   cached = chat;
   Prism.create(States);
   return Prism.next({ chat, ...data, state: chat.state});
 };
 
+const createChat = (data) => {
+  const { sender } = data;
+  GetProfile(sender).then(Chat.create)
+  .then(prismInit(data));
+};
+
 const init = (data) => {
   const { sender, userType, chatId } = data;
   if (userType === Consumer)
-  return GetProfile(sender).then(Chat.create)
-  .then(prismInit(data));
+  Chat.find(sender)
+  .then((chat) => {
+    chat ? prismInit({ ...data, chat }) : createChat(data)
+  });
   else
   return Chat.findById(chatId)
   .then(prismInit(data));
