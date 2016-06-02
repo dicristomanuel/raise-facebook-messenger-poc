@@ -24,19 +24,15 @@ export default {
         },
         off: function(data) {
           return new Promise((resolve, reject) => {
-            if (!data.state) {
-              reject('PRISM: missing data or state');
-            }
-            else if (state.from === data.state) {
-              resolve(state.off(data));
-            }
-            else if (parent.onUpdate) {
-              resolve(parent['onUpdate'](data)
-              .then(parent['callState'](data)));
-            }
-            else {
-              resolve(parent['callState'](data));
-            }
+            if (!data.state)
+            reject('PRISM: missing data or state');
+            else if (state.from === data.state)
+            resolve(state.off(data));
+            else if (parent.onUpdate)
+            resolve(parent['onUpdate'](data)
+            .then(parent['callState'](data)));
+            else
+            resolve(parent['callState'](data));
           });
         },
       }
