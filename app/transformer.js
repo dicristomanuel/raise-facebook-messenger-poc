@@ -3,7 +3,6 @@ import { Bot, Consumer } from '../data/appConstants';
 const newChat = (data) => {
   const { chat } = data;
   const { id, firstName, lastName, profilePic, state } = chat;
-  debugger;
   return {
     chatId: id,
     name: firstName + ' ' + lastName,

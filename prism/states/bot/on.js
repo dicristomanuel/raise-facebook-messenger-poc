@@ -1,19 +1,11 @@
-import { Bot, ToMemberService, Consumer } from '../../../data/appConstants';
+import { Bot, ToMemberService } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
-import { SendMessage, SendGiftcards } from '../../../app/messenger';
 import Bubble from '../../../db/bubble';
 
-const sendOut = (sender, answer, brand) => {
-  SendMessage(sender, answer);
-  brand ? SendGiftcards(sender, brand) : null;
-};
-
-const handleBotMessage = (toDb, data) => {
-  const { sender, chat, text, userType } = data;
-  const { answer, brand } = toDb;
-  sendOut(sender, answer, brand);
+const handleBotMessage = (data) => {
+  const { sender, chat, text, userType, answer } = data;
   if (answer.includes(ToMemberService))
-  return { ...data, state: 'ms', answer }
+  return { ...data, state: 'ms' }
   else
   Bubble.create([
     { chatId: chat.id, text, userType },
@@ -25,7 +17,7 @@ const handleBotMessage = (toDb, data) => {
 const prepareBotMessage = (data) => {
   const { chat, text } = data;
   const toDb = MatchAnswer(chat, text);
-  return handleBotMessage(toDb, data);
+  return handleBotMessage({...toDb, ...data});
 };
 
 export const OnBot = (data) => {
