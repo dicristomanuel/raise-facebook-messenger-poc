@@ -5,7 +5,7 @@ import Blipp from 'blipp';
 import Inert from 'inert';
 import Joi from 'joi';
 import { Consumer, MemberService } from './data/appConstants';
-import { FromConsumer, FromMemberService, GetChats, UpdateStatus, GetMessages } from './app/mediator';
+import { GetChats, UpdateStatus, GetMessages } from './app/helper';
 import Parser from './app/parser';
 
 const server = new Server();
@@ -68,7 +68,6 @@ server.register([
         }
       }
     });
-    // TODO: check error - Unhandled rejection Error: reply interface called twice - cause then(reply)
     server.route({
       method: 'POST',
       path: '/member-service',
