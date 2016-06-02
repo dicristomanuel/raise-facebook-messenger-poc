@@ -34,9 +34,7 @@ server.register([
   }], (err) => {
     if (err)
     throw err;
-
-    // TODO: catch all for react browserHistory
-
+    
     server.route({
       method: 'GET',
       path: '/{path*}',
@@ -113,7 +111,6 @@ server.register([
       }
     });
   });
-  // MAKE THESE AVAILABLE IN PARSER ?
 
   server.start((error) => {
     if (error) {
