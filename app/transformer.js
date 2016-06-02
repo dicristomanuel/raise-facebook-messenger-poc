@@ -4,8 +4,9 @@ const newChat = (data) => {
   const { chat } = data;
   const { id, firstName, lastName, profilePic, state } = chat;
   return {
-    chatId: id,
-    name: firstName + ' ' + lastName,
+    id: id,
+    firstName,
+    lastName,
     profilePic,
     state: Bot,
     busy: false,

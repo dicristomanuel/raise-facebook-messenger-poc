@@ -1,6 +1,7 @@
 import Chat from '../db/chat';
 import Bubble from '../db/bubble';
 import { New_message, New_chat, Chat_update } from '../data/socketConstants';
+import { Socket } from './transformer';
 
 export const GetChats = () => {
   return Chat.findAll();
@@ -15,7 +16,7 @@ export const UpdateStatus = (io, payload) => {
   return Chat.findById(chatId)
   .then((chat) => {
     const keyValue = JSON.parse(`{"${key}":${value}}`);
-    socketEmit({io, action: Chat_update, data: keyValue, chat});
-    Chat.update(chat, keyValue);
+    io.emit(Chat_update, Socket.updateChat(keyValue, chat));
+    return Chat.update(chat, keyValue);
   });
 };
