@@ -10,3 +10,4 @@ export default (
 );
 
 // <IndexRoute component={Chats} />
+// TODO: routes work only if refresh page

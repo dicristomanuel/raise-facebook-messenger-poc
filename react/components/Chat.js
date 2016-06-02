@@ -25,9 +25,6 @@ const getMessages = (id) => {
 };
 
 class Chat extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     const id = this.props.params.chatId;
