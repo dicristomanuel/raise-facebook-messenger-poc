@@ -31,5 +31,6 @@ class Layout extends React.Component {
 }
 
 export default Layout;
-
+// shouldn't have actions/store dependencies
+// doesn't need to be a class - stateless anonymous component
 // TODO: <Link to="page" activeClassName="test">page</Link>

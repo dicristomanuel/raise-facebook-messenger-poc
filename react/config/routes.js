@@ -10,4 +10,4 @@ export default (
 );
 
 // <IndexRoute component={Chats} />
-// TODO: routes work only if refresh page
+// TODO: socket.on in routes works only if refresh page
