@@ -4,7 +4,7 @@ export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 export const CHAT_UPDATE = 'CHAT_UPDATE';
 
 export const ChatStatuses = {
-  STATE: 'STATE',
+  ACTIVE: 'ACTIVE',
   BUSY: 'BUSY',
   SOLVED: 'SOLVED',
   ENGAGED: 'ENGAGED'

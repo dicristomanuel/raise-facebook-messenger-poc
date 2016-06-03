@@ -6,51 +6,51 @@ const { SHOW_ACTIVE } = VisibilityFilters;
 const visibilityFilter = (state = SHOW_ACTIVE, action) => {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
-    return action.filter;
+      return action.filter;
     default:
-    return state;
+      return state;
   }
 };
 
 const chats = (state = [], action) => {
   switch (action.type) {
     case ADD_CHAT:
-    return [
-      ...state,
-      {
-        chatId: action.id,
-        name: `${action.firstName} ${action.lastName}`,
-        profilePic: action.profilePic,
-        state: action.state,
-        busy: action.busy,
-        solved: action.solved,
-        engaged: action.engaged,
-      }
-    ];
+      return [
+        ...state,
+        {
+          chatId: action.id,
+          name: `${action.firstName} ${action.lastName}`,
+          profilePic: action.profilePic,
+          state: action.state,
+          busy: action.busy,
+          solved: action.solved,
+          engaged: action.engaged,
+        }
+      ];
     case CHAT_UPDATE:
-    return state.map((chat, index) => {
-      if (action.chatId === chat.chatId)
-      return {...chat, ...action.change}
-      return chat
-    });
+      return state.map((chat, index) => {
+        if (action.chatId === chat.chatId)
+        return {...chat, ...action.change}
+        return chat
+      });
     default:
-    return state;
+      return state;
   }
 };
 
 const messages = (state = [], action) => {
   switch (action.type) {
     case ADD_MESSAGE:
-    return [
-      ...state,
-      {
-        chatId: action.chatId,
-        text: action.text,
-        userType: action.userType,
-      }
-    ];
+      return [
+        ...state,
+        {
+          chatId: action.chatId,
+          text: action.text,
+          userType: action.userType,
+        }
+      ];
     default:
-    return state;
+      return state;
   }
 };
 
