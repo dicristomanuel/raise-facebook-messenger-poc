@@ -9,7 +9,7 @@ const Manifest = ({ onClick, name }) => (
 );
 
 Manifest.PropTypes = {
-  // onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   profilePic: PropTypes.string.isRequired,

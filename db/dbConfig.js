@@ -13,6 +13,7 @@ export const Chat = connection.define('Chat', {
   firstName: Sequelize.STRING,
   lastName: Sequelize.STRING,
   profilePic: Sequelize.STRING,
+  // ADD ACTIVE BACK
   busy: {
     type: Sequelize.BOOLEAN,
     defaultValue: false

@@ -1,20 +1,18 @@
 import React from 'react';
+import FilterLink from './containers/FilterLink';
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <div className='main-container'>
-        <nav className='navbar navbar-default' role='navigation'>
-          <div className="col-sm-7 col-sm-offset-2" style={{marginTop: 15}}>
-            THIS IS THE FOOTER
-          </div>
-        </nav>
-        <div className="container">
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
+const Footer = () => (
+  <p>
+    Show:
+    {" "}
+    <FilterLink filter="SHOW_ALL">
+      All
+    </FilterLink>
+    {", "}
+    <FilterLink>
+      Active
+    </FilterLink>
+  </p>
+);
 
 export default Footer;

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Manifest from './Manifest';
 
-const ChatList = ({chats}) => (
+const ChatList = ({ chats, onChatClick }) => (
   <ul>
     {chats.map(chat =>
       <Manifest
@@ -22,7 +22,7 @@ ChatList.propTypes = {
     solved: PropTypes.string.isRequired,
     engaged: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  // onChatClick: PropTypes.func.isRequired
+  onChatClick: PropTypes.func.isRequired
 }
 
 export default ChatList;
