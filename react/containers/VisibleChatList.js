@@ -14,7 +14,7 @@ const getVisibleChats = (chats, filter) => {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     chats: getVisibleChats(state.chats, state.visibilityFilter)
   }

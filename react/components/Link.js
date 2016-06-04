@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
-const Link = ({ active, children, onClick }) => {
-  if (active)
+const Link = ({ busy, children, onClick }) => {
+  if (busy)
   return <span>{children}</span>
 
   return (
@@ -16,7 +16,7 @@ const Link = ({ active, children, onClick }) => {
 }
 
 Link.propTypes = {
-  active: PropTypes.bool.isRequired,
+  busy: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired
 }

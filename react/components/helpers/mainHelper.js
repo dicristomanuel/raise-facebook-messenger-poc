@@ -16,7 +16,7 @@ const getChats = () => {
   });
 };
 
-export const LayoutInit = () => {
+export const InitChats = () => {
   return getChats()
   .then((chats) => {
     chats.forEach((chat) => {

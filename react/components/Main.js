@@ -1,11 +1,11 @@
 import React from 'react';
 import Footer from './Footer';
-import { LayoutInit } from './helpers/layoutHelper';
+import { InitChats } from './helpers/mainHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
 
-LayoutInit()
+InitChats()
 
 const Main = () => (
   <Provider store={Store}>
