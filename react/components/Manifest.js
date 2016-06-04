@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const Manifest = ({ onClick, chat }) => (
+const Manifest = ({ chat, onClick }) => (
   <li onClick={onClick}>
     {chat}
   </li>

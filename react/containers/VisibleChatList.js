@@ -3,11 +3,11 @@ import ChatList from '../components/ChatList';
 
 const getVisibleChats = (chats, filter) => {
   switch (filter) {
-    case 'SHOW_ACTIVE'
+    case 'SHOW_ACTIVE':
       return chats.filter(chat => chat.active) // and not busy
-    case 'SHOW_BUSY'
+    case 'SHOW_BUSY':
       return chats.filter(chat => chat.busy)
-    case 'SHOW_SOLVED'
+    case 'SHOW_SOLVED':
       return chats.filter(chat => chat.solved)
     // case 'SHOW_ENGAGED'
       // return chats.filter(chat => chat.engaged) // MS id

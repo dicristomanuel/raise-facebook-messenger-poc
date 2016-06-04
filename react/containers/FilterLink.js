@@ -23,4 +23,4 @@ const FilterLink = connect(
   mapDispatchToProps
 )(Link)
 
-export default FilterLinkl;
+export default FilterLink;

@@ -1,14 +1,18 @@
 import React from 'react';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import ChatList from './containers/VisibleChatList';
+import Footer from './Footer';
+// import Header from './components/Header';
+import VisibleChatList from '../containers/VisibleChatList';
+import { Provider } from 'react-redux';
+import Store from '../createStore';
 
-const Main = () => {
-  <div>
-    <VisibleChatList />
-    <Footer />
-  </div>
-};
+const Main = () => (
+  <Provider store={Store}>
+    <div>
+      <VisibleChatList />
+      <Footer />
+    </div>
+  </Provider>
+);
 
 export default Main;
 
