@@ -1,16 +1,18 @@
 import React, { PropTypes } from 'react';
 
-const Manifest = (chat) => {
-return (
-  <li>
-    {chat.name}
+const Manifest = (chat) => (
+  <li className='manifest'>
+    <div className='state'>
+      <div className='profile-pic'>
+        <img src={chat.profilePic} />
+      </div>
+      </div>
+      <p className="name">{chat.name}</p>
   </li>
 );
-}
 
 Manifest.PropTypes = {
-  // onClick: PropTypes.func.isRequired,
-  // chat: PropTypes.object.isRequired
+  chat: PropTypes.object.isRequired
 }
 
 export default Manifest;
