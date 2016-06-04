@@ -16,13 +16,11 @@ const getVisibleChats = (chats, filter) => {
 
 const mapStateToProps = (state) => {
   return {
-    chats: getVisibleChats(state.chats, state.VisibilityFilter)
+    chats: getVisibleChats(state.chats, state.visibilityFilter)
   }
 }
 
-const VisibleChatList = connect(
-  mapStateToProps
-)(ChatList);
+const VisibleChatList = connect(mapStateToProps)(ChatList);
 
 export default VisibleChatList;
 

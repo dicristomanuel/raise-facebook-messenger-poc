@@ -1,9 +1,11 @@
 import React from 'react';
 import Footer from './Footer';
-// import Header from './components/Header';
+import { LayoutInit } from './helpers/layoutHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
+
+LayoutInit()
 
 const Main = () => (
   <Provider store={Store}>
@@ -13,7 +15,6 @@ const Main = () => (
     </div>
   </Provider>
 );
-
 export default Main;
 
 
