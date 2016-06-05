@@ -28,5 +28,6 @@ const Manifest = (chat) => {
 Manifest.PropTypes = {
   chat: PropTypes.object.isRequired
 }
+// TODO: add propsTypes shape for chat
 
 export default Manifest;

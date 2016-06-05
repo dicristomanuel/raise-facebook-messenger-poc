@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from './Footer';
+import ChatFilter from './ChatFilter';
 import { InitChats } from './helpers/mainHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
@@ -10,8 +10,8 @@ InitChats()
 const Main = () => (
   <Provider store={Store}>
     <div>
+      <ChatFilter />
       <VisibleChatList />
-      <Footer />
     </div>
   </Provider>
 );
