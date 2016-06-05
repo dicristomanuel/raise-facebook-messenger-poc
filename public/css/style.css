@@ -58,7 +58,12 @@ html {
 }
 
 .state-filter-single:hover:after{
+  opacity:0.8;
+}
+
+.state-filter-single:after {
   position: absolute;
+  opacity: 0;
   background: rgba(0,0,0,.7);
   border-radius: 5px;
   color: #fff;
@@ -67,6 +72,14 @@ html {
   z-index: 1;
   top: -30px;
   left: -20px;
+  transition: opacity .2s;
+}
+
+.selected {
+  padding: 15px;
+  -webkit-box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);
+  -moz-box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);
+  box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);
 }
 
 .active {
@@ -92,9 +105,9 @@ html {
   border-radius: 100%;
   height: 155px;
   width: 155px;
-  -webkit-box-shadow: 0 0 17px -2px rgba(0,0,0,0.25);
-  -moz-box-shadow: 0 0 17px -2px rgba(0,0,0,0.25);
-  box-shadow: 0 0 17px -2px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+  box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
 }
 
 img {
