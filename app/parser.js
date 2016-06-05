@@ -15,7 +15,7 @@ const createChat = (data) => {
 
 const prismInit = data => chat => {
   if (chat) {
-    // cached = chat;
+    cached = chat;
     Prism.create(States);
     return Prism.next({ chat, ...data, state: chat.state});
   } else {

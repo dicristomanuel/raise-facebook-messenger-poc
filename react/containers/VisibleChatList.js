@@ -9,6 +9,8 @@ const getVisibleChats = (chats, filter) => {
       return chats.filter(chat => chat.busy)
     case 'SHOW_SOLVED':
       return chats.filter(chat => chat.solved)
+    case 'SHOW_ENGAGED':
+      return chats.filter(chat => chat.engaged)
     // case 'SHOW_ENGAGED'
       // return chats.filter(chat => chat.engaged) // MS id
   }

@@ -22,6 +22,7 @@ const chats = (state = [], action) => {
           name: `${action.firstName} ${action.lastName}`,
           profilePic: action.profilePic,
           state: action.state,
+          active: action.active,
           busy: action.busy,
           solved: action.solved,
           engaged: action.engaged,

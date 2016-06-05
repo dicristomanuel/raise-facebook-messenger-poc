@@ -16,6 +16,10 @@ const Footer = () => (
     <FilterLink filter="SHOW_SOLVED">
       Solved
     </FilterLink>
+    {", "}
+    <FilterLink filter="SHOW_ENGAGED">
+      engaged
+    </FilterLink>
   </p>
 );
 
