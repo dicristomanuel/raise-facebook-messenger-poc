@@ -26,8 +26,15 @@ const Manifest = (chat) => {
 }
 
 Manifest.PropTypes = {
-  chat: PropTypes.object.isRequired
+  chat: PropTypes.shape({
+    chatId: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    profilePic: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    busy: PropTypes.bool.isRequired,
+    solved: PropTypes.bool.isRequired,
+    engaged: PropTypes.bool.isRequired,
+  }).isRequired
 }
-// TODO: add propsTypes shape for chat
 
 export default Manifest;
