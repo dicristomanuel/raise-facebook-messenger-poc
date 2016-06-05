@@ -3,7 +3,7 @@ import Manifest from './Manifest';
 
 const ChatList = ({ chats }) => {
   return (
-  <ul>
+  <ul className='chats'>
     {chats.map(chat =>
       <Manifest
         key={chat.chatId}

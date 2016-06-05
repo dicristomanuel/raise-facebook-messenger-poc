@@ -1,9 +1,18 @@
 import React, { PropTypes } from 'react';
 
-const Manifest = (chat) => {
+const getStatus = (chat) => {
+  if (chat.busy)
+  return 'busy';
+  else if (chat.active)
+  return 'active';
+  else if (chat.solved)
+  return 'solved';
+  else if (chat.engaged)
+  return 'engaged';
+}
 
-  let status = chat.busy ? 'busy' : 'solved';
-  let state = `state ${status}`;
+const Manifest = (chat) => {
+  let state = `state ${getStatus(chat)}`;
   return (
     <li className='manifest'>
       <div className={state}>
