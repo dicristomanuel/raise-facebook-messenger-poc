@@ -1,8 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+
 html {
   background: #3BA98A;
 }
 
 .main-container {
+  font-family: 'Open Sans', sans-serif;
   display: flex;
   display: -webkit-flex;
   padding: 50px;
@@ -21,11 +24,28 @@ html {
   display: flex;
   display: -webkit-flex;
   flex-direction: column;
-  
   overflow: hidden;
   border-radius: 100%;
+  width: 110px;
+  height: 110px;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
   background: #9ffaa2;
-  width: 100%;
+}
+
+.busy {
+  background: #ffe98f;
+}
+
+.solved {
+  background: #f8f8f8;
+}
+
+.engaged {
+  background: #cbecfe;
 }
 
 .profile-pic {
@@ -35,6 +55,10 @@ html {
   border-radius: 100%;
   height: 95px;
   width: 95px;
+
+  -webkit-box-shadow: 0 0 17px -2px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 0 17px -2px rgba(0,0,0,0.25);
+  box-shadow: 0 0 17px -2px rgba(0,0,0,0.25);
 }
 
 img {
