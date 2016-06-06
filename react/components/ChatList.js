@@ -2,19 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import Manifest from './Manifest';
 import FlipMove from 'react-flip-move';
 
-// const ChatList = ({ chats }) => {
-//   return (
-//   <ul className='chats'>
-//     {chats.map(chat =>
-//       <Manifest
-//         key={chat.chatId}
-//         {...chat}
-//       />
-//     )}
-//   </ul>
-//   );
-// }
-
 class ChatList extends Component {
   render() {
     return(
