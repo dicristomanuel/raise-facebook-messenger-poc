@@ -26,6 +26,7 @@ html {
   height: 70px;
   background-color: white;
   position: fixed;
+  z-index: 1;
 }
 
 .logo img {
@@ -36,7 +37,7 @@ html {
   display: flex;
   display: -webkit-flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   width: 80%;
   margin: 100px auto 40px auto;
 }
