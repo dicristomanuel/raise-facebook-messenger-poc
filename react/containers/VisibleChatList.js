@@ -8,7 +8,7 @@ const getVisibleChats = (chats, filter) => {
     case 'SHOW_ACTIVE':
       return chats.filter(chat => chat.active && !chat.busy)
     case 'SHOW_BUSY':
-      return chats.filter(chat => chat.busy)
+      return chats.filter(chat => chat.busy && !chat.engaged)
     case 'SHOW_SOLVED':
       return chats.filter(chat => chat.solved)
     case 'SHOW_ENGAGED':

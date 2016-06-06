@@ -8,9 +8,9 @@ const onClick = (chat) => {
 // TODO: ^^
 
 const getStatus = (chat) => {
-  if (chat.busy)
+  if (chat.busy && !chat.engaged)
   return 'busy';
-  else if (chat.active)
+  else if (chat.active && !chat.busy)
   return 'active';
   else if (chat.solved)
   return 'solved';
