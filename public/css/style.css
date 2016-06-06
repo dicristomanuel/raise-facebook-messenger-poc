@@ -7,7 +7,6 @@ html {
 .main-container {
   background: white;
   font-family: 'Open Sans', sans-serif;
-  padding: 50px;
 }
 
 #app {
@@ -22,6 +21,12 @@ html {
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
+  padding: 20px 0 0 20px;
+  width: 95%;
+  height: 70px;
+  background-color: white;
+  /*overflow: hidden;*/
+  position: fixed;
 }
 
 .logo img {
@@ -34,7 +39,7 @@ html {
   flex-wrap: wrap;
   justify-content: center;
   width: 80%;
-  margin: 50px auto;
+  margin: 100px auto 40px auto;
 }
 
 .manifest {
@@ -145,5 +150,5 @@ img {
   text-align: center;
   font-size: 10px;
   width: 70%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
