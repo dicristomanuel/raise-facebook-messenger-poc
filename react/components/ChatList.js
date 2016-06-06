@@ -19,7 +19,7 @@ class ChatList extends Component {
   render() {
     return(
       <ul>
-      <FlipMove easing="cubic-bezier(0, 0.7, 0.8, 0.1)" className='chats'>
+      <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
         {this.props.chats.map(chat =>
           <Manifest
             key={chat.chatId}
