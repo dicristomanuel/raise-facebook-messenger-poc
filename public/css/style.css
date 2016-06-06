@@ -1,0 +1,160 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
+
+html {
+  background: #BABFBD;
+}
+
+.main-container {
+  background: white;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#app {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  padding: 20px 0 0 20px;
+  width: 95%;
+  height: 70px;
+  background-color: white;
+  position: fixed;
+}
+
+.logo img {
+  width: 100px;
+}
+
+.chats {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 80%;
+  margin: 100px auto 40px auto;
+}
+
+.manifest {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.state {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 100%;
+  width: 170px;
+  height: 170px;
+  align-items: center;
+  justify-content: center;
+}
+
+.state-filter {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.state-filter-single {
+  padding: 12px;
+  border-radius: 100%;
+  width: 10px;
+  height: 10px;
+  margin-right: 3px;
+  border: 1px solid lightgray;
+  position: relative;
+}
+
+.state-filter-single:hover:after{
+  opacity:0.8;
+}
+
+.state-filter-single:after {
+  position: absolute;
+  opacity: 0;
+  background: rgba(0,0,0,.7);
+  border-radius: 5px;
+  color: #fff;
+  content: attr(title);
+  padding: 5px 15px;
+  z-index: 1;
+  top: -30px;
+  left: -20px;
+  transition: opacity .2s;
+}
+
+.selected {
+  padding: 15px;
+  -webkit-box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);
+  -moz-box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);
+  box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);
+}
+
+.all {
+  border-top: 1px solid RGBA(83, 248, 106, 0.70);
+  border-left: 1px solid RGBA(255, 211, 0, 0.53);
+  border-bottom: 1px solid RGBA(186, 191, 189, 0.50);
+  border-right: 1px solid RGBA(0, 131, 255, 0.75);
+}
+
+.active {
+  background: RGBA(83, 248, 106, 0.70);
+}
+
+.busy {
+  background: RGBA(255, 211, 0, 0.53);
+}
+
+.solved {
+  background: RGBA(186, 191, 189, 0.50);
+}
+
+.engaged {
+  background: RGBA(0, 131, 255, 0.75);
+}
+
+.profile-pic {
+  display: flex;
+  display: -webkit-flex;
+  overflow: hidden;
+  border-radius: 100%;
+  height: 155px;
+  width: 155px;
+  -webkit-box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+  box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+}
+
+img {
+  width: 155px;
+  align-self: center;
+}
+
+.name {
+  padding: 10px;
+  font: bold;
+  font-size: 12px;
+  color: #505050;
+}
+
+.footer {
+  border-top: 1px solid lightgray;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 10px;
+  width: 70%;
+  margin: 20px auto;
+}

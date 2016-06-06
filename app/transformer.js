@@ -9,6 +9,7 @@ const newChat = (data) => {
     lastName,
     profilePic,
     state: Bot,
+    active: false,
     busy: false,
     solved: false,
     engaged: false,

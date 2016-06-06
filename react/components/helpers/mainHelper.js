@@ -16,8 +16,8 @@ const getChats = () => {
   });
 };
 
-export const LayoutInit = () => {
-  getChats()
+export const InitChats = () => {
+  return getChats()
   .then((chats) => {
     chats.forEach((chat) => {
       Store.dispatch(AddChat(chat));

@@ -11,6 +11,7 @@ export const ChatStatuses = {
 };
 
 export const VisibilityFilters = {
+  SHOW_ALL: 'SHOW_ALL',
   SHOW_ACTIVE: 'SHOW_ACTIVE',
   SHOW_BUSY: 'SHOW_BUSY',
   SHOW_SOLVED: 'SHOW_SOLVED',
