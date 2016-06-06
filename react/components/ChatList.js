@@ -1,20 +1,35 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import Manifest from './Manifest';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import FlipMove from 'react-flip-move';
 
-const ChatList = ({ chats }) => {
-  return (
-  <ul>
-    <ReactCSSTransitionGroup transitionName="manifest" transitionEnterTimeout={800} transitionLeaveTimeout={200} className='chats'>
-      {chats.map(chat =>
-        <Manifest
-          key={chat.chatId}
-          {...chat}
-        />
-      )}
-    </ReactCSSTransitionGroup>
-  </ul>
-  );
+// const ChatList = ({ chats }) => {
+//   return (
+//   <ul className='chats'>
+//     {chats.map(chat =>
+//       <Manifest
+//         key={chat.chatId}
+//         {...chat}
+//       />
+//     )}
+//   </ul>
+//   );
+// }
+
+class ChatList extends Component {
+  render() {
+    return(
+      <ul>
+      <FlipMove easing="cubic-bezier(0, 0.7, 0.8, 0.1)" className='chats'>
+        {this.props.chats.map(chat =>
+          <Manifest
+            key={chat.chatId}
+            {...chat}
+          />
+        )}
+        </FlipMove>
+      </ul>
+    )
+  }
 }
 
 // TODO: ask why key - Where does it show - Is it just a props for the after click?

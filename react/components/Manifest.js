@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { browserHistory } from 'react-router';
 
 const onClick = (chat) => {
@@ -18,18 +18,20 @@ const getStatus = (chat) => {
   return 'engaged';
 }
 
-const Manifest = (chat) => {
-  let state = `state ${getStatus(chat)}`;
-  return (
-    <li className='manifest' onClick={onClick}>
-      <div className={state}>
-        <div className='profile-pic'>
-          <img src={chat.profilePic} />
+class Manifest extends Component {
+  render() {
+    let state = `state ${getStatus(this.props)}`;
+    return (
+      <li className='manifest' onClick={onClick}>
+        <div className={state}>
+          <div className='profile-pic'>
+            <img src={this.props.profilePic} />
+          </div>
         </div>
-      </div>
-      <p className="name">{chat.name}</p>
-    </li>
-  );
+        <p className="name">{this.props.name}</p>
+      </li>
+    );
+  }
 }
 
 Manifest.PropTypes = {

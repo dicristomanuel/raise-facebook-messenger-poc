@@ -36,7 +36,7 @@ html {
   display: flex;
   display: -webkit-flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   width: 80%;
   margin: 100px auto 40px auto;
 }
@@ -47,24 +47,6 @@ html {
   flex-direction: column;
   align-items: center;
   margin: 20px;
-}
-
-.manifest-enter {
-  opacity: 0;
-}
-
-.manifest-enter.manifest-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease;
-}
-
-.manifest-leave {
-  opacity: 1;
-}
-
-.manifest-leave.manifest-leave-active {
-  opacity: 0;
-  transition: opacity 200ms ease;
 }
 
 .state {
