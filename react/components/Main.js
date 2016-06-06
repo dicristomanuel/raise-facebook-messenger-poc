@@ -1,9 +1,9 @@
 import React from 'react';
-import ChatFilter from './ChatFilter';
 import { InitChats } from './helpers/mainHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
+import Header from './Header';
 import Footer from './Footer';
 
 InitChats()
@@ -11,12 +11,13 @@ InitChats()
 const Main = () => (
   <Provider store={Store}>
     <div>
-      <ChatFilter />
+      <Header />
       <VisibleChatList />
       <Footer />
     </div>
   </Provider>
 );
+
 export default Main;
 
 
