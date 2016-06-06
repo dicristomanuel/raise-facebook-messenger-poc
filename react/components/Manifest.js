@@ -1,4 +1,10 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
+
+const onClick = (chat) => {
+  console.log(chat);
+  return browserHistory.push(`/chat/${chat.chatId}`);
+}
 
 const getStatus = (chat) => {
   if (chat.busy)
@@ -14,7 +20,7 @@ const getStatus = (chat) => {
 const Manifest = (chat) => {
   let state = `state ${getStatus(chat)}`;
   return (
-    <li className='manifest'>
+    <li className='manifest' onClick={onClick}>
       <div className={state}>
         <div className='profile-pic'>
           <img src={chat.profilePic} />

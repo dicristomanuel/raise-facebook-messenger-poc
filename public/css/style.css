@@ -8,14 +8,22 @@ html {
   background: white;
   font-family: 'Open Sans', sans-serif;
   padding: 50px;
+}
+
+#app {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
   min-height: 100vh;
+  justify-content: space-between;
 }
 
 .chats {
   display: flex;
   display: -webkit-flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  flex: 1 0 auto;
+  justify-content: center;
   width: 80%;
   margin: 50px auto;
 }
@@ -91,7 +99,7 @@ html {
 }
 
 .solved {
-  background: #f8f8f8;
+  background: #DCE0E5;
 }
 
 .engaged {
@@ -120,4 +128,13 @@ img {
   font: bold;
   font-size: 12px;
   color: #505050;
+}
+
+.footer {
+  border-top: 1px solid lightgray;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 10px;
+  width: 70%;
+  margin: 0 auto;
 }
