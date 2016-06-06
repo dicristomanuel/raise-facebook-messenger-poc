@@ -1,6 +1,7 @@
 import request from 'superagent';
 import Store from '../../createStore';
-import { AddChat } from '../../actions';
+import { UpdateStatus, AddChat } from '../../actions';
+
 
 const socket = io();
 
@@ -16,7 +17,15 @@ const getChats = () => {
   });
 };
 
-export const InitChats = () => {
+export const InitChatsAndSockets = () => {
+  socket.on('chat_update', (data) => {
+    Store.dispatch(UpdateStatus(data));
+  });
+
+  socket.on('new_chat', (data) => {
+    Store.dispatch(AddChat(data));
+  });
+
   return getChats()
   .then((chats) => {
     chats.forEach((chat) => {

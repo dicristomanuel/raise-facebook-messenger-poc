@@ -1,5 +1,5 @@
 import React from 'react';
-import { InitChats } from './helpers/mainHelper';
+import { InitChatsAndSockets } from './helpers/mainHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
@@ -7,16 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { UpdateStatus, AddChat } from '../actions';
 
-InitChats()
-
-const socket = io();
-socket.on('chat_update', (data) => {
-  Store.dispatch(UpdateStatus(data));
-});
-
-socket.on('new_chat', (data) => {
-  Store.dispatch(AddChat(data));
-});
+InitChatsAndSockets()
 
 const Main = () => (
   <Provider store={Store}>
