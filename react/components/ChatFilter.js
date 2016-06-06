@@ -3,6 +3,9 @@ import FilterLink from '../containers/FilterLink';
 
 const ChatFilter = () => (
   <div className='state-filter'>
+    <FilterLink filter="SHOW_ALL">
+      <div className='state-filter-single all' title='all'></div>
+    </FilterLink>
     <FilterLink filter="SHOW_ACTIVE">
       <div className='state-filter-single active' title='active'></div>
     </FilterLink>

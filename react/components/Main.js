@@ -5,8 +5,14 @@ import { Provider } from 'react-redux';
 import Store from '../createStore';
 import Header from './Header';
 import Footer from './Footer';
+import { UpdateStatus } from '../actions';
 
 InitChats()
+
+const socket = io();
+socket.on('chat_update', (data) => {
+  Store.dispatch(UpdateStatus(data));
+});
 
 const Main = () => (
   <Provider store={Store}>

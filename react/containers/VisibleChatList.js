@@ -3,6 +3,8 @@ import ChatList from '../components/ChatList';
 
 const getVisibleChats = (chats, filter) => {
   switch (filter) {
+    case 'SHOW_ALL':
+      return chats;
     case 'SHOW_ACTIVE':
       return chats.filter(chat => chat.active && !chat.busy)
     case 'SHOW_BUSY':

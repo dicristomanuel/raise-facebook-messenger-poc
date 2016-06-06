@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
 
 html {
-  background: #54B193;
+  background: #BABFBD;
 }
 
 .main-container {
@@ -25,7 +25,6 @@ html {
   width: 95%;
   height: 70px;
   background-color: white;
-  /*overflow: hidden;*/
   position: fixed;
 }
 
@@ -48,6 +47,24 @@ html {
   flex-direction: column;
   align-items: center;
   margin: 20px;
+}
+
+.manifest-enter {
+  opacity: 0;
+}
+
+.manifest-enter.manifest-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease;
+}
+
+.manifest-leave {
+  opacity: 1;
+}
+
+.manifest-leave.manifest-leave-active {
+  opacity: 0;
+  transition: opacity 200ms ease;
 }
 
 .state {
@@ -104,20 +121,27 @@ html {
   box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);
 }
 
+.all {
+  border-top: 1px solid RGBA(83, 248, 106, 0.70);
+  border-left: 1px solid RGBA(255, 211, 0, 0.53);
+  border-bottom: 1px solid RGBA(186, 191, 189, 0.50);
+  border-right: 1px solid RGBA(0, 131, 255, 0.75);
+}
+
 .active {
-  background: #9ffaa2;
+  background: RGBA(83, 248, 106, 0.70);
 }
 
 .busy {
-  background: #ffe98f;
+  background: RGBA(255, 211, 0, 0.53);
 }
 
 .solved {
-  background: #DCE0E5;
+  background: RGBA(186, 191, 189, 0.50);
 }
 
 .engaged {
-  background: #cbecfe;
+  background: RGBA(0, 131, 255, 0.75);
 }
 
 .profile-pic {

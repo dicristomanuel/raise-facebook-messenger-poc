@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 
 const onClick = (chat) => {
-  console.log(chat);
-  return browserHistory.push(`/chat/${chat.chatId}`);
+  // return browserHistory.push(`/chat/${chat.chatId}`);
+  return true;
 }
+// TODO: ^^
 
 const getStatus = (chat) => {
   if (chat.busy)
@@ -26,7 +27,7 @@ const Manifest = (chat) => {
           <img src={chat.profilePic} />
         </div>
       </div>
-    <p className="name">{chat.name}</p>
+      <p className="name">{chat.name}</p>
     </li>
   );
 }
