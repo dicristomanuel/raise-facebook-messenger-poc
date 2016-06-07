@@ -11,7 +11,6 @@ export const VisibilityFilters = {
   SHOW_SOLVED: 'SHOW_SOLVED',
   SHOW_ENGAGED: 'SHOW_ENGAGED'
 };
-// TODO: DELETE? ^^
 
 export const AddChat = data => {
   return { type: ADD_CHAT, ...data };

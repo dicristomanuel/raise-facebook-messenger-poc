@@ -156,6 +156,7 @@ img {
   display: flex;
   display: -webkit-flex;
   flex-direction: column;
+  height: 500px;
 }
 
 .footer {
