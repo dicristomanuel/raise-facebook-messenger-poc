@@ -4,6 +4,10 @@ html {
   background: #BABFBD;
 }
 
+a {
+  text-decoration: none;
+}
+
 .main-container {
   background: white;
   font-family: 'Open Sans', sans-serif;
@@ -152,11 +156,51 @@ img {
   color: #505050;
 }
 
+.manifest-sm {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.state-sm {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  margin-top: 25px;
+  align-items: center;
+  justify-content: center;
+  background: gray;
+}
+
+.profile-pic-sm {
+  display: flex;
+  display: -webkit-flex;
+  overflow: hidden;
+  border-radius: 100%;
+  height: 70px;
+  width: 70px;
+  -webkit-box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+  box-shadow: 0 0 2px 1px rgba(0,0,0,0.25);
+  background: yellow;
+}
+
+.profile-pic-sm img {
+  width: 155px;
+  align-self: center;
+  background: orange;
+}
+
 .messages {
   display: flex;
   display: -webkit-flex;
   flex-direction: column;
-  height: 500px;
 }
 
 .footer {

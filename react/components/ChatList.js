@@ -6,13 +6,13 @@ class ChatList extends Component {
   render() {
     return(
       <ul>
-      <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
-        {this.props.chats.map(chat =>
-          <Manifest
-            key={chat.chatId}
-            {...chat}
-          />
-        )}
+        <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
+          {this.props.chats.map(chat =>
+            <Manifest
+              key={chat.chatId}
+              {...chat}
+            />
+          )}
         </FlipMove>
       </ul>
     )

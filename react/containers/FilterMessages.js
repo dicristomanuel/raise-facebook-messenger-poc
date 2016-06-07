@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 const mapStateToProps = (state, ownProps) => {
   return {
     chatId: ownProps.chatId === state.messagesVisibilityFilter,
+    extra: 'foobar'
   }
 };
 

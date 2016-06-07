@@ -5,14 +5,15 @@ import FlipMove from 'react-flip-move';
 class MessageList extends Component {
   render() {
     return(
-      <ul className='messages'>
-      <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
-        {this.props.messages.map(message =>
-          <Text
-            key={message.id}
-            {...message}
-          />
-        )}
+      <ul>
+        <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='messages'>
+          {this.props.messages.map(message =>
+            <Text
+              key={message.id}
+              chat={this.props.chat}
+              {...message}
+            />
+          )}
         </FlipMove>
       </ul>
     )
