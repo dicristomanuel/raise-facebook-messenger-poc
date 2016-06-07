@@ -1,14 +1,8 @@
 export const ADD_CHAT = 'ADD_CHAT';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
-export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
+export const SET_CHAT_VISIBILITY_FILTER = 'SET_CHAT_VISIBILITY_FILTER';
+export const SET_MESSAGES_VISIBILITY_FILTER = 'SET_MESSAGES_VISIBILITY_FILTER';
 export const CHAT_UPDATE = 'CHAT_UPDATE';
-
-// export const ChatStatuses = {
-//   ACTIVE: 'ACTIVE',
-//   BUSY: 'BUSY',
-//   SOLVED: 'SOLVED',
-//   ENGAGED: 'ENGAGED'
-// };
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -17,6 +11,7 @@ export const VisibilityFilters = {
   SHOW_SOLVED: 'SHOW_SOLVED',
   SHOW_ENGAGED: 'SHOW_ENGAGED'
 };
+// TODO: DELETE? ^^
 
 export const AddChat = data => {
   return { type: ADD_CHAT, ...data };
@@ -26,8 +21,12 @@ export const AddMessage = data => {
   return { type: ADD_MESSAGE, ...data };
 };
 
-export const SetVisibilityFilter = filter => {
-  return { type: SET_VISIBILITY_FILTER, filter };
+export const SetChatVisibilityFilter = filter => {
+  return { type: SET_CHAT_VISIBILITY_FILTER, filter };
+};
+
+export const SetMessagesVisibilityFilter = chatId => {
+  return { type: SET_MESSAGES_VISIBILITY_FILTER, chatId };
 };
 
 export const UpdateStatus = data => {

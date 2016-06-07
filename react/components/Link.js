@@ -17,7 +17,6 @@ const Link = ({ active, children, onClick }) => {
 }
 
 Link.propTypes = {
-  busy: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired
 }

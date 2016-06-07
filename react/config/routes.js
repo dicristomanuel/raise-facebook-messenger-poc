@@ -1,12 +1,13 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Main from '../components/Main';
+import Home from '../components/Home';
 import ChatSingle from '../components/ChatSingle';
-
 
 export default (
     <Route path='/'>
-      <IndexRoute component={Main} />
-      <Route path='chat/:id' component={ChatSingle} />
+      <IndexRoute component={Home} />
     </Route>
-);
+)
+
+
+// <Route path='chat/:id' component={ChatSingle} />

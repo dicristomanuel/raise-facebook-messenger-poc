@@ -18,9 +18,7 @@ class ChatList extends Component {
     )
   }
 }
-
 // TODO: ask why key - Where does it show - Is it just a props for the after click?
-// why {...chat} - chat only returns an error?
 // TODO: sort by oldest updated
 
 ChatList.propTypes = {

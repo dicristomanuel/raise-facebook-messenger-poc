@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { browserHistory, Link } from 'react-router';
+import FilterMessages from '../containers/FilterMessages';
+import Store from '../createStore';
 
 const getStatus = (chat) => {
   if (chat.busy && !chat.engaged)
@@ -15,10 +16,9 @@ const getStatus = (chat) => {
 class Manifest extends Component {
   render() {
     let state = `state ${getStatus(this.props)}`;
-    let chatLink = `chat/${this.props.chatId}`;
 
     return (
-      <Link to={chatLink}>
+      <FilterMessages chatId={this.props.chatId}>
         <li className='manifest'>
           <div className={state}>
             <div className='profile-pic'>
@@ -27,7 +27,7 @@ class Manifest extends Component {
           </div>
           <p className="name">{this.props.name}</p>
         </li>
-      </Link>
+      </FilterMessages>
     );
   }
 }

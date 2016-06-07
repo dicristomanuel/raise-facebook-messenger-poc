@@ -1,19 +1,27 @@
-import React from 'react';
-import { InitChatsAndSockets } from './helpers/mainHelper';
-import VisibleChatList from '../containers/VisibleChatList';
+import React, { Component } from 'react';
+import { InitMessagesAndSockets } from './helpers/chatSingleHelper';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
-import HeaderChatList from './HeaderChatList';
+import HeaderChatSingle from './HeaderChatSingle';
+import VisibleMessageList from '../containers/VisibleMessageList';
 import Footer from './Footer';
 
-const ChatSingle = () => (
-  <Provider store={Store}>
-    <div>
-      <HeaderChatList />
-    </div>
-  </Provider>
-);
+class ChatSingle extends Component {
+  render() {
+    InitMessagesAndSockets(this.props.params.id);
+    return (
+      <Provider store={Store}>
+        <div>
+          <HeaderChatSingle />
+          <VisibleMessageList />
+          <Footer />
+        </div>
+      </Provider>
+    );
+  }
+}
 
+// TODO: ask ^^ location of this ok?
 export default ChatSingle;
 
 

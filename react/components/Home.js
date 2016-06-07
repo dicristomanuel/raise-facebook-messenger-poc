@@ -1,5 +1,5 @@
 import React from 'react';
-import { InitChatsAndSockets } from './helpers/mainHelper';
+import { InitChatsAndSockets } from './helpers/homeHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
@@ -7,8 +7,8 @@ import HeaderChatList from './HeaderChatList';
 import Footer from './Footer';
 
 InitChatsAndSockets()
-
-const Main = () => (
+// TODO: ask ^^ location of this ok?
+const Home = () => (
   <Provider store={Store}>
     <div>
       <HeaderChatList />
@@ -18,7 +18,7 @@ const Main = () => (
   </Provider>
 );
 
-export default Main;
+export default Home;
 
 
 // import Store from './createStore';

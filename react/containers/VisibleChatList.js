@@ -18,21 +18,10 @@ const getVisibleChats = (chats, filter) => {
 
 const mapStateToProps = state => {
   return {
-    chats: getVisibleChats(state.chats, state.visibilityFilter)
+    chats: getVisibleChats(state.chats, state.chatVisibilityFilter)
   }
 }
 
 const VisibleChatList = connect(mapStateToProps)(ChatList);
 
 export default VisibleChatList;
-
-
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onChatClick: (id) => {
-//       dispatch(getMessagesForChat(id))
-//     }
-//   }
-// }
-// LATER
