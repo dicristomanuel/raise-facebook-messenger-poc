@@ -10,5 +10,3 @@ export default (
       <Route path='chat/:id' component={ChatSingle} />
     </Route>
 );
-
-// TODO: socket.on in routes works only if refresh page

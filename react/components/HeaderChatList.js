@@ -1,7 +1,5 @@
 import React from 'react';
 import ChatFilter from './ChatFilter';
-import NameFilter from './ChatFilter';
-// TODO: Change this ^^
 
 const HeaderChatList = () => (
   <div className='header'>

@@ -1,12 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 
-const onClick = (chat) => {
-  // return browserHistory.push(`/chat/${chat.chatId}`);
-  return true;
-}
-// TODO: ^^
-
 const getStatus = (chat) => {
   if (chat.busy && !chat.engaged)
   return 'busy';
@@ -25,7 +19,7 @@ class Manifest extends Component {
 
     return (
       <Link to={chatLink}>
-        <li className='manifest' onClick={onClick}>
+        <li className='manifest'>
           <div className={state}>
             <div className='profile-pic'>
               <img src={this.props.profilePic} />
