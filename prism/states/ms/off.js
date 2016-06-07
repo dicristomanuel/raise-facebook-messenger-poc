@@ -1,10 +1,16 @@
 import { New_message } from '../../../data/socketConstants';
 import { Socket } from '../../../app/transformer';
 import { SendMessage } from '../../../app/messenger'
+import Chat from '../../../db/chat';
+
 
 const sendOut = (data) => {
-  const { sender, answer } = data;
+  const { io, chat, sender, answer } = data;
   SendMessage(sender, answer);
+  Chat.update(chat, {active:true})
+  .then((chat) => {
+    io.emit('chat_update', Socket.updateChat({active:true}, chat));
+  })
   return data;
 };
 

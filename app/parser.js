@@ -5,6 +5,7 @@ import States from '../prism/states/config';
 import { Consumer } from '../data/appConstants';
 
 let cached;
+// TODO: ask: should I cache? When changing status it keeps the old one in cache
 
 const createChat = (data) => {
   const { sender } = data;
@@ -33,6 +34,7 @@ const init = (data) => {
 };
 
 const execute = (data) => {
+  debugger;
   return Prism.next({ ...data, state: data.chat.state});
 };
 

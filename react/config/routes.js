@@ -1,13 +1,12 @@
 import React from 'react';
-import Layout from '../Layout';
-import Chat from '../components/Chat';
 import { Route, IndexRoute } from 'react-router';
+import Main from '../components/Main';
+import ChatSingle from '../components/ChatSingle';
+
 
 export default (
-  <Route path='/' component={Layout}>
-    <Route path='/:chatId' component={Chat} />
-  </Route>
+    <Route path='/'>
+      <IndexRoute component={Main} />
+      <Route path='chat/:id' component={ChatSingle} />
+    </Route>
 );
-
-// <IndexRoute component={Chats} />
-// TODO: routes work only if refresh page
