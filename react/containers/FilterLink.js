@@ -25,4 +25,6 @@ const FilterLink = connect(
   mapDispatchToProps
 )(Link)
 // TODO: ask better explain this lifecycle
+// why Link - how does mapStateToProps work ^^
+
 export default FilterLink;

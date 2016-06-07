@@ -152,6 +152,12 @@ img {
   color: #505050;
 }
 
+.messages {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+}
+
 .footer {
   border-top: 1px solid lightgray;
   padding-top: 20px;
