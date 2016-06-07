@@ -6,19 +6,15 @@ import Store from '../createStore';
 import HeaderChatList from './HeaderChatList';
 import Footer from './Footer';
 
-InitChatsAndSockets()
-
-const Main = () => (
+const ChatSingle = () => (
   <Provider store={Store}>
     <div>
       <HeaderChatList />
-      <VisibleChatList />
-      <Footer />
     </div>
   </Provider>
 );
 
-export default Main;
+export default ChatSingle;
 
 
 // import Store from './createStore';

@@ -3,7 +3,7 @@ import ChatFilter from './ChatFilter';
 import NameFilter from './ChatFilter';
 // TODO: Change this ^^
 
-const Header = () => (
+const HeaderChatList = () => (
   <div className='header'>
     <div className='logo'>
       <img src='images/raise.png'/>
@@ -13,4 +13,4 @@ const Header = () => (
 );
 
 // ADD Name filter for fuzzy search
-export default Header;
+export default HeaderChatList;

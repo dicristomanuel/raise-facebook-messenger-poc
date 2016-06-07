@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 
 const onClick = (chat) => {
   // return browserHistory.push(`/chat/${chat.chatId}`);
@@ -21,15 +21,19 @@ const getStatus = (chat) => {
 class Manifest extends Component {
   render() {
     let state = `state ${getStatus(this.props)}`;
+    let chatLink = `chat/${this.props.chatId}`;
+
     return (
-      <li className='manifest' onClick={onClick}>
-        <div className={state}>
-          <div className='profile-pic'>
-            <img src={this.props.profilePic} />
+      <Link to={chatLink}>
+        <li className='manifest' onClick={onClick}>
+          <div className={state}>
+            <div className='profile-pic'>
+              <img src={this.props.profilePic} />
+            </div>
           </div>
-        </div>
-        <p className="name">{this.props.name}</p>
-      </li>
+          <p className="name">{this.props.name}</p>
+        </li>
+      </Link>
     );
   }
 }

@@ -7,7 +7,7 @@
     "start": "nodemon --exec babel-node ./server.js",
     "debug": "babel-node debug ./server.js",
     "test": "babel-node test.js",
-    "test:debug": "babel-node debug test.js"
+    "dev": "webpack-dev-server --content-base src --inline --hot"
   },
   "author": "",
   "license": "ISC",

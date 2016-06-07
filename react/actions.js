@@ -3,12 +3,12 @@ export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 export const CHAT_UPDATE = 'CHAT_UPDATE';
 
-export const ChatStatuses = {
-  ACTIVE: 'ACTIVE',
-  BUSY: 'BUSY',
-  SOLVED: 'SOLVED',
-  ENGAGED: 'ENGAGED'
-};
+// export const ChatStatuses = {
+//   ACTIVE: 'ACTIVE',
+//   BUSY: 'BUSY',
+//   SOLVED: 'SOLVED',
+//   ENGAGED: 'ENGAGED'
+// };
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
