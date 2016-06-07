@@ -3,9 +3,9 @@ import React, { PropTypes, Component } from 'react';
 class Text extends Component {
   render() {
 
+    console.log(this.props);
     return (
         <li className='manifest'>
-          {this.props}
         </li>
     );
   }

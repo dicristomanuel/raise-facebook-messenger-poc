@@ -6,8 +6,6 @@ import ChatSingle from '../components/ChatSingle';
 export default (
     <Route path='/'>
       <IndexRoute component={Home} />
+      <Route path='chat/:id' component={ChatSingle} />
     </Route>
 )
-
-
-// <Route path='chat/:id' component={ChatSingle} />

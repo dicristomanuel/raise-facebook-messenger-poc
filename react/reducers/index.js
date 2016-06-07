@@ -54,9 +54,11 @@ const messages = (state = [], action) => {
       return [
         ...state,
         {
+          id: action.id,
           chatId: action.chatId,
           text: action.text,
           userType: action.userType,
+          updatedAt: action.updatedAt,
         }
       ];
     default:

@@ -16,6 +16,21 @@ const getMessages = (id) => {
   });
 };
 
+const transform = (data) => {
+  let messages = [];
+  data.forEach((message) => {
+    const { id, ChatId, userType, text, updatedAt } = message;
+    messages.push({
+      id,
+      text,
+      userType,
+      chatId: ChatId,
+      updatedAt,
+    });
+  });
+  return messages;
+};
+
 export const InitMessagesAndSockets = (id) => {
   socket.on(`new_message${id}`, (data) => {
     Store.dispatch(AddMessage(data));
@@ -23,7 +38,8 @@ export const InitMessagesAndSockets = (id) => {
 
   return getMessages(id)
   .then((messages) => {
-    messages.forEach((message) => {
+  transform(messages).forEach((message) => {
+    // console.log(message);
       Store.dispatch(AddMessage(message));
     });
   })

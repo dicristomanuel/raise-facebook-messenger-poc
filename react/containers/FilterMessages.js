@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { SetMessagesVisibilityFilter } from '../actions';
 import Link from '../components/Link';
+import { browserHistory } from 'react-router';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -12,6 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
       dispatch(SetMessagesVisibilityFilter(ownProps.chatId));
+      browserHistory.push(`/chat/${ownProps.chatId}`);
     }
   }
 }

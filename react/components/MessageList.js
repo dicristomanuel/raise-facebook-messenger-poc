@@ -9,7 +9,7 @@ class MessageList extends Component {
       <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
         {this.props.messages.map(message =>
           <Text
-            key={message.chatId}
+            key={message.id}
             {...message}
           />
         )}
