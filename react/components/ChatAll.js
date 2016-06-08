@@ -1,5 +1,5 @@
 import React from 'react';
-import { InitChatsAndSockets } from './helpers/homeHelper';
+import { InitChatsAndSockets } from './helpers/chatAllHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
 import Store from '../createStore';

@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 
 class Text extends Component {
   render() {
-    console.log(this.props.userType);
     return (
         <li className={this.props.userType + " text"}>
           {this.props.text}

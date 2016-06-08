@@ -5,7 +5,7 @@ import Text from './Text';
 class MessageList extends Component {
   render() {
     return(
-      <ul>
+      <ul className='message-list'>
         <FlipMove easing='ease-in-out' duration='200' enterAnimation='fade' className='messages'>
           {this.props.messages.map(message =>
             <Text
@@ -15,12 +15,15 @@ class MessageList extends Component {
             />
           )}
         </FlipMove>
+        <div className='input-container'>
+          <input type="text" />
+        </div>
       </ul>
     )
   }
 }
 
-// why {...chat} - chat only returns an error?
+// Why does every element need to be inside ul ?
 // TODO: sort by oldest updated
 
 MessageList.propTypes = {
