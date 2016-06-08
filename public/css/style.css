@@ -1,9 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800);
 
-html {
-  background: #BABFBD;
-}
-
 a {
   text-decoration: none;
 }
@@ -162,6 +158,7 @@ img {
   flex-direction: column;
   align-items: center;
   margin: 20px;
+  z-index: 9999;
 }
 
 .state-sm {

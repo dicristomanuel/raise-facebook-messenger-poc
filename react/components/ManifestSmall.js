@@ -18,13 +18,13 @@ class ManifestSmall extends Component {
     let state = `state-sm ${getStatus(this.props)}`;
 
     return (
-        <li className='manifest-sm'>
+        <div className='manifest-sm'>
           <div className={state}>
             <div className='profile-pic-sm'>
               <img src={this.props.profilePic} />
             </div>
           </div>
-        </li>
+        </div>
     );
   }
 }

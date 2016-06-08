@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import MessageList from '../components/MessageList';
+import ChatList from '../components/ChatList';
+// import ChatList from '../components/ChatList';
 
 const getMessagesForId = (messages, chatId) => {
   return messages.filter(message => message.chatId === chatId);
@@ -16,6 +17,6 @@ const mapStateToProps = state => {
   }
 }
 
-const VisibleMessageList = connect(mapStateToProps)(MessageList);
+const VisibleMessageList = connect(mapStateToProps)(ChatList);
 
 export default VisibleMessageList;

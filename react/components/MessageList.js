@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import Text from './Text';
 import FlipMove from 'react-flip-move';
+import Text from './Text';
 
 class MessageList extends Component {
   render() {

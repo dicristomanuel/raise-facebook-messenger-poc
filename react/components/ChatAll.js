@@ -8,7 +8,7 @@ import Footer from './Footer';
 
 InitChatsAndSockets()
 // TODO: ask ^^ location of this ok?
-const Home = () => (
+const ChatAll = () => (
   <Provider store={Store}>
     <div>
       <HeaderChatList />
@@ -18,4 +18,4 @@ const Home = () => (
   </Provider>
 );
 
-export default Home;
+export default ChatAll;
