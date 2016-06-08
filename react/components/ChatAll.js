@@ -3,7 +3,7 @@ import { InitChatsAndSockets } from './helpers/homeHelper';
 import VisibleChatList from '../containers/VisibleChatList';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
-import HeaderChatList from './HeaderChatList';
+import Header from './Header';
 import Footer from './Footer';
 
 InitChatsAndSockets()
@@ -11,7 +11,7 @@ InitChatsAndSockets()
 const ChatAll = () => (
   <Provider store={Store}>
     <div>
-      <HeaderChatList />
+      <Header parent='ChatAll' />
       <VisibleChatList />
       <Footer />
     </div>

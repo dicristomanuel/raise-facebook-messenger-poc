@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { InitMessagesAndSockets } from './helpers/chatSingleHelper';
+import { InitMessagesAndSockets } from './helpers/singleChatHelper';
 import { Provider } from 'react-redux';
 import Store from '../createStore';
-import HeaderSingleChat from './HeaderSingleChat';
+import Header from './Header';
 import VisibleMessageList from '../containers/VisibleMessageList';
 import Footer from './Footer';
 
 class SingleChat extends Component {
   render() {
+    console.log(this.props);
     InitMessagesAndSockets(this.props.params.id);
     return (
       <Provider store={Store}>
         <div>
-          <HeaderSingleChat />
+          <Header parent='SingleChat' />
           <VisibleMessageList />
           <Footer />
         </div>

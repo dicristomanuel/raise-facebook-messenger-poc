@@ -39,7 +39,6 @@ export const InitMessagesAndSockets = (id) => {
   return getMessages(id)
   .then((messages) => {
   transform(messages).forEach((message) => {
-    // console.log(message);
       Store.dispatch(AddMessage(message));
     });
   })
