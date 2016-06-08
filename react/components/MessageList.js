@@ -6,11 +6,11 @@ class MessageList extends Component {
   render() {
     return(
       <ul>
-        <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='messages'>
+        <FlipMove easing='ease-in-out' duration='200' enterAnimation='fade' className='messages'>
           {this.props.messages.map(message =>
             <Text
               key={message.id}
-              chat={this.props.chat}
+              userType={message.userType}
               {...message}
             />
           )}

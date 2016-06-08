@@ -194,10 +194,41 @@ img {
   background: orange;
 }
 
+
 .messages {
+  border-top-left-radius:
   display: flex;
   display: -webkit-flex;
+  flex-wrap: wrap;
+  justify-content: center;
   flex-direction: column;
+  width: 60%;
+  margin: 100px auto 40px auto;
+}
+
+.text {
+  margin: 10px 0;
+  padding: 5px 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.consumer {
+  align-self: flex-start;
+  background: RGBA(123, 248, 106, 0.58);
+  border-bottom-right-radius: 10px;
+}
+
+.bot {
+  align-self: center;
+  border-bottom-left-radius: 10px;
+  background: RGBA(186, 191, 189, 0.20);
+}
+
+.memberService {
+  align-self: flex-end;
+  border-bottom-left-radius: 10px;
+  background: RGBA(0, 131, 255, 0.55);
 }
 
 .footer {
