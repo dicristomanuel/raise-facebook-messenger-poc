@@ -15,12 +15,10 @@ const getStatus = (chat) => {
 
 class Manifest extends Component {
   render() {
-    let state = `state ${getStatus(this.props)}`;
-
     return (
       <FilterMessages chatId={this.props.chatId}>
         <li className='manifest'>
-          <div className={state}>
+          <div className={getStatus(this.props) + " state"}>
             <div className='profile-pic'>
               <img src={this.props.profilePic} />
             </div>
