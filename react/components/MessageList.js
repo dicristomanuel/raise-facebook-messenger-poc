@@ -22,8 +22,9 @@ class MessageList extends Component {
   }
 }
 
-// Why does every element need to be inside ul ?
 // TODO: sort by oldest updated
+// Why does every element need to be inside ul ?
+// Key issue when going back and forth pages
 
 MessageList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({

@@ -28,16 +28,17 @@ class ChatList extends Component {
 // TODO: ask why key - Where does it show - Is it just a props for the after click?
 // TODO: sort by oldest updated
 
-// ChatList.propTypes = {
-//   chats: PropTypes.arrayOf(PropTypes.shape({
-//     chatId: PropTypes.number.isRequired,
-//     name: PropTypes.string.isRequired,
-//     profilePic: PropTypes.string.isRequired,
-//     state: PropTypes.string.isRequired,
-//     busy: PropTypes.bool.isRequired,
-//     solved: PropTypes.bool.isRequired,
-//     engaged: PropTypes.bool.isRequired,
-//   }).isRequired).isRequired
-// }
+ChatList.propTypes = {
+  chats: PropTypes.arrayOf(PropTypes.shape({
+    chatId: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    profilePic: PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    busy: PropTypes.bool.isRequired,
+    solved: PropTypes.bool.isRequired,
+    engaged: PropTypes.bool.isRequired,
+  }).isRequired).isRequired,
+  onClick: PropTypes.func.isRequired
+}
 
 export default ChatList;
