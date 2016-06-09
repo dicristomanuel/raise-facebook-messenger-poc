@@ -8,7 +8,6 @@ import Footer from './Footer';
 
 class SingleChat extends Component {
   render() {
-    console.log(this.props);
     InitMessagesAndSockets(this.props.params.id);
     return (
       <Provider store={Store}>

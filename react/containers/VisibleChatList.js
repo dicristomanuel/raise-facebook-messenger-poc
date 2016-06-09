@@ -1,24 +1,11 @@
 import { connect } from 'react-redux';
 import ChatList from '../components/ChatList';
-
-const getVisibleChats = (chats, filter) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return chats;
-    case 'SHOW_ACTIVE':
-      return chats.filter(chat => chat.active && !chat.busy)
-    case 'SHOW_BUSY':
-      return chats.filter(chat => chat.busy && !chat.engaged)
-    case 'SHOW_SOLVED':
-      return chats.filter(chat => chat.solved)
-    case 'SHOW_ENGAGED':
-      return chats.filter(chat => chat.engaged)
-  }
-}
+import { GetVisibleChats } from '../selectors/getVisibleChats';
+import { browserHistory } from 'react-router';
 
 const mapStateToProps = state => {
   return {
-    chats: getVisibleChats(state.chats, state.chatVisibilityFilter)
+    chats: GetVisibleChats(state)
   }
 }
 

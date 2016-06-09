@@ -34,7 +34,7 @@ server.register([
   }], (err) => {
     if (err)
     throw err;
-    
+
     server.route({
       method: 'GET',
       path: '/{path*}',
@@ -61,9 +61,9 @@ server.register([
           } else if (event.message && event.message.text) {
             const text = event.message.text;
             Parser({io, sender, text, userType: Consumer});
-            reply();
           }
         }
+        reply();
       }
     });
     server.route({

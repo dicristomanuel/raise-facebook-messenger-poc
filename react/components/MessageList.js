@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import FlipMove from 'react-flip-move';
 import Text from './Text';
+import Textarea from '../containers/Textarea';
 
 class MessageList extends Component {
   render() {
@@ -15,9 +16,7 @@ class MessageList extends Component {
             />
           )}
         </FlipMove>
-        <div className='input-container'>
-          <input type="text" />
-        </div>
+        <Textarea />
       </ul>
     )
   }
