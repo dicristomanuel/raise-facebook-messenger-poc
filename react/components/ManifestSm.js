@@ -14,24 +14,27 @@ const getStatus = (chat) => {
   return 'engaged';
 }
 
-class Manifest extends Component {
+class ManifestSm extends Component {
   render() {
+    let manifest = GetChatManifest(Store.getState())
+
     return (
-      <FilterMessages chatId={this.props.chatId}>
-        <li className='manifest'>
-          <div className={getStatus(this.props) + " state"}>
-            <div className='profile-pic'>
-              <img src={this.props.profilePic} />
+      <FilterMessages chatId={manifest.chatId} origin={this.props.origin}>
+        <li className='manifest-sm'>
+        <p className="name">{manifest.name}</p>
+          <div className={getStatus(manifest) + " state-sm"}>
+            <div className='profile-pic-sm'>
+              <img src={manifest.profilePic} className='profile-img-sm' />
             </div>
           </div>
-          <p className="name">{this.props.name}</p>
         </li>
       </FilterMessages>
     );
   }
 }
 
-Manifest.PropTypes = {
+// change filter messages
+ManifestSm.PropTypes = {
   chat: PropTypes.shape({
     chatId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -43,4 +46,4 @@ Manifest.PropTypes = {
   }).isRequired
 }
 
-export default Manifest;
+export default ManifestSm;
