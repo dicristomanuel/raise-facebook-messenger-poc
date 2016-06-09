@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import FilterMessages from '../containers/FilterMessages';
 import Store from '../createStore';
 import { GetChatManifest } from '../selectors/getChatManifest';
 
@@ -18,7 +17,6 @@ class ManifestSm extends Component {
   render() {
     let manifest = GetChatManifest(Store.getState())
     return (
-      // <FilterMessages chatId={manifest.chatId} origin={this.props.origin}>
         <li className='manifest-sm'>
         <p className="name">{manifest.name}</p>
           <div className={getStatus(manifest) + " state-sm"}>
@@ -27,7 +25,6 @@ class ManifestSm extends Component {
             </div>
           </div>
         </li>
-      // </FilterMessages>
     );
   }
 }

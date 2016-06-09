@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-// import FilterMessages from '../containers/FilterMessages'; delete?
 import { GetChatManifest } from '../selectors/getChatManifest';
 
 const getStatus = (chat) => {
