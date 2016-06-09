@@ -11,7 +11,7 @@ InitChatsAndSockets()
 const ChatAll = () => (
   <Provider store={Store}>
     <div>
-      <Header parent='ChatAll' />
+      <Header origin='ChatAll' />
       <VisibleChatList />
       <Footer />
     </div>

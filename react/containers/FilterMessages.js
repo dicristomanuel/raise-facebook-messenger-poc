@@ -12,8 +12,11 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
+      // ownProps.origin === ChatList
       dispatch(SetMessagesVisibilityFilter(ownProps.chatId));
       browserHistory.push(`/chat/${ownProps.chatId}`);
+      // else
+      // engage this chat
     }
   }
 }

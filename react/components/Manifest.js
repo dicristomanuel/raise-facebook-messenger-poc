@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import FilterMessages from '../containers/FilterMessages';
 import Store from '../createStore';
+import { GetChatManifest } from '../selectors/getChatManifest';
 
 const getStatus = (chat) => {
   if (chat.busy && !chat.engaged)
@@ -13,17 +14,22 @@ const getStatus = (chat) => {
   return 'engaged';
 }
 
+const originOf = instance => instance.props.origin === 'SingleChat';
+
 class Manifest extends Component {
   render() {
+    let singleChat = originOf(this);
+    let manifest = singleChat ? GetChatManifest(Store.getState()) : this.props;
+
     return (
-      <FilterMessages chatId={this.props.chatId}>
-        <li className='manifest'>
-          <div className={getStatus(this.props) + " state"}>
-            <div className='profile-pic'>
-              <img src={this.props.profilePic} />
+      <FilterMessages chatId={manifest.chatId} origin={this.props.origin}>
+        <li className={singleChat ? 'manifest-sm' : 'manifest'}>
+          <div className={getStatus(manifest) + " state"}>
+            <div className={singleChat ? 'profile-pic-sm' : 'profile-pic'}>
+              <img src={manifest.profilePic} />
             </div>
           </div>
-          <p className="name">{this.props.name}</p>
+          <p className="name">{manifest.name}</p>
         </li>
       </FilterMessages>
     );

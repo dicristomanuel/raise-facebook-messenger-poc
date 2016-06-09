@@ -10,6 +10,7 @@ class ChatList extends Component {
           {this.props.chats.map(chat =>
             <Manifest
               key={chat.chatId}
+              origin='ChatList'
               {...chat}
             />
           )}

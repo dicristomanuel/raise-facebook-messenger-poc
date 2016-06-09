@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChatFilter from './ChatFilter';
 import { Link } from 'react-router';
+import Manifest from './manifest';
 
 class Header extends Component {
   render() {
@@ -11,7 +12,10 @@ class Header extends Component {
             <img src='images/raise.png'/>
           </div>
         </Link>
-      { this.props.parent === 'ChatAll' ? <ChatFilter /> : null }
+      {
+        this.props.origin === 'ChatAll' ?
+        <ChatFilter /> : <Manifest origin='SingleChat'/>
+      }
       </div>
     );
   }

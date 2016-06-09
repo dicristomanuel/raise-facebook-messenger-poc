@@ -7,7 +7,6 @@ class Textarea extends Component {
   }
 
   render() {
-    console.log(this);
     // let currentValue = this.state.currentValue.replace('\\n', '\n');
     return(
       <div className='input-container'>
