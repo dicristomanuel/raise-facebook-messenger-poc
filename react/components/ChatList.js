@@ -3,6 +3,10 @@ import Manifest from './Manifest';
 import FlipMove from 'react-flip-move';
 
 class ChatList extends Component {
+  onClick(chatId) {
+    this.props.onClick(chatId);
+  }
+
   render() {
     return(
       <ul>
@@ -11,6 +15,7 @@ class ChatList extends Component {
             <Manifest
               key={chat.chatId}
               origin='ChatList'
+              callback={this.onClick.bind(this)}
               {...chat}
             />
           )}

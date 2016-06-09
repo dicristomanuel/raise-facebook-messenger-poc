@@ -17,9 +17,8 @@ const getStatus = (chat) => {
 class ManifestSm extends Component {
   render() {
     let manifest = GetChatManifest(Store.getState())
-
     return (
-      <FilterMessages chatId={manifest.chatId} origin={this.props.origin}>
+      // <FilterMessages chatId={manifest.chatId} origin={this.props.origin}>
         <li className='manifest-sm'>
         <p className="name">{manifest.name}</p>
           <div className={getStatus(manifest) + " state-sm"}>
@@ -28,7 +27,7 @@ class ManifestSm extends Component {
             </div>
           </div>
         </li>
-      </FilterMessages>
+      // </FilterMessages>
     );
   }
 }

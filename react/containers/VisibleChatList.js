@@ -2,13 +2,26 @@ import { connect } from 'react-redux';
 import ChatList from '../components/ChatList';
 import { GetVisibleChats } from '../selectors/getVisibleChats';
 import { browserHistory } from 'react-router';
+import { SetMessagesVisibilityFilter } from '../actions';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
     chats: GetVisibleChats(state)
   }
 }
 
-const VisibleChatList = connect(mapStateToProps)(ChatList);
+const mapDispatchToProps = dispatch => {
+  return {
+    onClick: (chatId) => {
+      dispatch(SetMessagesVisibilityFilter(chatId));
+      browserHistory.push(`/chat/${chatId}`);
+    }
+  }
+}
+
+const VisibleChatList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatList);
 
 export default VisibleChatList;

@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import FilterMessages from '../containers/FilterMessages';
-import Store from '../createStore';
+// import FilterMessages from '../containers/FilterMessages'; delete?
 import { GetChatManifest } from '../selectors/getChatManifest';
 
 const getStatus = (chat) => {
@@ -15,10 +14,13 @@ const getStatus = (chat) => {
 }
 
 class Manifest extends Component {
+  onClick(chatId) {
+    this.props.callback(chatId);
+  }
+
   render() {
     return (
-      <FilterMessages chatId={this.props.chatId}>
-        <li className='manifest'>
+        <li className='manifest' onClick={this.onClick.bind(this, this.props.chatId)}>
           <div className={getStatus(this.props) + " state"}>
             <div className='profile-pic'>
               <img src={this.props.profilePic} />
@@ -26,7 +28,6 @@ class Manifest extends Component {
           </div>
           <p className="name">{this.props.name}</p>
         </li>
-      </FilterMessages>
     );
   }
 }
