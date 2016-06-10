@@ -7,7 +7,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 InitChatsAndSockets()
-// TODO: ask ^^ location of this ok?
+
 const ChatAll = () => (
   <Provider store={Store}>
     <div>

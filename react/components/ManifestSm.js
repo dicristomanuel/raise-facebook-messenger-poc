@@ -29,7 +29,6 @@ class ManifestSm extends Component {
   }
 }
 
-// change filter messages
 ManifestSm.PropTypes = {
   chat: PropTypes.shape({
     chatId: PropTypes.number.isRequired,

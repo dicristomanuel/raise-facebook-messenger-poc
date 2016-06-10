@@ -1,4 +1,4 @@
-import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_FILTER, ADD_CHAT, CHAT_UPDATE, ADD_MESSAGE} from '../actions.js';
+import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_FILTER, ADD_CHAT, CHAT_UPDATE, ADD_MESSAGE, ADD_MESSAGES} from '../actions.js';
 import { combineReducers } from 'redux';
 
 const { SHOW_ALL } = VisibilityFilters;
@@ -61,6 +61,8 @@ const messages = (state = [], action) => {
           updatedAt: action.updatedAt,
         }
       ];
+    case ADD_MESSAGES:
+      return action.messages
     default:
       return state;
   }

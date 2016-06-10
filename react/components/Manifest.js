@@ -40,7 +40,8 @@ Manifest.PropTypes = {
     busy: PropTypes.bool.isRequired,
     solved: PropTypes.bool.isRequired,
     engaged: PropTypes.bool.isRequired,
-  }).isRequired
+  }).isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default Manifest;

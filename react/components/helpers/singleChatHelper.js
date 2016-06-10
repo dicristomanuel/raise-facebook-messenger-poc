@@ -1,6 +1,6 @@
 import request from 'superagent';
 import Store from '../../createStore';
-import { AddMessage } from '../../actions';
+import { AddMessage, AddMessages } from '../../actions';
 
 const socket = io();
 
@@ -38,9 +38,7 @@ export const InitMessagesAndSockets = (id) => {
 
   return getMessages(id)
   .then((messages) => {
-  transform(messages).forEach((message) => {
-      Store.dispatch(AddMessage(message));
-    });
+    Store.dispatch(AddMessages(transform(messages)));
   })
   .catch((err) => {console.log(err)});
 };

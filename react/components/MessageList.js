@@ -5,25 +5,27 @@ import Textarea from '../containers/Textarea';
 
 class MessageList extends Component {
   render() {
+    const messages = this.props.messages.map(message =>
+      <Text
+      key={message.id}
+      userType={message.userType}
+      {...message}
+      />
+    );
+
     return(
       <ul className='message-list'>
-        <FlipMove easing='ease-in-out' duration='200' enterAnimation='fade' className='messages'>
-          {this.props.messages.map(message =>
-            <Text
-              key={message.id}
-              userType={message.userType}
-              {...message}
-            />
-          )}
-        </FlipMove>
+        <div className='messages'>
+          { messages }
+        </div>
         <Textarea />
       </ul>
     )
   }
 }
 
-// TODO: sort by oldest updated
 // Why does every element need to be inside ul ?
+// TODO: sort by oldest updated
 // Key issue when going back and forth pages
 
 MessageList.propTypes = {
