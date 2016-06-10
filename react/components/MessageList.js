@@ -2,21 +2,24 @@ import React, { PropTypes, Component } from 'react';
 import FlipMove from 'react-flip-move';
 import Text from './Text';
 import Textarea from '../containers/Textarea';
+import { findDOMNode } from 'react-dom';
 
 class MessageList extends Component {
-  render() {
-    const messages = this.props.messages.map(message =>
-      <Text
-      key={message.id}
-      userType={message.userType}
-      {...message}
-      />
-    );
+  handleScroll(stuff) {
+    const element = findDOMNode(this)
+  }
 
+  render() {
     return(
-      <ul className='message-list'>
+      <ul className='message-list' onScroll={this.handleScroll.bind(this)}>
         <div className='messages'>
-          { messages }
+          {this.props.messages.map(message =>
+            <Text
+              key={message.id}
+              userType={message.userType}
+              {...message}
+            />
+          )}
         </div>
         <Textarea />
       </ul>
