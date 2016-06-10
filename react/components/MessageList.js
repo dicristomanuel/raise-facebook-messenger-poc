@@ -6,7 +6,8 @@ import { findDOMNode } from 'react-dom';
 
 class MessageList extends Component {
   handleScroll(stuff) {
-    const element = findDOMNode(this)
+    const element = findDOMNode(this).childNodes[0];
+    console.log(element.scrollTop);
   }
 
   render() {
@@ -27,9 +28,9 @@ class MessageList extends Component {
   }
 }
 
-// Why does every element need to be inside ul ?
 // TODO: sort by oldest updated
-// Key issue when going back and forth pages
+// When loading turn loading to true and launch load only when not true
+// add handleType for text area height
 
 MessageList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
