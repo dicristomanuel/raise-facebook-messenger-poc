@@ -1,4 +1,4 @@
-import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_FILTER, ADD_CHAT, CHAT_UPDATE, ADD_MESSAGE, ADD_MESSAGES} from '../actions.js';
+import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_FILTER, ADD_CHAT, ADD_CHATS, CHAT_UPDATE, ADD_MESSAGE, ADD_MESSAGES} from '../actions.js';
 import { combineReducers } from 'redux';
 
 const { SHOW_ALL } = VisibilityFilters;
@@ -37,10 +37,12 @@ const chats = (state = [], action) => {
           engaged: action.engaged,
         }
       ];
+    case ADD_CHATS:
+      return action.chats;
     case CHAT_UPDATE:
       return state.map((chat, index) => {
         if (action.chatId === chat.chatId)
-        return {...chat, ...action.change}
+        return { ...chat, ...action.change }
         return chat
       });
     default:
@@ -51,16 +53,7 @@ const chats = (state = [], action) => {
 const messages = (state = [], action) => {
   switch (action.type) {
     case ADD_MESSAGE:
-      return [
-        ...state,
-        {
-          id: action.id,
-          chatId: action.chatId,
-          text: action.text,
-          userType: action.userType,
-          updatedAt: action.updatedAt,
-        }
-      ];
+      return [ ...state, ...action.message ];
     case ADD_MESSAGES:
       return action.messages
     default:

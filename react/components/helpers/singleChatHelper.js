@@ -32,13 +32,13 @@ const transform = (data) => {
 };
 
 export const InitMessagesAndSockets = (id) => {
-  socket.on(`new_message${id}`, (data) => {
-    Store.dispatch(AddMessage(data));
+  socket.on(`new_message${id}`, (message) => {
+    Store.dispatch(AddMessage(transform([message])));
   });
 
   return getMessages(id)
   .then((messages) => {
-    Store.dispatch(AddMessages(transform(messages)));
+    Store.dispatch(AddMessage(transform(messages)));
   })
   .catch((err) => {console.log(err)});
 };

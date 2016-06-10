@@ -17,8 +17,8 @@ export const AddChat = data => {
   return { type: ADD_CHAT, ...data };
 };
 
-export const AddMessage = data => {
-  return { type: ADD_MESSAGE, ...data };
+export const AddMessage = message => {
+  return { type: ADD_MESSAGE, message };
 };
 
 export const AddMessages = messages => {
