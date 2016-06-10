@@ -8,6 +8,6 @@ export default {
     })
   },
   findForChat: (id) => {
-    return Bubble.findAll({ where: { ChatId: id }, order: '"id" ASC'});
+    return Bubble.findAll({ where: { ChatId: id }, order: '"id" ASC', limit: 25});
   }
 };

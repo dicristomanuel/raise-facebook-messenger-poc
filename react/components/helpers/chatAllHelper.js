@@ -51,5 +51,3 @@ export const InitChatsAndSockets = () => {
   })
   .catch((err) => {console.log(err)});
 };
-
-// TODO: better error handling
