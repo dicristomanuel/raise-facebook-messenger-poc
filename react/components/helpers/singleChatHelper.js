@@ -38,7 +38,7 @@ export const InitMessagesAndSockets = (id) => {
 
   return getMessages(id)
   .then((messages) => {
-    Store.dispatch(AddMessage(transform(messages)));
+    Store.dispatch(AddMessages(transform(messages)));
   })
   .catch((err) => {console.log(err)});
 };

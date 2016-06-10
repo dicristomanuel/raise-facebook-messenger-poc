@@ -24,19 +24,7 @@ const messagesVisibilityFilter = (state = 0, action) => {
 const chats = (state = [], action) => {
   switch (action.type) {
     case ADD_CHAT:
-      return [
-        ...state,
-        {
-          chatId: action.id,
-          name: `${action.firstName} ${action.lastName}`,
-          profilePic: action.profilePic,
-          state: action.state,
-          active: action.active,
-          busy: action.busy,
-          solved: action.solved,
-          engaged: action.engaged,
-        }
-      ];
+      return [ ...state, ...action.chat ]
     case ADD_CHATS:
       return action.chats;
     case CHAT_UPDATE:

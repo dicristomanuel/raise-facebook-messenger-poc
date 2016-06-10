@@ -1,4 +1,5 @@
 export const ADD_CHAT = 'ADD_CHAT';
+export const ADD_CHATS = 'ADD_CHATS';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const ADD_MESSAGES = 'ADD_MESSAGES';
 export const SET_CHAT_VISIBILITY_FILTER = 'SET_CHAT_VISIBILITY_FILTER';
@@ -13,8 +14,12 @@ export const VisibilityFilters = {
   SHOW_ENGAGED: 'SHOW_ENGAGED'
 };
 
-export const AddChat = data => {
-  return { type: ADD_CHAT, ...data };
+export const AddChat = chat => {
+  return { type: ADD_CHAT, chat };
+};
+
+export const AddChats = chats => {
+  return { type: ADD_CHATS, chats };
 };
 
 export const AddMessage = message => {
