@@ -8,10 +8,19 @@ class ChatList extends Component {
   }
 
   render() {
+    const compare = (a,b) => {
+      if (a.updatedAt < b.updatedAt)
+        return -1;
+      else if (a.updatedAt > b.updatedAt)
+        return 1;
+      else
+        return 0;
+    }
+// move to helper
     return(
       <ul>
         <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
-          {this.props.chats.map(chat =>
+          {this.props.chats.sort(compare).map(chat =>
             <Manifest
               key={chat.chatId}
               origin='ChatList'
@@ -24,9 +33,6 @@ class ChatList extends Component {
     )
   }
 }
-
-// TODO: ask why key - Where does it show - Is it just a props for the after click?
-// TODO: sort by oldest updated
 
 ChatList.propTypes = {
   chats: PropTypes.arrayOf(PropTypes.shape({
