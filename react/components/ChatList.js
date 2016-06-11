@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Manifest from './Manifest';
 import FlipMove from 'react-flip-move';
+import { Compare } from './helpers/chatAllHelper';
 
 class ChatList extends Component {
   onClick(chatId) {
@@ -8,19 +9,10 @@ class ChatList extends Component {
   }
 
   render() {
-    const compare = (a,b) => {
-      if (a.updatedAt < b.updatedAt)
-        return -1;
-      else if (a.updatedAt > b.updatedAt)
-        return 1;
-      else
-        return 0;
-    }
-// move to helper
     return(
       <ul>
         <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
-          {this.props.chats.sort(compare).map(chat =>
+          {this.props.chats.sort(Compare).map(chat =>
             <Manifest
               key={chat.chatId}
               origin='ChatList'

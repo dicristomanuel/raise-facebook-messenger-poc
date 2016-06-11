@@ -31,11 +31,21 @@ const transform = (data) => {
   return messages;
 };
 
+export const Compare = (a,b) => {
+  if (a.id < b.id)
+    return -1;
+  else if (a.id > b.id)
+    return 1;
+  else
+    return 0;
+}
+
 export const loadMessages = (id, pages) => {
   getMessages(id, pages)
   .then((messages) => {
     Store.dispatch(AddMessages(transform(messages)));
   })
+  .catch((err) => {console.log(err)});
 };
 
 export const InitMessagesAndSockets = (id, page = 1) => {
@@ -43,9 +53,5 @@ export const InitMessagesAndSockets = (id, page = 1) => {
     Store.dispatch(AddMessage(transform([message])));
   });
 
-  return getMessages(id, page)
-  .then((messages) => {
-    Store.dispatch(AddMessages(transform(messages)));
-  })
-  .catch((err) => {console.log(err)});
+  return loadMessages(id, page);
 };

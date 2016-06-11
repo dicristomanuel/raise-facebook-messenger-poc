@@ -36,6 +36,15 @@ const transform = (data) => {
   return chats;
 };
 
+export const Compare = (a,b) => {
+  if (a.updatedAt < b.updatedAt)
+    return -1;
+  else if (a.updatedAt > b.updatedAt)
+    return 1;
+  else
+    return 0;
+}
+
 export const InitChatsAndSockets = () => {
   socket.on('chat_update', (data) => {
     Store.dispatch(UpdateStatus(data));

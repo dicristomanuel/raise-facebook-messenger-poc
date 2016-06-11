@@ -3,7 +3,7 @@ import FlipMove from 'react-flip-move';
 import Text from './Text';
 import Textarea from '../containers/Textarea';
 import { findDOMNode } from 'react-dom';
-import { loadMessages } from './helpers/singleChatHelper';
+import { loadMessages, Compare } from './helpers/singleChatHelper';
 
 class MessageList extends Component {
   constructor(props) {
@@ -28,19 +28,10 @@ class MessageList extends Component {
   }
 
   render() {
-    const compare = (a,b) => {
-      if (a.id < b.id)
-        return -1;
-      else if (a.id > b.id)
-        return 1;
-      else
-        return 0;
-    }
-
     return(
       <ul className='message-list' onScroll={this.handleScroll.bind(this)}>
         <FlipMove enterAnimation="fade" duration='200' className='messages'>
-          {this.props.messages.sort(compare).map(message =>
+          {this.props.messages.sort(Compare).map(message =>
             <Text
               key={message.id}
               userType={message.userType}
