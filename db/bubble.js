@@ -1,3 +1,4 @@
+
 import { Bubble } from './dbConfig';
 
 export default {
@@ -7,7 +8,8 @@ export default {
       return Bubble.create({ ChatId: chatId, text, userType });
     })
   },
-  findForChat: (id) => {
-    return Bubble.findAll({ where: { ChatId: id }, order: '"id" ASC', limit: 25});
+  findForChat: (id, page) => {
+    const limit = 25 * page;
+    return Bubble.findAll({ where: { ChatId: id }, order: '"id" DESC', limit });
   }
 };

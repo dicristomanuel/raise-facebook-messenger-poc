@@ -8,6 +8,7 @@ const getMessagesForId = (messages, chatId) => {
 const mapStateToProps = state => {
   return {
     messages: getMessagesForId(state.messages, state.messagesVisibilityFilter),
+    chatId: state.messagesVisibilityFilter,
   }
 }
 

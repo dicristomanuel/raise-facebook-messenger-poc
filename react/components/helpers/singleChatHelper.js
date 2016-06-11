@@ -4,9 +4,9 @@ import { AddMessage, AddMessages } from '../../actions';
 
 const socket = io();
 
-const getMessages = (id) => {
+const getMessages = (id, page) => {
   return new Promise((resolve, reject) => {
-    request.get(`http://localhost:3001/get-messages/${id}`)
+    request.get(`http://localhost:3001/get-messages?id=${id}&page=${page}`)
     .end((err, res) => {
       if (err)
       reject(err);
@@ -31,12 +31,19 @@ const transform = (data) => {
   return messages;
 };
 
-export const InitMessagesAndSockets = (id) => {
+export const loadMessages = (id, pages) => {
+  getMessages(id, pages)
+  .then((messages) => {
+    Store.dispatch(AddMessages(transform(messages)));
+  })
+};
+
+export const InitMessagesAndSockets = (id, page = 1) => {
   socket.on(`new_message${id}`, (message) => {
     Store.dispatch(AddMessage(transform([message])));
   });
 
-  return getMessages(id)
+  return getMessages(id, page)
   .then((messages) => {
     Store.dispatch(AddMessages(transform(messages)));
   })

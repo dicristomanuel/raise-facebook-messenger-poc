@@ -86,10 +86,10 @@ server.register([
 
     server.route({
       method: 'GET',
-      path: '/get-messages/{id}',
+      path: '/get-messages',
       handler(request, reply) {
-        const id = request.params.id;
-        GetMessages(id).then(reply);
+        const { id, page } = request.query;
+        GetMessages(id, page).then(reply);
       }
     });
 

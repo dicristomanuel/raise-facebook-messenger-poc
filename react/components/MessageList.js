@@ -3,10 +3,23 @@ import FlipMove from 'react-flip-move';
 import Text from './Text';
 import Textarea from '../containers/Textarea';
 import { findDOMNode } from 'react-dom';
+import { loadMessages } from './helpers/singleChatHelper';
 
 class MessageList extends Component {
-  handleScroll(stuff) {
+  constructor(props) {
+    super(props);
+    this.loading = false;
+    this.pages = 1;
+  }
+
+  handleScroll(component) {
     const element = findDOMNode(this).childNodes[0];
+    if (element.scrollTop <= 100 && !this.loading) {
+      this.loading = true;
+      this.pages++;
+      console.log(this.props.messages);
+      loadMessages(this.props.chatId, this.pages);
+    }
   }
 
   componentDidUpdate() {
@@ -15,18 +28,27 @@ class MessageList extends Component {
   }
 
   render() {
+    const compare = (a,b) => {
+      if (a.id < b.id)
+        return -1;
+      else if (a.id > b.id)
+        return 1;
+      else
+        return 0;
+    }
+
     return(
       <ul className='message-list' onScroll={this.handleScroll.bind(this)}>
-        <div className='messages no-scroll'>
-          {this.props.messages.map(message =>
+        <FlipMove enterAnimation="fade" duration='200' className='messages'>
+          {this.props.messages.sort(compare).map(message =>
             <Text
               key={message.id}
               userType={message.userType}
               {...message}
             />
           )}
-        </div>
-        <Textarea />
+        </FlipMove>
+      <Textarea />
       </ul>
     )
   }
@@ -35,6 +57,8 @@ class MessageList extends Component {
 // TODO: sort by oldest updated
 // When loading turn loading to true and launch load only when not true
 // add handleType for text area height
+// FlipMove is hiding the scrollbar
+// Why call super(props)
 
 MessageList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
