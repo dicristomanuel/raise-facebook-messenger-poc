@@ -7,13 +7,17 @@ import { findDOMNode } from 'react-dom';
 class MessageList extends Component {
   handleScroll(stuff) {
     const element = findDOMNode(this).childNodes[0];
-    console.log(element.scrollTop);
+  }
+
+  componentDidUpdate() {
+    const element = findDOMNode(this).childNodes[0];
+    element.scrollTop = element.scrollHeight;
   }
 
   render() {
     return(
       <ul className='message-list' onScroll={this.handleScroll.bind(this)}>
-        <div className='messages'>
+        <div className='messages no-scroll'>
           {this.props.messages.map(message =>
             <Text
               key={message.id}
