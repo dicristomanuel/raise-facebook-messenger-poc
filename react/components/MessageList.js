@@ -8,33 +8,42 @@ import { loadMessages, Compare } from './helpers/singleChatHelper';
 class MessageList extends Component {
   constructor(props) {
     super(props);
+    this.pages = 0;
     this.loading = false;
-    this.pages = 1;
+    this.firstRender = true;
   }
 
-  handleScroll(component) {
+  handleScroll(event) {
     const element = findDOMNode(this).childNodes[0];
+    const currentHeight = element.scrollTop;
     if (element.scrollTop <= 100 && !this.loading) {
       this.loading = true;
       this.pages++;
-      console.log(this.props.messages);
-      loadMessages(this.props.chatId, this.pages);
+      loadMessages(this.props.chatId, this.pages)
+      .then(() => {
+        this.loading = false;
+      })
     }
   }
 
   componentDidUpdate() {
-    const element = findDOMNode(this).childNodes[0];
-    element.scrollTop = element.scrollHeight;
+    if (this.firstRender) {
+      this.firstRender = false;
+      const element = findDOMNode(this).childNodes[0];
+      element.scrollTop = element.scrollHeight;
+    }
   }
 
   render() {
     return(
-      <ul className='message-list' onScroll={this.handleScroll.bind(this)}>
+      <ul className='message-list' onScroll={this.handleScroll.bind(this, event)}>
+        <p>{this.props.lastUpdated}</p>
         <FlipMove enterAnimation="fade" duration='200' className='messages'>
           {this.props.messages.sort(Compare).map(message =>
             <Text
               key={message.id}
               userType={message.userType}
+              createdAt={message.createdAt}
               {...message}
             />
           )}
@@ -44,6 +53,8 @@ class MessageList extends Component {
     )
   }
 }
+
+// ALERT: not sending messages to messenger - ?
 
 // TODO: sort by oldest updated
 // When loading turn loading to true and launch load only when not true
@@ -56,7 +67,7 @@ MessageList.propTypes = {
     id: PropTypes.number.isRequired,
     chatId: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
     userType: PropTypes.string.isRequired,
   }).isRequired).isRequired
 }

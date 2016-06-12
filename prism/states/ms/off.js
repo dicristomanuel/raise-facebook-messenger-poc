@@ -1,4 +1,5 @@
 import { New_message } from '../../../data/socketConstants';
+import { MemberService } from '../../../data/appConstants';
 import { Socket } from '../../../app/transformer';
 import { SendMessage } from '../../../app/messenger'
 import Chat from '../../../db/chat';
@@ -15,9 +16,11 @@ const sendOut = (data) => {
 };
 
 export const OffMs = (data) => {
-  const { io, chat, text, answer } = data;
+  const { io, chat, text, answer, userType, sender } = data;
   if (answer)
   sendOut(data);
+  else if (userType === MemberService)
+  SendMessage(chat.sender, text);
   io.emit(`${New_message}${chat.id}`, Socket.message(data));
   return data;
 }

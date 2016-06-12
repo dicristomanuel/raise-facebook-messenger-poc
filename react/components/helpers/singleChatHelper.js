@@ -19,17 +19,18 @@ const getMessages = (id, page) => {
 const transform = (data) => {
   let messages = [];
   data.forEach((message) => {
-    const { id, ChatId, userType, text, updatedAt } = message;
+    const { id, ChatId, userType, text, createdAt } = message;
     messages.push({
       id,
       text,
       userType,
       chatId: ChatId,
-      updatedAt,
+      createdAt: `${createdAt.substring(0, 10)} ${createdAt.substring(11, 16)}`,
     });
   });
   return messages;
 };
+// TODO: fix date (adding extra 5 hrs)
 
 export const Compare = (a,b) => {
   if (a.id < b.id)
@@ -40,8 +41,8 @@ export const Compare = (a,b) => {
     return 0;
 }
 
-export const loadMessages = (id, pages) => {
-  getMessages(id, pages)
+export const loadMessages = (id, page) => {
+  return getMessages(id, page)
   .then((messages) => {
     Store.dispatch(AddMessages(transform(messages)));
   })
