@@ -8,14 +8,13 @@ import { loadMessages, Compare } from './helpers/singleChatHelper';
 class MessageList extends Component {
   constructor(props) {
     super(props);
-    this.pages = 0;
+    this.pages = 1;
     this.loading = false;
     this.firstRender = true;
   }
 
   handleScroll(event) {
     const element = findDOMNode(this).childNodes[0];
-    const currentHeight = element.scrollTop;
     if (element.scrollTop <= 100 && !this.loading) {
       this.loading = true;
       this.pages++;
@@ -28,8 +27,8 @@ class MessageList extends Component {
 
   componentDidUpdate() {
     if (this.firstRender) {
-      this.firstRender = false;
       const element = findDOMNode(this).childNodes[0];
+      this.firstRender = false;
       element.scrollTop = element.scrollHeight;
     }
   }
@@ -37,7 +36,6 @@ class MessageList extends Component {
   render() {
     return(
       <ul className='message-list' onScroll={this.handleScroll.bind(this, event)}>
-        <p>{this.props.lastUpdated}</p>
         <FlipMove enterAnimation="fade" duration='200' className='messages'>
           {this.props.messages.sort(Compare).map(message =>
             <Text
@@ -53,8 +51,6 @@ class MessageList extends Component {
     )
   }
 }
-
-// ALERT: not sending messages to messenger - ?
 
 // TODO: sort by oldest updated
 // When loading turn loading to true and launch load only when not true

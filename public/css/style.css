@@ -226,7 +226,6 @@ img {
   max-width: 450px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  position: relative;
 }
 
 .consumer {
@@ -249,7 +248,6 @@ img {
   background: RGBA(186, 191, 189, 0.20);
   width: 67%;
   max-width: 750px;
-  /*min-height: 65px;*/
   display: flex;
   margin: 0 auto;
   border-top-left-radius: 5px;
@@ -267,7 +265,8 @@ textarea {
   min-height: 45px;
   border: 1px solid lightgray;
   font-size: 16px;
-  padding: 0 15px;
+  padding: 10px 15px;
+  box-sizing: border-box;
   border: none;
   resize: none;
 }

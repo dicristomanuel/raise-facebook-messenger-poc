@@ -8,6 +8,7 @@ export const GetChats = () => {
 };
 
 export const GetMessages = (id, page) => {
+  debugger;
   return Bubble.findForChat(id, page);
 };
 
