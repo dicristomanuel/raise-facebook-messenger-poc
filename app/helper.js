@@ -7,8 +7,9 @@ export const GetChats = () => {
   return Chat.findAll();
 };
 
-export const GetMessages = (id) => {
-  return Bubble.findForChat(id);
+export const GetMessages = (id, page) => {
+  debugger;
+  return Bubble.findForChat(id, page);
 };
 
 export const UpdateStatus = (io, payload) => {

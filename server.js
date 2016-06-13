@@ -34,16 +34,24 @@ server.register([
   }], (err) => {
     if (err)
     throw err;
-    
+
     server.route({
       method: 'GET',
-      path: '/{path*}',
+      path: '/assets/{param*}',
       handler: {
         directory: {
-          path: './public',
+          path: './public/assets',
           listing: false,
           index: true
         }
+      }
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/{path*}',
+      handler: (request, reply) => {
+        reply.file('./public/index.html');
       }
     });
 
@@ -61,9 +69,9 @@ server.register([
           } else if (event.message && event.message.text) {
             const text = event.message.text;
             Parser({io, sender, text, userType: Consumer});
-            reply();
           }
         }
+        reply();
       }
     });
     server.route({
@@ -86,10 +94,10 @@ server.register([
 
     server.route({
       method: 'GET',
-      path: '/get-messages/{id}',
+      path: '/get-messages',
       handler(request, reply) {
-        const id = request.params.id;
-        GetMessages(id).then(reply);
+        const { id, page } = request.query;
+        GetMessages(id, page).then(reply);
       }
     });
 

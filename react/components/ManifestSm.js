@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import Store from '../createStore';
 import { GetChatManifest } from '../selectors/getChatManifest';
 
 const getStatus = (chat) => {
@@ -12,26 +13,23 @@ const getStatus = (chat) => {
   return 'engaged';
 }
 
-class Manifest extends Component {
-  onClick(chatId) {
-    this.props.callback(chatId);
-  }
-
+class ManifestSm extends Component {
   render() {
+    let manifest = GetChatManifest(Store.getState())
     return (
-        <li className='manifest' onClick={this.onClick.bind(this, this.props.chatId)}>
-          <div className={getStatus(this.props) + " state"}>
-            <div className='profile-pic'>
-              <img src={this.props.profilePic} />
+        <li className='manifest-sm'>
+        <p className="name">{manifest.name}</p>
+          <div className={getStatus(manifest) + " state-sm"}>
+            <div className='profile-pic-sm'>
+              <img src={manifest.profilePic} className='profile-img-sm' />
             </div>
           </div>
-          <p className="name">{this.props.name}</p>
         </li>
     );
   }
 }
 
-Manifest.PropTypes = {
+ManifestSm.PropTypes = {
   chat: PropTypes.shape({
     chatId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
@@ -40,8 +38,7 @@ Manifest.PropTypes = {
     busy: PropTypes.bool.isRequired,
     solved: PropTypes.bool.isRequired,
     engaged: PropTypes.bool.isRequired,
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
+  }).isRequired
 }
 
-export default Manifest;
+export default ManifestSm;

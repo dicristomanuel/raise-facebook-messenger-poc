@@ -34,7 +34,6 @@ const init = (data) => {
 };
 
 const execute = (data) => {
-  debugger;
   return Prism.next({ ...data, state: data.chat.state});
 };
 

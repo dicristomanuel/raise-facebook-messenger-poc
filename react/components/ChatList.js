@@ -1,27 +1,30 @@
 import React, { PropTypes, Component } from 'react';
 import Manifest from './Manifest';
 import FlipMove from 'react-flip-move';
+import { Compare } from './helpers/chatAllHelper';
 
 class ChatList extends Component {
+  onClick(chatId) {
+    this.props.onClick(chatId);
+  }
+
   render() {
     return(
       <ul>
-      <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
-        {this.props.chats.map(chat =>
-          <Manifest
-            key={chat.chatId}
-            {...chat}
-          />
-        )}
+        <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
+          {this.props.chats.sort(Compare).map(chat =>
+            <Manifest
+              key={chat.chatId}
+              origin='ChatList'
+              callback={this.onClick.bind(this)}
+              {...chat}
+            />
+          )}
         </FlipMove>
       </ul>
     )
   }
 }
-
-// TODO: ask why key - Where does it show - Is it just a props for the after click?
-// why {...chat} - chat only returns an error?
-// TODO: sort by oldest updated
 
 ChatList.propTypes = {
   chats: PropTypes.arrayOf(PropTypes.shape({
@@ -32,7 +35,8 @@ ChatList.propTypes = {
     busy: PropTypes.bool.isRequired,
     solved: PropTypes.bool.isRequired,
     engaged: PropTypes.bool.isRequired,
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default ChatList;

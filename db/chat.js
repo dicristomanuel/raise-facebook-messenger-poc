@@ -14,7 +14,7 @@ export default {
   },
 
   findAll: () => {
-    return Chat.findAll({order: '"updatedAt" ASC'});
+    return Chat.findAll({order: '"updatedAt" ASC', limit: 25});
   },
 
   findNextState: (id) => {

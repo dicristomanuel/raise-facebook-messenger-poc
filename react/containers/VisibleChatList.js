@@ -1,38 +1,31 @@
 import { connect } from 'react-redux';
 import ChatList from '../components/ChatList';
+import { GetVisibleChats } from '../selectors/getVisibleChats';
+import { browserHistory } from 'react-router';
+import { SetMessagesVisibilityFilter } from '../actions';
+import { InitMessagesAndSockets } from '../components/helpers/singleChatHelper';
 
-const getVisibleChats = (chats, filter) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return chats;
-    case 'SHOW_ACTIVE':
-      return chats.filter(chat => chat.active && !chat.busy)
-    case 'SHOW_BUSY':
-      return chats.filter(chat => chat.busy && !chat.engaged)
-    case 'SHOW_SOLVED':
-      return chats.filter(chat => chat.solved)
-    case 'SHOW_ENGAGED':
-      return chats.filter(chat => chat.engaged)
-  }
-}
-
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    chats: getVisibleChats(state.chats, state.visibilityFilter)
+    chats: GetVisibleChats(state)
   }
 }
 
-const VisibleChatList = connect(mapStateToProps)(ChatList);
+const mapDispatchToProps = dispatch => {
+  return {
+    onClick: (chatId) => {
+      InitMessagesAndSockets(chatId)
+      .then(() => {
+        dispatch(SetMessagesVisibilityFilter(chatId));
+        browserHistory.push(`/chat/${chatId}`);
+      })
+    }
+  }
+}
+
+const VisibleChatList = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatList);
 
 export default VisibleChatList;
-
-
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onChatClick: (id) => {
-//       dispatch(getMessagesForChat(id))
-//     }
-//   }
-// }
-// LATER
