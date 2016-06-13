@@ -3,6 +3,7 @@ import ChatList from '../components/ChatList';
 import { GetVisibleChats } from '../selectors/getVisibleChats';
 import { browserHistory } from 'react-router';
 import { SetMessagesVisibilityFilter } from '../actions';
+import { InitMessagesAndSockets } from '../components/helpers/singleChatHelper';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -13,8 +14,11 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: (chatId) => {
-      dispatch(SetMessagesVisibilityFilter(chatId));
-      browserHistory.push(`/chat/${chatId}`);
+      InitMessagesAndSockets(chatId)
+      .then(() => {
+        dispatch(SetMessagesVisibilityFilter(chatId));
+        browserHistory.push(`/chat/${chatId}`);
+      })
     }
   }
 }

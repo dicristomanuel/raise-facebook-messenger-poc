@@ -30,23 +30,25 @@ const transform = (data) => {
   });
   return messages;
 };
-// TODO: fix date (adding extra 5 hrs)
 
 export const Compare = (a,b) => {
   if (a.id < b.id)
-    return -1;
+  return -1;
   else if (a.id > b.id)
-    return 1;
+  return 1;
   else
-    return 0;
+  return 0;
 }
 
 export const loadMessages = (id, page) => {
-  return getMessages(id, page)
-  .then((messages) => {
-    Store.dispatch(AddMessages(transform(messages)));
+  return new Promise((resolve, reject) => {
+    getMessages(id, page)
+    .then((messages) => {
+      Store.dispatch(AddMessages(transform(messages)));
+      resolve('success');
+    })
+    .catch((error) => {reject(error)});
   })
-  .catch((err) => {console.log(err)});
 };
 
 export const InitMessagesAndSockets = (id, page = 1) => {

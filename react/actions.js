@@ -1,3 +1,5 @@
+import { InitChatsAndSockets } from './components/helpers/chatAllHelper';
+
 export const ADD_CHAT = 'ADD_CHAT';
 export const ADD_CHATS = 'ADD_CHATS';
 export const ADD_MESSAGE = 'ADD_MESSAGE';

@@ -38,25 +38,28 @@ const transform = (data) => {
 
 export const Compare = (a,b) => {
   if (a.updatedAt < b.updatedAt)
-    return -1;
+  return -1;
   else if (a.updatedAt > b.updatedAt)
-    return 1;
+  return 1;
   else
-    return 0;
+  return 0;
 }
 
 export const InitChatsAndSockets = () => {
-  socket.on('chat_update', (data) => {
-    Store.dispatch(UpdateStatus(data));
-  });
+  return new Promise((resolve, reject) => {
+    socket.on('chat_update', (data) => {
+      Store.dispatch(UpdateStatus(data));
+    });
 
-  socket.on('new_chat', (chat) => {
-    Store.dispatch(AddChat(transform([chat])));
-  });
+    socket.on('new_chat', (chat) => {
+      Store.dispatch(AddChat(transform([chat])));
+    });
 
-  return getChats()
-  .then((chats) => {
-    Store.dispatch(AddChats(transform(chats)));
+    getChats()
+    .then((chats) => {
+      Store.dispatch(AddChats(transform(chats)));
+      resolve('success');
+    })
+    .catch((err) => {reject(err)});
   })
-  .catch((err) => {console.log(err)});
 };

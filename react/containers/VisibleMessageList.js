@@ -1,14 +1,10 @@
 import { connect } from 'react-redux';
 import MessageList from '../components/MessageList';
-
-const getMessagesForId = (messages, chatId) => {
-  return messages.filter(message => message.chatId == chatId);
-}
-// TODO: move to selectors
+import { GetMessagesForId } from '../selectors/getMessagesForId';
 
 const mapStateToProps = state => {
   return {
-    messages: getMessagesForId(state.messages, state.messagesVisibilityFilter),
+    messages: GetMessagesForId(state),
     chatId: state.messagesVisibilityFilter,
   }
 }

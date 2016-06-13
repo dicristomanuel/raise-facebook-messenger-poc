@@ -52,11 +52,6 @@ class MessageList extends Component {
   }
 }
 
-// TODO: sort by oldest updated
-// When loading turn loading to true and launch load only when not true
-// add handleType for text area height
-// FlipMove is hiding the scrollbar
-// Why call super(props)
 
 MessageList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
