@@ -245,7 +245,7 @@ img {
 }
 
 .input-container {
-  background: RGBA(186, 191, 189, 0.20);
+  background: RGBA(186, 191, 189, 0.50);
   width: 67%;
   max-width: 750px;
   display: flex;
@@ -255,12 +255,11 @@ img {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   padding: 10px 0;
-  flex: 1;
 }
 
 textarea {
   outline: none;
-  width: 92%;
+  width: 91%;
   margin: 0 auto;
   min-height: 45px;
   border: 1px solid lightgray;
@@ -269,6 +268,19 @@ textarea {
   box-sizing: border-box;
   border: none;
   resize: none;
+}
+
+.input-container a {
+  align-self: center;
+  margin-top: 4px;
+  width: 5%;
+}
+
+.options-message {
+  margin-right: 13px;
+  border: none;
+  background: transparent;
+  width: 65%;
 }
 
 .footer {
