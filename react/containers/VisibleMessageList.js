@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import MessageList from '../components/MessageList';
 
 const getMessagesForId = (messages, chatId) => {
-  return messages.filter(message => message.chatId === chatId);
+  return messages.filter(message => message.chatId == chatId);
 }
 // TODO: move to selectors
 

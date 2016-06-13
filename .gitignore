@@ -2,4 +2,4 @@ node_modules
 *.sqlite3
 tokens.js
 npm-debug.log
-public/js/bundle.js
+public/assets/js/bundle.js

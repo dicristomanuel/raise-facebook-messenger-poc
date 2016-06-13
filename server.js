@@ -37,13 +37,21 @@ server.register([
 
     server.route({
       method: 'GET',
-      path: '/{path*}',
+      path: '/assets/{param*}',
       handler: {
         directory: {
-          path: './public',
+          path: './public/assets',
           listing: false,
           index: true
         }
+      }
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/{path*}',
+      handler: (request, reply) => {
+        reply.file('./public/index.html');
       }
     });
 

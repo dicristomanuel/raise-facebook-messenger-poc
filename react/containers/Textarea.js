@@ -16,7 +16,7 @@ class Textarea extends Component {
           onChange={this.handleChange.bind(this)}
           />
           <a href='#'>
-          <img src="/images/dots.png" className="options-message"></img>
+          <img src="/assets/images/dots.png" className="options-message"></img>
           </a>
       </div>
     )
