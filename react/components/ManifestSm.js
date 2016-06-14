@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import Store from '../createStore';
-import { GetChatManifest } from '../selectors/getChatManifest';
 
 const getStatus = (chat) => {
   if (chat.busy && !chat.engaged)
@@ -15,16 +14,15 @@ const getStatus = (chat) => {
 
 class ManifestSm extends Component {
   render() {
-    let manifest = GetChatManifest(Store.getState())
     return (
-        <li className='manifest-sm'>
-        <p className="name">{manifest.name}</p>
-          <div className={getStatus(manifest) + " state-sm"}>
+        <div className='manifest-sm'>
+          <p className="name">{this.props.manifest.name}</p>
+          <div className={getStatus(this.props.manifest) + " state-sm"}>
             <div className='profile-pic-sm'>
-              <img src={manifest.profilePic} className='profile-img-sm' />
+              <img src={this.props.manifest.profilePic} className='profile-img-sm' />
             </div>
           </div>
-        </li>
+        </div>
     );
   }
 }

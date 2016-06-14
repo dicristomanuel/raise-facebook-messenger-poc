@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ChatFilter from './ChatFilter';
 import { Link } from 'react-router';
-import ManifestSm from './ManifestSm';
+import ManifestHeader from '../containers/ManifestHeader';
 
 class Header extends Component {
   render() {
@@ -15,7 +15,7 @@ class Header extends Component {
           </Link>
           {
             this.props.origin === 'ChatAll' ?
-            <ChatFilter /> : <ManifestSm />
+            <ChatFilter /> : <ManifestHeader />
           }
         </div>
       </div>
