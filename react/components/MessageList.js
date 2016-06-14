@@ -21,9 +21,9 @@ class MessageList extends Component {
       this.pages++;
       LoadMessages(this.props.chatId, this.pages)
       .then((count) => {
-        if (count === this.messagesCount) {
+        // if (count === this.messagesCount) {
           this.shouldLoad = false;
-        }
+        // }
         this.loading = false;
       })
     }
@@ -36,7 +36,7 @@ class MessageList extends Component {
   }
 
   render() {
-    this.messagesCount = this.props.messages.length;
+    // this.messagesCount = this.props.messages.length;
     return(
       <ul className='message-list' onScroll={this.handleScroll.bind(this, event)}>
       <FlipMove enterAnimation="fade" duration='200' className='messages'>
