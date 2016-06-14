@@ -2,13 +2,9 @@ import { connect } from 'react-redux';
 import { SetChatVisibilityFilter } from '../actions';
 import Link from '../components/Link';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
-    all:     ownProps.filter === state.chatVisibilityFilter,
-    active:  ownProps.filter === state.chatVisibilityFilter,
-    busy:    ownProps.filter === state.chatVisibilityFilter,
-    solved:  ownProps.filter === state.chatVisibilityFilter,
-    engaged: ownProps.filter === state.chatVisibilityFilter,
+    current: state.chatVisibilityFilter
   }
 };
 
@@ -24,7 +20,5 @@ const FilterLink = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Link)
-// TODO: ask better explain this lifecycle
-// why Link - how does mapStateToProps work ^^
 
 export default FilterLink;

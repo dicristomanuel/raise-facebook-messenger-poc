@@ -4,7 +4,6 @@ import { Socket } from '../../../app/transformer';
 import { SendMessage } from '../../../app/messenger'
 import Chat from '../../../db/chat';
 
-
 const sendOut = (data) => {
   const { io, chat, sender, answer } = data;
   SendMessage(sender, answer);
@@ -16,11 +15,14 @@ const sendOut = (data) => {
 };
 
 export const OffMs = (data) => {
-  const { io, chat, text, answer, userType, sender } = data;
+  const { io, chat, text, answer, userType, sender, toSocket } = data;
   if (answer)
   sendOut(data);
   else if (userType === MemberService)
   SendMessage(chat.sender, text);
-  io.emit(`${New_message}${chat.id}`, Socket.message(data));
+  io.emit(`${New_message}${chat.id}`, Socket.message(toSocket));
   return data;
 }
+
+
+// TODO: socket message flow / chat update chat solved and then active

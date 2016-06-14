@@ -17,26 +17,34 @@ const newChat = (data) => {
 };
 
 const newMessage = (data) => {
-  const { text, toDb, chat } = data;
-  const { id } = chat;
-  if (toDb)
+  debugger;
+  const { id, createdAt, text, userType, ChatId, answer } = data;
+  const createdDate = createdAt.toString();
+  debugger;
+  if (answer)
   return [{
+    id,
     text,
+    ChatId,
     userType: Consumer,
-    chatId: id,
+    createdAt: createdDate.substring(4, 21),
   },
   {
-    text: toDb.text,
+    id,
+    ChatId,
+    text: answer,
     userType: Bot,
-    chatId: id,
+    createdAt: createdDate.substring(4, 21),
   }];
-  else {
-    return [{
-      text,
-      userType: Consumer,
-      chatId: id,
-    }];
-  }
+  else
+  return [{
+    id,
+    ChatId,
+    text,
+    userType,
+    createdAt: createdDate.substring(4, 21),
+  }];
+
 };
 
 const updateChat = (data, chat) => {

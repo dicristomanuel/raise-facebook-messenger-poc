@@ -172,7 +172,7 @@ img {
   flex-direction: column;
   overflow: hidden;
   border-radius: 100%;
-  width: 93px;
+  min-width: 93px;
   height: 93px;
   align-items: center;
   justify-content: center;

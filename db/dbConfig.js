@@ -23,7 +23,7 @@ export const Chat = connection.define('Chat', {
   },
   solved: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: true
   },
   engaged: {
     type: Sequelize.BOOLEAN,

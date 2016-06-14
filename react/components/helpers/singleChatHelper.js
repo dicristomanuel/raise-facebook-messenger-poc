@@ -16,21 +16,6 @@ const getMessages = (id, page) => {
   });
 };
 
-const transform = (data) => {
-  let messages = [];
-  data.forEach((message) => {
-    const { id, ChatId, userType, text, createdAt } = message;
-    messages.push({
-      id,
-      text,
-      userType,
-      chatId: ChatId,
-      createdAt: `${createdAt.substring(0, 10)} ${createdAt.substring(11, 16)}`,
-    });
-  });
-  return messages;
-};
-
 export const Compare = (a,b) => {
   if (a.id < b.id)
   return -1;
@@ -44,7 +29,7 @@ export const loadMessages = (id, page) => {
   return new Promise((resolve, reject) => {
     getMessages(id, page)
     .then((messages) => {
-      Store.dispatch(AddMessages(transform(messages)));
+      Store.dispatch(AddMessages(messages));
       resolve('success');
     })
     .catch((error) => {reject(error)});
@@ -55,7 +40,8 @@ export const InitMessagesAndSockets = (id, page = 1) => {
   Store.dispatch(SetMessagesVisibilityFilter(id));
 
   socket.on(`new_message${id}`, (message) => {
-    Store.dispatch(AddMessage(transform([message])));
+    console.log('in socket, ', message);
+    Store.dispatch(AddMessage(message));
   });
 
   return loadMessages(id, page);

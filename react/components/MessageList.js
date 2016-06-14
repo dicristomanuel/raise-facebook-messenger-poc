@@ -10,7 +10,6 @@ class MessageList extends Component {
     super(props);
     this.pages = 1;
     this.loading = false;
-    this.firstRender = true;
   }
 
   handleScroll(event) {
@@ -26,11 +25,8 @@ class MessageList extends Component {
   }
 
   componentDidUpdate() {
-    if (this.firstRender) {
       const element = findDOMNode(this).childNodes[0];
-      this.firstRender = false;
       element.scrollTop = element.scrollHeight;
-    }
   }
 
   render() {
