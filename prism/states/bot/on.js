@@ -12,20 +12,19 @@ const writeToDb = (data) => {
   );
   else
   promises.push(
-    Bubble.create({ chatId: chat.id, text, userType: Consumer }),
-    null
+    Bubble.create({ chatId: chat.id, text, userType: Consumer })
   );
   return Promise.all(promises);
 }
 
 const handleBotMessage = (data) => {
   const { sender, chat, text, userType, answer } = data;
-  if (answer.includes(ToMemberService))
+  if (answer.includes(ToMemberService)) {
   return { ...data, state: 'ms' }
+}
   else
-  writeToDb(data)
+  return writeToDb(data)
   .then((toSocket) => {
-    debugger;
     return { ...data, toSocket };
   })
 };
@@ -35,6 +34,8 @@ const prepareBotMessage = (data) => {
   const toDb = MatchAnswer(chat, text);
   return handleBotMessage({...toDb, ...data});
 };
+
+// exports ====>
 
 export const OnBot = (data) => {
   return prepareBotMessage(data);

@@ -44,7 +44,7 @@ export default {
     this[data.state].on(data)
     .then(this[data.state].off)
     .catch(function(error) {
-      console.log(error);
+      console.log(`>>>> ${error} <<<<`);
     });
   },
 

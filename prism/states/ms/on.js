@@ -3,26 +3,23 @@ import { Bot } from '../../../data/appConstants';
 
 const writeToDb = (data) => {
   const { chat, text, userType, answer } = data;
-  return Bubble.create({ chatId: chat.id, text, userType })
+  let promises = [];
+  if (answer)
+  promises.push(
+    Bubble.create({ chatId: chat.id, text, userType: Consumer }),
+    Bubble.create({ chatId: chat.id, text: answer, userType: Bot })
+  );
+  else
+  promises.push(
+    Bubble.create({ chatId: chat.id, text, userType: Consumer })
+  );
+  return Promise.all(promises);
 }
 
 export const OnMs = (data) => {
-  // const { io, chat, text, userType, answer } = data;
-  // if (answer) {
-  //   Bubble.create([
-  //     { chatId: chat.id, text, userType },
-  //     { chatId: chat.id, text: answer, userType: Bot }
-  //   ]);
-  // }
-  // else {
-  //   Bubble.create({ chatId: chat.id, text, userType })
-  //   .then((message) => {
-  //     debugger;
-  //   });
-  // }
-  writeToDb(data)
+  return writeToDb(data)
   .then((toSocket) => {
+    debugger;
     return { ...data, toSocket };
   })
 };
-// toSocket to array?
