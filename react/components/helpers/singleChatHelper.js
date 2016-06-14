@@ -11,8 +11,9 @@ const getMessages = (id, page) => {
     .end((err, res) => {
       if (err)
       reject(err);
-      else
+      else {
       resolve(res.body);
+    }
     });
   });
 };
@@ -30,6 +31,7 @@ export const loadMessages = (id, page) => {
   return new Promise((resolve, reject) => {
     getMessages(id, page)
     .then((messages) => {
+      console.log(messages);
       Store.dispatch(AddMessages(messages));
       resolve('success');
     })
@@ -41,7 +43,6 @@ export const InitMessagesAndSockets = (id, page = 1) => {
   Store.dispatch(SetMessagesVisibilityFilter(id));
 
   socket.on(`${New_message}${id}`, (message) => {
-    // console.log('in socket, ', message);
     Store.dispatch(AddMessage(message));
   });
 

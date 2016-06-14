@@ -1,4 +1,5 @@
 import { Server } from 'hapi';
+import { Socket } from './app/transformer';
 import Good from 'good';
 import GoodConsole from 'good-console';
 import Blipp from 'blipp';
