@@ -9,8 +9,18 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onClick: (chatId) => {
+      dispatch(SetMessagesVisibilityFilter(chatId));
+      browserHistory.push(`/chat/${chatId}`);
+    }
+  }
+}
+
 const ManifestHeader = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(ManifestSm);
 
 export default ManifestHeader;

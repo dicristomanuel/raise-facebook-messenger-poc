@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => {
 
 const VisibleChatList = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ChatList);
 
 export default VisibleChatList;

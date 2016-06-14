@@ -12,13 +12,13 @@ const getStatus = (chat) => {
 }
 
 class Manifest extends Component {
-  onClick(chatId) {
+  onClickManifest(chatId) {
     this.props.callback(chatId);
   }
 
   render() {
     return (
-        <li className='manifest' onClick={this.onClick.bind(this, this.props.chatId)}>
+        <li className='manifest' onClick={this.onClickManifest.bind(this, this.props.chatId)}>
           <div className={getStatus(this.props) + " state"}>
             <div className='profile-pic'>
               <img src={this.props.profilePic} />

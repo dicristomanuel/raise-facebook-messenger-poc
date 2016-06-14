@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import FlipMove from 'react-flip-move';
 import Text from './Text';
-import Textarea from '../containers/Textarea';
+import Textarea from './Textarea';
 import { findDOMNode } from 'react-dom';
 import { LoadMessages, Compare } from './helpers/singleChatHelper';
 

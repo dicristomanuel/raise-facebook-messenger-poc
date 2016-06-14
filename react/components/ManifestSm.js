@@ -13,9 +13,12 @@ const getStatus = (chat) => {
 }
 
 class ManifestSm extends Component {
+  onClick(chatId) {
+    
+  }
   render() {
     return (
-        <div className='manifest-sm'>
+        <div className='manifest-sm' onClick={this.props.onClick.bind(this)}>
           <p className="name">{this.props.manifest.name}</p>
           <div className={getStatus(this.props.manifest) + " state-sm"}>
             <div className='profile-pic-sm'>

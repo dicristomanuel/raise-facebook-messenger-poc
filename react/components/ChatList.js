@@ -4,7 +4,7 @@ import FlipMove from 'react-flip-move';
 import { Compare } from './helpers/chatAllHelper';
 
 class ChatList extends Component {
-  onClick(chatId) {
+  onClickChatList(chatId) {
     this.props.onClick(chatId);
   }
 
@@ -16,7 +16,7 @@ class ChatList extends Component {
             <Manifest
               key={chat.chatId}
               origin='ChatList'
-              callback={this.onClick.bind(this)}
+              callback={this.onClickChatList.bind(this)}
               {...chat}
             />
           )}
