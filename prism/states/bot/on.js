@@ -18,10 +18,9 @@ const writeToDb = (data) => {
 }
 
 const handleBotMessage = (data) => {
-  const { sender, chat, text, userType, answer } = data;
-  if (answer.includes(ToMemberService)) {
+  const { answer } = data;
+  if (answer.includes(ToMemberService))
   return { ...data, state: 'ms' }
-}
   else
   return writeToDb(data)
   .then((toSocket) => {
