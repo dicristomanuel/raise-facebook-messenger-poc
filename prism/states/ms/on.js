@@ -1,14 +1,25 @@
 import Bubble from '../../../db/bubble';
-import { Bot } from '../../../data/appConstants';
+import { Bot, Consumer } from '../../../data/appConstants';
+
+
+const writeToDb = (data) => {
+  const { chat, text, userType, answer } = data;
+  let promises = [];
+  if (answer)
+  promises.push(
+    Bubble.create({ chatId: chat.id, text, userType: Consumer }),
+    Bubble.create({ chatId: chat.id, text: answer, userType: Bot })
+  );
+  else
+  promises.push(
+    Bubble.create({ chatId: chat.id, text, userType })
+  );
+  return Promise.all(promises);
+}
 
 export const OnMs = (data) => {
-  const { io, chat, text, userType, answer } = data;
-  if (answer)
-  Bubble.create([
-    { chatId: chat.id, text, userType },
-    { chatId: chat.id, text: answer, userType: Bot }
-  ]);
-  else
-  Bubble.create([{ chatId: chat.id, text, userType }]);
-  return data;
+  return writeToDb(data)
+  .then((toSocket) => {
+    return { ...data, toSocket };
+  })
 };

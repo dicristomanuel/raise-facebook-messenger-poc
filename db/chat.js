@@ -17,10 +17,6 @@ export default {
     return Chat.findAll({order: '"updatedAt" ASC', limit: 25});
   },
 
-  findNextState: (id) => {
-    return Chat.findById(id);
-  },
-
   update: (chat, keyValue) => {
     return chat.update(keyValue);
   },

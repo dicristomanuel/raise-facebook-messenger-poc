@@ -14,11 +14,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: (chatId) => {
-      InitMessagesAndSockets(chatId)
-      .then(() => {
-        dispatch(SetMessagesVisibilityFilter(chatId));
-        browserHistory.push(`/chat/${chatId}`);
-      })
+      dispatch(SetMessagesVisibilityFilter(chatId));
+      browserHistory.push(`/chat/${chatId}`);
     }
   }
 }

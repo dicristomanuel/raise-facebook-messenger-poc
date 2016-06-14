@@ -1,17 +1,31 @@
-import { Bot, ToMemberService } from '../../../data/appConstants';
+import { Bot, ToMemberService, Consumer } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
 import Bubble from '../../../db/bubble';
 
+const writeToDb = (data) => {
+  const { chat, text, userType, answer } = data;
+  let promises = [];
+  if (answer)
+  promises.push(
+    Bubble.create({ chatId: chat.id, text, userType: Consumer }),
+    Bubble.create({ chatId: chat.id, text: answer, userType: Bot })
+  );
+  else
+  promises.push(
+    Bubble.create({ chatId: chat.id, text, userType: Consumer })
+  );
+  return Promise.all(promises);
+}
+
 const handleBotMessage = (data) => {
-  const { sender, chat, text, userType, answer } = data;
+  const { answer } = data;
   if (answer.includes(ToMemberService))
   return { ...data, state: 'ms' }
   else
-  Bubble.create([
-    { chatId: chat.id, text, userType },
-    { chatId: chat.id, text: answer, userType: Bot }
-  ]);
-  return data;
+  return writeToDb(data)
+  .then((toSocket) => {
+    return { ...data, toSocket };
+  })
 };
 
 const prepareBotMessage = (data) => {
@@ -19,6 +33,8 @@ const prepareBotMessage = (data) => {
   const toDb = MatchAnswer(chat, text);
   return handleBotMessage({...toDb, ...data});
 };
+
+// exports ====>
 
 export const OnBot = (data) => {
   return prepareBotMessage(data);

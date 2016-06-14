@@ -10,8 +10,10 @@ const sendOut = (data) => {
 };
 
 export const OffBot = (data) => {
-  const { io, chat } = data;
+  const { io, chat, toSocket } = data;
   sendOut(data);
-  io.emit(`${New_message}${chat.id}`, Socket.message(data));
+  toSocket.forEach((message) => {
+    io.emit(`${New_message}${chat.id}`, Socket.message(message));
+  })
   return data;
 }

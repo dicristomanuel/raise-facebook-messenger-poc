@@ -2,40 +2,28 @@ import { Bot, Consumer } from '../data/appConstants';
 
 const newChat = (data) => {
   const { chat } = data;
-  const { id, firstName, lastName, profilePic, state } = chat;
+  const { id, firstName, lastName, profilePic, state, active, busy, solved, engaged } = chat;
   return {
-    id: id,
+    id,
     firstName,
     lastName,
     profilePic,
-    state: Bot,
-    active: false,
-    busy: false,
-    solved: false,
-    engaged: false,
+    state,
+    active,
+    busy,
+    solved,
+    engaged,
   }
 };
 
 const newMessage = (data) => {
-  const { text, toDb, chat } = data;
-  const { id } = chat;
-  if (toDb)
-  return [{
+  const { id, ChatId, text, userType, createdAt } = data;
+  return {
+    id,
+    chatId: ChatId,
     text,
-    userType: Consumer,
-    chatId: id,
-  },
-  {
-    text: toDb.text,
-    userType: Bot,
-    chatId: id,
-  }];
-  else {
-    return [{
-      text,
-      userType: Consumer,
-      chatId: id,
-    }];
+    userType,
+    createdAt: createdAt.toString().substring(4,21)
   }
 };
 

@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { GetChatManifest } from '../selectors/getChatManifest';
 
 const getStatus = (chat) => {
   if (chat.busy && !chat.engaged)

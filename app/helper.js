@@ -1,15 +1,25 @@
 import Chat from '../db/chat';
 import Bubble from '../db/bubble';
-import { New_message, New_chat, Chat_update } from '../data/socketConstants';
+import { Chat_update } from '../data/socketConstants';
 import { Socket } from './transformer';
 
 export const GetChats = () => {
   return Chat.findAll();
 };
 
+const transformMessages = (data) => {
+  let messages = [];
+  data.forEach((message) => {
+    messages.push(Socket.message(message));
+  })
+  return messages;
+};
+
 export const GetMessages = (id, page) => {
-  debugger;
-  return Bubble.findForChat(id, page);
+  return Bubble.findForChat(id, page)
+  .then((messages) => {
+    return transformMessages(messages);
+  });
 };
 
 export const UpdateStatus = (io, payload) => {
