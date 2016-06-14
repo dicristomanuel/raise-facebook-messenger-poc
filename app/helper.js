@@ -3,16 +3,16 @@ import Bubble from '../db/bubble';
 import { Chat_update } from '../data/socketConstants';
 import { Socket } from './transformer';
 
-export const GetChats = () => {
-  return Chat.findAll();
-};
-
 const transformMessages = (data) => {
   let messages = [];
   data.forEach((message) => {
     messages.push(Socket.message(message));
   })
   return messages;
+};
+
+export const GetChats = () => {
+  return Chat.findAll();
 };
 
 export const GetMessages = (id, page) => {

@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import ManifestSm from '../components/ManifestSm';
 import GetSingleManifest from '../selectors/GetSingleManifest';
+import { SetEngageForChat } from '../components/helpers/singleChatHelper';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -11,9 +12,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: (chatId) => {
-      dispatch(SetMessagesVisibilityFilter(chatId));
-      browserHistory.push(`/chat/${chatId}`);
+    onClick: (chatId, engaged) => {
+      const value = engaged ? false : true;
+      SetEngageForChat(chatId, value);
     }
   }
 }

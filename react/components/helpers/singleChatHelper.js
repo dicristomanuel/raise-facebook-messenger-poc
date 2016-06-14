@@ -18,6 +18,16 @@ const getMessages = (id, page) => {
   });
 };
 
+export const SetEngageForChat = (chatId, value) => {
+  request.put('http://localhost:3001/update-chat')
+  .send({ chatId: chatId, key: 'engaged', value })
+  .end((err, res) => {
+    if (err)
+    console.log(err);
+  });
+};
+
+
 export const Compare = (a,b) => {
   if (a.id < b.id)
   return -1;
