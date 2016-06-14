@@ -1,6 +1,7 @@
 import request from 'superagent';
 import Store from '../../createStore';
 import { AddMessage, AddMessages, SetMessagesVisibilityFilter } from '../../actions';
+import { New_message } from '../../../data/socketConstants';
 
 const socket = io();
 
@@ -39,8 +40,8 @@ export const loadMessages = (id, page) => {
 export const InitMessagesAndSockets = (id, page = 1) => {
   Store.dispatch(SetMessagesVisibilityFilter(id));
 
-  socket.on(`new_message${id}`, (message) => {
-    console.log('in socket, ', message);
+  socket.on(`${New_message}${id}`, (message) => {
+    // console.log('in socket, ', message);
     Store.dispatch(AddMessage(message));
   });
 
