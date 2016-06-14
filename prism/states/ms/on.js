@@ -20,7 +20,7 @@ export const OnMs = (data) => {
   //     debugger;
   //   });
   // }
-  return writeToDb(data)
+  writeToDb(data)
   .then((toSocket) => {
     return { ...data, toSocket };
   })
