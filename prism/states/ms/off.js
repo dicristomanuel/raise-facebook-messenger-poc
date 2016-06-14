@@ -20,7 +20,7 @@ export const OffMs = (data) => {
   if (answer)
   sendOut(data);
   else if (userType === MemberService)
-  SendMessage(sender, text);
+  SendMessage(chat.sender, text);
   toSocket.forEach((message) => {
     io.emit(`${New_message}${chat.id}`, Socket.message(message));
   })

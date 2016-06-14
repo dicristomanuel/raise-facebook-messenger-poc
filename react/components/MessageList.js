@@ -3,45 +3,52 @@ import FlipMove from 'react-flip-move';
 import Text from './Text';
 import Textarea from '../containers/Textarea';
 import { findDOMNode } from 'react-dom';
-import { loadMessages, Compare } from './helpers/singleChatHelper';
+import { LoadMessages, Compare } from './helpers/singleChatHelper';
 
 class MessageList extends Component {
   constructor(props) {
     super(props);
     this.pages = 1;
     this.loading = false;
+    this.messagesCount = 0;
+    this.shouldLoad = true;
   }
 
   handleScroll(event) {
     const element = findDOMNode(this).childNodes[0];
-    if (element.scrollTop <= 100 && !this.loading) {
+    if (element.scrollTop <= 100 && this.shouldLoad) {
       this.loading = true;
       this.pages++;
-      loadMessages(this.props.chatId, this.pages)
-      .then(() => {
+      LoadMessages(this.props.chatId, this.pages)
+      .then((count) => {
+        if (count === this.messagesCount) {
+          this.shouldLoad = false;
+        }
         this.loading = false;
       })
     }
   }
-
+// FIX SCROLLING
   componentDidUpdate() {
-      const element = findDOMNode(this).childNodes[0];
-      element.scrollTop = element.scrollHeight;
+    const element = findDOMNode(this).childNodes[0];
+    if (!this.loading)
+    element.scrollTop = element.scrollHeight;
   }
 
   render() {
+    this.messagesCount = this.props.messages.length;
     return(
       <ul className='message-list' onScroll={this.handleScroll.bind(this, event)}>
-        <FlipMove enterAnimation="fade" duration='200' className='messages'>
-          {this.props.messages.sort(Compare).map(message =>
-            <Text
-              key={message.id}
-              userType={message.userType}
-              createdAt={message.createdAt}
-              {...message}
-            />
-          )}
-        </FlipMove>
+      <FlipMove enterAnimation="fade" duration='200' className='messages'>
+      {this.props.messages.sort(Compare).map(message =>
+        <Text
+        key={message.id}
+        userType={message.userType}
+        createdAt={message.createdAt}
+        {...message}
+        />
+      )}
+      </FlipMove>
       <Textarea />
       </ul>
     )

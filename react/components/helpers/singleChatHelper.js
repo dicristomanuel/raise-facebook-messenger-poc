@@ -27,13 +27,12 @@ export const Compare = (a,b) => {
   return 0;
 }
 
-export const loadMessages = (id, page) => {
+export const LoadMessages = (id, page) => {
   return new Promise((resolve, reject) => {
     getMessages(id, page)
     .then((messages) => {
-      console.log(messages);
       Store.dispatch(AddMessages(messages));
-      resolve('success');
+      resolve(messages.length);
     })
     .catch((error) => {reject(error)});
   })
@@ -43,8 +42,9 @@ export const InitMessagesAndSockets = (id, page = 1) => {
   Store.dispatch(SetMessagesVisibilityFilter(id));
 
   socket.on(`${New_message}${id}`, (message) => {
+    console.log(message);
     Store.dispatch(AddMessage(message));
   });
 
-  return loadMessages(id, page);
+  return LoadMessages(id, page);
 };
