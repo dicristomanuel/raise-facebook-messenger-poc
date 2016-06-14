@@ -50,10 +50,8 @@ export const LoadMessages = (id, page) => {
 
 export const InitMessagesAndSockets = (id, page = 1) => {
   Store.dispatch(SetMessagesVisibilityFilter(id));
-
   socket.on(`${New_message}${id}`, (message) => {
     Store.dispatch(AddMessage(message));
   });
-
   return LoadMessages(id, page);
 };
