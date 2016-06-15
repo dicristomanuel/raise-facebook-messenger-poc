@@ -18,14 +18,14 @@ class Manifest extends Component {
 
   render() {
     return (
-        <li className='manifest' onClick={this.onClickManifest.bind(this, this.props.chatId)}>
-          <div className={getStatus(this.props) + " state"}>
-            <div className='profile-pic'>
-              <img src={this.props.profilePic} />
-            </div>
+      <li className='manifest' onClick={this.onClickManifest.bind(this, this.props.chatId)}>
+        <div className={getStatus(this.props) + " state"}>
+          <div className='profile-pic'>
+            <img src={this.props.profilePic} />
           </div>
-          <p className="name">{this.props.name}</p>
-        </li>
+        </div>
+        <p className="name">{this.props.name}</p>
+      </li>
     );
   }
 }
