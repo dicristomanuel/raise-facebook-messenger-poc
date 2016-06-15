@@ -5,7 +5,7 @@ import Header from './Header';
 import VisibleMessageList from '../containers/VisibleMessageList';
 import Footer from './Footer';
 import { InitMessagesAndSockets } from './helpers/singleChatHelper';
-import { NotificationStack } from 'react-notification';
+import { Notification } from 'react-notification';
 
 class SingleChat extends Component {
   constructor(props) {
@@ -23,12 +23,12 @@ class SingleChat extends Component {
       <Provider store={Store}>
         <div>
         <Notification
-          isActive={ this.notifyEngaged }
+          isActive={ true }
           message="Notification"
           action="Dismiss"
           title="Title!"
-          onDismiss={this.toggleNotifyEngaged.bind(this)}
-          onClick={() =>  this.notifyEngaged = false }
+          onDismiss={console.log(this)}
+          onClick={console.log(this)}
         />
           <Header parent='SingleChat' />
           <VisibleMessageList />
