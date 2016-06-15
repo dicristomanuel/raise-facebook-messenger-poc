@@ -9,41 +9,27 @@ import { NotificationStack } from 'react-notification';
 
 class SingleChat extends Component {
   constructor(props) {
-      super(props);
-      this.notifications = [{
-          message: `Notification ipsum...`,
-          key: 1,
-          action: 'Dismiss',
-          onClick: () => this.removeNotification(),
-        }];
-    }
+    super(props);
+    this.notifyEngaged = true;
+  }
 
-  // addNotification() {
-  //   const newCount = count + 1;
-  //   return this.notifications.add({
-  //       message: `Notification ipsum...`,
-  //       key: 1,
-  //       action: 'Dismiss',
-  //       onClick: () => this.removeNotification(1),
-  //     })
-  // }
-
-  removeNotification(key) {
-    console.log(key);
-    console.log(this.notifications.filter(n => n.key === key));
+  toggleNotifyEngaged() {
+   this.notifyEngaged = !this.notifyEngaged;
   }
 
   render() {
-    console.log(this.notifications);
     InitMessagesAndSockets(this.props.params.id)
     return (
       <Provider store={Store}>
         <div>
-          <NotificationStack
-            notifications={this.notifications}
-            dismissAfter='3000'
-            onDismiss={notification => this.removeNotification(notification.key)}
-          />
+        <Notification
+          isActive={ this.notifyEngaged }
+          message="Notification"
+          action="Dismiss"
+          title="Title!"
+          onDismiss={ console.log(this.toggleNotification) }
+          onClick={() =>  {console.log(this)} }}
+        />
           <Header parent='SingleChat' />
           <VisibleMessageList />
           <Footer />
