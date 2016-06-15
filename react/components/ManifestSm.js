@@ -4,12 +4,12 @@ import Store from '../createStore';
 const getStatus = (chat) => {
   if (chat.busy && !chat.engaged)
   return 'busy';
+  else if (chat.engaged)
+  return 'engaged';
   else if (chat.active && !chat.busy)
   return 'active';
   else if (chat.solved)
   return 'solved';
-  else if (chat.engaged)
-  return 'engaged';
 }
 
 class ManifestSm extends Component {
@@ -30,6 +30,7 @@ class ManifestSm extends Component {
     );
   }
 }
+// when hover display 'Click to engage'
 
 ManifestSm.PropTypes = {
   chat: PropTypes.shape({

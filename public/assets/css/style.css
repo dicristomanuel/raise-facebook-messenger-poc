@@ -217,7 +217,11 @@ img {
   max-width: 750px;
   max-height: 70vh;
   margin: 100px auto 0 auto;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+.messages::-webkit-scrollbar { 
+    display: none;
 }
 
 .text {
