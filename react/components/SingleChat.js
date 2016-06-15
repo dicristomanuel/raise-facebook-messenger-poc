@@ -27,8 +27,8 @@ class SingleChat extends Component {
           message="Notification"
           action="Dismiss"
           title="Title!"
-          onDismiss={ console.log(this.toggleNotification) }
-          onClick={() =>  {console.log(this)} }}
+          onDismiss={this.toggleNotifyEngaged.bind(this)}
+          onClick={() =>  this.notifyEngaged = false }
         />
           <Header parent='SingleChat' />
           <VisibleMessageList />
