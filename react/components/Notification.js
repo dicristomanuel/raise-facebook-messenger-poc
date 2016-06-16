@@ -8,7 +8,7 @@ class Notification extends Component {
 
   render() {
     return (
-      <div className='notification-container notification-animation-out'>
+      <div className='notification-container notification-animation-in'>
         <div className='notification engaged'>
           <p className='notification-text'>Chat engaged</p>
           <p className='notification-undo'>UNDO</p>

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import FlipMove from 'react-flip-move';
 import Text from './Text';
-import Textarea from './Textarea';
+import InputContainer from './InputContainer';
 import { findDOMNode } from 'react-dom';
 import { LoadMessages, Compare } from './helpers/singleChatHelper';
 
@@ -49,7 +49,7 @@ class MessageList extends Component {
             />
           )}
         </FlipMove>
-      <Textarea />
+      <InputContainer />
       </ul>
     )
   }
