@@ -10,17 +10,22 @@ a {
 }
 
 .img-xsm {
-  width: auto;
+  width: 40px;
+  height: 40px;
+  border-top-right-radius: 100px;
+  border-top-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-bottom-left-radius: 100px;
 }
 
 .notification-container {
   box-sizing: border-box;
   letter-spacing: 1px;
   position: fixed;
-  top: 110px;
+  bottom: 50px;
   right: 0;
   z-index: 999999;
-  width: 280px;
+  width: 265px;
   padding: 0 15px;
   max-height: calc(100% - 30px);
   overflow-x: hidden;
@@ -31,7 +36,7 @@ a {
   display: flex;
   justify-content: space-around;
   box-sizing: border-box;
-  padding: 15px 20px;
+  padding: 17px 16px;
   border-radius: 2px;
   color: #fff;
   box-shadow: 0 0 1px #999;
@@ -51,32 +56,192 @@ a {
   font-weight: bold;
 }
 
-.notification:hover, .notification:focus {
-  opacity: 1;
+.notification-animation-in{
+  animation: animationFramesIn ease .2s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+  -webkit-animation: animationFramesIn ease .2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/
+  -moz-animation: animationFramesIn ease .2s;
+  -moz-animation-iteration-count: 1;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode:forwards; /*FF 5+*/
+  -o-animation: animationFramesIn ease .2s;
+  -o-animation-iteration-count: 1;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode:forwards; /*Not implemented yet*/
+  -ms-animation: animationFramesIn ease .2s;
+  -ms-animation-iteration-count: 1;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode:forwards; /*IE 10+*/
 }
 
-.notification-enter {
-  visibility: hidden;
-  transform: translate3d(100%, 0, 0);
+@keyframes animationFramesIn{
+  0% {
+    opacity:0;
+    transform:  translate(500px,0px)  ;
+  }
+  80% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+  90% {
+    opacity:1;
+    transform:  translate(5px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
 }
 
-.notification-enter.notification-enter-active {
-  visibility: visible;
-  transform: translate3d(0, 0, 0);
-  transition: all 0.4s;
+@-moz-keyframes animationFramesIn{
+  0% {
+    opacity:0;
+    transform:  translate(500px,0px)  ;
+  }
+  80% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+  90% {
+    opacity:1;
+    transform:  translate(5px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
 }
 
-/*
-.notification-leave {
-  visibility: visible;
-  transform: translate3d(0, 0, 0);
+@-webkit-keyframes animationFramesIn {
+  0% {
+    opacity:0;
+    transform:  translate(500px,0px)  ;
+  }
+  80% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+  90% {
+    opacity:1;
+    transform:  translate(5px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
 }
 
-.notification-leave.notification-leave-active {
-  visibility: hidden;
-  transform: translate3d(100%, 0, 0);
-  transition: all 0.4s;
-}*/
+@-o-keyframes animationFramesIn {
+  0% {
+    opacity:0;
+    transform:  translate(500px,0px)  ;
+  }
+  80% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+  90% {
+    opacity:1;
+    transform:  translate(5px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+}
+
+@-ms-keyframes animationFramesIn {
+  0% {
+    opacity:0;
+    transform:  translate(500px,0px)  ;
+  }
+  80% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+  90% {
+    opacity:1;
+    transform:  translate(5px,0px)  ;
+  }
+  100% {
+    opacity:1;
+    transform:  translate(0px,0px)  ;
+  }
+}
+
+.notification-animation-out{
+  animation: animationFramesOut ease .5s;
+  animation-iteration-count: 1;
+  transform-origin: 50% 50%;
+  animation-fill-mode:forwards; /*when the spec is finished*/
+  -webkit-animation: animationFramesOut ease .5s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/
+  -moz-animation: animationFramesOut ease .5s;
+  -moz-animation-iteration-count: 1;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode:forwards; /*FF 5+*/
+  -o-animation: animationFramesOut ease .5s;
+  -o-animation-iteration-count: 1;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode:forwards; /*Not implemented yet*/
+  -ms-animation: animationFramesOut ease .5s;
+  -ms-animation-iteration-count: 1;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode:forwards; /*IE 10+*/
+}
+
+@keyframes animationFramesOut{
+  0% {
+    transform:  translate(0px,0px)  ;
+  }
+  100% {
+    transform:  translate(500px,0px)  ;
+  }
+}
+
+@-moz-keyframes animationFramesOut{
+  0% {
+    transform:  translate(0px,0px)  ;
+  }
+  100% {
+    transform:  translate(500px,0px)  ;
+  }
+}
+
+@-webkit-keyframes animationFramesOut {
+  0% {
+    transform:  translate(0px,0px)  ;
+  }
+  100% {
+    transform:  translate(500px,0px)  ;
+  }
+}
+
+@-o-keyframes animationFramesOut {
+  0% {
+    transform:  translate(0px,0px)  ;
+  }
+  100% {
+    transform:  translate(500px,0px)  ;
+  }
+}
+
+@-ms-keyframes animationFramesOut {
+  0% {
+    transform:  translate(0px,0px)  ;
+  }
+  100% {
+    transform:  translate(500px,0px)  ;
+  }
+}
+
 
 .message {
   font-weight: bold;
@@ -291,7 +456,7 @@ img {
   flex-direction: column;
   width: 67%;
   max-width: 750px;
-  max-height: 70vh;
+  max-height: 75vh;
   margin: 100px auto 0 auto;
   overflow-y: scroll;
 }
@@ -325,7 +490,6 @@ img {
 }
 
 .input-container {
-  background: RGBA(186, 191, 189, 0.50);
   width: 67%;
   max-width: 750px;
   display: flex;
@@ -334,20 +498,22 @@ img {
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding: 10px 0;
 }
 
 textarea {
   outline: none;
-  width: 91%;
+  width: 100%;
   margin: 0 auto;
   min-height: 45px;
-  border: 1px solid lightgray;
+  border: 1px solid RGBA(181, 185, 182, 0.26);
   font-size: 16px;
   padding: 10px 15px;
   box-sizing: border-box;
-  border: none;
   resize: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .input-container a {
@@ -364,10 +530,9 @@ textarea {
 }
 
 .footer {
-  border-top: 1px solid RGBA(186, 191, 189, 0.25);
   padding-top: 20px;
   text-align: center;
   font-size: 10px;
-  width: 62%;
+  /*width: 62%;*/
   margin: 20px auto;
 }

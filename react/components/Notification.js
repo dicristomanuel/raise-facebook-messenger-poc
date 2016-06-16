@@ -9,9 +9,8 @@ class Notification extends Component {
 
   render() {
     return (
-      <div className='notification-container'>
+      <div className='notification-container notification-animation-out'>
         <div className='notification engaged'>
-          <img src='https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12801477_685706248238148_6224624586905789762_n.jpg?oh=ca5e3916fdacd7b753c62ab02eb9b6fc&oe=57C37846' className='img-xsm' />
           <p className='notification-text'>Chat engaged</p>
           <p className='notification-undo'>UNDO</p>
         </div>

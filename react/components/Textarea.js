@@ -12,15 +12,16 @@ class Textarea extends Component {
     return(
       <div className='input-container'>
         <textarea type="text"
+          placeholder="Type your message ..."
           className='textarea'
           onChange={this.handleChange.bind(this)}
           />
-          <a href='#'>
-          <img src="/assets/images/dots.png" className="options-message"></img>
-          </a>
       </div>
     )
   }
 };
+// <a href='#'>
+// <img src="/assets/images/dots.png" className="options-message"></img>
+// </a>
 
 export default Textarea;
