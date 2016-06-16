@@ -328,24 +328,6 @@ a {
   position: relative;
 }
 
-.state-filter-single:hover:after{
-  opacity:0.8;
-}
-
-.state-filter-single:after {
-  position: absolute;
-  opacity: 0;
-  background: rgba(0,0,0,.7);
-  border-radius: 5px;
-  color: #fff;
-  content: attr(title);
-  padding: 5px 15px;
-  z-index: 1;
-  top: -30px;
-  left: -20px;
-  transition: opacity .2s;
-}
-
 .selected {
   padding: 15px;
   -webkit-box-shadow: 0 0 2px -1px rgba(0,0,0,0.20);

@@ -10,7 +10,7 @@ export const GetVisibleChats = createSelector(
       case 'SHOW_ALL':
         return chats;
       case 'SHOW_ACTIVE':
-        return chats.filter(chat => chat.active && !chat.busy);
+        return chats.filter(chat => chat.active && !chat.busy && !chat.engaged);
       case 'SHOW_BUSY':
         return chats.filter(chat => chat.busy && !chat.engaged);
       case 'SHOW_SOLVED':
