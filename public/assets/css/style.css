@@ -9,6 +9,82 @@ a {
   font-family: 'Open Sans', sans-serif;
 }
 
+.img-xsm {
+  width: auto;
+}
+
+.notification-container {
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  position: fixed;
+  top: 110px;
+  right: 0;
+  z-index: 999999;
+  width: 280px;
+  padding: 0 15px;
+  max-height: calc(100% - 30px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.notification {
+  display: flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  border-radius: 2px;
+  color: #fff;
+  box-shadow: 0 0 1px #999;
+  font-size: 15px;
+  line-height: 15px;
+  opacity: 0.9;
+  margin-top: 15px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  align-items: center;
+}
+
+.notification-undo {
+  color: black;
+  font-weight: bold;
+}
+
+.notification:hover, .notification:focus {
+  opacity: 1;
+}
+
+.notification-enter {
+  visibility: hidden;
+  transform: translate3d(100%, 0, 0);
+}
+
+.notification-enter.notification-enter-active {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.4s;
+}
+
+/*
+.notification-leave {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+}
+
+.notification-leave.notification-leave-active {
+  visibility: hidden;
+  transform: translate3d(100%, 0, 0);
+  transition: all 0.4s;
+}*/
+
+.message {
+  font-weight: bold;
+  font-size: 12px;
+  color: black;
+  letter-spacing: 1px;
+}
+
 #app {
   display: flex;
   display: -webkit-flex;
@@ -220,8 +296,8 @@ img {
   overflow-y: scroll;
 }
 
-.messages::-webkit-scrollbar { 
-    display: none;
+.messages::-webkit-scrollbar {
+  display: none;
 }
 
 .text {

@@ -39,16 +39,16 @@ class MessageList extends Component {
     // this.messagesCount = this.props.messages.length;
     return(
       <ul className='message-list' onScroll={this.handleScroll.bind(this, event)}>
-      <FlipMove enterAnimation="fade" duration='200' className='messages'>
-      {this.props.messages.sort(Compare).map(message =>
-        <Text
-        key={message.id}
-        userType={message.userType}
-        createdAt={message.createdAt}
-        {...message}
-        />
-      )}
-      </FlipMove>
+        <FlipMove enterAnimation="fade" duration='200' className='messages'>
+          {this.props.messages.sort(Compare).map(message =>
+            <Text
+              key={message.id}
+              userType={message.userType}
+              createdAt={message.createdAt}
+              {...message}
+            />
+          )}
+        </FlipMove>
       <Textarea />
       </ul>
     )
