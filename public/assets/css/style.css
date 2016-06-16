@@ -42,14 +42,31 @@ a {
 .xsm-single-container {
   width: 30px;
   height: 30px;
-  overflow: hidden;
   display: flex;
+  margin-right: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.img-container {
   border-top-right-radius: 100px;
   border-top-left-radius: 100px;
   border-bottom-right-radius: 100px;
   border-bottom-left-radius: 100px;
-  margin-right: 10px;
-  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  width: 30px;
+  height: 30px;
+}
+
+.dot {
+  padding: 4px;
+  background: RGBA(0, 131, 255, 1);
+  border-radius: 100%;
+  position: absolute;
+  bottom: -6px;
+  left: 10px;
+  border: 2px solid white;
 }
 
 .xsm {
@@ -532,6 +549,7 @@ img {
 textarea {
   outline: none;
   width: 100%;
+  height: auto;
   margin: 0 auto;
   min-height: 45px;
   font-size: 16px;
@@ -549,23 +567,23 @@ textarea {
   align-self: center;
   margin-top: 4px;
   width: 5%;
-} /* remove? */
+  } /* remove? */
 
-.active-engaged {
+  .active-engaged {
 
-}
+  }
 
-.options-message {
-  margin-right: 13px;
-  border: none;
-  background: transparent;
-  width: 65%;
-}
+  .options-message {
+    margin-right: 13px;
+    border: none;
+    background: transparent;
+    width: 65%;
+  }
 
-.footer {
-  padding-top: 20px;
-  text-align: center;
-  font-size: 10px;
-  /*width: 62%;*/
-  margin: 20px auto;
-}
+  .footer {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 10px;
+    /*width: 62%;*/
+    margin: 20px auto;
+  }
