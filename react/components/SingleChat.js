@@ -5,7 +5,6 @@ import Header from './Header';
 import VisibleMessageList from '../containers/VisibleMessageList';
 import Footer from './Footer';
 import { InitMessagesAndSockets } from './helpers/singleChatHelper';
-import Notification from './Notification';
 
 class SingleChat extends Component {
   constructor(props) {
@@ -18,7 +17,6 @@ class SingleChat extends Component {
       <Provider store={Store}>
         <div>
           <Header parent='SingleChat' />
-          <Notification />
           <VisibleMessageList />
           <Footer />
         </div>
