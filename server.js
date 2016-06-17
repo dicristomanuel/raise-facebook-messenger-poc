@@ -128,5 +128,3 @@ server.register([
     }
     console.log(`server is running on port ${PORT}`);
   });
-
-  // TODO: divide packages to -dev
