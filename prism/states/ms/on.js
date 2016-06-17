@@ -1,4 +1,4 @@
-import Bubble from '../../../db/bubble';
+import Message from '../../../db/message';
 import { Bot, Consumer } from '../../../data/appConstants';
 
 
@@ -7,12 +7,12 @@ const writeToDb = (data) => {
   let promises = [];
   if (answer)
   promises.push(
-    Bubble.create({ chatId: chat.id, text, userType: Consumer }),
-    Bubble.create({ chatId: chat.id, text: answer, userType: Bot })
+    Message.create({ chatId: chat.id, text, userType: Consumer }),
+    Message.create({ chatId: chat.id, text: answer, userType: Bot })
   );
   else
   promises.push(
-    Bubble.create({ chatId: chat.id, text, userType })
+    Message.create({ chatId: chat.id, text, userType })
   );
   return Promise.all(promises);
 }

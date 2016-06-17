@@ -18,7 +18,6 @@ class SingleChat extends Component {
         <div>
           <Header parent='SingleChat' />
           <VisibleMessageList />
-          <Footer />
         </div>
       </Provider>
     );

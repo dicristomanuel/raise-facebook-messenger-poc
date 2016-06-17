@@ -689,12 +689,9 @@ img {
   width: 67%;
   max-width: 750px;
   max-height: 73vh;
+  height: 100vh;
   margin: 100px auto 0 auto;
   overflow-y: scroll;
-}
-
-.messages::-webkit-scrollbar {
-  display: none;
 }
 
 .text {

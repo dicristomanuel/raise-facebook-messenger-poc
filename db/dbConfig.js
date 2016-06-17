@@ -35,7 +35,7 @@ export const Chat = connection.define('Chat', {
   }
 });
 
-export const Bubble = connection.define('Bubble', {
+export const Message = connection.define('Message', {
   userType: {
     type: Sequelize.STRING,
     defaultValue: 'consumer'
@@ -43,8 +43,8 @@ export const Bubble = connection.define('Bubble', {
   text: Sequelize.TEXT
 });
 
-Chat.hasMany(Bubble);
-Bubble.belongsTo(Chat);
+Chat.hasMany(Message);
+Message.belongsTo(Chat);
 
 connection.sync();
 // connection.sync({force:true});

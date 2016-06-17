@@ -1,18 +1,18 @@
 import { Bot, ToMemberService, Consumer } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
-import Bubble from '../../../db/bubble';
+import Message from '../../../db/message';
 
 const writeToDb = (data) => {
   const { chat, text, userType, answer } = data;
   let promises = [];
   if (answer)
   promises.push(
-    Bubble.create({ chatId: chat.id, text, userType: Consumer }),
-    Bubble.create({ chatId: chat.id, text: answer, userType: Bot })
+    Message.create({ chatId: chat.id, text, userType: Consumer }),
+    Message.create({ chatId: chat.id, text: answer, userType: Bot })
   );
   else
   promises.push(
-    Bubble.create({ chatId: chat.id, text, userType: Consumer })
+    Message.create({ chatId: chat.id, text, userType: Consumer })
   );
   return Promise.all(promises);
 }

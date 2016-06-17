@@ -1,5 +1,5 @@
 import Chat from '../db/chat';
-import Bubble from '../db/bubble';
+import Message from '../db/message';
 import { Chat_update } from '../data/socketConstants';
 import { Socket } from './transformer';
 
@@ -16,7 +16,7 @@ export const GetChats = () => {
 };
 
 export const GetMessages = (id, page) => {
-  return Bubble.findForChat(id, page)
+  return Message.findForChat(id, page)
   .then((messages) => {
     return transformMessages(messages);
   });
