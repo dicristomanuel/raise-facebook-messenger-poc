@@ -499,6 +499,10 @@ a {
   letter-spacing: 1px;
 }
 
+.message-img {
+  width: 500px;
+}
+
 #app {
   display: flex;
   display: -webkit-flex;

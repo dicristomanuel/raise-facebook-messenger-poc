@@ -67,8 +67,8 @@ server.register([
           if (event.postback) {
             // const text = JSON.stringify(event.postback);
             // do something with the postback
-          } else if (event.message && event.message.text) {
-            const text = event.message.text;
+          } else if (event.message && event.message.text || event.message.attachments) {
+            const text = event.message.text || event.message.attachments[0].payload.url;
             Parser({io, sender, text, userType: Consumer});
           }
         }
