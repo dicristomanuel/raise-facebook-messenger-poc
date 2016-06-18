@@ -3,7 +3,7 @@ import FlipMove from 'react-flip-move';
 import Text from './Text';
 import InputContainer from './InputContainer';
 import { findDOMNode } from 'react-dom';
-import { LoadMessages, Compare } from './helpers/singleChatHelper';
+import { LoadMessages, Compare } from '../helpers/singleChatHelper';
 
 class MessageList extends Component {
   constructor(props) {

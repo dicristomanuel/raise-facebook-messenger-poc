@@ -7,10 +7,10 @@ import Chat from '../../../db/chat';
 const sendOut = (data) => {
   const { io, chat, sender, answer } = data;
   SendMessage(sender, answer);
-  Chat.update(chat, {solved:false});
-  Chat.update(chat, {active:true})
+  Chat.update(chat, { solved:false });
+  Chat.update(chat, { active:true })
   .then((chat) => {
-    io.emit('chat_update', Socket.updateChat({active:true}, chat));
+    io.emit('chat_update', Socket.updateChat({ active:true }, chat));
   })
   return data;
 };

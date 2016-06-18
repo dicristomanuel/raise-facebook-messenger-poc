@@ -543,6 +543,7 @@ a {
   width: 80%;
   max-width: 1440px;
   margin: 100px auto 40px auto;
+  height: 70vh;
 }
 
 .manifest {
@@ -694,8 +695,8 @@ img {
   flex-direction: column;
   width: 67%;
   max-width: 750px;
-  max-height: 70vh;
   height: 100vh;
+  max-height: 70vh;
   margin: 100px auto 0 auto;
   overflow-y: scroll;
 }

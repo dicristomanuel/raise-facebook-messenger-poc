@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Manifest from './Manifest';
 import FlipMove from 'react-flip-move';
-import { Compare } from './helpers/chatAllHelper';
+import { Compare } from '../helpers/chatAllHelper';
 
 class ChatList extends Component {
   onClickChatList(chatId) {
