@@ -10,9 +10,9 @@ class Text extends Component {
   render() {
     const propsText = this.props.text;
     const text = propsText.includes('https://scontent') ?
-    <a href={propsText}><img src={ propsText } className='message-img'></img></a> :
+    <a href={propsText} target='_blank'><img src={ propsText } className='message-img'></img></a> :
     <p>{ propsText }</p>
-    
+
     return (
         <li className={this.props.userType + ' text'} title={this.props.createdAt}>
           { text }

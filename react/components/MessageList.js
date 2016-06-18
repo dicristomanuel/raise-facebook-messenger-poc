@@ -16,7 +16,8 @@ class MessageList extends Component {
 
   componentDidUpdate() {
     const element = findDOMNode(this).childNodes[0];
-    if (!this.loading)
+    // if (!this.loading)
+    console.log(element.scrollHeight);
     element.scrollTop = element.scrollHeight;
   }
 
@@ -36,8 +37,7 @@ class MessageList extends Component {
   }
 
   onSendToMessenger(text) {
-    console.log(this.props.chatId);
-    this.props.sendToMessenger(this.props.chatId, text)
+    this.props.sendToMessenger(this.props.chatId, text);
   }
 
   render() {
