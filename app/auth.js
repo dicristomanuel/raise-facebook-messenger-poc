@@ -1,10 +1,10 @@
-import storage from 'node-persist';
+
 
 const storeData = (data) => {
   const { hash, name } = data;
-  storage.initSync();
-  const toStore = {'hash': hash, 'name': name};
-  storage.setItem('current', toStore);
+  // storage.initSync();
+  // const toStore = {'hash': 'hash', 'name': 'name'};
+  // storage.setItem('current', toStore);
 };
 
 const Auth = (data) => {
