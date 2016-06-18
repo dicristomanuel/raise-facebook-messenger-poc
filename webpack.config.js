@@ -23,5 +23,3 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
   }
 };
-
-// TODO: include hot reload - typescript

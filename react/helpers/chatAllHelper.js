@@ -2,7 +2,6 @@ import request from 'superagent';
 import Store from '../createStore';
 import { UpdateStatus, AddChat, AddChats } from '../actions';
 
-
 const socket = io();
 
 const getChats = () => {
@@ -35,7 +34,7 @@ const transform = (data) => {
   });
   return chats;
 };
-// move transformer to app transformer
+//TODO: move transformer to app transformer
 
 export const Compare = (a,b) => {
   if (a.updatedAt < b.updatedAt)

@@ -23,5 +23,4 @@ class Header extends Component {
   }
 }
 
-// ADD Name filter for fuzzy search
 export default Header;

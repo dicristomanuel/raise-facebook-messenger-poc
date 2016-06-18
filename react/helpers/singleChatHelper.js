@@ -18,13 +18,13 @@ const getMessages = (id, page) => {
 };
 
 export const SendMessage = (data) => {
-    const { chatId, text } = data;
-    request.post(`http://localhost:3001/member-service`)
-    .send({ chatId, text })
-    .end((err, res) => {
-      if (err)
-      console.log(err);
-    });
+  const { chatId, text } = data;
+  request.post(`http://localhost:3001/member-service`)
+  .send({ chatId, text })
+  .end((err, res) => {
+    if (err)
+    console.log(err);
+  });
 }
 
 export const SetEngageForChat = (chatId, value) => {
@@ -35,7 +35,6 @@ export const SetEngageForChat = (chatId, value) => {
     console.log(err);
   });
 };
-
 
 export const Compare = (a,b) => {
   if (a.id < b.id)
