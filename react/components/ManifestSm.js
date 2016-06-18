@@ -19,7 +19,7 @@ class ManifestSm extends Component {
 
   render() {
     return (
-        <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId)}>
+        <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId)} title='Click to engage'>
           <p className="name">{this.props.manifest.name}</p>
           <div className={getStatus(this.props.manifest) + " state-sm"}>
             <div className='profile-pic-sm'>
@@ -30,7 +30,6 @@ class ManifestSm extends Component {
     );
   }
 }
-// when hover display 'Click to engage'
 
 ManifestSm.PropTypes = {
   chat: PropTypes.shape({

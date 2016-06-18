@@ -64,10 +64,11 @@ server.register([
         for (let i = 0; i < messaging_events.length; i++) {
           const event = request.payload.entry[0].messaging[i];
           const sender = event.sender.id;
+          debugger;
           if (event.postback) {
             // const text = JSON.stringify(event.postback);
             // do something with the postback
-          } else if (event.message && event.message.text || event.message.attachments) {
+          } else if (event.message) {
             const text = event.message.text || event.message.attachments[0].payload.url;
             Parser({io, sender, text, userType: Consumer});
           }
@@ -75,12 +76,13 @@ server.register([
         reply();
       }
     });
+
     server.route({
       method: 'POST',
       path: '/member-service',
       handler(request, reply) {
-        const data = request.payload;
-        Parser({...data, io, userType: MemberService});
+        const { chatId, text } = request.payload;
+        Parser({chatId, text, io, userType: MemberService});
         reply();
       }
     });

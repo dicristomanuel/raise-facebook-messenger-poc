@@ -698,6 +698,8 @@ img {
   overflow-y: scroll;
 }
 
+.messages::-webkit-scrollbar { width: 0 !important } /* TEMP */
+
 .text {
   margin: 10px 0;
   padding: 7px 12px;

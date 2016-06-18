@@ -11,16 +11,25 @@ const getMessages = (id, page) => {
     .end((err, res) => {
       if (err)
       reject(err);
-      else {
+      else
       resolve(res.body);
-    }
     });
   });
 };
 
+export const SendMessage = (data) => {
+    const { chatId, text } = data;
+    request.post(`http://localhost:3001/member-service`)
+    .send({ chatId, text })
+    .end((err, res) => {
+      if (err)
+      console.log(err);
+    });
+}
+
 export const SetEngageForChat = (chatId, value) => {
   request.put('http://localhost:3001/update-chat')
-  .send({ chatId: chatId, key: 'engaged', value })
+  .send({ chatId, key: 'engaged', value })
   .end((err, res) => {
     if (err)
     console.log(err);

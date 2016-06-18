@@ -14,6 +14,12 @@ class MessageList extends Component {
     this.shouldLoad = true;
   }
 
+  componentDidUpdate() {
+    const element = findDOMNode(this).childNodes[0];
+    if (!this.loading)
+    element.scrollTop = element.scrollHeight;
+  }
+
   handleScroll(event) {
     const element = findDOMNode(this).childNodes[0];
     if (element.scrollTop <= 100 && this.shouldLoad) {
@@ -28,11 +34,10 @@ class MessageList extends Component {
       })
     }
   }
-// FIX SCROLLING
-  componentDidUpdate() {
-    const element = findDOMNode(this).childNodes[0];
-    if (!this.loading)
-    element.scrollTop = element.scrollHeight;
+
+  onSendToMessenger(text) {
+    console.log(this.props.chatId);
+    this.props.sendToMessenger(this.props.chatId, text)
   }
 
   render() {
@@ -49,7 +54,7 @@ class MessageList extends Component {
             />
           )}
         </FlipMove>
-      <InputContainer />
+      <InputContainer sendToMessenger={this.onSendToMessenger.bind(this)}/>
       </ul>
     )
   }

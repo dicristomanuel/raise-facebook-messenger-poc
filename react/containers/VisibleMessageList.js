@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import MessageList from '../components/MessageList';
 import { GetMessagesForId } from '../selectors/getMessagesForId';
+import { SendMessage } from '../components/helpers/singleChatHelper';
 
 const mapStateToProps = state => {
   return {
@@ -9,6 +10,17 @@ const mapStateToProps = state => {
   }
 }
 
-const VisibleMessageList = connect(mapStateToProps)(MessageList);
+const mapDispatchToProps = dispatch => {
+  return {
+    sendToMessenger: (chatId, text) => {
+      SendMessage({ chatId, text })
+    }
+  }
+}
+
+const VisibleMessageList = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MessageList);
 
 export default VisibleMessageList;
