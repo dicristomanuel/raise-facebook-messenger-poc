@@ -8,6 +8,7 @@ import Joi from 'joi';
 import { Consumer, MemberService } from './data/appConstants';
 import { GetChats, UpdateStatus, GetMessages } from './app/helper';
 import Parser from './app/parser';
+import Auth from './app/auth';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
@@ -36,6 +37,8 @@ server.register([
     if (err)
     throw err;
 
+    // main, auth & assets ====>
+
     server.route({
       method: 'GET',
       path: '/assets/{param*}',
@@ -52,9 +55,19 @@ server.register([
       method: 'GET',
       path: '/{path*}',
       handler: (request, reply) => {
-        reply.file('./public/index.html');
+        const { hash, name } = request.query;
+        Auth({ hash, name })
+        .then(() => {
+          reply.file('./public/index.html');
+        })
+        .catch(() => {
+          reply('No access permitted');
+          // redirect back to GC
+        });
       }
     });
+
+    // message hooks ====>
 
     server.route({
       method: 'POST',
@@ -64,7 +77,6 @@ server.register([
         for (let i = 0; i < messaging_events.length; i++) {
           const event = request.payload.entry[0].messaging[i];
           const sender = event.sender.id;
-          debugger;
           if (event.postback) {
             // const text = JSON.stringify(event.postback);
             // do something with the postback
@@ -87,20 +99,13 @@ server.register([
       }
     });
 
+    // helpers ====>
+
     server.route({
       method: 'GET',
       path: '/get-chats',
       handler(request, reply) {
         GetChats().then(reply);
-      }
-    });
-
-    server.route({
-      method: 'GET',
-      path: '/get-messages',
-      handler(request, reply) {
-        const { id, page } = request.query;
-        GetMessages(id, page).then(reply);
       }
     });
 
@@ -121,7 +126,17 @@ server.register([
         reply();
       }
     });
+
+    server.route({
+      method: 'GET',
+      path: '/get-messages',
+      handler(request, reply) {
+        const { id, page } = request.query;
+        GetMessages(id, page).then(reply);
+      }
+    });
   });
+
 
   server.start((error) => {
     if (error) {

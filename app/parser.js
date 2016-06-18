@@ -3,6 +3,7 @@ import { GetProfile } from './messenger';
 import Prism from '../prism/prism';
 import States from '../prism/states/config';
 import { Consumer } from '../data/appConstants';
+import storage from 'node-persist';
 
 let cached;
 // TODO: ask: should I cache? When changing status it keeps the old one in cache
@@ -36,8 +37,6 @@ const init = (data) => {
 const execute = (data) => {
   return Prism.next({ ...data, state: data.chat.state});
 };
-
-
 
 export default (data) => {
   return cached ? execute({...data, chat: cached}) : init(data);

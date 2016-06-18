@@ -3,3 +3,4 @@ node_modules
 tokens.js
 npm-debug.log
 public/assets/js/bundle.js
+persist
