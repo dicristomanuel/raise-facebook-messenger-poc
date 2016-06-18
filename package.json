@@ -45,6 +45,7 @@
     "socket.io": "^1.4.6",
     "superagent": "^2.0.0-alpha.3",
     "tape": "^4.5.1",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "yar": "^7.0.2"
   }
 }

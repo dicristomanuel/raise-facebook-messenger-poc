@@ -9,13 +9,22 @@ import { Consumer, MemberService } from './data/appConstants';
 import { GetChats, UpdateStatus, GetMessages } from './app/helper';
 import Parser from './app/parser';
 import Auth from './app/auth';
+import { CookieToken } from './data/tokens';
 
+import Yar from 'Yar'
 const server = new Server();
 const PORT = process.env.PORT || 3001;
 
 server.connection({
   port: PORT
 });
+
+const optionsYar = {
+  cookieOptions: {
+    password: CookieToken,
+    isSecure: false
+  }
+};
 
 const io = require('socket.io')(server.listener);
 
@@ -33,6 +42,10 @@ server.register([
         events: { log: '*', response: '*' }
       }]
     },
+  },
+  {
+    register: Yar,
+    options: optionsYar
   }], (err) => {
     if (err)
     throw err;
@@ -51,19 +64,48 @@ server.register([
       }
     });
 
+    // server.route({
+    //   method: 'GET',
+    //   path: '/{path*}',
+    //   handler: (request, reply) => {
+    //     const { hash, name } = request.query;
+    //     Auth({ hash, name })
+    //     .then(() => {
+    //       reply.file('./public/index.html');
+    //     })
+    //     .catch(() => {
+    //       reply('No access permitted');
+    //       // redirect back to GC
+    //     });
+    //   }
+    // });
+
     server.route({
       method: 'GET',
-      path: '/{path*}',
+      path: '/',
       handler: (request, reply) => {
-        const { hash, name } = request.query;
-        Auth({ hash, name })
-        .then(() => {
-          reply.file('./public/index.html');
-        })
-        .catch(() => {
-          reply('No access permitted');
-          // redirect back to GC
-        });
+        reply(request.yar._store)
+      }
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/set',
+      handler: (request, reply) => {
+        request.yar.set('test', 1);
+        return reply.redirect('/');
+      }
+    });
+
+    server.route({
+      method: 'GET',
+      path: '/clear',
+      config: {
+        handler: (request, reply) => {
+
+          request.yar.reset();
+          return reply.redirect('/');
+        }
       }
     });
 
