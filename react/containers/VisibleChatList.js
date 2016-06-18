@@ -3,7 +3,7 @@ import ChatList from '../components/ChatList';
 import { GetVisibleChats } from '../selectors/getVisibleChats';
 import { browserHistory } from 'react-router';
 import { SetMessagesVisibilityFilter } from '../actions';
-import { InitMessagesAndSockets } from '../components/helpers/singleChatHelper';
+import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
 
 const mapStateToProps = (state, ownProps) => {
   return {

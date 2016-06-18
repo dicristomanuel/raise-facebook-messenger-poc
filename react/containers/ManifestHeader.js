@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 import ManifestSm from '../components/ManifestSm';
 import GetSingleManifest from '../selectors/GetSingleManifest';
-import { SetEngageForChat } from '../components/helpers/singleChatHelper';
+import { SetEngageForChat } from '../helpers/singleChatHelper';
 
 const mapStateToProps = (state, ownProps) => {
   return {

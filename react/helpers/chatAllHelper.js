@@ -1,6 +1,6 @@
 import request from 'superagent';
-import Store from '../../createStore';
-import { UpdateStatus, AddChat, AddChats } from '../../actions';
+import Store from '../createStore';
+import { UpdateStatus, AddChat, AddChats } from '../actions';
 
 
 const socket = io();

@@ -1,7 +1,7 @@
 import request from 'superagent';
-import Store from '../../createStore';
-import { AddMessage, AddMessages, SetMessagesVisibilityFilter } from '../../actions';
-import { New_message } from '../../../data/socketConstants';
+import Store from '../createStore';
+import { AddMessage, AddMessages, SetMessagesVisibilityFilter } from '../actions';
+import { New_message } from '../../data/socketConstants';
 
 const socket = io();
 

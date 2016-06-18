@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import MessageList from '../components/MessageList';
 import { GetMessagesForId } from '../selectors/getMessagesForId';
-import { SendMessage } from '../components/helpers/singleChatHelper';
+import { SendMessage } from '../helpers/singleChatHelper';
 
 const mapStateToProps = state => {
   return {
