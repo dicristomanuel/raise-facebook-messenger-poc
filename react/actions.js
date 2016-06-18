@@ -5,6 +5,7 @@ export const ADD_MESSAGES = 'ADD_MESSAGES';
 export const SET_CHAT_VISIBILITY_FILTER = 'SET_CHAT_VISIBILITY_FILTER';
 export const SET_MESSAGES_VISIBILITY_FILTER = 'SET_MESSAGES_VISIBILITY_FILTER';
 export const CHAT_UPDATE = 'CHAT_UPDATE';
+export const ADD_MEMBER = 'ADD_MEMBER';
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -41,3 +42,7 @@ export const SetMessagesVisibilityFilter = chatId => {
 export const UpdateStatus = data => {
   return { type: CHAT_UPDATE, ...data };
 };
+
+export const AddMemberService = data => {
+  return { type: ADD_MEMBER, data };
+}

@@ -9,9 +9,9 @@ import { Consumer, MemberService } from './data/appConstants';
 import { GetChats, UpdateStatus, GetMessages } from './app/helper';
 import Parser from './app/parser';
 import Auth from './app/auth';
+import Yar from 'Yar'
 import { CookieToken } from './data/tokens';
 
-import Yar from 'Yar'
 const server = new Server();
 const PORT = process.env.PORT || 3001;
 
@@ -68,28 +68,28 @@ server.register([
       method: 'GET',
       path: '/{path*}',
       handler: (request, reply) => {
-        const { hash, name } = request.query;
-        Auth({ hash, name })
-        .then(() => {
-          request.yar.set({ hash, name });
-          return reply.file('./public/index.html');
-        })
-        .catch(() => {
-          reply('No access permitted');
-          // redirect back to GC
-        });
+        debugger;
+        if (Object.keys(request.yar._store).length > 1)
+        reply.file('./public/index.html');
+        else
+        reply('Authentication Failed');
       }
     });
 
     server.route({
-      method: 'GET',
-      path: '/clear',
-      config: {
-        handler: (request, reply) => {
-
-          request.yar.reset();
-          return reply.redirect('/');
-        }
+      method: 'POST',
+      path: '/member-service/login',
+      handler: (request, reply) => {
+        const { hash, name } = request.payload;
+        Auth({ hash, name })
+        .then(() => {
+          request.yar.set({ hash, name, chats: [] });
+          reply.redirect('/');
+        })
+        .catch(() => {
+          reply('No access permitted');
+          // redirect back to GC with error message
+        });
       }
     });
 

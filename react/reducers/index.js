@@ -1,5 +1,5 @@
 import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_FILTER,
-  ADD_CHAT, ADD_CHATS, CHAT_UPDATE, ADD_MESSAGE, ADD_MESSAGES } from '../actions.js';
+  ADD_CHAT, ADD_CHATS, CHAT_UPDATE, ADD_MESSAGE, ADD_MESSAGES, ADD_MEMBER } from '../actions.js';
   import { combineReducers } from 'redux';
 
   const { SHOW_ALL } = VisibilityFilters;
@@ -50,11 +50,24 @@ import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_
     }
   };
 
+  const memberService = (state = {}, action) => {
+    switch (action.type) {
+      case ADD_MEMBER:
+        return { ...action.data }
+      case ADD_MESSAGE:
+        console.log('from MS .. ', action);
+        return state
+    default:
+      return state;
+    }
+  }
+
   const ChatApp = combineReducers({
     chatVisibilityFilter,
     messagesVisibilityFilter,
     chats,
     messages,
+    memberService,
   });
 
   export default ChatApp;

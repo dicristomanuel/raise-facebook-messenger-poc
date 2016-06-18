@@ -1,6 +1,6 @@
 import request from 'superagent';
 import Store from '../createStore';
-import { UpdateStatus, AddChat, AddChats } from '../actions';
+import { UpdateStatus, AddChat, AddChats, AddMemberService } from '../actions';
 
 const socket = io();
 
@@ -57,8 +57,8 @@ export const InitChatsAndSockets = () => {
 
     getChats()
     .then((data) => {
-      console.log(data.msAuth);
-      // Store.dispatch(AddMemberService(data.msAuth))
+      if (Object.keys(data.msAuth).length !== 0)
+      Store.dispatch(AddMemberService(data.msAuth))
       Store.dispatch(AddChats(transform(data)));
       resolve('success');
     })
