@@ -34,8 +34,6 @@ const prepareBotMessage = (data) => {
   return handleBotMessage({...toDb, ...data});
 };
 
-// exports ====>
-
 export const OnBot = (data) => {
   return prepareBotMessage(data);
 };

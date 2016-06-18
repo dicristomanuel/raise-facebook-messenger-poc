@@ -47,4 +47,3 @@ Chat.hasMany(Message);
 Message.belongsTo(Chat);
 
 connection.sync();
-// connection.sync({force:true});
