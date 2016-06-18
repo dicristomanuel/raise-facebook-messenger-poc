@@ -64,36 +64,20 @@ server.register([
       }
     });
 
-    // server.route({
-    //   method: 'GET',
-    //   path: '/{path*}',
-    //   handler: (request, reply) => {
-    //     const { hash, name } = request.query;
-    //     Auth({ hash, name })
-    //     .then(() => {
-    //       reply.file('./public/index.html');
-    //     })
-    //     .catch(() => {
-    //       reply('No access permitted');
-    //       // redirect back to GC
-    //     });
-    //   }
-    // });
-
     server.route({
       method: 'GET',
-      path: '/',
+      path: '/{path*}',
       handler: (request, reply) => {
-        reply(request.yar._store)
-      }
-    });
-
-    server.route({
-      method: 'GET',
-      path: '/set',
-      handler: (request, reply) => {
-        request.yar.set('test', 1);
-        return reply.redirect('/');
+        const { hash, name } = request.query;
+        Auth({ hash, name })
+        .then(() => {
+          request.yar.set({ hash, name });
+          return reply.file('./public/index.html');
+        })
+        .catch(() => {
+          reply('No access permitted');
+          // redirect back to GC
+        });
       }
     });
 
@@ -147,7 +131,10 @@ server.register([
       method: 'GET',
       path: '/get-chats',
       handler(request, reply) {
-        GetChats().then(reply);
+        GetChats().then((chats) => {
+          const msAuth = request.yar._store;
+          return reply({ chats, msAuth })
+        });
       }
     });
 

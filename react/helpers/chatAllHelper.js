@@ -18,7 +18,7 @@ const getChats = () => {
 
 const transform = (data) => {
   let chats = [];
-  data.forEach((chat) => {
+  data.chats.forEach((chat) => {
     const { id, firstName, lastName, profilePic, state, active, busy, solved, engaged, updatedAt } = chat;
     chats.push({
       chatId: id,
@@ -56,8 +56,10 @@ export const InitChatsAndSockets = () => {
     });
 
     getChats()
-    .then((chats) => {
-      Store.dispatch(AddChats(transform(chats)));
+    .then((data) => {
+      console.log(data.msAuth);
+      // Store.dispatch(AddMemberService(data.msAuth))
+      Store.dispatch(AddChats(transform(data)));
       resolve('success');
     })
     .catch((err) => {reject(err)});
