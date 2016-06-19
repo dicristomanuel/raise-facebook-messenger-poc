@@ -1,7 +1,7 @@
 import request from 'superagent';
 import Store from '../createStore';
 import { New_message } from '../../data/socketConstants';
-import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat, 
+import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
   RemoveEngagedChat, AddNotification, RemoveNotification } from '../actions';
 
   const socket = io();
@@ -22,7 +22,7 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
     if (value) {
       Store.dispatch(AddEngagedChat(chatId))
       socket.on(`${New_message}${chatId}`, (message) => {
-        Store.dispatch(AddEngagedChat(message.chatId));
+        Store.dispatch(AddNotification(message.chatId));
       });
     } else {
       Store.dispatch(RemoveEngagedChat(chatId))

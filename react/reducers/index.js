@@ -59,15 +59,19 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
       return { ...state, chats: [ ...state.chats, action.chatId ]}
     case REMOVE_ENGAGED_CHAT:
       // replace with Immutable - TEMP
-      const index = state.chats.indexOf(action.chatId)
-      const lastItem = state.chats.length === 1 ? -1 : 1;
+      const indexEngaged = state.chats.indexOf(action.chatId)
+      const lastItemEngaged = state.chats.length === 1 ? -1 : 1;
       return { ...state, chats: [
-        ...state.chats.splice(index, lastItem)
+        ...state.chats.splice(indexEngaged, lastItemEngaged)
         ]}
     case ADD_NOTIFICATION:
-      return
+      return { ...state, notifications: [ ...state.notifications, action.chatId ] }
     case REMOVE_NOTIFICATION:
-
+      const indexNotification = state.notifications.indexOf(action.chatId)
+      const lastItemNotification = state.notifications.length === 1 ? -1 : 1;
+      return { ...state, notifications: [
+        ...state.notifications.splice(indexNotification, lastItemNotification)
+        ]}
     default:
       return state;
   }
