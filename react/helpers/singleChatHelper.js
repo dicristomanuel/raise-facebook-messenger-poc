@@ -2,7 +2,7 @@ import request from 'superagent';
 import Store from '../createStore';
 import { New_message, New_notification } from '../../data/socketConstants';
 import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
-  RemoveEngagedChat, AddNotification, RemoveNotification } from '../actions';
+         RemoveEngagedChat, AddNotification, RemoveNotification } from '../actions';
 
   const socket = io();
 
@@ -18,17 +18,16 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
     });
   };
 
-  const initSocketsEngaged = (chatId, value) => {
-    if (value) {
+  const handleEngage = (chatId, current) => {
+    if (current == 'none') {
       Store.dispatch(AddEngagedChat(chatId))
       socket.on(`${New_notification}${chatId}`, (message) => {
-        if (Store.getState().messagesVisibilityFilter != message.chatId) {
-          Store.dispatch(AddNotification(message.chatId));
-        }
+        if (Store.getState().messagesVisibilityFilter != message.chatId)
+        Store.dispatch(AddNotification(message.chatId));
       });
     } else {
       Store.dispatch(RemoveEngagedChat(chatId))
-      socket.removeListener(`${New_notification}${chatId}`);
+      socket.off(`${New_notification}${chatId}`);
     }
   }
 
@@ -43,11 +42,11 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
   }
 
   export const SetEngageForChat = (chatId, current) => {
-    initSocketsEngaged(chatId, current);
+    handleEngage(chatId, current);
     let value = '';
     if (current == 'none') {
-    value = Store.getState().memberService.hash;
-  }
+      value = Store.getState().memberService.hash;
+    }
     else
     value = 'none';
     request.put('http://localhost:3001/update-chat')

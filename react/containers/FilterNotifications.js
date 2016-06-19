@@ -4,10 +4,8 @@ import { RemoveNotification } from '../actions';
 import { browserHistory } from 'react-router';
 
 const mapStateToProps = state => {
-  console.log('in connect ', state.memberService.notifications);
   return {
     notifications: state.memberService.notifications,
-    messagesVisibilityFilter: state.messagesVisibilityFilter,
   }
 }
 

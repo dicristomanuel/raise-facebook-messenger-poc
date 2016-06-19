@@ -1,6 +1,7 @@
 import request from 'superagent';
 import Store from '../createStore';
-import { UpdateStatus, AddChat, AddChats, AddMemberService } from '../actions';
+import { New_notification } from '../../data/socketConstants';
+import { UpdateStatus, AddChat, AddChats, AddMemberService, AddEngagedChat, AddNotification } from '../actions';
 const socket = io();
 
 const getChats = () => {
@@ -17,7 +18,7 @@ const getChats = () => {
 
 const transform = (data) => {
   let chats = [];
-  data.chats.forEach((chat) => {
+  data.forEach((chat) => {
     const { id, firstName, lastName, profilePic, state, active, busy, solved, engaged, updatedAt } = chat;
     chats.push({
       chatId: id,
@@ -44,21 +45,31 @@ export const Compare = (a,b) => {
   return 0;
 }
 
+const initNotifications = (chats) => {
+  chats.forEach(chat => {
+    const chatId = chat.id;
+    Store.dispatch(AddEngagedChat(chatId))
+    socket.on(`${New_notification}${chatId}`, (message) => {
+      if (Store.getState().messagesVisibilityFilter != message.chatId)
+      Store.dispatch(AddNotification(message.chatId));
+    });
+  })
+}
+
 export const InitChatsAndSockets = () => {
   return new Promise((resolve, reject) => {
     socket.on('chat_update', (data) => {
       Store.dispatch(UpdateStatus(data));
     });
-
     socket.on('new_chat', (chat) => {
       Store.dispatch(AddChat(transform([chat])));
     });
-
     getChats()
     .then((data) => {
       if (Object.keys(data.msAuth).length > 1)
       Store.dispatch(AddMemberService(data.msAuth))
-      Store.dispatch(AddChats(transform(data)));
+      initNotifications(data.chats[1]);
+      Store.dispatch(AddChats(transform(data.chats[0])));
       resolve('success');
     })
     .catch((err) => {reject(err)});

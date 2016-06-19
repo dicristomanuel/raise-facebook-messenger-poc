@@ -17,6 +17,10 @@ export default {
     return Chat.findAll({order: '"updatedAt" ASC', limit: 25});
   },
 
+  findByHash: hash => {
+    return Chat.findAll({where: { engaged: hash }});
+  },
+
   update: (chat, keyValue) => {
     return chat.update(keyValue);
   },

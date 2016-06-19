@@ -12,8 +12,9 @@ const transformMessages = (data) => {
   return messages;
 };
 
-export const GetChats = () => {
-  return Chat.findAll();
+export const GetChats = (msAuth) => {
+  const promises  = [Chat.findAll(), Chat.findByHash(msAuth.hash)];
+  return Promise.all(promises);
 };
 
 export const GetMessages = (id, page) => {

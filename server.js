@@ -143,9 +143,9 @@ server.register([
     method: 'GET',
     path: '/get-chats',
     handler(request, reply) {
-      GetChats().then((chats) => {
-        const msAuth = request.yar._store;
-        return reply({ chats, msAuth })
+      const msAuth = request.yar._store;
+      GetChats(msAuth).then((chats) => {
+        reply({ chats, msAuth })
       });
     }
   });

@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 import { SetMessagesVisibilityFilter, RemoveNotification } from '../actions';
 import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     chats: GetVisibleChats(state)
   }
