@@ -15,7 +15,6 @@ const mapDispatchToProps = dispatch => {
   return {
     onClick: (chatId) => {
       dispatch(SetMessagesVisibilityFilter(chatId));
-      console.log('in on click ', chatId);
       dispatch(RemoveNotification(chatId));
       browserHistory.push(`/chat/${chatId}`);
     }

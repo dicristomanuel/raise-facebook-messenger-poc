@@ -2,9 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import Store from '../createStore';
 
 const getStatus = (chat) => {
-  if (chat.busy && !chat.engaged)
+  if (chat.busy && chat.engaged == 'none')
   return 'busy';
-  else if (chat.engaged)
+  else if (chat.engaged != 'none')
   return 'engaged';
   else if (chat.active && !chat.busy)
   return 'active';

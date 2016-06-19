@@ -34,7 +34,7 @@ ChatList.propTypes = {
     state: PropTypes.string.isRequired,
     busy: PropTypes.bool.isRequired,
     solved: PropTypes.bool.isRequired,
-    engaged: PropTypes.bool.isRequired,
+    engaged: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   onClick: PropTypes.func.isRequired
 }

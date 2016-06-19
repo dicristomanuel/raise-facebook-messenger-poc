@@ -83,7 +83,7 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
     default:
       return state;
   }
-}
+} 
 
 const ChatApp = combineReducers({
   chatVisibilityFilter,

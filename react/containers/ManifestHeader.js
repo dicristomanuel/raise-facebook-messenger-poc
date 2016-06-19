@@ -13,8 +13,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: (chatId, engaged) => {
-      const value = engaged ? false : true;
-      SetEngageForChat(chatId, value);
+      const next = engaged ? false : true;
+      SetEngageForChat(chatId, next);
     }
   }
 }
