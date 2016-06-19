@@ -27,7 +27,7 @@ export const UpdateStatus = (io, payload) => {
   const { chatId, key, value } = payload;
   return Chat.findById(chatId)
   .then((chat) => {
-    const keyValue = JSON.parse(`{"${key}":${value}}`);
+    const keyValue = JSON.parse(`{"${key}":"${value}"}`);
     io.emit(Chat_update, Socket.updateChat(keyValue, chat));
     return Chat.update(chat, keyValue);
   });

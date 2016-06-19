@@ -42,13 +42,14 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
     });
   }
 
-  export const SetEngageForChat = (chatId, next) => {
-    initSocketsEngaged(chatId, next);
+  export const SetEngageForChat = (chatId, current) => {
+    initSocketsEngaged(chatId, current);
     let value = '';
-    if (next)
+    if (current == 'none') {
     value = Store.getState().memberService.hash;
+  }
     else
-    value = null;
+    value = 'none';
     request.put('http://localhost:3001/update-chat')
     .send({ chatId, key: 'engaged', value })
     .end((err, res) => {

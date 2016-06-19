@@ -54,7 +54,7 @@ const messages = (state = [], action) => {
 const memberService = (state = { chats: [], notifications: [] }, action) => {
   switch (action.type) {
     case ADD_MEMBER:
-      return { ...action.data }
+      return { ...state, ...action.data }
     case ADD_ENGAGED_CHAT:
       return { ...state, chats: [ ...state.chats, action.chatId ]}
     case REMOVE_ENGAGED_CHAT:
@@ -83,7 +83,7 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
     default:
       return state;
   }
-} 
+}
 
 const ChatApp = combineReducers({
   chatVisibilityFilter,

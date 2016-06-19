@@ -1,7 +1,6 @@
 import request from 'superagent';
 import Store from '../createStore';
 import { UpdateStatus, AddChat, AddChats, AddMemberService } from '../actions';
-
 const socket = io();
 
 const getChats = () => {

@@ -12,9 +12,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: (chatId, engaged) => {
-      const next = engaged ? false : true;
-      SetEngageForChat(chatId, next);
+    onClick: (chatId, current) => {
+      SetEngageForChat(chatId, current);
     }
   }
 }
