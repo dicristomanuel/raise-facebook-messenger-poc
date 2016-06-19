@@ -57,7 +57,7 @@ export const InitChatsAndSockets = () => {
 
     getChats()
     .then((data) => {
-      if (Object.keys(data.msAuth).length !== 0)
+      if (Object.keys(data.msAuth).length > 1)
       Store.dispatch(AddMemberService(data.msAuth))
       Store.dispatch(AddChats(transform(data)));
       resolve('success');

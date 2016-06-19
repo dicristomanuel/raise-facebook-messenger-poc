@@ -19,13 +19,6 @@ server.connection({
   port: PORT
 });
 
-const optionsYar = {
-  cookieOptions: {
-    password: CookieToken,
-    isSecure: false
-  }
-};
-
 const io = require('socket.io')(server.listener);
 
 io.on('connection', (socket) => {
@@ -45,132 +38,151 @@ server.register([
   },
   {
     register: Yar,
-    options: optionsYar
-  }], (err) => {
-    if (err)
-    throw err;
+    options: {cookieOptions: {
+      password: CookieToken,
+      isSecure: false
+    }
+  }
+}], (err) => {
+  if (err)
+  throw err;
 
-    // main, auth & assets ====>
+  // main, auth & assets ====>
 
-    server.route({
-      method: 'GET',
-      path: '/assets/{param*}',
-      handler: {
-        directory: {
-          path: './public/assets',
-          listing: false,
-          index: true
-        }
+  server.route({
+    method: 'GET',
+    path: '/assets/{param*}',
+    handler: {
+      directory: {
+        path: './public/assets',
+        listing: false,
+        index: true
       }
-    });
+    }
+  });
 
-    server.route({
-      method: 'GET',
-      path: '/{path*}',
-      handler: (request, reply) => {
-        debugger;
-        if (Object.keys(request.yar._store).length > 1)
+  // server.route({
+  //   method: 'GET',
+  //   path: '/{path*}',
+  //   handler: (request, reply) => {
+  //     if (Object.keys(request.yar._store).length > 1)
+  //     reply.file('./public/index.html');
+  //     else
+  //     reply('Authentication Failed');
+  //   }
+  // });
+
+  server.route({ // temp route
+    method: 'GET',
+    path: '/{path*}',
+    handler: (request, reply) => {
+      const { hash, name } = request.query;
+      Auth({ hash, name })
+      .then(() => {
+        request.yar.set({ hash, name, chats: [] });
         reply.file('./public/index.html');
-        else
-        reply('Authentication Failed');
-      }
-    });
+      })
+      .catch(() => {
+        reply('No access permitted');
+      });
+    }
+  });
 
-    server.route({
-      method: 'POST',
-      path: '/member-service/login',
-      handler: (request, reply) => {
-        const { hash, name } = request.payload;
-        Auth({ hash, name })
-        .then(() => {
-          request.yar.set({ hash, name, chats: [] });
-          reply.redirect('/');
-        })
-        .catch(() => {
-          reply('No access permitted');
-          // redirect back to GC with error message
-        });
-      }
-    });
+  server.route({
+    method: 'POST',
+    path: '/member-service/login',
+    handler: (request, reply) => {
+      const { hash, name } = request.payload;
+      Auth({ hash, name })
+      .then(() => {
+        request.yar.set({ hash, name, chats: [] });
+        reply.redirect('/');
+      })
+      .catch(() => {
+        reply('No access permitted');
+        // redirect back to GC with error message
+      });
+    }
+  });
 
-    // message hooks ====>
+  // message hooks ====>
 
-    server.route({
-      method: 'POST',
-      path: '/webhook',
-      handler(request, reply) {
-        const messaging_events = request.payload.entry[0].messaging;
-        for (let i = 0; i < messaging_events.length; i++) {
-          const event = request.payload.entry[0].messaging[i];
-          const sender = event.sender.id;
-          if (event.postback) {
-            // const text = JSON.stringify(event.postback);
-            // do something with the postback
-          } else if (event.message) {
-            const text = event.message.text || event.message.attachments[0].payload.url;
-            Parser({io, sender, text, userType: Consumer});
-          }
+  server.route({
+    method: 'POST',
+    path: '/webhook',
+    handler(request, reply) {
+      const messaging_events = request.payload.entry[0].messaging;
+      for (let i = 0; i < messaging_events.length; i++) {
+        const event = request.payload.entry[0].messaging[i];
+        const sender = event.sender.id;
+        if (event.postback) {
+          // const text = JSON.stringify(event.postback);
+          // do something with the postback
+        } else if (event.message) {
+          const text = event.message.text || event.message.attachments[0].payload.url;
+          Parser({io, sender, text, userType: Consumer});
         }
-        reply();
       }
-    });
+      reply();
+    }
+  });
 
-    server.route({
-      method: 'POST',
-      path: '/member-service',
-      handler(request, reply) {
-        const { chatId, text } = request.payload;
-        Parser({chatId, text, io, userType: MemberService});
-        reply();
-      }
-    });
+  server.route({
+    method: 'POST',
+    path: '/member-service',
+    handler(request, reply) {
+      const { chatId, text } = request.payload;
+      Parser({chatId, text, io, userType: MemberService});
+      reply();
+    }
+  });
 
-    // helpers ====>
+  // helpers ====>
 
-    server.route({
-      method: 'GET',
-      path: '/get-chats',
-      handler(request, reply) {
-        GetChats().then((chats) => {
-          const msAuth = request.yar._store;
-          return reply({ chats, msAuth })
-        });
-      }
-    });
+  server.route({
+    method: 'GET',
+    path: '/get-chats',
+    handler(request, reply) {
+      GetChats().then((chats) => {
+        const msAuth = request.yar._store;
+        return reply({ chats, msAuth })
+      });
+    }
+  });
 
-    server.route({
-      method: 'PUT',
-      path: '/update-chat',
-      config: {
-        validate: {
-          payload: {
-            chatId: Joi.number().required(),
-            key: Joi.required(),
-            value: Joi.required(),
-          },
+  server.route({
+    method: 'PUT',
+    path: '/update-chat',
+    config: {
+      validate: {
+        payload: {
+          chatId: Joi.number().required(),
+          key: Joi.required(),
+          value: Joi.required(),
         },
       },
-      handler(request, reply) {
-        UpdateStatus(io, request.payload);
-        reply();
-      }
-    });
-
-    server.route({
-      method: 'GET',
-      path: '/get-messages',
-      handler(request, reply) {
-        const { id, page } = request.query;
-        GetMessages(id, page).then(reply);
-      }
-    });
-  });
-
-
-  server.start((error) => {
-    if (error) {
-      console.log(error.message);
-      process.exit(1);
+    },
+    handler(request, reply) {
+      UpdateStatus(io, request.payload);
+      reply();
     }
-    console.log(`server is running on port ${PORT}`);
   });
+
+  server.route({
+    method: 'GET',
+    path: '/get-messages',
+    handler(request, reply) {
+      const { id, page } = request.query;
+      GetMessages(id, page).then(reply);
+    }
+  });
+});
+
+
+server.start((error) => {
+  if (error) {
+    console.log(error.message);
+    process.exit(1);
+  }
+  console.log(`server is running on port ${PORT}`);
+});

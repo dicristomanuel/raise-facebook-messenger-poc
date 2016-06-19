@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onClick: (chatId, engaged) => {
       const value = engaged ? false : true;
-      SetEngageForChat(chatId, value);
+      SetEngageForChat(chatId, value); // value is going to be MS name
     }
   }
 }

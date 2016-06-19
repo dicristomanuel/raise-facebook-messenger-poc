@@ -6,6 +6,10 @@ export const SET_CHAT_VISIBILITY_FILTER = 'SET_CHAT_VISIBILITY_FILTER';
 export const SET_MESSAGES_VISIBILITY_FILTER = 'SET_MESSAGES_VISIBILITY_FILTER';
 export const CHAT_UPDATE = 'CHAT_UPDATE';
 export const ADD_MEMBER = 'ADD_MEMBER';
+export const ADD_ENGAGED_CHAT = 'ADD_ENGAGED_CHAT';
+export const REMOVE_ENGAGED_CHAT = 'REMOVE_ENGAGED_CHAT';
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
+export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -45,4 +49,20 @@ export const UpdateStatus = data => {
 
 export const AddMemberService = data => {
   return { type: ADD_MEMBER, data };
+}
+
+export const AddEngagedChat = chatId => {
+  return { type: ADD_ENGAGED_CHAT, chatId }
+}
+
+export const RemoveEngagedChat = chatId => {
+  return { type: REMOVE_ENGAGED_CHAT, chatId }
+}
+
+export const AddNotification = chatId => {
+  return { type: ADD_NOTIFICATION, chatId }
+}
+
+export const RemoveNotification = chatId => {
+  return { type: REMOVE_NOTIFICATION, chatId }
 }
