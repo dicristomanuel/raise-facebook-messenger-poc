@@ -1,6 +1,6 @@
 import request from 'superagent';
 import Store from '../createStore';
-import { New_message } from '../../data/socketConstants';
+import { New_message, New_notification } from '../../data/socketConstants';
 import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
   RemoveEngagedChat, AddNotification, RemoveNotification } from '../actions';
 
@@ -21,12 +21,14 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
   const initSocketsEngaged = (chatId, value) => {
     if (value) {
       Store.dispatch(AddEngagedChat(chatId))
-      socket.on(`${New_message}${chatId}`, (message) => {
-        Store.dispatch(AddNotification(message.chatId));
+      socket.on(`${New_notification}${chatId}`, (message) => {
+        if (Store.getState().messagesVisibilityFilter != message.chatId) {
+          Store.dispatch(AddNotification(message.chatId));
+        }
       });
     } else {
       Store.dispatch(RemoveEngagedChat(chatId))
-      socket.removeListener(`${New_message}${chatId}`);
+      socket.removeListener(`${New_notification}${chatId}`);
     }
   }
 

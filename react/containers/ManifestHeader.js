@@ -4,7 +4,7 @@ import ManifestSm from '../components/ManifestSm';
 import GetSingleManifest from '../selectors/GetSingleManifest';
 import { SetEngageForChat } from '../helpers/singleChatHelper';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     manifest: GetSingleManifest(state)
   }

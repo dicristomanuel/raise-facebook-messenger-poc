@@ -1,4 +1,4 @@
-import { New_message } from '../../../data/socketConstants';
+import { New_message, New_notification } from '../../../data/socketConstants';
 import { Socket } from '../../../app/transformer';
 import { SendMessage, SendGiftcards } from '../../../app/messenger';
 
@@ -13,7 +13,9 @@ export const OffBot = (data) => {
   const { io, chat, toSocket } = data;
   sendOut(data);
   toSocket.forEach((message) => {
-    io.emit(`${New_message}${chat.id}`, Socket.message(message));
+    const toSocket = Socket.message(message);
+    io.emit(`${New_message}${chat.id}`, toSocket);
+    io.emit(`${New_notification}${chat.id}`, toSocket);
   })
   return data;
 }

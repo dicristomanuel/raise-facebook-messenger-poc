@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import Notifications from './Notifications';
+import FilterNotifications from '../containers/FilterNotifications';
 
 class InputContainer extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class InputContainer extends Component {
             onKeyPress={this.handleKeyPress.bind(this)}
           />
         </div>
-        <Notifications />
+        <FilterNotifications />
       </div>
     )
   }
