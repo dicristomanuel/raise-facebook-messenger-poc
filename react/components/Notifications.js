@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
 
 class Notifications extends Component {
   constructor(props) {
@@ -8,6 +9,17 @@ class Notifications extends Component {
   onClick(event) {
     console.log(event);
   }
+
+  componentDidUpdate() {
+    const element = findDOMNode(this).childNodes[1];
+    if (this.props.isEngaged) {
+      element.className = `notification-container notification-animation-in`;
+      setTimeout(() => {
+        element.className = `notification-container notification-animation-out`;
+      }, 2200);
+    }
+  }
+
   render() {
     return (
       <div className='bottom-notifications'>
@@ -22,7 +34,7 @@ class Notifications extends Component {
             )}
         </div>
 
-        <div className='notification-container notification-animation-in'>
+        <div className='hide'>
           <div className='notification'>
             <p className='notification-text'>Chat engaged</p>
           </div>

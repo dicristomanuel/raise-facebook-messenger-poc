@@ -17,7 +17,6 @@ class MessageList extends Component {
   componentDidUpdate() {
     const element = findDOMNode(this).childNodes[0];
     // if (!this.loading)
-    console.log(element.scrollHeight);
     element.scrollTop = element.scrollHeight;
   }
 
@@ -40,6 +39,8 @@ class MessageList extends Component {
     this.props.sendToMessenger(this.props.chatId, text);
   }
 
+
+
   render() {
     // this.messagesCount = this.props.messages.length;
     return(
@@ -56,14 +57,13 @@ class MessageList extends Component {
         </FlipMove>
         <InputContainer
           sendToMessenger={this.onSendToMessenger.bind(this)}
-          engagedChats={this.props.engagedChats}
+          isEngaged={this.props.isEngaged}
           chatId={this.props.chatId}
         />
       </ul>
     )
   }
 }
-
 
 MessageList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({

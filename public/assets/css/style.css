@@ -117,6 +117,10 @@ a {
   -ms-animation-fill-mode:forwards;
 }
 
+.hide {
+  display: none;
+}
+
 @keyframes animationFramesIn{
   0% {
     transform:  translateY(500px);

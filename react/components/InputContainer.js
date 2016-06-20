@@ -28,18 +28,17 @@ class InputContainer extends Component {
   }
 
   render() {
-    const showInput = this.props.engagedChats.includes(this.props.chatId) ? true : false;
     return(
       <div className='input-container'>
         <div className='input-area'>
           <textarea type="text"
-            placeholder={ showInput ? "Type your message ..." : "Engage the chat to type"}
-            className={showInput ? 'textarea' : 'textarea disabled'}
-            onChange={this.handleChange.bind(this, showInput)}
+            placeholder={ this.props.isEngaged ? "Type your message ..." : "Engage the chat to type"}
+            className={this.props.isEngaged ? 'textarea' : 'textarea disabled'}
+            onChange={this.handleChange.bind(this, this.props.isEngaged)}
             onKeyPress={this.handleKeyPress.bind(this)}
           />
         </div>
-        <FilterNotifications />
+        <FilterNotifications isEngaged={this.props.isEngaged} />
       </div>
     )
   }

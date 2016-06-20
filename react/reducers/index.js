@@ -61,12 +61,11 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
       else
       return state;
     case REMOVE_ENGAGED_CHAT:
-      // replace with Immutable - SPLICE WILL BE REMOVED
-      const indexEngaged = state.chats.indexOf(action.chatId)
-      const lastItemEngaged = state.chats.length === 1 ? -1 : 1;
+      const indexChat = state.chats.indexOf(action.chatId);
       return { ...state, chats: [
-        state.chats.splice(indexEngaged, 1)
-        ]}
+        ...state.chats.slice(0, indexChat),
+        ...state.chats.slice(indexChat + 1)
+      ]}
     case ADD_NOTIFICATION:
       if (state.notifications.indexOf(action.chatId) === -1)
       return { ...state, notifications: [ ...state.notifications, action.chatId ] }
@@ -76,9 +75,9 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
       const present = state.notifications.indexOf(action.chatId) != -1 ? true : false;
       if (present) {
         const indexNotification = state.notifications.indexOf(action.chatId);
-        const lastItemNotification = state.notifications.length === 1 ? -1 : 1;
         return { ...state, notifications: [
-          ...state.notifications.splice(indexNotification, lastItemNotification)
+          ...state.notifications.slice(0, indexNotification),
+          ...state.notifications.slice(indexNotification + 1)
         ]}
       } else {
         return state;
