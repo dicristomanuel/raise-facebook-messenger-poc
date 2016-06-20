@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import Store from '../createStore';
 
 class ManifestSm extends Component {
-  onClickManifestSm(chatId) {
+  onClickManifestSm(chatId, status) {
+    if (status != 'busy')
     this.props.onClick(chatId, this.props.manifest.engaged);
   }
 
@@ -31,8 +32,9 @@ class ManifestSm extends Component {
 
   render() {
     const status = this.getStatus();
+    console.log(status);
     return (
-      <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId)} title={this.getTitleMessage(status)}>
+      <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId, status)} title={this.getTitleMessage(status)}>
         <p className="name">{this.props.manifest.name}</p>
         <div className={status + " state-sm"}>
           <div className='profile-pic-sm'>
