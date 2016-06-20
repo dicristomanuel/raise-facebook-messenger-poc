@@ -39,7 +39,7 @@ a {
   justify-content: space-between;
 }
 
-.engaged-single-container {
+.new-message-single-notification {
   width: 30px;
   height: 30px;
   display: flex;
@@ -48,7 +48,7 @@ a {
   position: relative;
 }
 
-.engaged-notifications {
+.new-message-notifications {
   display: flex;
 }
 

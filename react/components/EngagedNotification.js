@@ -8,7 +8,6 @@ class EngagedNotification extends Component {
 
   componentDidUpdate() {
     const element = findDOMNode(this);
-    console.log(element);
     if (this.props.isEngaged && element.className === 'hide') {
       element.className = `notification-container notification-animation-in`;
       setTimeout(() => {
