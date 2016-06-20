@@ -6,7 +6,11 @@ import { SetEngageForChat } from '../helpers/singleChatHelper';
 
 const mapStateToProps = state => {
   return {
-    manifest: GetSingleManifest(state)
+    manifest: GetSingleManifest(state),
+    memberService: {
+      hash: state.memberService.hash,
+      name: state.memberService.name,
+    }
   }
 }
 

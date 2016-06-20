@@ -1,32 +1,45 @@
 import React, { PropTypes, Component } from 'react';
 import Store from '../createStore';
 
-const getStatus = (chat) => {
-  if (chat.busy && chat.engaged == 'none')
-  return 'busy';
-  else if (chat.engaged != 'none')
-  return 'engaged';
-  else if (chat.active && !chat.busy)
-  return 'active';
-  else if (chat.solved)
-  return 'solved';
-}
-
 class ManifestSm extends Component {
   onClickManifestSm(chatId) {
     this.props.onClick(chatId, this.props.manifest.engaged);
   }
 
+  getStatus() {
+    const chat = this.props.manifest;
+    const memberService = this.props.memberService.hash;
+    if (chat.busy && chat.engaged != memberService)
+    return 'busy';
+    else if (chat.engaged == memberService)
+    return 'engaged';
+    else if (chat.active && !chat.busy)
+    return 'active';
+    else if (chat.solved)
+    return 'solved';
+  }
+
+  getTitleMessage(status) {
+    if (status === 'busy')
+    return 'Already engaged'
+    // return `Engaged by ${this.props.manifest.memberService.name}`
+    else if (status === 'engaged')
+    return 'Click to disengage'
+    else
+    return 'Click to engage'
+  }
+
   render() {
+    const status = this.getStatus();
     return (
-        <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId)} title='Click to engage'>
-          <p className="name">{this.props.manifest.name}</p>
-          <div className={getStatus(this.props.manifest) + " state-sm"}>
-            <div className='profile-pic-sm'>
-              <img src={this.props.manifest.profilePic} className='profile-img-sm' />
-            </div>
+      <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId)} title={this.getTitleMessage(status)}>
+        <p className="name">{this.props.manifest.name}</p>
+        <div className={status + " state-sm"}>
+          <div className='profile-pic-sm'>
+            <img src={this.props.manifest.profilePic} className='profile-img-sm' />
           </div>
         </div>
+      </div>
     );
   }
 }

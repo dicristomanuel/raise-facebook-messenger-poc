@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 class EngagedNotification extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidUpdate() {
     const element = findDOMNode(this);
-    if (this.props.isEngaged && element.className === 'hide') {
+    if (this.props.isEngaged) {
       element.className = `notification-container notification-animation-in`;
       setTimeout(() => {
         element.className = `notification-container notification-animation-out`;
