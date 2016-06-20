@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
 const getStatus = (chat) => {
-  if (chat.busy && !chat.engaged)
+  if (chat.busy && chat.engaged == 'none')
   return 'busy';
   else if (chat.engaged != 'none')
   return 'engaged';
