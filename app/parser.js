@@ -4,6 +4,8 @@ import Prism from '../prism/prism';
 import States from '../prism/states/config';
 import { Consumer } from '../data/appConstants';
 
+let prismed = false;
+
 const createChat = (data) => {
   const { sender } = data;
   GetProfile(sender).then(Chat.create)
@@ -12,7 +14,8 @@ const createChat = (data) => {
 
 const prismInit = data => chat => {
   if (chat) {
-    Prism.create(States);
+    prismed ? null : Prism.create(States);
+    prismed = true;
     return Prism.next({ chat, ...data, state: chat.state});
   } else {
     createChat(data);

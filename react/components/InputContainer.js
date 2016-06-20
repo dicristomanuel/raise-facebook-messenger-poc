@@ -33,7 +33,7 @@ class InputContainer extends Component {
       <div className='input-container'>
         <div className='input-area'>
           <textarea type="text"
-            placeholder={ showInput ? "Type your message ..." : "Engage the chat to type ..."}
+            placeholder={ showInput ? "Type your message ..." : "Engage the chat to type"}
             className={showInput ? 'textarea' : 'textarea disabled'}
             onChange={this.handleChange.bind(this, showInput)}
             onKeyPress={this.handleKeyPress.bind(this)}
