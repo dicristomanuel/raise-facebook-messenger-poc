@@ -1,25 +1,29 @@
 import React, { PropTypes, Component } from 'react';
 
-const getStatus = (chat) => {
-  if (chat.busy && chat.engaged == 'none')
-  return 'busy';
-  else if (chat.engaged != 'none')
-  return 'engaged';
-  else if (chat.active && !chat.busy)
-  return 'active';
-  else if (chat.solved)
-  return 'solved';
-}
-
 class Manifest extends Component {
   onClickManifest(chatId) {
     this.props.callback(chatId);
   }
 
+  getStatus() {
+    const chat = this.props;
+    const memberService = this.props.memberService.hash;
+    if (chat.engaged != 'none' && chat.engaged != memberService)
+    return 'busy';
+    else if (chat.engaged == memberService)
+    return 'engaged';
+    else if (chat.active)
+    return 'active';
+    else
+    return 'solved';
+  }
+
   render() {
+    const status = this.getStatus();
+    console.log(status);
     return (
       <li className='manifest' onClick={this.onClickManifest.bind(this, this.props.chatId)}>
-        <div className={getStatus(this.props) + " state"}>
+        <div className={status + " state"}>
           <div className='profile-pic'>
             <img src={this.props.profilePic} />
           </div>

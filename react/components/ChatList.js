@@ -17,6 +17,7 @@ class ChatList extends Component {
               key={chat.chatId}
               origin='ChatList'
               callback={this.onClickChatList.bind(this)}
+              memberService={this.props.memberService}
               {...chat}
             />
           )}

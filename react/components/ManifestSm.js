@@ -10,13 +10,13 @@ class ManifestSm extends Component {
   getStatus() {
     const chat = this.props.manifest;
     const memberService = this.props.memberService.hash;
-    if (chat.busy && chat.engaged != memberService)
+    if (chat.engaged != 'none' && chat.engaged != memberService)
     return 'busy';
     else if (chat.engaged == memberService)
     return 'engaged';
-    else if (chat.active && !chat.busy)
+    else if (chat.active)
     return 'active';
-    else if (chat.solved)
+    else
     return 'solved';
   }
 
@@ -32,7 +32,6 @@ class ManifestSm extends Component {
 
   render() {
     const status = this.getStatus();
-    console.log(status);
     return (
       <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId, status)} title={this.getTitleMessage(status)}>
         <p className="name">{this.props.manifest.name}</p>

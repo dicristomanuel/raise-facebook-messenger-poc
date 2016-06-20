@@ -10,7 +10,7 @@ const mapStateToProps = state => {
     memberService: {
       hash: state.memberService.hash,
       name: state.memberService.name,
-    }
+    },
   }
 }
 
