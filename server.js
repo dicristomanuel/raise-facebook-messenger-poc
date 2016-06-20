@@ -132,7 +132,7 @@ server.register([
     path: '/member-service',
     handler(request, reply) {
       const { chatId, text } = request.payload;
-      Parser({chatId, text, io, userType: MemberService});
+      Parser({ chatId, text, io, userType: MemberService });
       reply();
     }
   });
