@@ -1,6 +1,5 @@
 import React from 'react';
 import FilterLink from '../containers/FilterLink';
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_BUSY, SHOW_ENGAGED, SHOW_SOLVED } from '../actions';
 
 const ChatFilter = () => (
   <div className='state-filter'>
