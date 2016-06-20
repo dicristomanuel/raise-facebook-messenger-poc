@@ -18,6 +18,17 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
     });
   };
 
+
+  export const SendMessage = (data) => {
+    const { chatId, text } = data;
+    request.post(`http://localhost:3001/member-service`)
+    .send({ chatId, text })
+    .end((err, res) => {
+      if (err)
+      console.log(err);
+    });
+  }
+
   const handleEngage = (chatId, current) => {
     if (current == 'none') {
       Store.dispatch(AddEngagedChat(chatId))
@@ -29,16 +40,6 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
       Store.dispatch(RemoveEngagedChat(chatId))
       socket.off(`${New_notification}${chatId}`);
     }
-  }
-
-  export const SendMessage = (data) => {
-    const { chatId, text } = data;
-    request.post(`http://localhost:3001/member-service`)
-    .send({ chatId, text })
-    .end((err, res) => {
-      if (err)
-      console.log(err);
-    });
   }
 
   export const SetEngageForChat = (chatId, current) => {

@@ -13,7 +13,7 @@ const transformMessages = (data) => {
 };
 
 export const GetChats = (msAuth) => {
-  const promises  = [Chat.findAll(), Chat.findByHash(msAuth.hash)];
+  const promises = [Chat.findAll(), Chat.findByHash(msAuth.hash)];
   return Promise.all(promises);
 };
 

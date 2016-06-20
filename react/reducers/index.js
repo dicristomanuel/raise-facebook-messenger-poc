@@ -56,13 +56,16 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
     case ADD_MEMBER:
       return { ...state, ...action.data }
     case ADD_ENGAGED_CHAT:
+      if (state.chats.indexOf(action.chatId) === -1)
       return { ...state, chats: [ ...state.chats, action.chatId ]}
+      else
+      return state;
     case REMOVE_ENGAGED_CHAT:
       // replace with Immutable - SPLICE WILL BE REMOVED
       const indexEngaged = state.chats.indexOf(action.chatId)
       const lastItemEngaged = state.chats.length === 1 ? -1 : 1;
       return { ...state, chats: [
-        ...state.chats.splice(indexEngaged, lastItemEngaged)
+        state.chats.splice(indexEngaged, 1)
         ]}
     case ADD_NOTIFICATION:
       if (state.notifications.indexOf(action.chatId) === -1)
