@@ -5,7 +5,7 @@ import FilterNotifications from '../containers/FilterNotifications';
 class InputContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { inputValue: '' };
+    this.inputValue = '';
   }
 
   handleChange(showInput, event) {
@@ -14,12 +14,12 @@ class InputContainer extends Component {
     element.value = '';
     element.style.height = 'auto';
     element.style.height = `${element.scrollHeight}px`;
-    this.setState({ inputValue: event.target.value });
+    this.inputValue = event.target.value;
   }
 
   handleKeyPress(event) {
     if (event.key === 'Enter') {
-      let text = this.state.inputValue;
+      let text = this.inputValue;
       if (text !== '')
       this.props.sendToMessenger(text)
       const element = findDOMNode(this).childNodes[0].childNodes[0];

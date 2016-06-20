@@ -7,10 +7,6 @@ import Footer from './Footer';
 import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
 
 class SingleChat extends Component {
-  constructor(props) {
-      super(props);
-    }
-
   render() {
     InitMessagesAndSockets(this.props.params.id)
     return (

@@ -20,7 +20,6 @@ class Manifest extends Component {
 
   render() {
     const status = this.getStatus();
-    console.log(status);
     return (
       <li className='manifest' onClick={this.onClickManifest.bind(this, this.props.chatId)}>
         <div className={status + " state"}>

@@ -39,8 +39,6 @@ class MessageList extends Component {
     this.props.sendToMessenger(this.props.chatId, text);
   }
 
-
-
   render() {
     // this.messagesCount = this.props.messages.length;
     return(
