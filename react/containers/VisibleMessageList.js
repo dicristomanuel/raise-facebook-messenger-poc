@@ -4,9 +4,6 @@ import { GetMessagesForId } from '../selectors/getMessagesForId';
 import { SendMessage } from '../helpers/singleChatHelper';
 
 const isEngaged = (chats, engaged) => {
-  console.log('chats', chats);
-  console.log('engaged', engaged);
-  console.log('includes?', chats.includes(engaged));
   return chats.includes(engaged);
 };
 

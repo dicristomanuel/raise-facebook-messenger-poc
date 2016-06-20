@@ -38,7 +38,7 @@ class InputContainer extends Component {
             onKeyPress={this.handleKeyPress.bind(this)}
           />
         </div>
-        <FilterNotifications isEngaged={this.props.isEngaged} />
+        <FilterNotifications />
       </div>
     )
   }

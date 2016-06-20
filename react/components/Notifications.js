@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
+import FilterEngaged from '../containers/FilterEngaged';
 
 class Notifications extends Component {
   constructor(props) {
@@ -8,16 +9,6 @@ class Notifications extends Component {
 
   onClick(event) {
     console.log(event);
-  }
-
-  componentDidUpdate() {
-    const element = findDOMNode(this).childNodes[1];
-    if (this.props.isEngaged) {
-      element.className = `notification-container notification-animation-in`;
-      setTimeout(() => {
-        element.className = `notification-container notification-animation-out`;
-      }, 2200);
-    }
   }
 
   render() {
@@ -33,12 +24,7 @@ class Notifications extends Component {
               </div>
             )}
         </div>
-
-        <div className='hide'>
-          <div className='notification'>
-            <p className='notification-text'>Chat engaged</p>
-          </div>
-        </div>
+        <FilterEngaged />
       </div>
     )
   }
