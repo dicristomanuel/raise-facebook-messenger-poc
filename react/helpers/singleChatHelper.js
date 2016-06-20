@@ -78,9 +78,10 @@ import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
   };
 
   export const InitMessagesAndSockets = (id, page = 1) => {
-    Store.dispatch(SetMessagesVisibilityFilter(id));
-    socket.on(`${New_message}${id}`, (message) => {
+    const chatId = parseInt(id);
+    Store.dispatch(SetMessagesVisibilityFilter(chatId));
+    socket.on(`${New_message}${chatId}`, (message) => {
       Store.dispatch(AddMessage(message));
     });
-    return LoadMessages(id, page);
+    return LoadMessages(chatId, page);
   };

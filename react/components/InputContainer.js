@@ -8,8 +8,10 @@ class InputContainer extends Component {
     this.state = { inputValue: '' };
   }
 
-  handleChange(event) {
+  handleChange(showInput, event) {
     const element = findDOMNode(this).childNodes[0].childNodes[0];
+    if (!showInput)
+    element.value = '';
     element.style.height = 'auto';
     element.style.height = `${element.scrollHeight}px`;
     this.setState({ inputValue: event.target.value });
@@ -22,18 +24,18 @@ class InputContainer extends Component {
       this.props.sendToMessenger(text)
       const element = findDOMNode(this).childNodes[0].childNodes[0];
       element.value = '';
-
     }
   }
 
   render() {
+    const showInput = this.props.engagedChats.includes(this.props.chatId) ? true : false;
     return(
       <div className='input-container'>
         <div className='input-area'>
           <textarea type="text"
-            placeholder="Type your message ..."
-            className='textarea'
-            onChange={this.handleChange.bind(this)}
+            placeholder={ showInput ? "Type your message ..." : "Engage the chat to type ..."}
+            className={showInput ? 'textarea' : 'textarea disabled'}
+            onChange={this.handleChange.bind(this, showInput)}
             onKeyPress={this.handleKeyPress.bind(this)}
           />
         </div>

@@ -54,7 +54,11 @@ class MessageList extends Component {
             />
           )}
         </FlipMove>
-      <InputContainer sendToMessenger={this.onSendToMessenger.bind(this)}/>
+        <InputContainer
+          sendToMessenger={this.onSendToMessenger.bind(this)}
+          engagedChats={this.props.engagedChats}
+          chatId={this.props.chatId}
+        />
       </ul>
     )
   }
