@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 class EngagedNotification extends Component {
@@ -23,5 +23,10 @@ class EngagedNotification extends Component {
     )
   }
 }
+
+EngagedNotification.propTypes = {
+  isEngaged: PropTypes.bool.isRequired,
+}
+
 
 export default EngagedNotification;

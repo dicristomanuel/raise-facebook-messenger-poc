@@ -42,4 +42,10 @@ class InputContainer extends Component {
   }
 };
 
+InputContainer.propTypes = {
+  sendToMessenger: PropTypes.func.isRequired,
+  isEngaged: PropTypes.bool.isRequired,
+}
+
+
 export default InputContainer;

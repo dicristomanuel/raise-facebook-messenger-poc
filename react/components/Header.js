@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import ChatFilter from './ChatFilter';
 import { Link } from 'react-router';
 import ManifestHeader from '../containers/ManifestHeader';
@@ -22,5 +22,10 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  origin: PropTypes.string.isRequired,
+}
+
 
 export default Header;

@@ -66,7 +66,6 @@ export const InitChatsAndSockets = () => {
     });
     getChats()
     .then((data) => {
-      console.log(data.msAuth);
       if (Object.keys(data.msAuth).length > 1)
       Store.dispatch(AddMemberService(data.msAuth))
       initNotifications(data.chats[1]);

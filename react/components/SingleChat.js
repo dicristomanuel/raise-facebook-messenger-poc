@@ -11,7 +11,7 @@ class SingleChat extends Component {
     return (
       <Provider store={Store}>
         <div>
-          <Header parent='SingleChat' />
+          <Header origin='SingleChat' />
           <VisibleMessageList />
         </div>
       </Provider>
