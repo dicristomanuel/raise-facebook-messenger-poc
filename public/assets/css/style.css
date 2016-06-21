@@ -507,6 +507,10 @@ a {
   width: 500px;
 }
 
+.message-like {
+  width: 50px;
+}
+
 #app {
   display: flex;
   display: -webkit-flex;

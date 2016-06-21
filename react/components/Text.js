@@ -4,18 +4,33 @@ import { findDOMNode } from 'react-dom';
 class Text extends Component {
   componentDidMount() {
     const element = findDOMNode(this);
-    this.props.text.includes('https://scontent') ? element.style.background = 'none' : null
+    this.includes(this.props.text) ? element.style.background = 'none' : null
+  }
+
+  includes(string) {
+    if (string.includes('https://scontent')) {
+      return 'image'
+    } else if (string.includes('https://fbcdn')) {
+      return 'like'
+    }
+    return false;
+  }
+
+  text(text) {
+    const textType = this.includes(text);
+    if (textType) {
+      const classForImage = textType === 'image' ? 'message-img' : 'message-like'
+      return <a href={text} target='_blank'><img src={text} className={classForImage}></img></a>
+    } else {
+      return <p>{text}</p>
+    }
   }
 
   render() {
-    const propsText = this.props.text;
-    const text = propsText.includes('https://scontent') ?
-    <a href={propsText} target='_blank'><img src={ propsText } className='message-img'></img></a> :
-    <p>{ propsText }</p>
-
+    const text = this.text(this.props.text);
     return (
         <li className={this.props.userType + ' text'} title={this.props.createdAt}>
-          { text }
+          {text}
         </li>
     );
   }

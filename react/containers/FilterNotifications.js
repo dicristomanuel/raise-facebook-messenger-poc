@@ -12,6 +12,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: (chatId) => {
+      console.log(browserHistory.push(`/chat/${chatId}`));
       dispatch(RemoveNotification(chatId));
       browserHistory.push(`/chat/${chatId}`);
     }
