@@ -18,10 +18,8 @@ class InputContainer extends Component {
   }
 
   handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      let text = this.inputValue;
-      if (text !== '')
-      this.props.sendToMessenger(text)
+    if (event.key === 'Enter' && this.inputValue !== '') {
+      this.props.sendToMessenger(this.inputValue)
       const element = findDOMNode(this).childNodes[0].childNodes[0];
       element.value = '';
     }

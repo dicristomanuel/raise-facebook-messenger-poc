@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import Store from '../createStore';
 
 class ManifestSm extends Component {
-  onClickManifestSm(chatId, status) {
-    if (status != 'busy')
+  onClickManifestSm(chatId, status, dbState) {
+    if (status != 'busy' && dbState == 'ms') // add notification saying bot is taking care of conversation
     this.props.onClick(chatId, this.props.manifest.engaged);
   }
 
@@ -23,7 +23,7 @@ class ManifestSm extends Component {
   getTitleMessage(status) {
     if (status === 'busy')
     return 'Already engaged'
-    // return `Engaged by ${this.props.manifest.memberService.name}`
+    // return `Engaged by ${this.props.manifest.memberService.name}` => when adding memberService obj to DB
     else if (status === 'engaged')
     return 'Click to disengage'
     else
@@ -33,7 +33,9 @@ class ManifestSm extends Component {
   render() {
     const status = this.getStatus();
     return (
-      <div className='manifest-sm' onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId, status)} title={this.getTitleMessage(status)}>
+      <div className='manifest-sm'
+        onClick={this.onClickManifestSm.bind(this, this.props.manifest.chatId, status, this.props.manifest.state)}
+        title={this.getTitleMessage(status)}>
         <p className="name">{this.props.manifest.name}</p>
         <div className={status + " state-sm"}>
           <div className='profile-pic-sm'>
