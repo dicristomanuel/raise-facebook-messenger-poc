@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import FilterEngaged from '../containers/FilterEngaged';
 
@@ -30,6 +30,11 @@ class Notifications extends Component {
       </div>
     )
   }
+}
+
+Notifications.Notifications = {
+  notifications: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
 }
 
 export default Notifications;

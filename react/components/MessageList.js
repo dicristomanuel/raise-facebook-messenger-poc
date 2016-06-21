@@ -71,7 +71,8 @@ MessageList.propTypes = {
     text: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     userType: PropTypes.string.isRequired,
-  }).isRequired).isRequired
+  }).isRequired).isRequired,
+  sendToMessenger: PropTypes.func.isRequired,
 }
 
 export default MessageList;

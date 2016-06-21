@@ -48,7 +48,7 @@ class ManifestSm extends Component {
 }
 
 ManifestSm.PropTypes = {
-  chat: PropTypes.shape({
+  manifest: PropTypes.shape({
     chatId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     profilePic: PropTypes.string.isRequired,
@@ -56,6 +56,10 @@ ManifestSm.PropTypes = {
     busy: PropTypes.bool.isRequired,
     solved: PropTypes.bool.isRequired,
     engaged: PropTypes.bool.isRequired,
+  }).isRequired,
+  memberService: PropTypes.shape({
+    hash: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
   onClick: PropTypes.func.isRequired
 }

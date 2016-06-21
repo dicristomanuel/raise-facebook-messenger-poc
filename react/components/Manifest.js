@@ -34,16 +34,18 @@ class Manifest extends Component {
 }
 
 Manifest.PropTypes = {
-  chat: PropTypes.shape({
-    chatId: PropTypes.number.isRequired,
+  chatId: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  profilePic: PropTypes.string.isRequired,
+  state: PropTypes.string.isRequired,
+  busy: PropTypes.bool.isRequired,
+  solved: PropTypes.bool.isRequired,
+  engaged: PropTypes.bool.isRequired,
+  callback: PropTypes.func.isRequired,
+  memberService: React.PropTypes.shape({
+    hash: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    profilePic: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
-    busy: PropTypes.bool.isRequired,
-    solved: PropTypes.bool.isRequired,
-    engaged: PropTypes.bool.isRequired,
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
+  }),
 }
 
 export default Manifest;
