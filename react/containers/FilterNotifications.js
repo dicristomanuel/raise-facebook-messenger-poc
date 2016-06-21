@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Notifications from '../components/Notifications';
-import { RemoveNotification } from '../actions';
+import { handleClickManifest } from '../actions';
 import { browserHistory } from 'react-router';
 
 const mapStateToProps = state => {
@@ -12,9 +12,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: (chatId) => {
-      console.log(browserHistory.push(`/chat/${chatId}`));
-      dispatch(RemoveNotification(chatId));
+      dispatch(handleClickManifest(chatId));
       browserHistory.push(`/chat/${chatId}`);
+      
     }
   }
 }

@@ -77,7 +77,7 @@ export const handleClickManifest = chatId => {
     socket.on(`${New_message}${chatId}`, (message) => {
       dispatch(AddMessage({message, origin:'fromInitHelper'}));
     });
-    
+
     dispatch(SetMessagesVisibilityFilter(chatId));
     dispatch(RemoveNotification(chatId));
   };
