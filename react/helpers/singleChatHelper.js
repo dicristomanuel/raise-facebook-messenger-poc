@@ -71,7 +71,7 @@ export const LoadMessages = (id, page) => {
     getMessages(id, page)
     .then((messages) => {
       Store.dispatch(AddMessages(messages));
-      resolve(messages.length);
+      resolve('success');
     })
     .catch((error) => {reject(error)});
   })
@@ -79,9 +79,5 @@ export const LoadMessages = (id, page) => {
 
 export const InitMessagesAndSockets = (id, page = 1) => {
   const chatId = parseInt(id);
-  Store.dispatch(SetMessagesVisibilityFilter(chatId));
-  socket.on(`${New_message}${chatId}`, (message) => {
-    Store.dispatch(AddMessage(message));
-  });
   return LoadMessages(chatId, page);
 };

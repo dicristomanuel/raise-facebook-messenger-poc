@@ -8,6 +8,7 @@ const isEngaged = (chats, engaged) => {
 };
 
 const mapStateToProps = state => {
+  console.log(GetMessagesForId(state));
   return {
     messages: GetMessagesForId(state),
     chatId: state.messagesVisibilityFilter,

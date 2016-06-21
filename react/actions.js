@@ -1,3 +1,5 @@
+import { New_message } from '../data/socketConstants';
+
 export const ADD_CHAT = 'ADD_CHAT';
 export const ADD_CHATS = 'ADD_CHATS';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
@@ -27,7 +29,7 @@ export const AddChats = chats => {
   return { type: ADD_CHATS, chats };
 };
 
-export const AddMessage = message => {
+export const AddMessage = (message) => {
   return { type: ADD_MESSAGE, message };
 };
 
@@ -65,4 +67,18 @@ export const AddNotification = chatId => {
 
 export const RemoveNotification = chatId => {
   return { type: REMOVE_NOTIFICATION, chatId }
+}
+
+export const handleClickManifest = chatId => {
+  return ({ socket, dispatch, getState }) => {
+    let prevChatId = getState().messagesVisibilityFilter;
+
+    socket.off(`${New_message}${prevChatId}`);
+    socket.on(`${New_message}${chatId}`, (message) => {
+      dispatch(AddMessage({message, origin:'fromInitHelper'}));
+    });
+    
+    dispatch(SetMessagesVisibilityFilter(chatId));
+    dispatch(RemoveNotification(chatId));
+  };
 }

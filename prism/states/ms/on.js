@@ -1,7 +1,6 @@
 import Message from '../../../db/message';
 import { Bot, Consumer } from '../../../data/appConstants';
 
-
 const writeToDb = (data) => {
   const { chat, text, userType, answer } = data;
   let promises = [];

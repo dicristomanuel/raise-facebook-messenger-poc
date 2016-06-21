@@ -1,6 +1,13 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSocketMiddleware from 'redux-ws';
+import io from 'socket.io-client';
 import ChatApp from './reducers/index';
 
-const store = createStore(ChatApp);
+const socketMiddleware = createSocketMiddleware(io());
+
+const store = createStore(
+  ChatApp,
+  applyMiddleware(socketMiddleware)
+);
 
 export default store;

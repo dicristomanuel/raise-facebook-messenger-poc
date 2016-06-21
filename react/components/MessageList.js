@@ -22,17 +22,18 @@ class MessageList extends Component {
 
   handleScroll(event) {
     const element = findDOMNode(this).childNodes[0];
-    if (element.scrollTop <= 100 && this.shouldLoad) {
-      this.loading = true;
-      this.pages++;
-      LoadMessages(this.props.chatId, this.pages)
-      .then((count) => {
+    // if scrollHeight is greater then > this down here applies
+    // if (element.scrollTop <= 100 && this.shouldLoad) {
+      // this.loading = true;
+      // this.pages++;
+      // LoadMessages(this.props.chatId, this.pages)
+      // .then((count) => {
         // if (count === this.messagesCount) {
-          this.shouldLoad = false;
+          // this.shouldLoad = false;
         // }
-        this.loading = false;
-      })
-    }
+        // this.loading = false;
+      // })
+    // }
   }
 
   onSendToMessenger(text) {

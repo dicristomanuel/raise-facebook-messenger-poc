@@ -37,7 +37,11 @@ ChatList.propTypes = {
     solved: PropTypes.bool.isRequired,
     engaged: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  memberService: React.PropTypes.shape({
+    hash: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  })
 }
 
 export default ChatList;
