@@ -15,8 +15,10 @@ const writeToDb = (data) => {
   promises.push(
     Message.create({ chatId: chat.id, text, userType: Consumer })
   );
+
   return Promise.all(promises);
 }
+
 
 const handleBotMessage = (data) => {
   const { answer } = data;
