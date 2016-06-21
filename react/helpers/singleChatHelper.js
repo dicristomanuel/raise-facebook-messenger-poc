@@ -2,7 +2,7 @@ import request from 'superagent';
 import Store from '../createStore';
 import { New_message, New_notification } from '../../data/socketConstants';
 import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
-         RemoveEngagedChat, AddNotification, RemoveNotification } from '../actions';
+         RemoveEngagedChat, AddNotification } from '../actions';
 
 const socket = io();
 
@@ -28,12 +28,16 @@ export const SendMessage = (data) => {
   });
 }
 
+const getImageLink = (chatId) => {
+  return Store.getState().chats.filter(chat => chat.chatId == chatId)[0].profilePic;
+}
+
 const handleEngage = (chatId, current) => {
   if (current == 'none') {
     Store.dispatch(AddEngagedChat(chatId))
     socket.on(`${New_notification}${chatId}`, (message) => {
       if (Store.getState().messagesVisibilityFilter != message.chatId)
-      Store.dispatch(AddNotification(message.chatId));
+      Store.dispatch(AddNotification({chatId: message.chatId, image: getImageLink(chatId)}));
     });
   } else {
     Store.dispatch(RemoveEngagedChat(chatId))

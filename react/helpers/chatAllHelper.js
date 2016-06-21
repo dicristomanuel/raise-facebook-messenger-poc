@@ -45,13 +45,18 @@ export const Compare = (a,b) => {
   return 0;
 }
 
+const getImageLink = (chatId) => {
+  return Store.getState().chats.filter(chat => chat.chatId == chatId)[0].profilePic;
+}
+
+
 const initNotifications = (chats) => {
   chats.forEach(chat => {
     const chatId = chat.id;
     Store.dispatch(AddEngagedChat(chatId))
     socket.on(`${New_notification}${chatId}`, (message) => {
       if (Store.getState().messagesVisibilityFilter != message.chatId)
-      Store.dispatch(AddNotification(message.chatId));
+      Store.dispatch(AddNotification({chatId: message.chatId, image: getImageLink(chatId)}));
     });
   })
 }

@@ -68,13 +68,18 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
       ]}
     case ADD_NOTIFICATION:
       if (state.notifications.indexOf(action.chatId) === -1)
-      return { ...state, notifications: [ ...state.notifications, action.chatId ] }
+      return { ...state, notifications: [ ...state.notifications, {
+        chatId: action.notification.chatId,
+        image: action.notification.image,
+      }]}
       else
       return state
     case REMOVE_NOTIFICATION:
-      const present = state.notifications.indexOf(action.chatId) != -1 ? true : false;
-      if (present) {
-        const indexNotification = state.notifications.indexOf(action.chatId);
+      const obj = state.notifications.filter((obj) => {
+        return obj.chatId === action.notification;
+      })[0];
+      if (obj) {
+        const indexNotification = state.notifications.indexOf(obj);
         return { ...state, notifications: [
           ...state.notifications.slice(0, indexNotification),
           ...state.notifications.slice(indexNotification + 1)

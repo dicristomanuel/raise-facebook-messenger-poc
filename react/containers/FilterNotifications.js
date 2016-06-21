@@ -14,7 +14,6 @@ const mapDispatchToProps = dispatch => {
     onClick: (chatId) => {
       dispatch(handleClickManifest(chatId));
       browserHistory.push(`/chat/${chatId}`);
-      
     }
   }
 }

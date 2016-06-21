@@ -61,12 +61,12 @@ export const RemoveEngagedChat = chatId => {
   return { type: REMOVE_ENGAGED_CHAT, chatId }
 }
 
-export const AddNotification = chatId => {
-  return { type: ADD_NOTIFICATION, chatId }
+export const AddNotification = notification => {
+  return { type: ADD_NOTIFICATION, notification }
 }
 
-export const RemoveNotification = chatId => {
-  return { type: REMOVE_NOTIFICATION, chatId }
+export const RemoveNotification = notification => {
+  return { type: REMOVE_NOTIFICATION, notification }
 }
 
 export const handleClickManifest = chatId => {
