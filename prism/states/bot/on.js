@@ -1,6 +1,7 @@
 import { Bot, ToMemberService, Consumer } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
 import Message from '../../../db/message';
+import { Socket } from '../../../app/transformer';
 
 const writeToDb = (data) => {
   const { chat, text, userType, answer } = data;
@@ -35,5 +36,7 @@ const prepareBotMessage = (data) => {
 };
 
 export const OnBot = (data) => {
+  const { io, chat } = data;
+  io.emit('chat_update', Socket.updateChat({ state: 'bot' }, chat));
   return prepareBotMessage(data);
 };

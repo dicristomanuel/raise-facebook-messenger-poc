@@ -10,7 +10,8 @@ const sendOut = (data) => {
   Chat.update(chat, { solved:false });
   Chat.update(chat, { active:true })
   .then((chat) => {
-    io.emit('chat_update', Socket.updateChat({ active:true }, chat));
+    io.emit('chat_update', Socket.updateChat({ active: true }, chat));
+    io.emit('chat_update', Socket.updateChat({ state: 'ms' }, chat));
   })
   return data;
 };
