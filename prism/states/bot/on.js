@@ -12,7 +12,7 @@ const transformGiftcardMessage = (messages) => {
   })
   return JSON.stringify(toSend);
 };
-// MESSAGE TEXT CAN ONLY BE A STRING
+
 const writeToDb = (data) => {
   const { chat, text, userType, answer, brand } = data;
   let promises = [];

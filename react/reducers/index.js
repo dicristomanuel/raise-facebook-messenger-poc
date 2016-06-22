@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_FILTER,
          ADD_CHAT, ADD_CHATS, CHAT_UPDATE, ADD_MESSAGE, ADD_MESSAGES, ADD_MEMBER,
-         ADD_ENGAGED_CHAT, REMOVE_ENGAGED_CHAT, ADD_NOTIFICATION, REMOVE_NOTIFICATION } from '../actions.js';
+         ADD_ENGAGED_CHAT, REMOVE_ENGAGED_CHAT, ADD_NOTIFICATION, REMOVE_NOTIFICATION,
+         ADD_FLASH_MESSAGE } from '../actions.js';
 
 const { SHOW_ALL } = VisibilityFilters;
 
@@ -51,7 +52,8 @@ const messages = (state = [], action) => {
   }
 };
 
-const memberService = (state = { chats: [], notifications: [] }, action) => {
+const memberService = (state = { notifications: [], flashMessages: [] }, action) => {
+
   switch (action.type) {
     case ADD_MEMBER:
       return { ...state, ...action.data }
@@ -87,6 +89,8 @@ const memberService = (state = { chats: [], notifications: [] }, action) => {
       } else {
         return state;
       }
+    case ADD_FLASH_MESSAGE:
+      return { ...state, flashMessages: [ action.flashMessage ]}
     default:
       return state;
   }

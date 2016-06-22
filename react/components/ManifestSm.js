@@ -53,7 +53,6 @@ ManifestSm.PropTypes = {
     name: PropTypes.string.isRequired,
     profilePic: PropTypes.string.isRequired,
     state: PropTypes.string.isRequired,
-    busy: PropTypes.bool.isRequired,
     solved: PropTypes.bool.isRequired,
     engaged: PropTypes.bool.isRequired,
   }).isRequired,

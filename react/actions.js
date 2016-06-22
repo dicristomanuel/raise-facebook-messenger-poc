@@ -12,6 +12,7 @@ export const ADD_ENGAGED_CHAT = 'ADD_ENGAGED_CHAT';
 export const REMOVE_ENGAGED_CHAT = 'REMOVE_ENGAGED_CHAT';
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
+export const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 
 export const VisibilityFilters = {
   SHOW_ALL: 'SHOW_ALL',
@@ -63,6 +64,10 @@ export const RemoveEngagedChat = chatId => {
 
 export const AddNotification = notification => {
   return { type: ADD_NOTIFICATION, notification }
+}
+
+export const AddFlashMessage = flashMessage => {
+  return { type: ADD_FLASH_MESSAGE, flashMessage }
 }
 
 export const RemoveNotification = notification => {

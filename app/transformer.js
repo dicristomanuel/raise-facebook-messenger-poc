@@ -2,7 +2,7 @@ import { Bot, Consumer } from '../data/appConstants';
 
 const newChat = (data) => {
   const { chat } = data;
-  const { id, firstName, lastName, profilePic, state, active, busy, solved, engaged } = chat;
+  const { id, firstName, lastName, profilePic, state, active, solved, engaged } = chat;
   return {
     id,
     firstName,
@@ -10,7 +10,6 @@ const newChat = (data) => {
     profilePic,
     state,
     active,
-    busy,
     solved,
     engaged,
   }

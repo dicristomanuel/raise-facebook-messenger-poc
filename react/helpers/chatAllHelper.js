@@ -19,14 +19,13 @@ const getChats = () => {
 const transform = (data) => {
   let chats = [];
   data.forEach((chat) => {
-    const { id, firstName, lastName, profilePic, state, active, busy, solved, engaged, updatedAt } = chat;
+    const { id, firstName, lastName, profilePic, state, active, solved, engaged, updatedAt } = chat;
     chats.push({
       chatId: id,
       name: `${firstName} ${lastName}`,
       profilePic,
       state,
       active,
-      busy,
       solved,
       engaged,
       updatedAt,
