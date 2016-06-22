@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { VisibilityFilters, SET_CHAT_VISIBILITY_FILTER, SET_MESSAGES_VISIBILITY_FILTER,
          ADD_CHAT, ADD_CHATS, CHAT_UPDATE, ADD_MESSAGE, ADD_MESSAGES, ADD_MEMBER,
-         ADD_ENGAGED_CHAT, REMOVE_ENGAGED_CHAT, ADD_NOTIFICATION, REMOVE_NOTIFICATION,
+         ADD_ENGAGED_CHAT, REMOVE_ENGAGED_CHAT, ADD_ACTIVE, REMOVE_ACTIVE,
          ADD_FLASH_MESSAGE } from '../actions.js';
 
 const { SHOW_ALL } = VisibilityFilters;
@@ -70,20 +70,23 @@ const notifications = (state = { memberService: {}, chats: [], active: [], flash
         ...state.chats.slice(0, indexChat),
         ...state.chats.slice(indexChat + 1)
       ]}
-    case ADD_NOTIFICATION:
-      if (state.active.indexOf(action.chatId) === -1)
+    case ADD_ACTIVE:
+      const activeAdd = state.active.filter((active) => {
+        return active.chatId === action.data.chatId;
+      })[0];
+      if (!activeAdd)
       return { ...state, active: [ ...state.active, {
-        chatId: action.notification.chatId,
-        image: action.notification.image,
+        chatId: action.data.chatId,
+        image: action.data.image,
       }]}
       else
       return state
-    case REMOVE_NOTIFICATION:
-      const obj = state.active.filter((obj) => {
-        return obj.chatId === action.notification;
+    case REMOVE_ACTIVE:
+      const activeRemove = state.active.filter((active) => {
+        return active.chatId === action.data;
       })[0];
-      if (obj) {
-        const indexNotification = state.active.indexOf(obj);
+      if (activeRemove) {
+        const indexNotification = state.active.indexOf(activeRemove);
         return { ...state, active: [
           ...state.active.slice(0, indexNotification),
           ...state.active.slice(indexNotification + 1)

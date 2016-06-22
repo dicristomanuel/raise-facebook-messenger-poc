@@ -1,7 +1,7 @@
 import request from 'superagent';
 import Store from '../createStore';
 import { New_notification } from '../../data/socketConstants';
-import { UpdateStatus, AddChat, AddChats, AddMemberService, AddEngagedChat, AddNotification } from '../actions';
+import { UpdateStatus, AddChat, AddChats, AddMemberService, AddEngagedChat, AddActive } from '../actions';
 const socket = io();
 
 const getChats = () => {
@@ -55,7 +55,7 @@ const initNotifications = (chats) => {
     Store.dispatch(AddEngagedChat(chatId))
     socket.on(`${New_notification}${chatId}`, (message) => {
       if (Store.getState().messagesVisibilityFilter != message.chatId)
-      Store.dispatch(AddNotification({chatId: message.chatId, image: getImageLink(chatId)}));
+      Store.dispatch(AddActive({chatId: message.chatId, image: getImageLink(chatId)}));
     });
   })
 }
