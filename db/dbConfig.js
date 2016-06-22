@@ -17,10 +17,6 @@ export const Chat = connection.define('Chat', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  busy: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
   solved: {
     type: Sequelize.BOOLEAN,
     defaultValue: true
