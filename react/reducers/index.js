@@ -52,11 +52,13 @@ const messages = (state = [], action) => {
   }
 };
 
-const memberService = (state = { notifications: [], flashMessages: [] }, action) => {
-
+const notifications = (state = { memberService: {}, chats: [], active: [], flashMessages: [] }, action) => {
   switch (action.type) {
     case ADD_MEMBER:
-      return { ...state, ...action.data }
+      return { ...state, memberService: {
+        hash: action.data.hash,
+        name: action.data.name
+      }}
     case ADD_ENGAGED_CHAT:
       if (state.chats.indexOf(action.chatId) === -1)
       return { ...state, chats: [ ...state.chats, action.chatId ]}
@@ -69,22 +71,22 @@ const memberService = (state = { notifications: [], flashMessages: [] }, action)
         ...state.chats.slice(indexChat + 1)
       ]}
     case ADD_NOTIFICATION:
-      if (state.notifications.indexOf(action.chatId) === -1)
-      return { ...state, notifications: [ ...state.notifications, {
+      if (state.active.indexOf(action.chatId) === -1)
+      return { ...state, active: [ ...state.active, {
         chatId: action.notification.chatId,
         image: action.notification.image,
       }]}
       else
       return state
     case REMOVE_NOTIFICATION:
-      const obj = state.notifications.filter((obj) => {
+      const obj = state.active.filter((obj) => {
         return obj.chatId === action.notification;
       })[0];
       if (obj) {
-        const indexNotification = state.notifications.indexOf(obj);
-        return { ...state, notifications: [
-          ...state.notifications.slice(0, indexNotification),
-          ...state.notifications.slice(indexNotification + 1)
+        const indexNotification = state.active.indexOf(obj);
+        return { ...state, active: [
+          ...state.active.slice(0, indexNotification),
+          ...state.active.slice(indexNotification + 1)
         ]}
       } else {
         return state;
@@ -101,7 +103,7 @@ const ChatApp = combineReducers({
   messagesVisibilityFilter,
   chats,
   messages,
-  memberService,
+  notifications,
 });
 
 export default ChatApp;

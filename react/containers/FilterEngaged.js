@@ -2,13 +2,12 @@ import { connect } from 'react-redux';
 import EngagedNotification from '../components/EngagedNotification';
 
 const isEngaged = (chats, engaged) => {
-  // return chats.includes(engaged);
-  return {};
+  return chats.includes(engaged);
 };
 
 const mapStateToProps = state => {
   return {
-    isEngaged: isEngaged(state.memberService.chats, state.messagesVisibilityFilter),
+    isEngaged: isEngaged(state.notifications.chats, state.messagesVisibilityFilter),
   }
 }
 

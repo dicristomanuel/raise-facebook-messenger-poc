@@ -8,8 +8,8 @@ const mapStateToProps = state => {
   return {
     manifest: GetSingleManifest(state),
     memberService: {
-      hash: state.memberService.hash,
-      name: state.memberService.name,
+      hash: state.notifications.memberService.hash,
+      name: state.notifications.memberService.name,
     },
   }
 }

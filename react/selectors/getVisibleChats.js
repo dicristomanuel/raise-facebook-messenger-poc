@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const getMemberServiceHash = (state) => state.memberService.hash;
+const getMemberServiceHash = (state) => state.notifications.memberService.hash;
 const getVisibilityFilter = (state) => state.chatVisibilityFilter;
 const getChats = (state) => state.chats;
 

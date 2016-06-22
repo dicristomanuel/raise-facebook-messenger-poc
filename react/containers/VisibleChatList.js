@@ -8,10 +8,7 @@ import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
 const mapStateToProps = state => {
   return {
     chats: GetVisibleChats(state),
-    memberService: {
-      hash: state.memberService.hash,
-      name: state.memberService.name,
-    },
+    memberService: { ...state.notifications.memberService },
   }
 }
 

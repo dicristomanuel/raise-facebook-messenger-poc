@@ -49,7 +49,7 @@ export const SetEngageForChat = (chatId, current) => {
   handleEngage(chatId, current);
   let value = '';
   if (current == 'none') {
-    value = Store.getState().memberService.hash;
+    value = Store.getState().notifications.memberService.hash;
   }
   else
   value = 'none';

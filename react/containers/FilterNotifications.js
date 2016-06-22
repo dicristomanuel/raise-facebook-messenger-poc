@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router';
 
 const mapStateToProps = state => {
   return {
-    notifications: state.memberService.notifications,
+    active: state.notifications.active,
   }
 }
 

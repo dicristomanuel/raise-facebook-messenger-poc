@@ -26,7 +26,7 @@ a {
   100% {transform: translateY(0px);}
 }
 
-.bottom-notifications {
+.bottom-active {
   display: flex;
   width: 98%;
   margin-top: 10px;
@@ -35,7 +35,7 @@ a {
   justify-content: space-between;
 }
 
-.new-message-single-notification {
+.new-message-single-active {
   width: 30px;
   height: 30px;
   display: flex;
@@ -44,7 +44,7 @@ a {
   position: relative;
 }
 
-.new-message-notifications {
+.new-message-active {
   display: flex;
 }
 
