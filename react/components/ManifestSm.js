@@ -22,7 +22,7 @@ class ManifestSm extends Component {
   getTitleMessage(status) {
     if (status === 'busy')
     return 'Already engaged'
-    // return `Engaged by ${this.props.manifest.memberService.name}` => when adding memberService obj to DB
+    // return `Already engaged by ${this.props.manifest.engaged.name}`
     else if (status === 'engaged')
     return 'Click to disengage'
     else

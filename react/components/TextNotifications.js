@@ -2,22 +2,28 @@ import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 
 class TextNotifications extends Component {
+  constructor() {
+    super();
+    this.previousFlashMessage = '';
+  }
 
   componentDidUpdate() {
     const element = findDOMNode(this);
-    if (true) {
+    const flashMessage = this.props.flashMessage;
+    if (flashMessage !== this.previousFlashMessage) {
       element.className = `notification-container notification-animation-in`;
       setTimeout(() => {
         element.className = `notification-container notification-animation-out`;
       }, 2200);
     }
+    this.previousFlashMessage = flashMessage;
   }
 
   render() {
     return (
       <div className='hide'>
         <div className='notification'>
-          <p className='notification-text'>{this.props.flashMessages}</p>
+          <p className='notification-text'>{this.props.flashMessage}</p>
         </div>
       </div>
     )
@@ -25,7 +31,7 @@ class TextNotifications extends Component {
 }
 
 TextNotifications.propTypes = {
-  flashMessages: PropTypes.array.isRequired,
+  flashMessage: PropTypes.array.isRequired,
 }
 
 
