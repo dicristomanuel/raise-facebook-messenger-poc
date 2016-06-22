@@ -9,6 +9,7 @@ const mapStateToProps = state => {
   return {
     chats: GetVisibleChats(state),
     memberService: { ...state.notifications.memberService },
+    activeChats: state.notifications.active,
   }
 }
 

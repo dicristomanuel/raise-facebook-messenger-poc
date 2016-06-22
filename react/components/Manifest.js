@@ -18,7 +18,15 @@ class Manifest extends Component {
     return 'solved';
   }
 
+  highlightActive(chatId) {
+    return this.props.activeChats.filter((active) => {
+      return active.chatId == chatId;
+    })[0];
+  }
+
   render() {
+    console.log(this.props.activeChats);
+    const isActive = this.highlightActive(this.props.chatId);
     const status = this.getStatus();
     return (
       <li className='manifest' onClick={this.onClickManifest.bind(this, this.props.chatId)}>
@@ -27,6 +35,7 @@ class Manifest extends Component {
             <img src={this.props.profilePic} />
           </div>
         </div>
+        <div className={isActive ? 'dot-manifest' : null}></div>
         <p className="name">{this.props.name}</p>
       </li>
     );
