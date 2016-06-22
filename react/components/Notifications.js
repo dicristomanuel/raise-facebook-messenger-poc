@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import FilterEngaged from '../containers/FilterEngaged';
+import TextNotifications from './TextNotifications';
 
 class Notifications extends Component {
   onClick(chatId) {
@@ -29,7 +30,7 @@ class Notifications extends Component {
               </div>
             )}
         </div>
-        <FilterEngaged />
+        <TextNotifications flashMessages={this.props.flashMessages} />
       </div>
     )
   }

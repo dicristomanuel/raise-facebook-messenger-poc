@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 const mapStateToProps = state => {
   return {
     active: state.notifications.active,
+    flashMessages: state.notifications.flashMessages,
   }
 }
 

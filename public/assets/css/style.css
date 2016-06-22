@@ -75,7 +75,7 @@ a {
 
 .notification-container {
   box-sizing: border-box;
-  width: 125px;
+  max-width: 145px;
   padding: 0 5px;
   overflow: hidden;
   color: RGBA(0, 131, 255, 0.75);

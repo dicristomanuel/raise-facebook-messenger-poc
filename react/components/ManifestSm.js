@@ -3,8 +3,7 @@ import Store from '../createStore';
 
 class ManifestSm extends Component {
   onClickManifestSm(chatId, status, dbState) {
-    if (status != 'busy' && dbState == 'ms') // add notification saying bot is taking care of conversation
-    this.props.onClick(chatId, this.props.manifest.engaged);
+    this.props.onClick(chatId, this.props.manifest.engaged, status, dbState);
   }
 
   getStatus() {

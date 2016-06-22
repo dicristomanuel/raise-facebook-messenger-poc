@@ -2,7 +2,7 @@ import request from 'superagent';
 import Store from '../createStore';
 import { New_message, New_notification } from '../../data/socketConstants';
 import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
-         RemoveEngagedChat, AddActive } from '../actions';
+         RemoveEngagedChat, AddActive, AddFlashMessage } from '../actions';
 
 const socket = io();
 
@@ -35,12 +35,14 @@ const getImageLink = (chatId) => {
 const handleEngage = (chatId, current) => {
   if (current == 'none') {
     Store.dispatch(AddEngagedChat(chatId))
+    Store.dispatch(AddFlashMessage('Chat Engaged'))
     socket.on(`${New_notification}${chatId}`, (message) => {
       if (Store.getState().messagesVisibilityFilter != message.chatId)
       Store.dispatch(AddActive({chatId: message.chatId, image: getImageLink(chatId)}));
     });
   } else {
     Store.dispatch(RemoveEngagedChat(chatId))
+    Store.dispatch(AddFlashMessage('Chat Disengaged'))
     socket.off(`${New_notification}${chatId}`);
   }
 }
