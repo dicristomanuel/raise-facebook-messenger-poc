@@ -4,6 +4,15 @@ import Message from '../../../db/message';
 import { Socket } from '../../../app/transformer';
 import { GiftcardMessage } from '../../../app/structuredMessages';
 
+const transformGiftcardMessage = (messages) => {
+  const toSend = [];
+  messages.attachment.payload.elements.forEach((message) => {
+    const { title, image_url, subtitle } = message;
+    toSend.push({ title, image_url, subtitle });
+  })
+  return JSON.stringify(toSend);
+};
+// MESSAGE TEXT CAN ONLY BE A STRING
 const writeToDb = (data) => {
   const { chat, text, userType, answer, brand } = data;
   let promises = [];
@@ -11,7 +20,7 @@ const writeToDb = (data) => {
   promises.push(
     Message.create({ chatId: chat.id, text, userType: Consumer }),
     Message.create({ chatId: chat.id, text: answer, userType: Bot }),
-    Message.create({ chatId: chat.id, text: GiftcardMessage.attachment.payload.elements[0].title, userType: Bot })
+    Message.create({ chatId: chat.id, text: transformGiftcardMessage(GiftcardMessage), userType: 'botCard' })
   );
   else if (answer)
   promises.push(

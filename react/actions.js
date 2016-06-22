@@ -75,7 +75,6 @@ export const handleClickManifest = chatId => {
 
     socket.off(`${New_message}${prevChatId}`);
     socket.on(`${New_message}${chatId}`, (message) => {
-      console.log(message);
       dispatch(AddMessage(message));
     });
 

@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { findDOMNode } from 'react-dom';
+import BotCard from './BotCard';
 
 class Text extends Component {
   componentDidMount() {
@@ -16,10 +17,12 @@ class Text extends Component {
     return false;
   }
 
-  text(text) {
+  handleText(text, userType) {
     const textType = this.includes(text);
-    if (textType) {
-      const classForImage = textType === 'image' ? 'message-img' : 'message-like'
+    if (userType === 'botCard') {
+      return <BotCard giftcards={text} />
+    } else if (textType) {
+      const classForImage = textType === 'image' ? 'message-img' : 'message-like';
       return <a href={text} target='_blank'><img src={text} className={classForImage}></img></a>
     } else {
       return <p>{text}</p>
@@ -27,7 +30,7 @@ class Text extends Component {
   }
 
   render() {
-    const text = this.text(this.props.text);
+    const text = this.handleText(this.props.text, this.props.userType);
     return (
         <li className={this.props.userType + ' text'} title={this.props.createdAt}>
           {text}

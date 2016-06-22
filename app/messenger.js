@@ -1,5 +1,6 @@
 import { FbToken } from '../data/tokens';
 import request from 'request';
+import { GiftcardMessage } from './structuredMessages';
 
 const formatObject = (object, sender) => {
   const parsed = JSON.parse(object);
@@ -46,7 +47,7 @@ export const GetProfile = sender => {
   };
 
   // will take brand
-  export const SendGiftcards = (sender, GiftcardMessage) => {
+  export const SendGiftcards = (sender) => {
     return new Promise((resolve, reject) => {
       request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
