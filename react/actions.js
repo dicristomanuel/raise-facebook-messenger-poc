@@ -1,4 +1,5 @@
-import { socketOnNotification, socketOffNotification, socketOnMessage, socketOffMessage } from './helpers/sockets';
+import Socket from './helpers/socket';
+import { GetChats, Transform } from './helpers/chatAllHelper';
 
 export const ADD_CHAT = 'ADD_CHAT';
 export const ADD_CHATS = 'ADD_CHATS';
@@ -74,11 +75,25 @@ export const AddFlashMessage = flashMessage => {
   return { type: ADD_FLASH_MESSAGE, flashMessage }
 }
 
+export const ChatAllInit = () => {
+  return ({ socket, dispatch, getState }) => {
+    GetChats()
+    .then((data) => {
+      if (Object.keys(data.msAuth).length > 1)
+      dispatch(AddMemberService(data.msAuth))
+      Socket.OnNewChat({ socket, dispatch, Transform });
+      Socket.OnChatUpdate({ socket, dispatch });
+      dispatch(InitNotifications(data.engagedChats));
+      dispatch(AddChats(Transform(data.allChats)));
+    })
+  }
+};
+
 export const handleClickManifest = chatId => {
   return ({ socket, dispatch, getState }) => {
     let prevChatId = getState().messagesVisibilityFilter;
-    socketOffMessage({chatId: prevChatId, socket, dispatch});
-    socketOnMessage({chatId, socket, dispatch});
+    Socket.OffMessage({chatId: prevChatId, socket, dispatch});
+    Socket.OnMessage({chatId, socket, dispatch});
     dispatch(SetMessagesVisibilityFilter(chatId));
     dispatch(RemoveActive(chatId));
   };
@@ -89,11 +104,11 @@ export const HandleEngage = (chatId, current) => {
     if (current == 'none') {
       dispatch(AddEngagedChat(chatId))
       dispatch(AddFlashMessage('Chat Engaged'))
-      socketOnNotification({ chatId, dispatch, socket, getState })
+      Socket.OnNotification({ chatId, dispatch, socket, getState })
     } else {
       dispatch(RemoveEngagedChat(chatId))
       dispatch(AddFlashMessage('Chat Disengaged'))
-      socketOffNotification(chatId, socket);
+      Socket.OffNotification(chatId, socket);
     }
   };
 }
@@ -103,7 +118,7 @@ export const InitNotifications = chats => {
     chats.forEach(chat => {
       const chatId = chat.id;
       dispatch(AddEngagedChat(chatId))
-      socketOnNotification({ chatId, dispatch, socket, getState })
+      Socket.OnNotification({ chatId, dispatch, socket, getState })
     })
   }
 }

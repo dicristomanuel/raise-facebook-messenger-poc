@@ -4,6 +4,11 @@ import FlipMove from 'react-flip-move';
 import { Compare } from '../helpers/chatAllHelper';
 
 class ChatList extends Component {
+
+  componentWillMount() {
+    this.props.beforeMount();
+  }
+
   onClickChatList(chatId) {
     this.props.onClick(chatId);
   }
@@ -39,8 +44,8 @@ ChatList.propTypes = {
   }).isRequired).isRequired,
   onClick: PropTypes.func.isRequired,
   memberService: React.PropTypes.shape({
-    hash: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    hash: PropTypes.string,
+    name: PropTypes.string,
   })
 }
 

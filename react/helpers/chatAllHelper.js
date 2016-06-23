@@ -4,7 +4,7 @@ import { New_notification } from '../../data/socketConstants';
 import { UpdateStatus, AddChat, AddChats, AddMemberService, AddEngagedChat, AddActive, InitNotifications } from '../actions';
 const socket = io();
 
-const getChats = () => {
+export const GetChats = () => {
   return new Promise((resolve, reject) => {
     request.get('http://localhost:3001/get-chats')
     .end((err, res) => {
@@ -16,7 +16,7 @@ const getChats = () => {
   });
 };
 
-const transform = (data) => {
+export const Transform = (data) => {
   let chats = [];
   data.forEach((chat) => {
     const { id, firstName, lastName, profilePic, state, active, solved, engaged, updatedAt } = chat;
@@ -52,12 +52,12 @@ export const InitChatsAndSockets = () => {
     socket.on('new_chat', (chat) => {
       Store.dispatch(AddChat(transform([chat])));
     });
-    getChats()
+    GetChats()
     .then((data) => {
       if (Object.keys(data.msAuth).length > 1)
       Store.dispatch(AddMemberService(data.msAuth))
       Store.dispatch(InitNotifications(data.engagedChats));
-      Store.dispatch(AddChats(transform(data.allChats)));
+      Store.dispatch(AddChats(Transform(data.allChats)));
       resolve('success');
     })
     .catch((err) => {reject(err)});
