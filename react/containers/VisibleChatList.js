@@ -6,7 +6,6 @@ import { SetMessagesVisibilityFilter, handleClickManifest, ChatAllInit } from '.
 import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
 
 const mapStateToProps = state => {
-  // console.log('in connect', state.notifications.memberService);
   return {
     chats: GetVisibleChats(state),
     memberService: { ...state.notifications.memberService },
@@ -20,9 +19,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(handleClickManifest(chatId))
       browserHistory.push(`/chat/${chatId}`);
     },
-    beforeMount: () => {
-      dispatch(ChatAllInit());
-    }
   }
 }
 

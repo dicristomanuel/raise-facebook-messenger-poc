@@ -5,10 +5,6 @@ import { Compare } from '../helpers/chatAllHelper';
 
 class ChatList extends Component {
 
-  componentWillMount() {
-    this.props.beforeMount();
-  }
-
   onClickChatList(chatId) {
     this.props.onClick(chatId);
   }
