@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import ChatList from '../components/ChatList';
 import { GetVisibleChats } from '../selectors/getVisibleChats';
 import { browserHistory } from 'react-router';
-import { SetMessagesVisibilityFilter, handleClickManifest, ChatAllInit } from '../actions';
+import { SetMessagesVisibilityFilter, handleClickManifest, FetchChats } from '../actions';
 import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
 
 const mapStateToProps = state => {

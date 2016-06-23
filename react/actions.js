@@ -1,5 +1,6 @@
 import Socket from './helpers/socket';
 import { GetChats, Transform } from './helpers/chatAllHelper';
+import { GetMessages } from './helpers/singleChatHelper';
 
 export const ADD_CHAT = 'ADD_CHAT';
 export const ADD_CHATS = 'ADD_CHATS';
@@ -75,7 +76,7 @@ export const AddFlashMessage = flashMessage => {
   return { type: ADD_FLASH_MESSAGE, flashMessage }
 }
 
-export const ChatAllInit = () => {
+export const FetchChats = () => {
   return ({ socket, dispatch, getState }) => {
     GetChats()
     .then((data) => {
@@ -85,6 +86,15 @@ export const ChatAllInit = () => {
       Socket.OnChatUpdate({ socket, dispatch });
       dispatch(InitNotifications(data.engagedChats));
       dispatch(AddChats(Transform(data.allChats)));
+    })
+  }
+};
+
+export const FetchMessages = (id, page = 1) => {
+  return ({ dispatch }) => {
+    GetMessages(id, page)
+    .then((messages) => {
+      dispatch(AddMessages(messages));
     })
   }
 };

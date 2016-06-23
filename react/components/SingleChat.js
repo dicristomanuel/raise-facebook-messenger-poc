@@ -4,10 +4,14 @@ import Store from '../createStore';
 import Header from './Header';
 import VisibleMessageList from '../containers/VisibleMessageList';
 import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
+import { SetMessagesVisibilityFilter, FetchMessages } from '../actions';
 
 class SingleChat extends Component {
+  componentWillMount() {
+    Store.dispatch(FetchMessages(this.props.params.id))
+  }
+
   render() {
-    InitMessagesAndSockets(this.props.params.id)
     return (
       <Provider store={Store}>
         <div>

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import Store from '../createStore';
 import Header from './Header';
 import Footer from './Footer';
-import { SetMessagesVisibilityFilter, ChatAllInit } from '../actions';
+import { SetMessagesVisibilityFilter, FetchChats } from '../actions';
 
 class ChatAll extends Component {
   setMessageFilter() {
@@ -12,7 +12,7 @@ class ChatAll extends Component {
   }
 
   componentWillMount() {
-    Store.dispatch(ChatAllInit());
+    Store.dispatch(FetchChats());
   }
 
   render() {
