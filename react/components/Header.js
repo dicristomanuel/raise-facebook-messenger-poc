@@ -3,15 +3,16 @@ import ChatFilter from './ChatFilter';
 import { Link } from 'react-router';
 import ManifestHeader from '../containers/ManifestHeader';
 
-const socket = io();
-
 class Header extends Component {
+  handleClick() {
+    return this.props.setMessageFilter;
+  }
 
   render() {
     return(
       <div className='header'>
         <div className='header-content'>
-          <Link to='/'>
+          <Link to='/' onClick={this.handleClick()}>
             <div className='logo'>
               <img src='/assets/images/raise.png'/>
             </div>

@@ -8,7 +8,6 @@ const getImageLink = (chatId, getState) => {
 export const socketOnNotification = data => {
   const { chatId, dispatch, socket, getState } = data;
   socket.on(`${New_notification}${chatId}`, (message) => {
-    console.log('IN NEW NOTIFICATION');
     const currentChat = getState().messagesVisibilityFilter;
     if (currentChat != message.chatId) {
       dispatch(AddActive({chatId: message.chatId, image: getImageLink(chatId, getState)}));
