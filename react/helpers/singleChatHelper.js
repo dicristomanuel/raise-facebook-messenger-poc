@@ -1,10 +1,6 @@
 import request from 'superagent';
 import Store from '../createStore';
-import { New_message, New_notification } from '../../data/socketConstants';
-import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
-         RemoveEngagedChat, AddActive, AddFlashMessage, HandleEngage } from '../actions';
-
-const socket = io();
+import { AddMessage, AddMessages, HandleEngage } from '../actions';
 
 const getMessages = (id, page) => {
   return new Promise((resolve, reject) => {

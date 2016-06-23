@@ -8,6 +8,7 @@ const getImageLink = (chatId, getState) => {
 export const socketOnNotification = data => {
   const { chatId, dispatch, socket, getState } = data;
   socket.on(`${New_notification}${chatId}`, (message) => {
+    console.log('IN NEW NOTIFICATION');
     const currentChat = getState().messagesVisibilityFilter;
     if (currentChat != message.chatId) {
       dispatch(AddActive({chatId: message.chatId, image: getImageLink(chatId, getState)}));
@@ -21,7 +22,6 @@ export const socketOffNotification = (chatId, socket) => {
 
 export const socketOnMessage = (data) => {
   const { chatId, socket, dispatch } = data;
-  console.log('in ON MESSAGE FOR', chatId);
   socket.on(`${New_message}${chatId}`, (message) => {
     dispatch(AddMessage(message));
   });
@@ -29,8 +29,5 @@ export const socketOnMessage = (data) => {
 
 export const socketOffMessage = (data) => {
   const { chatId, socket, dispatch } = data;
-  console.log('IN OFF MESSAGE', chatId);
-  socket.on(`${New_message}${chatId}`, (message) => {
-    dispatch(AddMessage(message));
-  });
+  socket.off(`${New_message}${chatId}`);
 };
