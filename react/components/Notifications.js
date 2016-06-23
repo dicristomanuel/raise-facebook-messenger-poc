@@ -29,7 +29,11 @@ class Notifications extends Component {
               </div>
             )}
         </div>
-        <TextNotifications flashMessage={this.props.flashMessage} />
+        <TextNotifications
+          flashMessage={this.props.flashMessage}
+          engaged={this.props.engaged}
+          current={this.props.current}
+        />
       </div>
     )
   }

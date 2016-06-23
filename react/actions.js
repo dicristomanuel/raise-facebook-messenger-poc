@@ -1,4 +1,4 @@
-import { New_message } from '../data/socketConstants';
+import { socketOnNotification, socketOffNotification, socketOnMessage, socketOffMessage } from './helpers/sockets';
 
 export const ADD_CHAT = 'ADD_CHAT';
 export const ADD_CHATS = 'ADD_CHATS';
@@ -77,13 +77,33 @@ export const AddFlashMessage = flashMessage => {
 export const handleClickManifest = chatId => {
   return ({ socket, dispatch, getState }) => {
     let prevChatId = getState().messagesVisibilityFilter;
-
-    socket.off(`${New_message}${prevChatId}`);
-    socket.on(`${New_message}${chatId}`, (message) => {
-      dispatch(AddMessage(message));
-    });
-
+    socketOffMessage({chatId: prevChatId, socket, dispatch});
+    socketOnMessage({chatId, socket, dispatch});
     dispatch(SetMessagesVisibilityFilter(chatId));
     dispatch(RemoveActive(chatId));
   };
+}
+
+export const HandleEngage = (chatId, current) => {
+  return ({ socket, dispatch, getState }) => {
+    if (current == 'none') {
+      dispatch(AddEngagedChat(chatId))
+      dispatch(AddFlashMessage('Chat Engaged'))
+      socketOnNotification({ chatId, dispatch, socket, getState })
+    } else {
+      dispatch(RemoveEngagedChat(chatId))
+      dispatch(AddFlashMessage('Chat Disengaged'))
+      socketOffNotification(chatId, socket);
+    }
+  };
+}
+
+export const InitNotifications = chats => {
+  return ({ socket, dispatch, getState }) => {
+    chats.forEach(chat => {
+      const chatId = chat.id;
+      dispatch(AddEngagedChat(chatId))
+      socketOnNotification({ chatId, dispatch, socket, getState })
+    })
+  }
 }

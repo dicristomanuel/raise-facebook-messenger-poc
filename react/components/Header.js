@@ -3,7 +3,10 @@ import ChatFilter from './ChatFilter';
 import { Link } from 'react-router';
 import ManifestHeader from '../containers/ManifestHeader';
 
+const socket = io();
+
 class Header extends Component {
+
   render() {
     return(
       <div className='header'>

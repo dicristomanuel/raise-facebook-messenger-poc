@@ -1,7 +1,7 @@
 import request from 'superagent';
 import Store from '../createStore';
 import { New_notification } from '../../data/socketConstants';
-import { UpdateStatus, AddChat, AddChats, AddMemberService, AddEngagedChat, AddActive } from '../actions';
+import { UpdateStatus, AddChat, AddChats, AddMemberService, AddEngagedChat, AddActive, InitNotifications } from '../actions';
 const socket = io();
 
 const getChats = () => {
@@ -44,22 +44,6 @@ export const Compare = (a,b) => {
   return 0;
 }
 
-const getImageLink = (chatId) => {
-  return Store.getState().chats.filter(chat => chat.chatId == chatId)[0].profilePic;
-}
-
-
-const initNotifications = (chats) => {
-  chats.forEach(chat => {
-    const chatId = chat.id;
-    Store.dispatch(AddEngagedChat(chatId))
-    socket.on(`${New_notification}${chatId}`, (message) => {
-      if (Store.getState().messagesVisibilityFilter != message.chatId)
-      Store.dispatch(AddActive({chatId: message.chatId, image: getImageLink(chatId)}));
-    });
-  })
-}
-
 export const InitChatsAndSockets = () => {
   return new Promise((resolve, reject) => {
     socket.on('chat_update', (data) => {
@@ -72,8 +56,8 @@ export const InitChatsAndSockets = () => {
     .then((data) => {
       if (Object.keys(data.msAuth).length > 1)
       Store.dispatch(AddMemberService(data.msAuth))
-      initNotifications(data.chats[1]);
-      Store.dispatch(AddChats(transform(data.chats[0])));
+      Store.dispatch(InitNotifications(data.engagedChats));
+      Store.dispatch(AddChats(transform(data.allChats)));
       resolve('success');
     })
     .catch((err) => {reject(err)});

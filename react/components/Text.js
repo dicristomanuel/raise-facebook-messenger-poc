@@ -9,9 +9,9 @@ class Text extends Component {
   }
 
   includes(string) {
-    if (string.includes('https://scontent')) {
+    if (string.includes('fbcdn.net/v/')) {
       return 'image'
-    } else if (string.includes('https://fbcdn')) {
+    } else if (string.includes('fbcdn.net/')) {
       return 'like'
     }
     return false;

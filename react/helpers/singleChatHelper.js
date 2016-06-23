@@ -2,7 +2,7 @@ import request from 'superagent';
 import Store from '../createStore';
 import { New_message, New_notification } from '../../data/socketConstants';
 import { AddMessage, AddMessages, SetMessagesVisibilityFilter, AddEngagedChat,
-         RemoveEngagedChat, AddActive, AddFlashMessage } from '../actions';
+         RemoveEngagedChat, AddActive, AddFlashMessage, HandleEngage } from '../actions';
 
 const socket = io();
 
@@ -28,27 +28,8 @@ export const SendMessage = (data) => {
   });
 }
 
-const getImageLink = (chatId) => {
-  return Store.getState().chats.filter(chat => chat.chatId == chatId)[0].profilePic;
-}
-
-const handleEngage = (chatId, current) => {
-  if (current == 'none') {
-    Store.dispatch(AddEngagedChat(chatId))
-    Store.dispatch(AddFlashMessage('Chat Engaged'))
-    socket.on(`${New_notification}${chatId}`, (message) => {
-      if (Store.getState().messagesVisibilityFilter != message.chatId)
-      Store.dispatch(AddActive({chatId: message.chatId, image: getImageLink(chatId)}));
-    });
-  } else {
-    Store.dispatch(RemoveEngagedChat(chatId))
-    Store.dispatch(AddFlashMessage('Chat Disengaged'))
-    socket.off(`${New_notification}${chatId}`);
-  }
-}
-
 export const SetEngageForChat = (chatId, current) => {
-  handleEngage(chatId, current);
+  Store.dispatch(HandleEngage(chatId, current));
   let value = '';
   if (current == 'none') {
     value = Store.getState().notifications.memberService.hash;

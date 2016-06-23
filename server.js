@@ -21,10 +21,6 @@ server.connection({
 
 const io = require('socket.io')(server.listener);
 
-io.on('connection', (socket) => {
-  socket.emit('new_connection', 'connected');
-});
-
 server.register([
   Inert,
   { register: Blipp },
@@ -79,7 +75,7 @@ server.register([
       const { hash, name } = request.query;
       Auth({ hash, name })
       .then(() => {
-        request.yar.set({ hash, name, chats: [] });
+        request.yar.set({ hash, name });
         reply.file('./public/index.html');
       })
       .catch(() => {
@@ -95,7 +91,7 @@ server.register([
       const { hash, name } = request.payload;
       Auth({ hash, name })
       .then(() => {
-        request.yar.set({ hash, name, chats: [] });
+        request.yar.set({ hash, name });
         reply.redirect('/');
       })
       .catch(() => {
@@ -145,7 +141,7 @@ server.register([
     handler(request, reply) {
       const msAuth = request.yar._store;
       GetChats(msAuth).then((chats) => {
-        reply({ chats, msAuth })
+        reply({ allChats: chats[0], engagedChats: chats[1], msAuth })
       });
     }
   });

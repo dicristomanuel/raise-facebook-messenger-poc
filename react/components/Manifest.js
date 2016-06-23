@@ -25,7 +25,6 @@ class Manifest extends Component {
   }
 
   render() {
-    console.log(this.props.activeChats);
     const isActive = this.highlightActive(this.props.chatId);
     const status = this.getStatus();
     return (

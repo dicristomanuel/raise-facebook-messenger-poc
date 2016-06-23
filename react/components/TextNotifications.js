@@ -7,9 +7,13 @@ class TextNotifications extends Component {
     this.previousFlashMessage = '';
   }
 
+  componentDidMount() {
+    this.previousFlashMessage = this.props.engaged.includes(this.props.current) ? 'Chat Engaged' : 'Chat Disengaged';
+  }
+
   componentDidUpdate() {
     const element = findDOMNode(this);
-    const flashMessage = this.props.flashMessage;
+    const flashMessage = this.props.flashMessage[0];
     if (flashMessage !== this.previousFlashMessage) {
       element.className = `notification-container notification-animation-in`;
       setTimeout(() => {

@@ -7,6 +7,8 @@ const mapStateToProps = state => {
   return {
     active: state.notifications.active,
     flashMessage: state.notifications.flashMessages,
+    engaged: state.notifications.chats,
+    current: state.messagesVisibilityFilter,
   }
 }
 
