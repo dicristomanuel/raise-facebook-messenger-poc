@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import TextNotifications from './TextNotifications';
 
 class Notifications extends Component {
@@ -8,9 +7,9 @@ class Notifications extends Component {
   }
 
   componentDidUpdate() {
-    const element = findDOMNode(this).childNodes[0].childNodes[0];
-    if (element)
-    element.className = 'new-message-single-active bounce';
+    const newMessage = this.refs.newMessage;
+    if (newMessage)
+    newMessage.className = 'new-message-single-active bounce';
   }
 
   render() {
@@ -19,6 +18,7 @@ class Notifications extends Component {
         <div className='new-message-active'>
           {this.props.active.map(singleActive =>
               <div className='new-message-single-active'
+                ref='newMessage'
                 onClick={this.onClick.bind(this, singleActive.chatId)}
                 key={singleActive.chatId}
               >
