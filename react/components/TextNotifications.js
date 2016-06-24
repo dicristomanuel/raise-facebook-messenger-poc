@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { findDOMNode } from 'react-dom';
 
 class TextNotifications extends Component {
   constructor() {
@@ -12,12 +11,12 @@ class TextNotifications extends Component {
   }
 
   componentDidUpdate() {
-    const element = findDOMNode(this);
+    const container = this.refs.textNotifications;
     const flashMessage = this.props.flashMessage[0];
     if (flashMessage !== this.previousFlashMessage) {
-      element.className = `notification-container notification-animation-in`;
+      container.className = `notification-container notification-animation-in`;
       setTimeout(() => {
-        element.className = `notification-container notification-animation-out`;
+        container.className = `notification-container notification-animation-out`;
       }, 2200);
     }
     this.previousFlashMessage = flashMessage;
@@ -25,7 +24,7 @@ class TextNotifications extends Component {
 
   render() {
     return (
-      <div className='hide'>
+      <div className='hide' ref='textNotifications'>
         <div className='notification'>
           <p className='notification-text'>{this.props.flashMessage}</p>
         </div>

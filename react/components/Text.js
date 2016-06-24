@@ -1,11 +1,10 @@
 import React, { PropTypes, Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import BotCard from './BotCard';
 
 class Text extends Component {
   componentDidMount() {
-    const element = findDOMNode(this);
-    this.includes(this.props.text) ? element.style.background = 'none' : null
+    const text = this.refs.text;
+    this.includes(this.props.text) ? text.style.background = 'none' : null
   }
 
   includes(string) {
@@ -32,7 +31,10 @@ class Text extends Component {
   render() {
     const text = this.handleText(this.props.text, this.props.userType);
     return (
-        <li className={this.props.userType + ' text'} title={this.props.createdAt}>
+        <li
+          ref='text'
+          className={this.props.userType + ' text'}
+          title={this.props.createdAt}>
           {text}
         </li>
     );
