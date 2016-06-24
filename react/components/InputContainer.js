@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import FilterNotifications from '../containers/FilterNotifications';
 
 class InputContainer extends Component {
@@ -9,19 +8,18 @@ class InputContainer extends Component {
   }
 
   handleChange(showInput, event) {
-    const element = findDOMNode(this).childNodes[0].childNodes[0];
+    const textArea = this.refs.textArea;
     if (!showInput)
-    element.value = '';
-    element.style.height = 'auto';
-    element.style.height = `${element.scrollHeight}px`;
+    textArea.value = '';
+    textArea.style.height = 'auto';
+    textArea.style.height = `${textArea.scrollHeight}px`;
     this.inputValue = event.target.value;
   }
 
   handleKeyPress(event) {
     if (event.key === 'Enter' && this.inputValue !== '') {
       this.props.sendToMessenger(this.inputValue)
-      const element = findDOMNode(this).childNodes[0].childNodes[0];
-      element.value = '';
+      this.refs.textArea.value = '';
     }
   }
 
@@ -30,6 +28,7 @@ class InputContainer extends Component {
       <div className='input-container'>
         <div className='input-area'>
           <textarea type="text"
+            ref='textArea'
             placeholder={ this.props.isEngaged ? "Type your message ..." : "Engage the chat to type"}
             className={this.props.isEngaged ? 'textarea' : 'textarea disabled'}
             onChange={this.handleChange.bind(this, this.props.isEngaged)}
