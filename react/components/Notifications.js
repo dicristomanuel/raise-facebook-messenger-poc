@@ -39,6 +39,10 @@ class Notifications extends Component {
   }
 }
 
+Notifications.contextTypes = {
+  history: PropTypes.object,
+}
+
 Notifications.Notifications = {
   active: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,

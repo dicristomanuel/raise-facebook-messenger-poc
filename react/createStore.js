@@ -10,4 +10,8 @@ const store = createStore(
   applyMiddleware(socketMiddleware)
 );
 
+store.subscribe(() => {
+  console.log(store.getState());
+})
+
 export default store;

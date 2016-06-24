@@ -76,6 +76,14 @@ export const AddFlashMessage = flashMessage => {
   return { type: ADD_FLASH_MESSAGE, flashMessage }
 }
 
+export const LogoClick = () => {
+  return ({ socket, dispatch, getState }) => {
+    let prevChatId = getState().messagesVisibilityFilter;
+    Socket.OffMessage({chatId: prevChatId, socket, dispatch});
+    dispatch(SetMessagesVisibilityFilter(0))
+  }
+};
+
 export const FetchChats = () => {
   return ({ socket, dispatch, getState }) => {
     GetChats()

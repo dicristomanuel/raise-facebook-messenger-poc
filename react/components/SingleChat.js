@@ -7,9 +7,6 @@ import { InitMessagesAndSockets } from '../helpers/singleChatHelper';
 import { SetMessagesVisibilityFilter, FetchMessages } from '../actions';
 
 class SingleChat extends Component {
-  componentWillMount() {
-    Store.dispatch(FetchMessages(this.props.params.id))
-  }
 
   render() {
     return (
@@ -21,6 +18,10 @@ class SingleChat extends Component {
       </Provider>
     );
   }
+}
+
+SingleChat.onEnter = router => {
+  Store.dispatch(FetchMessages(router.params.id));
 }
 
 SingleChat.propTypes = {
