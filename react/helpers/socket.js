@@ -37,7 +37,6 @@ export default {
   OnMessage: data => {
     const { chatId, socket, dispatch } = data;
     socket.on(`${New_message}${chatId}`, (message) => {
-      console.log('FROM SOCKET');
       dispatch(AddMessage(message));
     });
   },

@@ -3,7 +3,7 @@ import FlipMove from 'react-flip-move';
 import Text from './Text';
 import InputContainer from './InputContainer';
 import { findDOMNode } from 'react-dom';
-import { Compare } from '../helpers/singleChatHelper';
+import { LoadMessages, Compare } from '../helpers/singleChatHelper';
 
 class MessageList extends Component {
   constructor(props) {
@@ -17,11 +17,11 @@ class MessageList extends Component {
 
   componentDidUpdate(prevProps) {
     this.updateScrollPosition(prevProps.messages, this.props.messages)
-    this.messagesCount = this.props.messages.length;
+    // this.messagesCount = this.props.messages.length;
   }
 
   updateScrollPosition(prev, curr) {
-    const element = findDOMNode(this).querySelector('.messages');
+    const element = findDOMNode(this).querySelector('.scroll-container');
     const noOlderMessages = !!prev.length && prev[0].id === curr[0].id;
     const hasNewerMessages = noOlderMessages && prev.length !== curr.length;
     const receivedSameMessages = noOlderMessages && !hasNewerMessages;
@@ -41,39 +41,35 @@ class MessageList extends Component {
   // reconcileScrollPosition(msgEl) {
   //     const texts = msgEl.querySelectorAll('.text');
   //     const lastText = texts[texts.length - 1];
-  //
   //     const currScrollOffsetBottom = this.rect(lastText).bottom;
   //     const msgDelta = this.props.messages.length - this.messagesCount;
   //     const textH = this.rect(lastText).height;
-  //     console.log('textH', textH)
-  //     console.log('msgDelta', msgDelta)
-  //     const scrollDelta = msgDelta * textH;
-  //     console.log('scrollDelta', scrollDelta);
-  //
-  //     // console.log('prev', this.prevScrollOffsetBottom)
-  //     // console.log('curr', currScrollOffsetBottom)
-  //     // const scrollDelta = this.prevScrollOffsetBottom - currScrollOffsetBottom;
-  //     // console.log('delta', scrollDelta)
-  //
-  //     console.log('currST', msgEl.scrollTop)
+  //     // const scrollDelta = msgDelta * textH;
+  //     const scrollDelta = this.prevScrollOffsetBottom - currScrollOffsetBottom;
   //     msgEl.scrollTop -= scrollDelta;
-  //     console.log('nextST', msgEl.scrollTop)
+  // }
+  //
+  // rect(el) {
+  //   return el.getBoundingClientRect();
   // }
 
-  rect(el) {
-    return el.getBoundingClientRect();
-  }
+  // handleScroll(event) {
+  //   if (this.loading || !this.allowScrollUp) return;
+  //   const messages = findDOMNode(this).querySelector('.messages');
+  //   const texts = messages.querySelectorAll('.text');
+  //   const lastText = texts[texts.length - 1];
+  //   if (messages.scrollTop <= 100) {
+  //     // this.prevScrollOffsetBottom = this.rect(lastText).bottom;
+  //     // this.messagesCount = this.props.messages.length;
+  //     this.loading = true;
+  //     this.pages++;
+  //     this.props.fetchMessages(this.props.chatId, this.pages)
+  //   }
+  // }
 
   handleScroll(event) {
-    if (this.loading || !this.allowScrollUp) return;
-    const messages = findDOMNode(this).querySelector('.messages');
-    const texts = messages.querySelectorAll('.text');
-    const lastText = texts[texts.length - 1];
+    const messages = findDOMNode(this).querySelector('.scroll-container');
     if (messages.scrollTop <= 100) {
-      console.log('fetching');
-      // this.prevScrollOffsetBottom = this.rect(lastText).bottom;
-      // this.messagesCount = this.props.messages.length;
-      this.loading = true;
       this.pages++;
       this.props.fetchMessages(this.props.chatId, this.pages)
     }
@@ -84,25 +80,26 @@ class MessageList extends Component {
   }
 
   render() {
-    // this.messagesCount = this.props.messages.length;
     return(
-      <ul className='message-list' onScroll={this.handleScroll.bind(this, event)}>
-      <FlipMove enterAnimation="fade" duration='200' className='messages'>
-      {this.props.messages.sort(Compare).map(message =>
-        <Text
-        key={message.id}
-        userType={message.userType}
-        createdAt={message.createdAt}
-        {...message}
-        />
-      )}
-      </FlipMove>
+      <div className='message-list'>
+        <ul className='scroll-container' onScroll={this.handleScroll.bind(this, event)}>
+          <FlipMove enterAnimation="fade" duration='200' className='messages'>
+            {this.props.messages.sort(Compare).map(message =>
+              <Text
+                key={message.id}
+                userType={message.userType}
+                createdAt={message.createdAt}
+                {...message}
+              />
+            )}
+          </FlipMove>
+        </ul>
       <InputContainer
-      sendToMessenger={this.onSendToMessenger.bind(this)}
-      isEngaged={this.props.isEngaged}
-      chatId={this.props.chatId}
+        sendToMessenger={this.onSendToMessenger.bind(this)}
+        isEngaged={this.props.isEngaged}
+        chatId={this.props.chatId}
       />
-      </ul>
+      </div>
     )
   }
 }

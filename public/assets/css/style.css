@@ -714,10 +714,8 @@ img {
   height: 100vh;
   max-height: 70vh;
   margin: 100px auto 0 auto;
-  overflow-y: scroll;
 }
 
-.messages::-webkit-scrollbar { width: 0 !important } /* TEMP */
 .textarea::-webkit-scrollbar { width: 0 !important }
 
 .text {
@@ -818,6 +816,11 @@ textarea {
   .giftcard-text {
     font-size: 13px;
     margin: 5px 0;
+  }
+
+  .scroll-container {
+    /*position: absolute;*/
+    overflow-y: scroll;
   }
 
   .footer {
