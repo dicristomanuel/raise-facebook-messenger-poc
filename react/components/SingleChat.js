@@ -29,10 +29,4 @@ class SingleChat extends Component {
   }
 }
 
-SingleChat.propTypes = {
-  params: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-}
-
 export default SingleChat;
