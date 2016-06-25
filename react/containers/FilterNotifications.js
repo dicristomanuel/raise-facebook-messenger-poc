@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Notifications from '../components/Notifications';
-import { handleClickManifest } from '../actions';
+import { handleClickManifest, SetMessagesVisibilityFilter } from '../actions';
 import { browserHistory } from 'react-router';
 
 const mapStateToProps = state => {

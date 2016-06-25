@@ -7,9 +7,6 @@ import Footer from './Footer';
 import { LogoClick, FetchChats } from '../actions';
 
 class ChatAll extends Component {
-  setMessageFilter() {
-    Store.dispatch(LogoClick())
-  }
 
   componentWillMount() {
     Store.dispatch(FetchChats());
@@ -19,7 +16,7 @@ class ChatAll extends Component {
     return(
       <Provider store={Store}>
         <div>
-          <Header origin='ChatAll' setMessageFilter={this.setMessageFilter()} />
+          <Header origin='ChatAll' />
           <VisibleChatList />
           <Footer />
         </div>

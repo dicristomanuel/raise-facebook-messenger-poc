@@ -76,14 +76,6 @@ export const AddFlashMessage = flashMessage => {
   return { type: ADD_FLASH_MESSAGE, flashMessage }
 }
 
-export const LogoClick = () => {
-  return ({ socket, dispatch, getState }) => {
-    let prevChatId = getState().messagesVisibilityFilter;
-    Socket.OffMessage({chatId: prevChatId, socket, dispatch});
-    dispatch(SetMessagesVisibilityFilter(0))
-  }
-};
-
 export const FetchChats = () => {
   return ({ socket, dispatch, getState }) => {
     GetChats()
@@ -112,8 +104,8 @@ export const handleClickManifest = chatId => {
     let prevChatId = getState().messagesVisibilityFilter;
     Socket.OffMessage({chatId: prevChatId, socket, dispatch});
     Socket.OnMessage({chatId, socket, dispatch});
-    dispatch(SetMessagesVisibilityFilter(chatId));
     dispatch(RemoveActive(chatId));
+    dispatch(SetMessagesVisibilityFilter(chatId));
   };
 }
 
@@ -140,3 +132,12 @@ export const InitNotifications = chats => {
     })
   }
 }
+
+export const ResetSingleChat = (toZero) => {
+  return ({ socket, dispatch, getState }) => {
+    let prevChatId = getState().messagesVisibilityFilter;
+    Socket.OffMessage({chatId: prevChatId, socket, dispatch});
+    if (toZero)
+    dispatch(SetMessagesVisibilityFilter(0))
+  }
+};
