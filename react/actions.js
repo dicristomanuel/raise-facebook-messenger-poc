@@ -101,8 +101,8 @@ export const FetchMessages = (id, page = 1) => {
 
 export const handleClickManifest = chatId => {
   return ({ socket, dispatch, getState }) => {
-    let prevChatId = getState().messagesVisibilityFilter;
-    Socket.OffMessage({chatId: prevChatId, socket, dispatch});
+    // let prevChatId = getState().messagesVisibilityFilter;
+    // Socket.OffMessage({chatId: prevChatId, socket, dispatch});
     Socket.OnMessage({chatId, socket, dispatch});
     dispatch(RemoveActive(chatId));
     dispatch(SetMessagesVisibilityFilter(chatId));
@@ -133,11 +133,10 @@ export const InitNotifications = chats => {
   }
 }
 
-export const ResetSingleChat = (toZero) => {
+export const ResetSingleChat = () => {
   return ({ socket, dispatch, getState }) => {
     let prevChatId = getState().messagesVisibilityFilter;
     Socket.OffMessage({chatId: prevChatId, socket, dispatch});
-    if (toZero)
     dispatch(SetMessagesVisibilityFilter(0))
   }
 };

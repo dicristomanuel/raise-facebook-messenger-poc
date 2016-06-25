@@ -9,21 +9,13 @@ import { SetMessagesVisibilityFilter, FetchMessages, ResetSingleChat } from '../
 
 class SingleChat extends Component {
 
-  componentWillReceiveProps() {
-    this.setState({
-      prevChatId: this.props.params.id
-    });
+  static onEnter(router) {
+    Store.dispatch(FetchMessages(router.params.id));
   }
 
-  onLeave() {
-    const toZero = this.previousExist() ? true : false;
-    Store.dispatch(ResetSingleChat(toZero));
+  componentWillUnmount() {
+    Store.dispatch(ResetSingleChat());
   }
-
-  previousExist() {
-    return this.state && this.state.prevChatId;
-  }
-
 
   render() {
     return (
@@ -35,10 +27,6 @@ class SingleChat extends Component {
       </Provider>
     );
   }
-}
-
-SingleChat.onEnter = router => {
-  Store.dispatch(FetchMessages(router.params.id));
 }
 
 SingleChat.propTypes = {

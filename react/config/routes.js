@@ -7,6 +7,6 @@ import Store from '../createStore';
 export default (
     <Route path='/'>
       <IndexRoute component={ChatAll} />
-      <Route path='chat/:id' component={SingleChat} onEnter={SingleChat.onEnter} onLeave={SingleChat.onLeave} />
+      <Route path='chat/:id' component={SingleChat} onEnter={SingleChat.onEnter} />
     </Route>
 )
