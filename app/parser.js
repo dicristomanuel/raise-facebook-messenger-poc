@@ -3,8 +3,11 @@ import { GetProfile } from './messenger';
 import Prism from '../prism/prism';
 import States from '../prism/states/config';
 import { Consumer } from '../data/appConstants';
+import Talkback from '../bot/talkback';
+import Contexts from '../bot/config';
 
 let prismed = false;
+let talkback = false;
 
 const createChat = (data) => {
   const { sender } = data;
@@ -15,7 +18,9 @@ const createChat = (data) => {
 const prismInit = data => chat => {
   if (chat) {
     prismed ? null : Prism.create(States);
+    talkback ? null : Talkback.create(Contexts);
     prismed = true;
+    talkback = true;
     return Prism.next({ chat, ...data, state: chat.state});
   } else {
     createChat(data);

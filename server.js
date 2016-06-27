@@ -123,6 +123,15 @@ server.register([
     }
   });
 
+  // server.route({
+  //   method: 'POST',
+  //   path: '/webhook',
+  //   handler(request, reply) {
+  //     Parser({io, sender: 935925493143785, text: 'giftcards', userType: Consumer});
+  //     reply();
+  //   }
+  // });
+
   server.route({
     method: 'POST',
     path: '/member-service',

@@ -1,7 +1,8 @@
 import { Bot } from './constants';
 
 const textMatch = (text, context) => {
-  return text.match(`(${context})`, 'i');
+  const regex = new RegExp(`\\b(${context})(.?|y|i)(es\\b|\\b)`, 'ig');
+  return text.match(regex);
 };
 
 const setContext = text => {
@@ -43,11 +44,11 @@ const getAnswer = (context, name, brand, category) => {
   }
 };
 
-export const MatchAnswer = (chat, text) => {
-  const { firstName } = chat;
+export const MatchAnswer = (firstName, text) => {
   const context = setContext(text);
   const brand = context === 'Brands' ? getBrandName(text) : null;
   const category = context === 'Categories' ? getCategoryName(text) : null;
   const answer = getAnswer(context, firstName, brand, category);
+  debugger;
   return {answer, brand};
 };

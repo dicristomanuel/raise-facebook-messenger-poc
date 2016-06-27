@@ -3,6 +3,7 @@ import { MatchAnswer } from '../../../bot/mainBot';
 import Message from '../../../db/message';
 import { Socket } from '../../../app/transformer';
 import { GiftcardMessage } from '../../../app/structuredMessages';
+import Talkback from '../../../bot/talkback';
 
 const transformGiftcardMessage = (messages) => {
   const toSend = [];
@@ -48,7 +49,9 @@ const handleBotMessage = (data) => {
 
 const prepareBotMessage = (data) => {
   const { chat, text } = data;
-  const toDb = MatchAnswer(chat, text);
+  debugger;
+  Talkback.saying(text);
+  const toDb = MatchAnswer(chat.firstName, text);
   return handleBotMessage({...toDb, ...data});
 };
 
