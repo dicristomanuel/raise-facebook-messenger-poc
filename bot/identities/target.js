@@ -1,6 +1,6 @@
 export default {
   categories: ['electronic', 'pet', 'movie', 'food'],
-  imageUrl: 'http://www.logospike.com/wp-content/uploads/2014/11/Target_logo-6.png',
+  imageUrl: 'http://babich.biz/content/images/2016/02/Target_logo.png',
   brandName: 'Target',
   brandNameUpper: 'TARGET',
   variants: ['target', 'Target', 'target '],

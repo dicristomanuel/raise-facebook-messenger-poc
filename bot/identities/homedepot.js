@@ -1,7 +1,7 @@
 export default {
-  categories: ['tool', 'pet', 'movie', 'food'],
-  imageUrl: 'http://www.logospike.com/wp-content/uploads/2014/11/Target_logo-6.png',
-  brandName: 'Target',
-  brandNameUpper: 'TARGET',
-  variants: ['target', 'Target', 'target '],
+  categories: ['tool', 'flower', 'electronic'],
+  imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/TheHomeDepot.svg/1024px-TheHomeDepot.svg.png',
+  brandName: 'Home Depot',
+  brandNameUpper: 'HOME DEPOT',
+  variants: ['home depot', 'Home Depot', 'homedepot', 'homedepot '],
 }

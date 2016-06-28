@@ -2,6 +2,7 @@ import Ids from '../bot/identities/all';
 
 export const GiftcardMessage = (data) => {
   const { brand, value, category } = data;
+
   const parseBrand = (brand) => {
     return brand.toLowerCase().replace(/\s/g, '');
   };
