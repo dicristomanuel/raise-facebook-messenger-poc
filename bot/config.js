@@ -35,11 +35,11 @@ const brandsRules = (data) => {
 };
 
 const categoriesRules = (data) => {
-  const { text, match } = data;
+  const { text, match, category } = data;
   if (match.length > 1)
     return { answer: 'Please type one category at the time' };
   else if (text.length <= 70)
-    return { answer: `You can find ${match[0].toLowerCase()} at the following stores`, category };
+    return { answer: `You can find ${match[0].toLowerCase()} at the following stores`, category: text };
 
 };
 

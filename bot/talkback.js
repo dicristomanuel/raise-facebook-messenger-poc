@@ -1,14 +1,17 @@
 export default {
 
-  create: function(config, options) {
+  create: function(config, options, defaultAnswer) {
     config.contexts.forEach(function(context) {
       this.allContexts.push(context);
     }, this);
     options ? this.options = {...options} : null;
+    defaultAnswer ? this.defaultAnswer = defaultAnswer : null;
+
   },
 
   saying: function(text) {
-    return this.tryContext(text)
+    const answer = this.tryContext(text);
+    return answer ? answer : { answer: this.defaultAnswer };
   },
 
   tryContext: function(text) {
@@ -22,10 +25,8 @@ export default {
         return answer;
       }
     };
-    // return this.defaultCase
   },
 
   allContexts: [],
   options: {},
-
 }

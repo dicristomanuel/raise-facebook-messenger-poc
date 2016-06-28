@@ -27,7 +27,6 @@ const writeToDb = (data) => {
     giftcardMessage = GiftcardMessage({ category, value })
     SendGiftcards(sender, giftcardMessage)
   }
-
   if (giftcardMessage)
     promises.push(
       Message.create({ chatId: chat.id, text, userType: Consumer }),
@@ -49,6 +48,7 @@ const writeToDb = (data) => {
 
 const handleBotMessage = (data) => {
   const { answer } = data;
+  debugger;
   if (answer.includes(ToMemberService))
     return { ...data, state: 'ms' }
   else

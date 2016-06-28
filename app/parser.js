@@ -8,6 +8,7 @@ import Contexts from '../bot/config';
 
 let prismed = false;
 let talkback = false;
+// make sure you need to set this
 
 const createChat = (data) => {
   const { sender } = data;
@@ -18,7 +19,7 @@ const createChat = (data) => {
 const prismInit = data => chat => {
   if (chat) {
     prismed ? null : Prism.create(States);
-    talkback ? null : Talkback.create(Contexts, {userName: chat.firstName});
+    talkback ? null : Talkback.create(Contexts, {userName: chat.firstName}, `${chat.firstName}, let me find someone for you.`);
     prismed = true;
     talkback = true;
     return Prism.next({ chat, ...data, state: chat.state});

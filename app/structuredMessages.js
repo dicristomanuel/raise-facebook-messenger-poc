@@ -2,25 +2,18 @@ import Ids from '../bot/identities/all';
 
 export const GiftcardMessage = (data) => {
   const { brand, value, category } = data;
-  let brandStripped = brand.replace(/ +/g, '');
-  let brandUpper = brandStripped.toUpperCase();
+  const parseBrand = (brand) => {
+    return brand.toLowerCase().replace(/\s/g, '');
+  };
 
   const bodyMessgeForCategory = (category, value) => {
-    debugger;
     let result = [];
     Ids.filter(id => id.categories.includes(category))
     .slice(0,3).forEach(brand => {
       result.push({
-        "title":`${brand.brandNameUpper} $${value} Giftcard`,
+        "title":`${brand.brandNameUpper}`,
         "image_url":`${brand.imageUrl}`,
-        "subtitle":`for only $${value - 10}`,
-        "buttons":[
-          {
-            "type":"web_url",
-            "url":"https://www.raise.com/",
-            "title":"Buy Giftcard"
-          }
-        ]
+        "subtitle":`type ${brand.brandName} to browse giftcards`
       })
     });
     return result;
@@ -31,7 +24,6 @@ export const GiftcardMessage = (data) => {
     let result = [];
     const id = Ids.filter(id => id.variants.includes(brand))[0];
     for(var i=0; i < times; i++){
-      debugger;
       result.push({
         "title":`${id.brandNameUpper} $${value} Giftcard`,
         "image_url":`${id.imageUrl}`,
@@ -48,7 +40,8 @@ export const GiftcardMessage = (data) => {
     return result;
   }
 
-  if (category)
+  if (category) {
+  debugger;
   return {"attachment":{
     "type":"template",
     "payload":{
@@ -57,19 +50,17 @@ export const GiftcardMessage = (data) => {
       }
     }
   }
-  else if (value) {
-    debugger;
-    console.log(bodyMessageForValue(brand, value));
+} else if (value)
     return {"attachment":{
       "type":"template",
       "payload":{
         "template_type":"generic",
-        "elements": bodyMessageForValue(brand, value)
+        "elements": bodyMessageForValue(parseBrand(brand), value)
         }
       }
     }
-  } else {
-    const id = Ids.filter(id => id.variants.includes(brand))[0];
+  else {
+    const id = Ids.filter(id => id.variants.includes(parseBrand(brand)))[0];
     return { "attachment":{
       "type":"template",
       "payload":{

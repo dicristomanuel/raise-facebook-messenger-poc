@@ -46,7 +46,6 @@ export const GetProfile = sender => {
   };
 
   export const SendGiftcards = (sender, giftcardMessage) => {
-    debugger;
     return new Promise((resolve, reject) => {
       request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
