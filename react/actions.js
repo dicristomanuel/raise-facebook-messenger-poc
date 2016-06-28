@@ -90,7 +90,7 @@ export const FetchChats = () => {
   }
 };
 
-export const FetchMessages = (id, page = 1) => {
+export const FetchMessages = (id, page = 50) => {
   return ({ dispatch }) => {
     GetMessages(id, page)
     .then((messages) => {

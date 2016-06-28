@@ -18,7 +18,7 @@ const createChat = (data) => {
 const prismInit = data => chat => {
   if (chat) {
     prismed ? null : Prism.create(States);
-    talkback ? null : Talkback.create(Contexts);
+    talkback ? null : Talkback.create(Contexts, {userName: chat.firstName});
     prismed = true;
     talkback = true;
     return Prism.next({ chat, ...data, state: chat.state});

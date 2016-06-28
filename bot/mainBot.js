@@ -49,6 +49,5 @@ export const MatchAnswer = (firstName, text) => {
   const brand = context === 'Brands' ? getBrandName(text) : null;
   const category = context === 'Categories' ? getCategoryName(text) : null;
   const answer = getAnswer(context, firstName, brand, category);
-  debugger;
   return {answer, brand};
 };

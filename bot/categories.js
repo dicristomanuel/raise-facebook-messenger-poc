@@ -1,7 +1,8 @@
-export default
-[
+export default [
   'electronic',
   'entertainment',
   'flower',
-  'pet'
+  'pet',
+  'movie',
+  'food',
 ].join('|');

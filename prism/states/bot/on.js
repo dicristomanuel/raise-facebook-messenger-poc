@@ -1,9 +1,11 @@
-import { Bot, ToMemberService, Consumer } from '../../../data/appConstants';
+import { Bot, ToMemberService, Consumer, BotCard } from '../../../data/appConstants';
 import { MatchAnswer } from '../../../bot/mainBot';
 import Message from '../../../db/message';
 import { Socket } from '../../../app/transformer';
 import { GiftcardMessage } from '../../../app/structuredMessages';
 import Talkback from '../../../bot/talkback';
+import { SendGiftcards } from '../../../app/messenger';
+
 
 const transformGiftcardMessage = (messages) => {
   const toSend = [];
@@ -15,23 +17,32 @@ const transformGiftcardMessage = (messages) => {
 };
 
 const writeToDb = (data) => {
-  const { chat, text, userType, answer, brand } = data;
+  const { chat, answer, text, brand, value, sender, category } = data;
   let promises = [];
-  if (brand)
-  promises.push(
-    Message.create({ chatId: chat.id, text, userType: Consumer }),
-    Message.create({ chatId: chat.id, text: answer, userType: Bot }),
-    Message.create({ chatId: chat.id, text: transformGiftcardMessage(GiftcardMessage), userType: 'botCard' })
-  );
+  let giftcardMessage = null;
+  if (brand) {
+    giftcardMessage = GiftcardMessage({ brand, value })
+    SendGiftcards(sender, giftcardMessage)
+  } else if (category) {
+    giftcardMessage = GiftcardMessage({ category, value })
+    SendGiftcards(sender, giftcardMessage)
+  }
+
+  if (giftcardMessage)
+    promises.push(
+      Message.create({ chatId: chat.id, text, userType: Consumer }),
+      Message.create({ chatId: chat.id, text: answer, userType: Bot }),
+      Message.create({ chatId: chat.id, text: transformGiftcardMessage(giftcardMessage), userType: BotCard })
+    );
   else if (answer)
-  promises.push(
-    Message.create({ chatId: chat.id, text, userType: Consumer }),
-    Message.create({ chatId: chat.id, text: answer, userType: Bot })
-  );
+    promises.push(
+      Message.create({ chatId: chat.id, text, userType: Consumer }),
+      Message.create({ chatId: chat.id, text: answer, userType: Bot })
+    );
   else
-  promises.push(
-    Message.create({ chatId: chat.id, text, userType: Consumer })
-  );
+    promises.push(
+      Message.create({ chatId: chat.id, text, userType: Consumer })
+    );
 
   return Promise.all(promises);
 }
@@ -39,19 +50,17 @@ const writeToDb = (data) => {
 const handleBotMessage = (data) => {
   const { answer } = data;
   if (answer.includes(ToMemberService))
-  return { ...data, state: 'ms' }
+    return { ...data, state: 'ms' }
   else
-  return writeToDb(data)
-  .then((toSocket) => {
-    return { ...data, toSocket };
-  })
+    return writeToDb(data)
+    .then((toSocket) => {
+      return { ...data, toSocket };
+    })
 };
 
 const prepareBotMessage = (data) => {
-  const { chat, text } = data;
-  debugger;
-  Talkback.saying(text);
-  const toDb = MatchAnswer(chat.firstName, text);
+  const { text } = data;
+  const toDb = Talkback.saying(text);
   return handleBotMessage({...toDb, ...data});
 };
 

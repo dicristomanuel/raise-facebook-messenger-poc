@@ -6,7 +6,7 @@ import Positives from './positives';
 import Negatives from './negatives';
 import Farewell from './farewell';
 
-export default {
+export const Bot = {
   Greetings,
   Brands,
   Giftcards,

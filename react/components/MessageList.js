@@ -35,7 +35,6 @@ class MessageList extends Component {
     const scrollContainer = this.refs.scroller;
     if (scrollContainer.scrollTop <= 100) {
       this.pages++;
-      console.log(this.pages);
       this.props.fetchMessages(this.props.chatId, this.pages)
     }
   }

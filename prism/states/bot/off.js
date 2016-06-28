@@ -1,11 +1,10 @@
 import { New_message, New_notification } from '../../../data/socketConstants';
 import { Socket } from '../../../app/transformer';
-import { SendMessage, SendGiftcards } from '../../../app/messenger';
+import { SendMessage } from '../../../app/messenger';
 
 const sendOut = (data) => {
-  const { sender, answer, brand } = data;
+  const { sender, answer, brand, giftcardMessage, toSocket } = data;
   SendMessage(sender, answer);
-  brand ? SendGiftcards(sender) : null;
   return data;
 };
 
