@@ -1,5 +1,5 @@
 export default {
-  categories: ['tool', 'flower', 'electronic'],
+  categories: ['tool', 'flower', 'electronic', 'appliance', 'hardware', 'plant'],
   imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/TheHomeDepot.svg/1024px-TheHomeDepot.svg.png',
   brandName: 'Home Depot',
   brandNameUpper: 'HOME DEPOT',

@@ -1,15 +1,14 @@
 import Ids from '../bot/identities/all';
-
+import Pluralize from 'pluralize';
 export const GiftcardMessage = (data) => {
   const { brand, value, category } = data;
-
   const parseBrand = (brand) => {
     return brand.toLowerCase().replace(/\s/g, '');
   };
 
-  const bodyMessgeForCategory = (category, value) => {
+  const bodyMessgeForCategory = category => {
     let result = [];
-    Ids.filter(id => id.categories.includes(category))
+    Ids.filter(id => id.categories.includes(Pluralize(category, 1)))
     .slice(0,3).forEach(brand => {
       result.push({
         "title":`${brand.brandNameUpper}`,
@@ -42,12 +41,11 @@ export const GiftcardMessage = (data) => {
   }
 
   if (category) {
-  debugger;
   return {"attachment":{
     "type":"template",
     "payload":{
       "template_type":"generic",
-      "elements": bodyMessgeForCategory(category, value)
+      "elements": bodyMessgeForCategory(category)
       }
     }
   }

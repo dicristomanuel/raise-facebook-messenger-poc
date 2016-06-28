@@ -33,6 +33,7 @@
     "nodemon": "^1.9.2",
     "path": "^0.12.7",
     "pg": "^4.5.5",
+    "pluralize": "^3.0.0",
     "react": "^15.1.0",
     "react-dom": "^15.0.2",
     "react-flip-move": "^2.3.0",

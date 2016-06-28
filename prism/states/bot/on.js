@@ -48,7 +48,6 @@ const writeToDb = (data) => {
 
 const handleBotMessage = (data) => {
   const { answer } = data;
-  debugger;
   if (answer.includes(ToMemberService))
     return { ...data, state: 'ms' }
   else

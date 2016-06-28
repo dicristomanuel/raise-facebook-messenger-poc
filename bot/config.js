@@ -1,4 +1,5 @@
 import Constants from './constants';
+import Pluralize from 'pluralize';
 
 const greetingRules = (data) => {
   const { text, options, match } = data;
@@ -39,7 +40,7 @@ const categoriesRules = (data) => {
   if (match.length > 1)
     return { answer: 'Please type one category at the time' };
   else if (text.length <= 70)
-    return { answer: `You can find ${match[0].toLowerCase()} at the following stores`, category: text };
+    return { answer: `You can find ${Pluralize(match[0].toLowerCase())} at the following stores`, category: match[0] };
 
 };
 
