@@ -42,7 +42,7 @@ const writeToDb = (data) => {
       Message.create({ chatId: chat.id, text, userType: Consumer })
     );
 
-  return Promise.all(promises);
+  return Promise.all(promises)
 }
 
 const handleBotMessage = (data) => {

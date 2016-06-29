@@ -59,7 +59,6 @@ export const GiftcardMessage = (data) => {
       }
     }
   else {
-    debugger;
     const id = Ids.filter(id => id.variants.includes(parseBrand(brand)))[0];
     return { "attachment":{
       "type":"template",
