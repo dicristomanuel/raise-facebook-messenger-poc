@@ -30,7 +30,7 @@ class Manifest extends Component {
     return (
       <li className='manifest' onClick={this.onClickManifest.bind(this, this.props.chatId)}>
         <div className={status + " state"}>
-          <div className='profile-pic'>
+          <div className='profile-pic-manifest'>
             <img src={this.props.profilePic} />
           </div>
         </div>
