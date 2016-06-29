@@ -11,7 +11,7 @@ const greetingRules = data => {
 
 const giftcardsRules = data => {
   const { text } = data;
-  if (text.length <= 30)
+  if (text.length <= 50)
     return { answer: 'What brand or category are you interested in?' };
   else
     return false;

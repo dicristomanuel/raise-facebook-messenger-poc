@@ -24,7 +24,6 @@ class MessageList extends Component {
     const hasNewerMessages = noOlderMessages && prev.length !== curr.length;
     const receivedSameMessages = noOlderMessages && !hasNewerMessages;
     if (!prev.length || hasNewerMessages) {
-      console.log('TO THE BOTTOM');
       return scrollContainer.scrollTop = scrollContainer.scrollHeight;
     } else if (this.loading && receivedSameMessages) {
       this.allowScrollUp = false;

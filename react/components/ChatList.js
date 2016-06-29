@@ -9,11 +9,13 @@ class ChatList extends Component {
     this.props.onClick(chatId);
   }
 
+  // {this.props.chats.sort(Compare).map(chat =>
+
   render() {
     return(
       <ul>
         <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
-          {this.props.chats.sort(Compare).map(chat =>
+          {this.props.chats.map(chat =>
             <Manifest
               key={chat.chatId}
               origin='ChatList'

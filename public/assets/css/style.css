@@ -548,7 +548,7 @@ a {
   width: 80%;
   max-width: 1440px;
   margin: 100px auto 40px auto;
-  min-height: 70vh;
+  /*min-height: 70vh;*/
 }
 
 .manifest {

@@ -73,7 +73,7 @@ export const GiftcardMessage = (data) => {
                {
                  "type":"web_url",
                  "url":"https://www.raise.com/",
-                 "title":"View Item"
+                 "title":"Buy Giftcard"
                }
              ]
            },
@@ -85,7 +85,7 @@ export const GiftcardMessage = (data) => {
                {
                  "type":"web_url",
                  "url":"https://www.raise.com/",
-                 "title":"View Item"
+                 "title":"Buy Giftcard"
                }
              ]
            },
@@ -97,7 +97,7 @@ export const GiftcardMessage = (data) => {
                {
                  "type":"web_url",
                  "url":"https://www.raise.com/",
-                 "title":"View Item"
+                 "title":"Buy Giftcard"
                }
              ]
            }
