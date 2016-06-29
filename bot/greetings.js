@@ -12,6 +12,3 @@ export default
   'sup',
   'how are you'
 ].join('|');
-
-var re = /\w+/;
-new RegExp('\\b(hi|hey)\\b');

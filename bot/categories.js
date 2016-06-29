@@ -13,4 +13,5 @@ export default [
   'hardware',
   'plant',
   'appliance',
+  'grocer',
 ].join('|');

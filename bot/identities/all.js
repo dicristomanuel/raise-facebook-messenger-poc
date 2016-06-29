@@ -6,6 +6,8 @@ import tacobell from './tacobell';
 import wholefoods from './wholefoods';
 import lowes from './lowes';
 import express from './express';
+import marianos from './marianos';
+import traderjoes from './traderjoes';
 
 export default [
   target,
@@ -16,4 +18,6 @@ export default [
   wholefoods,
   lowes,
   express,
+  marianos,
+  traderjoes,
 ]

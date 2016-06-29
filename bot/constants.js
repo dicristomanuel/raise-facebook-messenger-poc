@@ -14,13 +14,4 @@ export default {
   Positives,
   Negatives,
   Farewell,
-  Contexts: [
-             'Negatives',
-             'Positives',
-             'Farewell',
-             'Greetings',
-             'Giftcards',
-             'Categories',
-             'Brands'
-            ]
 };

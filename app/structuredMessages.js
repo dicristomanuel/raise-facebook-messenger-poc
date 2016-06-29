@@ -3,7 +3,7 @@ import Pluralize from 'pluralize';
 export const GiftcardMessage = (data) => {
   const { brand, value, category } = data;
   const parseBrand = (brand) => {
-    return brand.toLowerCase().replace(/\s/g, '');
+    return brand.toLowerCase().replace(/[\'\s\\']/g, '');
   };
 
   const bodyMessgeForCategory = category => {
@@ -59,6 +59,7 @@ export const GiftcardMessage = (data) => {
       }
     }
   else {
+    debugger;
     const id = Ids.filter(id => id.variants.includes(parseBrand(brand)))[0];
     return { "attachment":{
       "type":"template",

@@ -1,7 +1,7 @@
 import Constants from './constants';
 import Pluralize from 'pluralize';
 
-const greetingRules = (data) => {
+const greetingRules = data => {
   const { text, options, match } = data;
   if (text.length <= 20 && text.substring(0, 15).includes(match[0]))
     return { answer: `Hi ${options.userName}, would you like to browse giftcards or get assistance?` };
@@ -9,7 +9,7 @@ const greetingRules = (data) => {
     return false;
 };
 
-const giftcardsRules = (data) => {
+const giftcardsRules = data => {
   const { text } = data;
   if (text.length <= 25)
     return { answer: 'What brand or category are you interested in?' };
@@ -21,7 +21,7 @@ const upperCase = (brand) => {
   return brand.replace(/\w\S*/g, function(text){return text.charAt(0).toUpperCase() + text.substr(1).toLowerCase()});
 }
 
-const brandsRules = (data) => {
+const brandsRules = data => {
   const { text, match } = data;
   const value = match.filter(string => parseInt(string))
   const brand = match.filter(string => !parseInt(string))
@@ -35,13 +35,17 @@ const brandsRules = (data) => {
     return false;
 };
 
-const categoriesRules = (data) => {
+const categoriesRules = data => {
   const { text, match, category } = data;
   if (match.length > 1)
     return { answer: 'Please type one category at the time' };
   else if (text.length <= 70)
     return { answer: `You can find ${Pluralize(match[0].toLowerCase())} at the following stores`, category: match[0] };
+};
 
+const positivesRules = data => {
+  
+  debugger;
 };
 
 export default {
@@ -64,6 +68,11 @@ export default {
     {
       name: 'greetings',
       words: Constants.Greetings,
+      rules: greetingRules,
+    },
+    {
+      name: 'positives',
+      words: Constants.Positives,
       rules: greetingRules,
     },
   ],
