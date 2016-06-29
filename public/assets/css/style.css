@@ -792,30 +792,42 @@ textarea {
   .giftcards-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     border: 1px solid rgba(211, 211, 211, 0.29);
     border-radius: 10px;
     padding: 5px;
   }
 
+  @media (max-width: 706px) {
+    .giftcards-container {
+      width: 140px;
+    }
+  }
+
   .giftcard-single {
     align-self: center;
-    width: 20vh;
     max-width: 146px;
     text-align: center;
   }
 
-  .giftcard-image {
-    width: 140px;
+  .giftcard-image-container {
+    display: flex;
+    max-width: 140px;
     align-self: center;
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.20);
     -moz-box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.20);
     box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.20);
-    min-height: 109px;
+    min-height: 150px;
+  }
+
+  .giftcard-image {
+    align-self: center;
+    width: 100%;
   }
 
   .giftcard-text {
-    font-size: 13px;
+    font-size: 10px;
     margin: 5px 0;
   }
 

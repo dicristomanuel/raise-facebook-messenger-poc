@@ -5,5 +5,6 @@ export default
   'good bye',
   'see you',
   'see ya',
-  'cya'
+  'cya',
+  'arrivederci',
 ].join('|');

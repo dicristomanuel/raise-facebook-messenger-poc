@@ -8,7 +8,6 @@ export default [
   'food',
   'tool',
   'clothing',
-  'clothes',
   'shoe',
   'hardware',
   'plant',

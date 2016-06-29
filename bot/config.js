@@ -3,7 +3,7 @@ import Pluralize from 'pluralize';
 
 const greetingRules = data => {
   const { text, options, match } = data;
-  if (text.length <= 20 && text.substring(0, 15).includes(match[0]))
+  if (text.length <= 30 && text.substring(0, 15).includes(match[0]))
     return { answer: `Hi ${options.userName}, would you like to browse giftcards or get assistance?` };
   else
     return false;
@@ -11,7 +11,7 @@ const greetingRules = data => {
 
 const giftcardsRules = data => {
   const { text } = data;
-  if (text.length <= 25)
+  if (text.length <= 30)
     return { answer: 'What brand or category are you interested in?' };
   else
     return false;
@@ -44,8 +44,21 @@ const categoriesRules = data => {
 };
 
 const positivesRules = data => {
-  
-  debugger;
+  const { text, options } = data;
+  if (text.length <= 30)
+    return { answer: `Aww! Thank you ${options.userName}! :)` };
+};
+
+const negativesRules = data => {
+  const { text, options } = data;
+  if (text.length <= 30)
+    return { answer: 'I\'m sorry to hear that :(' };
+};
+
+const farewellsRules = data => {
+  const { text, options } = data;
+  if (text.length <= 30)
+    return { answer: 'Good talking to you!' };
 };
 
 export default {
@@ -73,7 +86,17 @@ export default {
     {
       name: 'positives',
       words: Constants.Positives,
-      rules: greetingRules,
+      rules: positivesRules,
+    },
+    {
+      name: 'farewell',
+      words: Constants.Farewell,
+      rules: farewellsRules,
+    },
+    {
+      name: 'negatives',
+      words: Constants.Negatives,
+      rules: negativesRules,
     },
   ],
 };

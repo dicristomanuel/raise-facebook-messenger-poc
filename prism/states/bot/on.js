@@ -1,5 +1,4 @@
 import { Bot, ToMemberService, Consumer, BotCard } from '../../../data/appConstants';
-import { MatchAnswer } from '../../../bot/mainBot';
 import Message from '../../../db/message';
 import { Socket } from '../../../app/transformer';
 import { GiftcardMessage } from '../../../app/structuredMessages';

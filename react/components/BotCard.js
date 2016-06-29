@@ -11,7 +11,9 @@ class BotCard extends Component {
             <p className='giftcard-text'>
               {giftcard.title}
             </p>
-            <img src={giftcard.image_url} className='giftcard-image'></img>
+            <div className='giftcard-image-container'>
+              <img src={giftcard.image_url} className='giftcard-image'></img>
+            </div>
             <p className='giftcard-text'>
               {giftcard.subtitle}
             </p>
