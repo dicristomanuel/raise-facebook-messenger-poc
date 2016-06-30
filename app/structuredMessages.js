@@ -1,32 +1,34 @@
-import Ids from '../bot/identities/all';
+import Entities from '../bot/entities/all';
 import Pluralize from 'pluralize';
-export const GiftcardMessage = (data) => {
+
+export const GiftcardMessage = data => {
   const { brand, value, category } = data;
+
   const parseBrand = (brand) => {
     return brand.toLowerCase().replace(/[\'\s\\']/g, '');
   };
 
   const bodyMessgeForCategory = category => {
     let result = [];
-    Ids.filter(id => id.categories.includes(Pluralize(category, 1)))
+    Entities.filter(entity => entity.categories.includes(Pluralize(category, 1)))
     .slice(0,3).forEach(brand => {
       result.push({
-        "title":`${brand.brandNameUpper}`,
+        "title":`${brand.nameUpperCase}`,
         "image_url":`${brand.imageUrl}`,
-        "subtitle":`type ${brand.brandName} to browse giftcards`
+        "subtitle":`type ${brand.name} to browse giftcards`
       })
     });
     return result;
-  }
+  };
 
   const bodyMessageForValue = (brand, value) => {
     const times = 3;
     let result = [];
-    const id = Ids.filter(id => id.variants.includes(brand))[0];
+    const brand = Entities.filter(entity => entity.variants.includes(brand))[0];
     for(var i=0; i < times; i++){
       result.push({
-        "title":`${id.brandNameUpper} $${value} Giftcard`,
-        "image_url":`${id.imageUrl}`,
+        "title":`${brand.nameUpperCase} $${value} Giftcard`,
+        "image_url":`${brand.imageUrl}`,
         "subtitle":`for only $${value - 10}`,
         "buttons":[
           {
@@ -38,7 +40,21 @@ export const GiftcardMessage = (data) => {
       })
     }
     return result;
-  }
+  };
+
+  const bodySimpleMessage = brand =>
+    {
+      "title":`${brand.nameUpperCase} $45 giftcard`,
+      "image_url":`${brand.imageUrl}`,
+      "subtitle":"for only $37",
+      "buttons":[
+        {
+          "type":"web_url",
+          "url":"https://www.raise.com/",
+          "title":"Buy Giftcard"
+        }
+      ]
+    };
 
   if (category) {
   return {"attachment":{
@@ -59,48 +75,15 @@ export const GiftcardMessage = (data) => {
       }
     }
   else {
-    const id = Ids.filter(id => id.variants.includes(parseBrand(brand)))[0];
+    const brand = Entities.filter(brand => brand.variants.includes(parseBrand(brand)))[0];
     return { "attachment":{
       "type":"template",
       "payload":{
         "template_type":"generic",
         "elements":[
-           {
-             "title":`${id.brandNameUpper} $45 giftcard`,
-             "image_url":`${id.imageUrl}`,
-             "subtitle":"for only $37",
-             "buttons":[
-               {
-                 "type":"web_url",
-                 "url":"https://www.raise.com/",
-                 "title":"Buy Giftcard"
-               }
-             ]
-           },
-           {
-             "title":`${id.brandNameUpper} $45 giftcard`,
-             "image_url":`${id.imageUrl}`,
-             "subtitle":"for only $37",
-             "buttons":[
-               {
-                 "type":"web_url",
-                 "url":"https://www.raise.com/",
-                 "title":"Buy Giftcard"
-               }
-             ]
-           },
-           {
-             "title":`${id.brandNameUpper} $45 giftcard`,
-             "image_url":`${id.imageUrl}`,
-             "subtitle":"for only $37",
-             "buttons":[
-               {
-                 "type":"web_url",
-                 "url":"https://www.raise.com/",
-                 "title":"Buy Giftcard"
-               }
-             ]
-           }
+          bodySimpleMessage(brand);
+          bodySimpleMessage(brand);
+          bodySimpleMessage(brand);
          ]
       }
     }
