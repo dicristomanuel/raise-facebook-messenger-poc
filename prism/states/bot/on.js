@@ -1,9 +1,9 @@
 import { Bot, ToMemberService, Consumer, BotCard } from '../../../data/appConstants';
 import Message from '../../../db/message';
 import { Socket } from '../../../app/transformer';
-import { GiftcardMessage } from '../../../app/structuredMessages';
+import { GiftcardMessage } from '../../../messenger/structuredMessages';
 import Talkback from '../../../bot/talkback';
-import { SendGiftcards } from '../../../app/messenger';
+import { SendGiftcards } from '../../../messenger/api';
 
 
 const transformGiftcardMessage = (messages) => {

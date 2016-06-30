@@ -1,5 +1,5 @@
 import Chat from '../db/chat';
-import { GetProfile } from './messenger';
+import { GetProfile } from '../messenger/api';
 import Prism from '../prism/prism';
 import States from '../prism/states/config';
 import { Consumer } from '../data/appConstants';

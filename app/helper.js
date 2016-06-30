@@ -2,7 +2,6 @@ import Chat from '../db/chat';
 import Message from '../db/message';
 import { Chat_update } from '../data/socketConstants';
 import { Socket } from './transformer';
-import { SendMessage } from './messenger';
 
 const transformMessages = (data) => {
   let messages = [];

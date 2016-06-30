@@ -1,7 +1,7 @@
 import { New_message, New_notification, Chat_update } from '../../../data/socketConstants';
 import { MemberService } from '../../../data/appConstants';
 import { Socket } from '../../../app/transformer';
-import { SendMessage } from '../../../app/messenger'
+import { SendMessage } from '../../../messenger/api'
 import Chat from '../../../db/chat';
 
 const sendOut = (data) => {

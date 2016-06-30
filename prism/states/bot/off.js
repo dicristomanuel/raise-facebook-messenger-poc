@@ -1,6 +1,6 @@
 import { New_message, New_notification } from '../../../data/socketConstants';
 import { Socket } from '../../../app/transformer';
-import { SendMessage } from '../../../app/messenger';
+import { SendMessage } from '../../../messenger/api';
 
 const sendOut = (data) => {
   const { sender, answer, brand, giftcardMessage, toSocket } = data;
