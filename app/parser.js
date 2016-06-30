@@ -6,9 +6,12 @@ import { Consumer } from '../data/appConstants';
 import Talkback from '../bot/talkback';
 import Contexts from '../bot/config';
 
-let prismed = false;
-let talkback = false;
-// make sure you need to set this
+let configured = false;
+
+const configModules = chat => {
+  Prism.create(States);
+  Talkback.create(Contexts, {userName: chat.firstName}, `${chat.firstName}, let me find someone for you.`);
+}
 
 const createChat = (data) => {
   const { sender } = data;
@@ -18,17 +21,15 @@ const createChat = (data) => {
 
 const prismInit = data => chat => {
   if (chat) {
-    prismed ? null : Prism.create(States);
-    talkback ? null : Talkback.create(Contexts, {userName: chat.firstName}, `${chat.firstName}, let me find someone for you.`);
-    prismed = true;
-    talkback = true;
+    configured ? null : configModules(chat);
+    configured = true;
     return Prism.next({ chat, ...data, state: chat.state});
   } else {
     createChat(data);
   }
 };
 
-const init = (data) => {
+export default (data) => {
   const { sender, userType, chatId } = data;
   if (userType === Consumer)
   Chat.find(sender)
@@ -36,8 +37,4 @@ const init = (data) => {
   else
   return Chat.findById(chatId)
   .then(prismInit(data));
-};
-
-export default (data) => {
-  return init(data);
 };
