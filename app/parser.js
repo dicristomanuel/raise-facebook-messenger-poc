@@ -3,14 +3,14 @@ import { GetProfile } from '../messenger/api';
 import Prism from '../prism/prism';
 import States from '../prism/states/config';
 import { Consumer } from './appConstants';
-import Talkback from '../bot/talkback';
+import Her from '../bot/her';
 import Contexts from '../bot/config';
 
 let configured = false;
 
 const configModules = chat => {
   Prism.create(States);
-  Talkback.create(Contexts, {userName: chat.firstName}, `${chat.firstName}, let me find someone for you.`);
+  Her.create(Contexts, {userName: chat.firstName}, `${chat.firstName}, let me find someone for you.`);
 }
 
 const createChat = (data) => {

@@ -2,12 +2,11 @@ import { Bot, ToMemberService, Consumer, BotCard } from '../../../app/appConstan
 import Message from '../../../db/message';
 import { Socket } from '../../../app/transformer';
 import { GiftcardMessage } from '../../../messenger/structuredMessages';
-import Talkback from '../../../bot/talkback';
+import Her from '../../../bot/her';
 import { SendGiftcards } from '../../../messenger/api';
 
 
 const transformGiftcardMessage = messages => {
-  debugger;
   const toSend = [];
   messages.attachment.payload.elements.forEach((message) => {
     const { title, image_url, subtitle } = message;
@@ -68,7 +67,7 @@ const handleBotMessage = (data) => {
 
 const prepareBotMessage = (data) => {
   const { text } = data;
-  const toDb = Talkback.saying(text);
+  const toDb = Her.saying(text);
   return handleBotMessage({...toDb, ...data});
 };
 
