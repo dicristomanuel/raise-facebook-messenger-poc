@@ -1,5 +1,5 @@
 import Message from '../../../db/message';
-import { Bot, Consumer } from '../../../data/appConstants';
+import { Bot, Consumer } from '../../../app/appConstants';
 
 const writeToDb = (data) => {
   const { chat, text, userType, answer } = data;

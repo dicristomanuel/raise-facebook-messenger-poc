@@ -1,4 +1,4 @@
-import { Bot, ToMemberService, Consumer, BotCard } from '../../../data/appConstants';
+import { Bot, ToMemberService, Consumer, BotCard } from '../../../app/appConstants';
 import Message from '../../../db/message';
 import { Socket } from '../../../app/transformer';
 import { GiftcardMessage } from '../../../messenger/structuredMessages';
@@ -15,18 +15,27 @@ const transformGiftcardMessage = (messages) => {
   return JSON.stringify(toSend);
 };
 
+const isGiftcardMessage = data => {
+  const { brand, category, sender, value } = data;
+  if (brand)
+    return SendGiftcards(sender, GiftcardMessage({ brand, value }))
+    .then((giftcardMessage) => {
+      return giftcardMessage
+    });
+  else if (category)
+    return SendGiftcards(sender, GiftcardMessage({ category, value }))
+    .then((giftcardMessage) => {
+      return giftcardMessage
+    });
+  else
+    return false
+};
+
 const writeToDb = (data) => {
   const { chat, answer, text, brand, value, sender, category } = data;
   let promises = [];
-  let giftcardMessage = null;
-  if (brand) {
-    giftcardMessage = GiftcardMessage({ brand, value })
-    SendGiftcards(sender, giftcardMessage)
-  } else if (category) {
-    giftcardMessage = GiftcardMessage({ category, value })
-    SendGiftcards(sender, giftcardMessage)
-  }
-  if (giftcardMessage)
+  const giftcardMessage = isGiftcardMessage(data);
+  if (isGiftcardMessage(data))
     promises.push(
       Message.create({ chatId: chat.id, text, userType: Consumer }),
       Message.create({ chatId: chat.id, text: answer, userType: Bot }),

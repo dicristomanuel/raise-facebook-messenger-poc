@@ -1,4 +1,4 @@
-import { New_message, New_notification } from '../../../data/socketConstants';
+import { New_message, New_notification } from '../../../app/socketConstants';
 import { Socket } from '../../../app/transformer';
 import { SendMessage } from '../../../messenger/api';
 

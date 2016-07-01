@@ -5,12 +5,12 @@ import GoodConsole from 'good-console';
 import Blipp from 'blipp';
 import Inert from 'inert';
 import Joi from 'joi';
-import { Consumer, MemberService } from './data/appConstants';
+import { Consumer, MemberService } from './app/appConstants';
 import { GetChats, UpdateStatus, GetMessages } from './app/helper';
 import Parser from './app/parser';
 import Auth from './app/auth';
 import Yar from 'Yar'
-import { CookieToken } from './data/tokens';
+import { CookieToken } from './app/tokens';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;

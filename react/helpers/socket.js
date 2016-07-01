@@ -1,4 +1,4 @@
-import { New_message, New_notification, New_chat, Chat_update } from '../../data/socketConstants';
+import { New_message, New_notification, New_chat, Chat_update } from '../../app/socketConstants';
 import { AddActive, AddMessage, AddChat, UpdateStatus } from '../actions';
 
 const getImageLink = (chatId, getState) => {

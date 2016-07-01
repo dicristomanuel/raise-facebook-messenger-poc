@@ -1,4 +1,4 @@
-import { New_chat } from '../../../data/socketConstants';
+import { New_chat } from '../../../app/socketConstants';
 import { Socket } from '../../../app/transformer';
 
 export const OnInit = (data) => {

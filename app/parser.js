@@ -2,7 +2,7 @@ import Chat from '../db/chat';
 import { GetProfile } from '../messenger/api';
 import Prism from '../prism/prism';
 import States from '../prism/states/config';
-import { Consumer } from '../data/appConstants';
+import { Consumer } from './appConstants';
 import Talkback from '../bot/talkback';
 import Contexts from '../bot/config';
 
