@@ -1,9 +1,0 @@
-{
-  "esversion": 6,
-  "debug": true,
-  "unused": true,
-  "undef": true,
-  "devel": true,
-  "node": true,
-  "browser": true
-}

@@ -1,4 +1,4 @@
-import { FbToken } from '../data/tokens';
+import { FbToken } from '../app/tokens';
 import request from 'request';
 
 const formatObject = (object, sender) => {
@@ -61,7 +61,7 @@ export const GetProfile = sender => {
         else if (response.body.error)
         reject(response.body.error);
         else
-        resolve('Success');
+        resolve(giftcardMessage);
       });
     });
   };

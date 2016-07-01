@@ -9,13 +9,13 @@ class Manifest extends Component {
     const chat = this.props;
     const memberService = this.props.memberService.hash;
     if (chat.engaged != 'none' && chat.engaged != memberService)
-    return 'busy';
+      return 'busy';
     else if (chat.engaged == memberService)
-    return 'engaged';
+      return 'engaged';
     else if (chat.active)
-    return 'active';
+      return 'active';
     else
-    return 'solved';
+      return 'solved';
   }
 
   highlightActive(chatId) {

@@ -15,7 +15,6 @@ class MessageList extends Component {
 
   componentDidUpdate(prevProps) {
     this.updateScrollPosition(prevProps.messages, this.props.messages)
-    // this.refs.scroller.scrollTop = this.refs.scroller.scrollHeight
   }
 
   updateScrollPosition(prev, curr) {

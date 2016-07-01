@@ -1,6 +1,6 @@
-import { Bot, Consumer } from '../data/appConstants';
+import { Bot, Consumer } from './appConstants';
 
-const newChat = (data) => {
+const newChat = data => {
   const { chat } = data;
   const { id, firstName, lastName, profilePic, state, active, solved, engaged } = chat;
   return {
@@ -15,7 +15,7 @@ const newChat = (data) => {
   }
 };
 
-const newMessage = (data) => {
+const newMessage = data => {
   const { id, ChatId, text, userType, createdAt } = data;
   return {
     id,
@@ -32,8 +32,6 @@ const updateChat = (data, chat) => {
     change: data,
   };
 };
-
-
 
 export const Socket = {
   chat: newChat,

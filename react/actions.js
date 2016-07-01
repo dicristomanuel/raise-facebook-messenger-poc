@@ -81,7 +81,7 @@ export const FetchChats = () => {
     GetChats()
     .then((data) => {
       if (Object.keys(data.msAuth).length > 1)
-      dispatch(AddMemberService(data.msAuth))
+        dispatch(AddMemberService(data.msAuth))
       Socket.OnNewChat({ socket, dispatch, Transform });
       Socket.OnChatUpdate({ socket, dispatch });
       dispatch(InitNotifications(data.engagedChats));

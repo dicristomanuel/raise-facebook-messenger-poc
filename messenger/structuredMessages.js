@@ -1,4 +1,4 @@
-import { bodyMessgeForCategory, bodyMessageForValue, bodySimpleMessage } from './structuredMessagesHelper';
+import { bodyMessageForCategory, bodyMessageForValue, bodySimpleMessage } from './structuredMessagesHelper';
 import Entities from '../bot/entities/all';
 
 export const GiftcardMessage = data => {
@@ -13,7 +13,7 @@ export const GiftcardMessage = data => {
       "type":"template",
       "payload":{
         "template_type":"generic",
-        "elements": bodyMessgeForCategory(category)
+        "elements": bodyMessageForCategory(category)
       }
     }}
   } else if (value) {

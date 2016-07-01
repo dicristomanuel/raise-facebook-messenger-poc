@@ -10,23 +10,22 @@ class ManifestSm extends Component {
     const chat = this.props.manifest;
     const memberService = this.props.memberService.hash;
     if (chat.engaged != 'none' && chat.engaged != memberService)
-    return 'busy';
+      return 'busy';
     else if (chat.engaged == memberService)
-    return 'engaged';
+      return 'engaged';
     else if (chat.active)
-    return 'active';
+      return 'active';
     else
-    return 'solved';
+      return 'solved';
   }
 
   getTitleMessage(status) {
     if (status === 'busy')
-    return 'Already engaged'
-    // return `Already engaged by ${this.props.manifest.engaged.name}`
+      return 'Already engaged'
     else if (status === 'engaged')
-    return 'Click to disengage'
+      return 'Click to disengage'
     else
-    return 'Click to engage'
+      return 'Click to engage'
   }
 
   render() {

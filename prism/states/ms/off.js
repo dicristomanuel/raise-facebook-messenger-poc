@@ -1,5 +1,5 @@
-import { New_message, New_notification, Chat_update } from '../../../data/socketConstants';
-import { MemberService } from '../../../data/appConstants';
+import { New_message, New_notification, Chat_update } from '../../../app/socketConstants';
+import { MemberService } from '../../../app/appConstants';
 import { Socket } from '../../../app/transformer';
 import { SendMessage } from '../../../messenger/api'
 import Chat from '../../../db/chat';

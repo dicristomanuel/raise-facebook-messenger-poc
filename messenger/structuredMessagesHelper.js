@@ -1,7 +1,7 @@
 import Entities from '../bot/entities/all';
 import Pluralize from 'pluralize';
 
-export const bodyMessgeForCategory = category => {
+export const bodyMessageForCategory = category => {
   let bodyMessage = [];
   Entities.filter(entity => entity.categories.includes(Pluralize(category, 1)))
   .slice(0,3).forEach(brand => {
