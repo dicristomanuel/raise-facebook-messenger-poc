@@ -840,7 +840,6 @@ textarea {
   }
 
   .scroll-container {
-    /*position: absolute;*/
     overflow-y: scroll;
   }
 
@@ -848,6 +847,5 @@ textarea {
     padding-top: 20px;
     text-align: center;
     font-size: 10px;
-    /*width: 62%;*/
     margin: 20px auto;
   }
