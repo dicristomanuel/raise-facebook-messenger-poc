@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import ChatAll from '../components/ChatAll';
 import SingleChat from '../components/SingleChat';
-import Store from '../createStore';
 
 export default (
     <Route path='/'>
