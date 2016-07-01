@@ -6,7 +6,8 @@ import Talkback from '../../../bot/talkback';
 import { SendGiftcards } from '../../../messenger/api';
 
 
-const transformGiftcardMessage = (messages) => {
+const transformGiftcardMessage = messages => {
+  debugger;
   const toSend = [];
   messages.attachment.payload.elements.forEach((message) => {
     const { title, image_url, subtitle } = message;
@@ -18,12 +19,12 @@ const transformGiftcardMessage = (messages) => {
 const isGiftcardMessage = data => {
   const { brand, category, sender, value } = data;
   if (brand)
-    return SendGiftcards(sender, GiftcardMessage({ brand, value }))
+    SendGiftcards(sender, GiftcardMessage({ brand, value }))
     .then((giftcardMessage) => {
       return giftcardMessage
     });
   else if (category)
-    return SendGiftcards(sender, GiftcardMessage({ category, value }))
+    SendGiftcards(sender, GiftcardMessage({ category, value }))
     .then((giftcardMessage) => {
       return giftcardMessage
     });
@@ -35,7 +36,7 @@ const writeToDb = (data) => {
   const { chat, answer, text, brand, value, sender, category } = data;
   let promises = [];
   const giftcardMessage = isGiftcardMessage(data);
-  if (isGiftcardMessage(data))
+  if (giftcardMessage)
     promises.push(
       Message.create({ chatId: chat.id, text, userType: Consumer }),
       Message.create({ chatId: chat.id, text: answer, userType: Bot }),

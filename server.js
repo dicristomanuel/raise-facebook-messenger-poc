@@ -106,7 +106,6 @@ server.register([
     method: 'POST',
     path: '/webhook',
     handler(request, reply) {
-      reply(); // here temp
       const messaging_events = request.payload.entry[0].messaging;
       for (let i = 0; i < messaging_events.length; i++) {
         const event = request.payload.entry[0].messaging[i];
@@ -116,7 +115,7 @@ server.register([
           Parser({io, sender, text, userType: Consumer});
         }
       }
-      // reply();
+      reply();
     }
   });
 

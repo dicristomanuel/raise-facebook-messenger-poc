@@ -32,9 +32,9 @@ const prismInit = data => chat => {
 export default (data) => {
   const { sender, userType, chatId } = data;
   if (userType === Consumer)
-  Chat.find(sender)
-  .then(prismInit(data))
+    Chat.find(sender)
+    .then(prismInit(data))
   else
-  return Chat.findById(chatId)
-  .then(prismInit(data));
+    return Chat.findById(chatId)
+    .then(prismInit(data));
 };
