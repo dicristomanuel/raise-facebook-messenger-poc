@@ -1,13 +1,18 @@
 import Constants from './constants';
 import Pluralize from 'pluralize';
 
-const greetingRules = data => {
-  const { text, options, match } = data;
-  if (text.length <= 30 && text.substring(0, 15).includes(match[0]))
-    return { answer: `Hi ${options.userName}, would you like to browse giftcards or get assistance?` };
-  else
-    return false;
-};
+// const greetingRules = data => {
+//   const { text, options, match } = data;
+//   // Her.length(text, 30)
+//   // text.Length
+//   // // if (text.herLength(30) && text.herSubstring(0, 15, match[0]))
+//   // if (Her.rules({length: 30, sub: [0, 15, match[0]]}))
+//   //   return { answer: `Hi ${options.userName}, would you like to browse giftcards or get assistance?` };
+//   // else
+//   //   return false;
+// };
+
+const greetingRules = { maxLength: 30, findIn: [0, 15], answer: `Hi userName, would you like to browse giftcards or get assistance?`};
 
 const giftcardsRules = data => {
   const { text } = data;

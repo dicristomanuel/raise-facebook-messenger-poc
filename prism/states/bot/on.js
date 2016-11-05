@@ -18,17 +18,17 @@ const transformGiftcardMessage = messages => {
 const isGiftcardMessage = data => {
   const { brand, category, sender, value } = data;
   if (brand)
-    SendGiftcards(sender, GiftcardMessage({ brand, value }))
-    .then((giftcardMessage) => {
-      return giftcardMessage
-    });
+  SendGiftcards(sender, GiftcardMessage({ brand, value }))
+  .then((giftcardMessage) => {
+    return giftcardMessage
+  });
   else if (category)
-    SendGiftcards(sender, GiftcardMessage({ category, value }))
-    .then((giftcardMessage) => {
-      return giftcardMessage
-    });
+  SendGiftcards(sender, GiftcardMessage({ category, value }))
+  .then((giftcardMessage) => {
+    return giftcardMessage
+  });
   else
-    return false
+  return false
 };
 
 const writeToDb = (data) => {
@@ -36,20 +36,20 @@ const writeToDb = (data) => {
   let promises = [];
   const giftcardMessage = isGiftcardMessage(data);
   if (giftcardMessage)
-    promises.push(
-      Message.create({ chatId: chat.id, text, userType: Consumer }),
-      Message.create({ chatId: chat.id, text: answer, userType: Bot }),
-      Message.create({ chatId: chat.id, text: transformGiftcardMessage(giftcardMessage), userType: BotCard })
-    );
+  promises.push(
+    Message.create({ chatId: chat.id, text, userType: Consumer }),
+    Message.create({ chatId: chat.id, text: answer, userType: Bot }),
+    Message.create({ chatId: chat.id, text: transformGiftcardMessage(giftcardMessage), userType: BotCard })
+  );
   else if (answer)
-    promises.push(
-      Message.create({ chatId: chat.id, text, userType: Consumer }),
-      Message.create({ chatId: chat.id, text: answer, userType: Bot })
-    );
+  promises.push(
+    Message.create({ chatId: chat.id, text, userType: Consumer }),
+    Message.create({ chatId: chat.id, text: answer, userType: Bot })
+  );
   else
-    promises.push(
-      Message.create({ chatId: chat.id, text, userType: Consumer })
-    );
+  promises.push(
+    Message.create({ chatId: chat.id, text, userType: Consumer })
+  );
 
   return Promise.all(promises)
 }
@@ -57,12 +57,12 @@ const writeToDb = (data) => {
 const handleBotMessage = (data) => {
   const { answer } = data;
   if (answer.includes(ToMemberService))
-    return { ...data, state: 'ms' }
+  return { ...data, state: 'ms' }
   else
-    return writeToDb(data)
-    .then((toSocket) => {
-      return { ...data, toSocket };
-    })
+  return writeToDb(data)
+  .then((toSocket) => {
+    return { ...data, toSocket };
+  })
 };
 
 const prepareBotMessage = (data) => {
@@ -70,6 +70,29 @@ const prepareBotMessage = (data) => {
   const toDb = Her.saying(text);
   return handleBotMessage({...toDb, ...data});
 };
+
+
+import Ava from 'ava-ia';
+import { weather } from 'ava-ia/lib/intents';
+import { forecastYahoo } from 'ava-ia/lib/actions';
+
+const ava = new Ava({
+  debug: true
+});
+
+ava.intent(weather, forecastYahoo)
+
+ava.listen('Do you know if tomorrow will rain in Bangkok?')
+  .then(state => {
+    debugger;
+    console.log(state)
+  })
+  .catch(error => {
+    debugger;
+    console.log(state)
+  })
+
+
 
 export const OnBot = (data) => {
   const { io, chat } = data;
