@@ -56,7 +56,7 @@ server.register([
     }
   });
 
-  server.route({ // temp route
+  server.route({
     method: 'GET',
     path: '/{path*}',
     handler: (request, reply) => {
@@ -91,7 +91,7 @@ server.register([
 
   // message hooks ====>
 
-  // setup messenger webhook
+  // setup messenger webhook - comment out
   // server.route({
   //   method: 'GET',
   //   path: '/webhook',
@@ -120,7 +120,7 @@ server.register([
       reply();
     }
   });
-  
+
   server.route({
     method: 'POST',
     path: '/member-service',
@@ -171,7 +171,6 @@ server.register([
     }
   });
 });
-
 
 server.start((error) => {
   if (error) {

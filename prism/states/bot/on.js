@@ -5,7 +5,6 @@ import { GiftcardMessage } from '../../../messenger/structuredMessages';
 import Her from '../../../bot/her';
 import { SendGiftcards } from '../../../messenger/api';
 
-
 const transformGiftcardMessage = messages => {
   const toSend = [];
   messages.attachment.payload.elements.forEach((message) => {
