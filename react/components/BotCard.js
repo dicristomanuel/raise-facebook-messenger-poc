@@ -2,12 +2,11 @@ import React, { PropTypes, Component } from 'react';
 
 class BotCard extends Component {
   render() {
-    let id = 0;
     const giftcards = JSON.parse(this.props.giftcards);
     return (
       <div className='giftcards-container'>
-        {giftcards.map(giftcard =>
-          <div className='giftcard-single' key={id++}>
+        {giftcards.map((giftcard, index) =>
+          <div className='giftcard-single' key={index}>
             <p className='giftcard-text'>
               {giftcard.title}
             </p>

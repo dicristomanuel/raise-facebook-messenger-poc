@@ -16,11 +16,11 @@ class Notifications extends Component {
     return (
       <div className='bottom-active'>
         <div className='new-message-active'>
-          {this.props.active.map(singleActive =>
+          {this.props.active.map((singleActive, index) =>
               <div className='new-message-single-active'
                 ref='newMessage'
                 onClick={this.onClick.bind(this, singleActive.chatId)}
-                key={singleActive.chatId}
+                key={index}
               >
                 <div className='dot'></div>
                 <div className='img-container'>

@@ -19,7 +19,7 @@ class MessageList extends Component {
 
   updateScrollPosition(prev, curr) {
     const scrollContainer = this.refs.scroller;
-    const noOlderMessages = !!prev.length && prev[0].id === curr[0].id;
+    const noOlderMessages = !!prev.length && curr[0] && prev[0].id === curr[0].id;
     const hasNewerMessages = noOlderMessages && prev.length !== curr.length;
     const receivedSameMessages = noOlderMessages && !hasNewerMessages;
     if (!prev.length || hasNewerMessages) {
@@ -47,9 +47,9 @@ class MessageList extends Component {
       <div className='message-list'>
         <ul className='scroll-container' onScroll={this.handleScroll.bind(this, event)} ref='scroller'>
           <FlipMove enterAnimation="fade" duration='200' className='messages'>
-            {this.props.messages.sort(Compare).map(message =>
+            {this.props.messages.sort(Compare).map((message, index) =>
               <Text
-                key={message.id}
+                key={index}
                 userType={message.userType}
                 createdAt={message.createdAt}
                 {...message}

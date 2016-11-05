@@ -13,9 +13,9 @@ class ChatList extends Component {
     return(
       <ul>
         <FlipMove easing="cubic-bezier(.49,.05,.62,.9)" className='chats'>
-          {this.props.chats.map(chat =>
+          {this.props.chats.map((chat, index) =>
             <Manifest
-              key={chat.chatId}
+              key={index}
               origin='ChatList'
               callback={this.onClickChatList.bind(this)}
               memberService={this.props.memberService}
