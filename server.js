@@ -9,7 +9,7 @@ import { GetChats, UpdateStatus, GetMessages } from './app/helper';
 import Parser from './app/parser';
 import Auth from './app/auth';
 import Yar from 'Yar'
-import { CookieToken } from './app/tokens';
+import { CookieToken, FbToken } from './app/tokens';
 
 const server = new Server();
 const PORT = process.env.PORT || 3001;
@@ -56,17 +56,6 @@ server.register([
     }
   });
 
-  // server.route({
-  //   method: 'GET',
-  //   path: '/{path*}',
-  //   handler: (request, reply) => {
-  //     if (Object.keys(request.yar._store).length > 1)
-  //     reply.file('./public/index.html');
-  //     else
-  //     reply('Authentication Failed');
-  //   }
-  // });
-
   server.route({ // temp route
     method: 'GET',
     path: '/{path*}',
@@ -102,6 +91,19 @@ server.register([
 
   // message hooks ====>
 
+  // setup messenger webhook
+  // server.route({
+  //   method: 'GET',
+  //   path: '/webhook',
+  //   handler(req, reply) {
+  //     if (req.query['hub.verify_token'] === FbToken) {
+  //       reply(req.query['hub.challenge']);
+  //     } else {
+  //       reply('Error, wrong validation token');
+  //     }
+  //   }
+  // });
+
   server.route({
     method: 'POST',
     path: '/webhook',
@@ -118,7 +120,7 @@ server.register([
       reply();
     }
   });
-
+  
   server.route({
     method: 'POST',
     path: '/member-service',

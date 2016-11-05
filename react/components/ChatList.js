@@ -9,8 +9,6 @@ class ChatList extends Component {
     this.props.onClick(chatId);
   }
 
-  // {this.props.chats.sort(Compare).map(chat =>
-
   render() {
     return(
       <ul>

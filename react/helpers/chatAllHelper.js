@@ -3,7 +3,7 @@ import Store from '../createStore';
 
 export const GetChats = () => {
   return new Promise((resolve, reject) => {
-    request.get('http://localhost:3001/get-chats')
+    request.get('https://4fd63ce9.ngrok.io/get-chats')
     .end((err, res) => {
       if (err)
       reject(err);

@@ -4,7 +4,7 @@ import { HandleEngage } from '../actions';
 
 export const GetMessages = (id, page) => {
   return new Promise((resolve, reject) => {
-    request.get(`http://localhost:3001/get-messages?id=${id}&page=${page}`)
+    request.get(`https://4fd63ce9.ngrok.io/get-messages?id=${id}&page=${page}`)
     .end((err, res) => {
       if (err)
       reject(err);
@@ -16,7 +16,7 @@ export const GetMessages = (id, page) => {
 
 export const SendMessage = (data) => {
   const { chatId, text } = data;
-  request.post(`http://localhost:3001/member-service`)
+  request.post(`https://4fd63ce9.ngrok.io/member-service`)
   .send({ chatId, text })
   .end((err, res) => {
     if (err)
@@ -31,7 +31,7 @@ export const SetEngageForChat = (chatId, current) => {
   value = Store.getState().notifications.memberService.hash;
   else
   value = 'none';
-  request.put('http://localhost:3001/update-chat')
+  request.put('https://4fd63ce9.ngrok.io/update-chat')
   .send({ chatId, key: 'engaged', value })
   .end((err, res) => {
     if (err)
