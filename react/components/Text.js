@@ -7,10 +7,10 @@ class Text extends Component {
     this.includes(this.props.text) ? text.style.background = 'none' : null
   }
 
-  includes(string) {
-    if (string.includes('fbcdn.net/v/')) {
+  includes(text) {
+    if (text.includes('babich')) {
       return 'image'
-    } else if (string.includes('fbcdn.net/')) {
+    } else if (text.includes('fbcdn.net/')) {
       return 'like'
     }
     return false;
@@ -31,12 +31,12 @@ class Text extends Component {
   render() {
     const text = this.handleText(this.props.text, this.props.userType);
     return (
-        <li
-          ref='text'
-          className={this.props.userType + ' text'}
-          title={this.props.createdAt}>
-          {text}
-        </li>
+      <li
+      ref='text'
+      className={this.props.userType + ' text'}
+      title={this.props.createdAt}>
+      {text}
+      </li>
     );
   }
 }

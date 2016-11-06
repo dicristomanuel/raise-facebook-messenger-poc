@@ -15,42 +15,41 @@ const transformGiftcardMessage = messages => {
 };
 
 const isGiftcardMessage = data => {
-  const { brand, category, sender, value } = data;
-  if (brand)
-  SendGiftcards(sender, GiftcardMessage({ brand, value }))
+  const { brand, category, sender, text } = data;
+  if (brand) return SendGiftcards(sender, GiftcardMessage({ brand, text }))
   .then((giftcardMessage) => {
-    return giftcardMessage
+    return giftcardMessage;
   });
-  else if (category)
-  SendGiftcards(sender, GiftcardMessage({ category, value }))
+  else if (category) return SendGiftcards(sender, GiftcardMessage({ category, text }))
   .then((giftcardMessage) => {
-    return giftcardMessage
+    return giftcardMessage;
   });
-  else
-  return false
+  else return false
 };
 
 const writeToDb = (data) => {
-  const { chat, answer, text, brand, value, sender, category } = data;
-  let promises = [];
+  const { chat, answer, text } = data;
   const giftcardMessage = isGiftcardMessage(data);
-  if (giftcardMessage)
-  promises.push(
-    Message.create({ chatId: chat.id, text, userType: Consumer }),
-    Message.create({ chatId: chat.id, text: answer, userType: Bot }),
-    Message.create({ chatId: chat.id, text: transformGiftcardMessage(giftcardMessage), userType: BotCard })
-  );
-  else if (answer)
-  promises.push(
-    Message.create({ chatId: chat.id, text, userType: Consumer }),
-    Message.create({ chatId: chat.id, text: answer, userType: Bot })
-  );
-  else
-  promises.push(
-    Message.create({ chatId: chat.id, text, userType: Consumer })
-  );
+  let promises = [];
 
-  return Promise.all(promises)
+  if (giftcardMessage) giftcardMessage.then((giftcardMessage) => {
+    if (giftcardMessage) {
+      promises.push(
+        Message.create({ chatId: chat.id, text, userType: Consumer }),
+        Message.create({ chatId: chat.id, text: answer, userType: Bot }),
+        Message.create({ chatId: chat.id, text: transformGiftcardMessage(giftcardMessage), userType: BotCard })
+      );
+    }
+  });
+  if (answer) {
+    promises.push(
+      Message.create({ chatId: chat.id, text, userType: Consumer }),
+      Message.create({ chatId: chat.id, text: answer, userType: Bot })
+    );
+  } else {
+    promises.push(Message.create({ chatId: chat.id, text, userType: Consumer }));
+  }
+  return Promise.all(promises);
 }
 
 const handleBotMessage = (data) => {
@@ -82,14 +81,14 @@ const ava = new Ava({
 ava.intent(weather, forecastYahoo)
 
 ava.listen('Do you know if tomorrow will rain in Bangkok?')
-  .then(state => {
-    debugger;
-    console.log(state)
-  })
-  .catch(error => {
-    debugger;
-    console.log(state)
-  })
+.then(state => {
+  debugger;
+  console.log(state)
+})
+.catch(error => {
+  debugger;
+  console.log(state)
+})
 
 
 
