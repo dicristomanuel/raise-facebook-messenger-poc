@@ -1,7 +1,7 @@
 {
-  "name": "facebook-messenger",
+  "name": "raise-facebook-messenger-poc",
   "version": "1.0.0",
-  "description": "",
+  "description": "Proof of concept for a bot and member service tool",
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node ./server.js",
