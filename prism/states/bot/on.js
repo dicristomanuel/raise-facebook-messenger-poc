@@ -69,29 +69,6 @@ const prepareBotMessage = (data) => {
   return handleBotMessage({...toDb, ...data});
 };
 
-
-import Ava from 'ava-ia';
-import { weather } from 'ava-ia/lib/intents';
-import { forecastYahoo } from 'ava-ia/lib/actions';
-
-const ava = new Ava({
-  debug: true
-});
-
-ava.intent(weather, forecastYahoo)
-
-ava.listen('Do you know if tomorrow will rain in Bangkok?')
-.then(state => {
-  debugger;
-  console.log(state)
-})
-.catch(error => {
-  debugger;
-  console.log(state)
-})
-
-
-
 export const OnBot = (data) => {
   const { io, chat } = data;
   io.emit('chat_update', Socket.updateChat({ state: 'bot' }, chat));
